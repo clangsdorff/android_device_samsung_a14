@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remote  name="langsdorff"
+           fetch="https://github.com/clangsdorff" />
+
+  <remote  name="lineage-a14"
+           fetch="https://github.com/LineageOS"
+           revision="lineage-24.0" />
+
+  <!-- Device -->
+  <project name="android_device_samsung_a14" path="device/samsung/a14" remote="langsdorff" revision="dev" />
+
+  <!-- Vendor -->
+  <project name="proprietary_vendor_samsung_a14" path="vendor/samsung/a14" remote="langsdorff" revision="dev" clone-depth="1" />
+
+  <!-- Kernel -->
+  <project name="langsdorffkernel" path="kernel/samsung/a14" remote="langsdorff" revision="main" clone-depth="1" />
+
+  <!-- Samsung -->
+  <project name="android_device_samsung_slsi_sepolicy" path="device/samsung_slsi/sepolicy" remote="lineage-a14" />
+  <project name="android_hardware_samsung" path="hardware/samsung" remote="lineage-a14" />
+
+</manifest>
