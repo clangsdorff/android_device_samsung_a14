@@ -1,0 +1,10 @@
+//
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+soong_namespace {
+    imports: [
+        "vendor/samsung/a14",
+    ],
+}
