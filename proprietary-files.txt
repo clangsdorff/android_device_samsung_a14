@@ -52,6 +52,7 @@ vendor/firmware/SetMultiCalInfo.bin
 vendor/firmware/SoundBoosterParam.bin
 vendor/firmware/txse1.bin
 vendor/firmware/txse2.bin
+vendor/lib/android.hardware.audio.common-util.so
 vendor/lib/hw/android.hardware.audio.effect@2.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib/hw/android.hardware.audio.effect@6.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib/hw/android.hardware.audio@2.0-impl.so;MODULE_SUFFIX=_stock
@@ -83,11 +84,12 @@ vendor/lib/soundfx/libaudioeffectoffload.so
 vendor/lib/soundfx/libaudiosaplus_sec.so
 vendor/lib/soundfx/libmysound.so
 vendor/lib/soundfx/libmyspace.so
-vendor/lib/soundfx/libsamsungSoundbooster_plus.so
+vendor/lib/soundfx/libsamsungSoundbooster_plus.so;MODULE_SUFFIX=_stock
 vendor/lib/soundfx/libswdap.so
 vendor/lib/soundfx/libswspatializer.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
+vendor/lib64/android.hardware.audio.common-util.so
 vendor/lib64/hw/android.hardware.audio.effect@2.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib64/hw/android.hardware.audio.effect@6.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib64/hw/android.hardware.audio@2.0-impl.so;MODULE_SUFFIX=_stock
@@ -111,7 +113,7 @@ vendor/lib64/soundfx/libaudioeffectoffload.so
 vendor/lib64/soundfx/libaudiosaplus_sec.so
 vendor/lib64/soundfx/libmysound.so
 vendor/lib64/soundfx/libmyspace.so
-vendor/lib64/soundfx/libsamsungSoundbooster_plus.so
+vendor/lib64/soundfx/libsamsungSoundbooster_plus.so;MODULE_SUFFIX=_stock
 vendor/lib64/soundfx/libswdap.so
 vendor/lib64/soundfx/libswspatializer.so
 vendor/lib64/vendor.samsung.hardware.audio-V1-ndk.so
@@ -281,6 +283,7 @@ vendor/etc/permissions/android.hardware.vulkan.version.xml
 vendor/etc/permissions/android.software.opengles.deqp.level.xml
 vendor/etc/permissions/android.software.vulkan.deqp.level.xml
 vendor/etc/vintf/manifest/memtrack.xml
+vendor/lib/android.hardware.graphics.extension.composer3-V2-ndk.so
 vendor/lib/egl/libGLES_mali.so
 vendor/lib/hw/android.hardware.graphics.allocator@4.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib/hw/android.hardware.graphics.mapper@4.0-impl.so;MODULE_SUFFIX=_stock
@@ -295,6 +298,7 @@ vendor/lib/libexynosv4l2.so
 vendor/lib/libgpudataproducer.so
 vendor/lib/libion_exynos.so
 vendor/lib/libOpenCL.so
+vendor/lib64/android.hardware.graphics.extension.composer3-V2-ndk.so
 vendor/lib64/egl/libGLES_mali.so
 vendor/lib64/hw/android.hardware.graphics.allocator@4.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl.so;MODULE_SUFFIX=_stock
@@ -344,7 +348,6 @@ vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib64/hw/gatekeeper.s5e3830.so
 vendor/lib64/libengmode_client.so
 vendor/lib64/libhypervintf.so
-vendor/lib64/libkeystore-engine-wifi-hidl.so
 vendor/lib64/libsfp_teegw.so
 vendor/lib64/libskeymint10device.so
 vendor/lib64/libskeymint_cli.so
@@ -538,7 +541,7 @@ vendor/lib/libstd.dylib.so
 vendor/lib/libuniapi.so
 vendor/lib/libuniplugin.so
 vendor/lib/libuuid.dylib.so
-vendor/lib/libuuid.so
+vendor/lib/libuuid.so;MODULE_SUFFIX=_vendor
 vendor/lib/libvideobeauty_interface.so
 vendor/lib64/arm.graphics-V1-ndk.so
 vendor/lib64/lib_samsung_profiler.so
@@ -593,7 +596,7 @@ vendor/lib64/libstork_shared.so
 vendor/lib64/libuniapi.so
 vendor/lib64/libuniplugin.so
 vendor/lib64/libuuid.dylib.so
-vendor/lib64/libuuid.so
+vendor/lib64/libuuid.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libVendorSemDataProps.so
 vendor/lib64/libVendorSemTelephonyProps.so
 vendor/lib64/libvideobeauty_interface.so
@@ -631,7 +634,7 @@ vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 # RIL
 vendor/bin/cbd
 vendor/bin/hw/rild
-vendor/bin/secril_config_svc
+vendor/bin/secril_config_svc;MODULE_SUFFIX=_stock
 vendor/etc/init/init.vendor.rilcommon.rc
 vendor/etc/init/vendor.samsung.rilchip.slsi.rc
 vendor/etc/init/vendor.samsung.rild.rc
@@ -679,7 +682,6 @@ vendor/etc/vintf/manifest/android.hardware.sensors-multihal.xml
 vendor/lib/libqfp_sensortest.so
 vendor/lib/libSamsungPostProcessConvertor.so
 vendor/lib/libsensorlistener.so
-vendor/lib/libsensorndkbridge.so
 vendor/lib/libsfp_sensor.so
 vendor/lib/libsynaFpSensorTestNwd.so
 vendor/lib/sensors.grip.so
@@ -687,7 +689,6 @@ vendor/lib/sensors.inputvirtual.so
 vendor/lib/sensors.sensorhub.so
 vendor/lib64/libqfp_sensortest.so
 vendor/lib64/libsensorlistener.so
-vendor/lib64/libsensorndkbridge.so
 vendor/lib64/libsfp_sensor.so
 vendor/lib64/libsynaFpSensorTestNwd.so
 vendor/lib64/sensors.grip.so
@@ -776,8 +777,7 @@ vendor/firmware/wifi/mx140_wlan_t_sw.hcf
 vendor/firmware/wifi/platform.txt
 vendor/firmware/wifi/slsi_reg_database.bin
 vendor/lib/libwpa_client.so
-vendor/lib64/libwifi-hal.so
-vendor/lib64/libwifi-system-iface.so
+vendor/lib64/libwifi-hal.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libwpa_client.so
 vendor/lib64/vendor.samsung.hardware.wifi-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.wifi.hostapd-V1-ndk.so
