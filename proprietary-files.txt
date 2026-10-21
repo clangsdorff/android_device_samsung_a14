@@ -1,12 +1,10 @@
 # All blobs are from A145FXXSEDZF2 unless pinned
 
 # ADSP / Audio
-vendor/bin/abox_log
 vendor/bin/hw/android.hardware.audio.service;MODULE_SUFFIX=_stock
 vendor/bin/hw/secaudiohalaidl
 vendor/bin/main_abox
 vendor/etc/a2dpsink_audio_policy_configuration.xml
-vendor/etc/abox_debug.xml
 vendor/etc/aidl/le_audio/aidl_audio_set_configurations.bfbs
 vendor/etc/aidl/le_audio/aidl_audio_set_configurations.json
 vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.bfbs
@@ -54,8 +52,6 @@ vendor/firmware/SetMultiCalInfo.bin
 vendor/firmware/SoundBoosterParam.bin
 vendor/firmware/txse1.bin
 vendor/firmware/txse2.bin
-vendor/firmware/wifi/mx140/debug/hardware/moredump/mb_wlbt2abox_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/mb_wlbt2abox_registers.xml
 vendor/lib/hw/android.hardware.audio.effect@2.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib/hw/android.hardware.audio.effect@6.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib/hw/android.hardware.audio@2.0-impl.so;MODULE_SUFFIX=_stock
@@ -129,14 +125,6 @@ vendor/etc/btcon.json
 vendor/etc/init/android.hardware.bluetooth@1.0-service.rc
 vendor/etc/permissions/android.hardware.bluetooth.xml
 vendor/etc/permissions/android.hardware.bluetooth_le.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/mb_ap2wlbt_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/mb_apm2wlbt_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/mb_cp2wlbt_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/mb_shub2wlbt_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/mb_ap2wlbt_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/mb_apm2wlbt_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/mb_cp2wlbt_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/mb_shub2wlbt_registers.xml
 vendor/lib/libbt-vendor.so
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib64/libbt-vendor.so
@@ -144,30 +132,14 @@ vendor/lib64/vendor.samsung.hardware.bluetooth@2.0.so
 
 # Camera
 vendor/apex/com.samsung.android.camera.unihal.signed.apex
-vendor/bin/add.tflite
 vendor/bin/hw/vendor.samsung.hardware.camera.provider-service_64
-vendor/bin/snap_utility_64
-vendor/bin/snaplite_utility_64
-vendor/bin/utility_cache_test.tflite
 vendor/etc/beauty/settings.dat
 vendor/etc/init/camera.unihal.rc
-vendor/etc/init/snap_utility.rc
-vendor/etc/init/snaplite_utility.rc
 vendor/etc/init/vendor.samsung.hardware.camera.provider-service_64.rc
 vendor/etc/permissions/android.hardware.camera.autofocus.xml
 vendor/etc/permissions/android.hardware.camera.flash-autofocus.xml
 vendor/etc/permissions/android.hardware.camera.front.xml
 vendor/etc/permissions/android.hardware.camera.xml
-vendor/etc/saiv/gae/MeanFea.bin
-vendor/etc/saiv/gae/ParaFea.bin
-vendor/etc/saiv/gae/PmAgeFeatSelIdx.bin
-vendor/etc/saiv/gae/PmAgeModel.bin
-vendor/etc/saiv/gae/PmExpFeatSelIdx.bin
-vendor/etc/saiv/gae/PmExpModel.bin
-vendor/etc/saiv/gae/PmGenderFeatSelIdx.bin
-vendor/etc/saiv/gae/PmGenModel.bin
-vendor/etc/snap_gpu_kernel_64.bin
-vendor/etc/snaplite_cache.bin
 vendor/etc/vintf/manifest/vendor.samsung.hardware.camera.provider-service.xml
 vendor/firmware/dual_cal_wide_swide.bin
 vendor/firmware/is_lib.bin
@@ -196,7 +168,6 @@ vendor/lib/libexynoscamera_plugin_utils.so
 vendor/lib/libexynoscamera_tdnr_plugin.so
 vendor/lib/libFace_Landmark_API.camera.samsung.so
 vendor/lib/libface_landmark_lite.arcsoft.so
-vendor/lib/libFaceService.so
 vendor/lib/libheifcapture.so
 vendor/lib/libHpr_RecGAE_cvFeature_v1.0.camera.samsung.so
 vendor/lib/libHprFace_GAE_api.camera.samsung.so
@@ -205,10 +176,7 @@ vendor/lib/libLocalTM_capture_core.camera.samsung.so
 vendor/lib/libLocalTM_wrapper.camera.samsung.so
 vendor/lib/libOpenCv.camera.samsung.so
 vendor/lib/libpadm.so
-vendor/lib/libPortraitDistortionCorrection.arcsoft.so
-vendor/lib/libPortraitDistortionCorrectionCali.arcsoft.so
 vendor/lib/libSEF.quram.so
-vendor/lib/libUltraWideDistortionCorrection.camera.samsung.so
 vendor/lib/libvideobeauty.arcsoft.so
 vendor/lib64/hw/camera.s5e3830.so
 vendor/lib64/hw/camera.unihal.default.so
@@ -223,7 +191,6 @@ vendor/lib64/libexynoscamera_plugin_utils.so
 vendor/lib64/libexynoscamera_tdnr_plugin.so
 vendor/lib64/libFace_Landmark_API.camera.samsung.so
 vendor/lib64/libface_landmark_lite.arcsoft.so
-vendor/lib64/libFaceService.so
 vendor/lib64/libheifcapture.so
 vendor/lib64/libHpr_RecGAE_cvFeature_v1.0.camera.samsung.so
 vendor/lib64/libHprFace_GAE_api.camera.samsung.so
@@ -232,18 +199,10 @@ vendor/lib64/libLocalTM_capture_core.camera.samsung.so
 vendor/lib64/libLocalTM_wrapper.camera.samsung.so
 vendor/lib64/libOpenCv.camera.samsung.so
 vendor/lib64/libpadm.so
-vendor/lib64/libPortraitDistortionCorrection.arcsoft.so
-vendor/lib64/libPortraitDistortionCorrectionCali.arcsoft.so
 vendor/lib64/libsamsungcamerahal.so
 vendor/lib64/libsamsungcamerahalutils.so
 vendor/lib64/libsamsungcamerahwl_impl.so
 vendor/lib64/libSEF.quram.so
-vendor/lib64/libsnap_compute.so
-vendor/lib64/libsnap_compute_wrapper.so
-vendor/lib64/libsnap_vndk.so
-vendor/lib64/libsnaplite_native.so
-vendor/lib64/libsnaplite_wrapper.so
-vendor/lib64/libUltraWideDistortionCorrection.camera.samsung.so
 vendor/lib64/libvideobeauty.arcsoft.so
 vendor/lib64/unihal_android.so
 vendor/lib64/unihal_cutils.so
@@ -254,8 +213,6 @@ vendor/lib64/unihal_scenario.so
 vendor/lib64/unihal_uniplugin@1.0.so
 vendor/lib64/vendor.samsung.hardware.camera.device-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.camera.provider-V1-ndk.so
-vendor/saiv/image_understanding/db/aig_classifier/aig_classifier_cnn.tflite
-vendor/saiv/image_understanding/db/sce_detector/sce_detector_cnn.tflite
 
 # DRM / Widevine
 vendor/apex/com.google.android.widevine.nonupdatable.apex
@@ -272,12 +229,6 @@ vendor/lib64/mediadrm/libdrmclearkeyplugin.so
 vendor/lib64/vendor.samsung.hardware.security.widevine.keyprov-V1-ndk.so
 
 # Face
-vendor/apex/com.samsung.android.biometrics.face.signed.apex
-vendor/bin/hw/vendor.samsung.hardware.biometrics.face-service
-vendor/etc/init/face-default-sec.rc
-vendor/etc/vintf/manifest/face-default-sec.xml
-vendor/lib/vendor.samsung.hardware.biometrics.face-V4-ndk.so
-vendor/lib64/vendor.samsung.hardware.biometrics.face-V4-ndk.so
 
 # Fingerprint
 vendor/apex/com.samsung.android.biometrics.fingerprint.signed.apex
@@ -290,18 +241,6 @@ vendor/etc/init/fingerprint_common.rc
 vendor/etc/init/init.fingerprint.rc
 vendor/etc/init/vendor.samsung.hardware.biometrics.fingerprint-service.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.biometrics.fingerprint-service.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/mb_wlbt2gnss_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/peri_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/pmu_conf_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/pmu_peri_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/rf_chip_registers.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/vic0_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/mb_wlbt2gnss_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/peri_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/pmu_conf_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/pmu_peri_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/rf_chip_registers.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/vic0_registers.xml
 vendor/lib/libegis_fp_normal_sensor_test.so
 vendor/lib/vendor.samsung.hardware.biometrics.fingerprint-V1-ndk.so
 vendor/lib64/libegis_fp_normal_sensor_test.so
@@ -382,78 +321,37 @@ vendor/etc/vintf/manifest/vendor.samsung.hardware.health-service.xml
 vendor/lib64/vendor.samsung.hardware.health-V1-ndk.so
 
 # Keymint / Gatekeeper / TEE
-vendor/bin/cass
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service;MODULE_SUFFIX=_stock
 vendor/bin/hw/android.hardware.security.keymint-service;MODULE_SUFFIX=_stock
-vendor/bin/hw/vendor.samsung.hardware.hyper-service
-vendor/bin/hw/vendor.samsung.hardware.security.drk@2.0-service
-vendor/bin/hw/vendor.samsung.hardware.tlc.iccc@1.0-service
-vendor/bin/hw/vendor.samsung.hardware.tlc.kg-service
 vendor/bin/tzdaemon
 vendor/bin/tzts_daemon
-vendor/bin/vaultkeeperd
-vendor/bin/vendor.samsung.hardware.security.engmode@1.0-service
 vendor/bin/vendor.samsung.hardware.security.fkeymaster-service
-vendor/bin/vendor.samsung.hardware.security.proca@2.0-service
-vendor/bin/vendor.samsung.hardware.security.vaultkeeper@2.0-service
-vendor/etc/hyper/config_chipset.json
-vendor/etc/hyper/config_hyper_permission.json
-vendor/etc/hyper/config_model.json
-vendor/etc/hyper/config_vendor.json
 vendor/etc/init/android.hardware.gatekeeper@1.0-service.rc
 vendor/etc/init/android.hardware.security.keymint-service.rc
-vendor/etc/init/cass.rc
-vendor/etc/init/hyper-default-sec.rc
 vendor/etc/init/pa_daemon_teegris.rc
 vendor/etc/init/teegris.rc
-vendor/etc/init/vaultkeeper_common.rc
-vendor/etc/init/vendor.samsung.hardware.security.drk@2.0-service.rc
-vendor/etc/init/vendor.samsung.hardware.security.engmode@1.0-service.rc
 vendor/etc/init/vendor.samsung.hardware.security.fkeymaster-service.rc
-vendor/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc
-vendor/etc/init/vendor.samsung.hardware.tlc.kg-service.rc
 vendor/etc/permissions/android.hardware.hardware_keystore.xml
 vendor/etc/permissions/android.hardware.keystore.app_attest_key.xml
-vendor/etc/proca.db
-vendor/etc/vintf/manifest/engmode_manifest.xml
-vendor/etc/vintf/manifest/hyper-default-sec.xml
-vendor/etc/vintf/manifest/vaultkeeper_manifest.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.security.drk@2.0.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.security.fkeymaster-service.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.kg-manifest.xml
 vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib/hw/gatekeeper.s5e3830.so
 vendor/lib/libhypervintf.so
 vendor/lib/libsfp_teegw.so
 vendor/lib/libteecl.so
 vendor/lib/vendor.samsung.hardware.hyper-V2-ndk.so
-vendor/lib/vendor.samsung.hardware.security.drk@2.0.so
 vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so;MODULE_SUFFIX=_stock
 vendor/lib64/hw/gatekeeper.s5e3830.so
-vendor/lib64/libengmode15.so
-vendor/lib64/libengmode2lite.so
 vendor/lib64/libengmode_client.so
-vendor/lib64/libengmode_server.so
-vendor/lib64/libengmode_tlc.so
 vendor/lib64/libhypervintf.so
 vendor/lib64/libkeystore-engine-wifi-hidl.so
-vendor/lib64/libSamsungHyper.so
 vendor/lib64/libsfp_teegw.so
 vendor/lib64/libskeymint10device.so
 vendor/lib64/libskeymint_cli.so
 vendor/lib64/libteecl.so
-vendor/lib64/libtlc_comm_iccc.so
-vendor/lib64/libtlc_direct_comm_iccc.so
 vendor/lib64/vendor.samsung.hardware.hyper-V2-ndk.so
 vendor/lib64/vendor.samsung.hardware.keymint-V2-ndk.so
-vendor/lib64/vendor.samsung.hardware.security.drk@2.0.so
-vendor/lib64/vendor.samsung.hardware.security.engmode@1.0.so
 vendor/lib64/vendor.samsung.hardware.security.fkeymaster-V1-ndk.so
-vendor/lib64/vendor.samsung.hardware.security.vaultkeeper@2.0.so
-vendor/lib64/vendor.samsung.hardware.tlc.iccc@1.0-impl.so
-vendor/lib64/vendor.samsung.hardware.tlc.iccc@1.0.so
-vendor/lib64/vendor.samsung.hardware.tlc.kg-V2-ndk.so
 vendor/tee/00000000-0000-0000-0000-000000534b4d
 vendor/tee/00000000-0000-0000-0000-0050524f4341
 vendor/tee/00000000-0000-0000-0000-0053545354ab
@@ -561,37 +459,25 @@ vendor/lib64/libsomxcmn.so
 vendor/lib64/libstagefright_foundation_vendor.so
 
 # Misc
-vendor/apex/com.samsung.android.vital.signed.apex
 vendor/bin/cld
-vendor/bin/emservice
-vendor/bin/enable_test_mode.sh
-vendor/bin/fsdbg_vendor
 vendor/bin/hcgcd
 vendor/bin/hw/android.hardware.dumpstate-service;MODULE_SUFFIX=_stock
-vendor/bin/hw/vendor.samsung.hardware.snap-service
 vendor/bin/hw/vendor.samsung.hardware.sysinput-service
 vendor/bin/init.insmod.sh
 vendor/bin/iod
-vendor/bin/moredump
-vendor/bin/moredump.bin
-vendor/bin/test_model.json
-vendor/etc/agingconfig.txt
 vendor/etc/atrace/atrace_categories.txt
 vendor/etc/dpolicy
 vendor/etc/floating_feature.xml
 vendor/etc/fstab.ramplus
-vendor/etc/hqm_device.xml
 vendor/etc/init.insmod.s5e3830.cfg
 vendor/etc/init/atrace_categories.rc
 vendor/etc/init/dumpstate-default.rc
-vendor/etc/init/emservice.rc
 vendor/etc/init/init.baseband.rc
 vendor/etc/init/init.ramplus.rc
 vendor/etc/init/init.recovery.s5e3830.rc
 vendor/etc/init/init.s5e3830.rc
 vendor/etc/init/init.vendor.onebinary.rc
 vendor/etc/init/init.vendor.sysfw.rc
-vendor/etc/init/vendor.samsung.hardware.snap-lazy.rc
 vendor/etc/init/vendor.samsung.hardware.sysinput-default.rc
 vendor/etc/mercury.json
 vendor/etc/permissions/android.hardware.telephony.satellite.xml
@@ -606,10 +492,8 @@ vendor/etc/permissions/vendor.samsung.hardware.telephony.gsm.xml
 vendor/etc/public.libraries.txt
 vendor/etc/str/str_preference_data.dat
 vendor/etc/sysconfig/vendor-apex-allowlist.xml
-vendor/etc/traceconfig.txt
 vendor/etc/ueventd.rc
 vendor/etc/vintf/manifest/dumpstate-default.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.snap-default.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.sysinput-default.xml
 vendor/etc/vramdiskd.xml
 vendor/firmware/abov/a96t396_a14_main.bin
@@ -624,7 +508,6 @@ vendor/lib/libcsc.so
 vendor/lib/libdisplayaiqe.so
 vendor/lib/libdisplaycolor_default.so
 vendor/lib/libdisplaycolorwrapper.so
-vendor/lib/libeis_core.so
 vendor/lib/libexynosgraphicbuffer.so
 vendor/lib/libfloatingfeature.so
 vendor/lib/libgetrandom.dylib.so
@@ -632,7 +515,6 @@ vendor/lib/libgf_in_system_lib.so
 vendor/lib/libhdrwrapper.so
 vendor/lib/libhwjpeg.so
 vendor/lib/liblibc.dylib.so
-vendor/lib/liblivefocus_capture_engine.so
 vendor/lib/liblivefocus_preview_engine.so
 vendor/lib/liblivefocus_preview_interface.so
 vendor/lib/libmfb.so
@@ -644,8 +526,6 @@ vendor/lib/libremosaic_wrapper.so
 vendor/lib/libsavsac.so
 vendor/lib/libsavscmn.so
 vendor/lib/libsavsvc.so
-vendor/lib/libsecfr_engine.so
-vendor/lib/libsecfr_model.so
 vendor/lib/libsecnativefeature.so
 vendor/lib/libsemnativecarrierfeature.so
 vendor/lib/libserde.dylib.so
@@ -674,7 +554,6 @@ vendor/lib64/libdk_vnd_service_core.so
 vendor/lib64/libdlrmsc.so
 vendor/lib64/libdualcam_refocus_image.so
 vendor/lib64/libdualcam_refocus_video.so
-vendor/lib64/libeis_core.so
 vendor/lib64/libexynosgraphicbuffer.so
 vendor/lib64/libfloatingfeature.so
 vendor/lib64/libfocuspeaking.so
@@ -687,7 +566,6 @@ vendor/lib64/libhigh_dynamic_range_bokeh.so
 vendor/lib64/libhwjpeg.so
 vendor/lib64/libimgproc_sw.unifunc@common.so
 vendor/lib64/liblibc.dylib.so
-vendor/lib64/liblivefocus_capture_engine.so
 vendor/lib64/liblivefocus_preview_engine.so
 vendor/lib64/liblivefocus_preview_interface.so
 vendor/lib64/libmfb.so
@@ -702,8 +580,6 @@ vendor/lib64/libsavscmn.so
 vendor/lib64/libsavsvc.so
 vendor/lib64/libscaler_hw.unifunc.so
 vendor/lib64/libscaler_sw.unifunc.so
-vendor/lib64/libsecfr_engine.so
-vendor/lib64/libsecfr_model.so
 vendor/lib64/libsecnativefeature.so
 vendor/lib64/libsemnativecarrierfeature.so
 vendor/lib64/libserde.dylib.so
@@ -714,8 +590,6 @@ vendor/lib64/libsnamrnb.so
 vendor/lib64/libsnamrwb.so
 vendor/lib64/libstd.dylib.so
 vendor/lib64/libstork_shared.so
-vendor/lib64/libtvm_runtime.so
-vendor/lib64/libtvm_wrapper.so
 vendor/lib64/libuniapi.so
 vendor/lib64/libuniplugin.so
 vendor/lib64/libuuid.dylib.so
@@ -726,7 +600,6 @@ vendor/lib64/libvideobeauty_interface.so
 vendor/lib64/libvkmanager_vendor.so
 vendor/lib64/libvkservice.so
 vendor/lib64/service-listener-ext-aidl-V1-ndk.so
-vendor/lib64/vendor.samsung.hardware.snap-V3-ndk.so
 vendor/lib64/vendor.samsung.hardware.sysinput-V2-ndk.so
 
 # NFC
@@ -845,9 +718,6 @@ vendor/bin/hw/macloader
 vendor/bin/hw/mfgloader
 vendor/bin/hw/vendor.samsung.hardware.wifi-service
 vendor/bin/hw/wpa_supplicant;MODULE_SUFFIX=_stock
-vendor/bin/mx_log_collection.sh
-vendor/bin/mx_logger.sh
-vendor/bin/mx_logger_dump.sh
 vendor/bin/slsi_wlan_udi_log
 vendor/bin/slsi_wlan_udi_log_decode
 vendor/bin/wlbtd
@@ -874,9 +744,6 @@ vendor/firmware/wifi/hydra_config.sdb
 vendor/firmware/wifi/mx140.bin
 vendor/firmware/wifi/mx140/build_id.txt
 vendor/firmware/wifi/mx140/debug/common/log-strings.bin
-vendor/firmware/wifi/mx140/debug/hardware/moredump/cortexR4.xml
-vendor/firmware/wifi/mx140/debug/hardware/moredump/moredump.bin
-vendor/firmware/wifi/mx140/debug/hardware/moredump/moredump.xml
 vendor/firmware/wifi/mx140/debug/wlan/hip_signals.xml
 vendor/firmware/wifi/mx140/debug/wlan/hydra_config.sdb
 vendor/firmware/wifi/mx140/debug/wlan/id.txt
@@ -891,9 +758,6 @@ vendor/firmware/wifi/mx140_common.hcf
 vendor/firmware/wifi/mx140_t.bin
 vendor/firmware/wifi/mx140_t/build_id.txt
 vendor/firmware/wifi/mx140_t/debug/common/log-strings.bin
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/cortexR4.xml
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/moredump.bin
-vendor/firmware/wifi/mx140_t/debug/hardware/moredump/moredump.xml
 vendor/firmware/wifi/mx140_t/debug/wlan/hip_signals.xml
 vendor/firmware/wifi/mx140_t/debug/wlan/hydra_config.sdb
 vendor/firmware/wifi/mx140_t/debug/wlan/id.txt
