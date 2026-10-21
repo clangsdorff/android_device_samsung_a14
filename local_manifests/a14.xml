@@ -4,6 +4,9 @@
   <remote  name="langsdorff"
            fetch="https://github.com/clangsdorff" />
 
+  <remote  name="gitlab-tejas101k"
+           fetch="https://gitlab.com/tejas101k" />
+
   <remote  name="lineage-a14"
            fetch="https://github.com/LineageOS"
            revision="lineage-24.0" />
@@ -15,7 +18,10 @@
   <project name="proprietary_vendor_samsung_a14" path="vendor/samsung/a14" remote="langsdorff" revision="dev" clone-depth="1" />
 
   <!-- Kernel -->
-  <project name="langsdorffkernel" path="kernel/samsung/a14" remote="langsdorff" revision="main" clone-depth="1" />
+  <project name="langsdorffkernel" path="kernel/samsung/a14" remote="langsdorff" revision="main" />
+
+  <!-- Kernel toolchain, same clang as the kernel CI -->
+  <project name="clang-r450784d" path="prebuilts/clang/kernel/linux-x86/clang-r450784d" remote="gitlab-tejas101k" revision="master" clone-depth="1" />
 
   <!-- Samsung -->
   <project name="android_device_samsung_slsi_sepolicy" path="device/samsung_slsi/sepolicy" remote="lineage-a14" />
