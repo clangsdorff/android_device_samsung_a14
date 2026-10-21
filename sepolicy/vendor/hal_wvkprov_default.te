@@ -1,0 +1,9 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+type hal_wvkprov_default, domain;
+type hal_wvkprov_default_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(hal_wvkprov_default)
