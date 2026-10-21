@@ -1,0 +1,143 @@
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+DEVICE_PATH := device/samsung/a14
+
+# Proprietary vendor configuration
+include vendor/samsung/a14/BoardConfigVendor.mk
+
+# Architecture
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-2a-dotprod
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_VARIANT := cortex-a55
+
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv8-2a
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := cortex-a55
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+
+# Boot image
+BOARD_BOOT_HEADER_VERSION := 4
+BOARD_BOOTCONFIG := buildtime_bootconfig=enable
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_RAMDISK_USE_LZ4 := true
+
+BOARD_MKBOOTIMG_INIT_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
+
+# DTB / DTBO
+BOARD_DTB_CFG := $(DEVICE_PATH)/configs/kernel/dts/s5e3830.cfg
+BOARD_DTBO_CFG := $(DEVICE_PATH)/configs/kernel/dts/a14.cfg
+BOARD_KERNEL_SEPARATED_DTBO := true
+
+# Dynamic partitions
+BOARD_SUPER_PARTITION_SIZE := 7717519360
+BOARD_SUPER_PARTITION_GROUPS := group_basic
+BOARD_GROUP_BASIC_SIZE := 7713325056
+BOARD_GROUP_BASIC_PARTITION_LIST := \
+    system \
+    system_ext \
+    vendor \
+    vendor_dlkm \
+    product
+
+-include vendor/lineage/config/BoardConfigReservedSize.mk
+
+# Filesystem
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
+
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
+
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+
+# Graphics
+TARGET_USES_VULKAN := true
+
+# Display
+TARGET_SCREEN_DENSITY := 450
+
+# Kernel
+BOARD_KERNEL_IMAGE_NAME := Image
+# Permissive until the vendor sepolicy is written
+TARGET_KERNEL_CONFIG := a14noavbp_defconfig
+TARGET_KERNEL_CONFIG_EXT := $(DEVICE_PATH)/configs/kernel/lineage.config
+TARGET_KERNEL_SOURCE := kernel/samsung/a14
+
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/configs/kernel/modules/vendor_boot.load))
+BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD := $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD)
+BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD)
+RECOVERY_KERNEL_MODULES := $(BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD)
+BOARD_VENDOR_KERNEL_MODULES_LOAD := sec_debug_coredump.ko input_booster_lkm.ko
+
+BOARD_VENDOR_RAMDISK_FRAGMENTS := dlkm
+BOARD_VENDOR_RAMDISK_FRAGMENT.dlkm.KERNEL_MODULE_DIRS := top
+
+# Partitions
+BOARD_USES_METADATA_PARTITION := true
+BOARD_FLASH_BLOCK_SIZE := 4096
+BOARD_ROOT_EXTRA_FOLDERS := efs
+
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
+BOARD_DTBOIMG_PARTITION_SIZE := 8388608
+BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 16777216
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 109051904
+BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 33554432
+
+# Platform
+BOARD_VENDOR := samsung
+TARGET_BOARD_PLATFORM := erd3830
+TARGET_BOOTLOADER_BOARD_NAME := exynos3830
+TARGET_SOC := s5e3830
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
+
+# Properties
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/configs/props/vendor.prop
+
+# Recovery
+BOARD_INCLUDE_RECOVERY_DTBO := true
+BOARD_RECOVERY_MKBOOTIMG_ARGS := --header_version 2
+BOARD_USES_FULL_RECOVERY_IMAGE := true
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/configs/init/fstab.s5e3830
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+
+# Security patch
+VENDOR_SECURITY_PATCH := 2026-05-05
+
+# SELinux
+BOARD_SEPOLICY_TEE_FLAVOR := teegris
+include device/samsung_slsi/sepolicy/sepolicy.mk
+include device/lineage/sepolicy/exynos/sepolicy.mk
+
+# Verified boot
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS := --flags 3
+BOARD_AVB_RECOVERY_ALGORITHM := NONE
+BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 0
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
+
+# VINTF
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    hardware/samsung/vintf/samsung_framework_compatibility_matrix.xml
