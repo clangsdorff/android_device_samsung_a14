@@ -1,0 +1,19 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+prebuilt_etc {
+    name: "fstab.s5e3830",
+    src: "fstab.s5e3830",
+    vendor: true,
+}
+
+prebuilt_root {
+    name: "fstab.s5e3830.vendor_ramdisk",
+    src: "fstab.s5e3830",
+    filename_from_src: true,
+    vendor_ramdisk: true,
+    install_in_root: true,
+}
