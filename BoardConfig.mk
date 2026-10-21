@@ -79,6 +79,7 @@ BOARD_KERNEL_IMAGE_NAME := Image
 # Permissive until the vendor sepolicy is written
 TARGET_KERNEL_CONFIG := a14noavbp_defconfig
 TARGET_KERNEL_CONFIG_EXT := $(DEVICE_PATH)/configs/kernel/lineage.config
+TARGET_KERNEL_CLANG_PATH := $(abspath prebuilts/clang/kernel/linux-x86/clang-r450784d)
 TARGET_KERNEL_SOURCE := kernel/samsung/a14
 
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/configs/kernel/modules/vendor_boot.load))
