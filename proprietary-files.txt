@@ -320,6 +320,7 @@ vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib/hw/gatekeeper.s5e3830.so
 vendor/lib/libhypervintf.so
 vendor/lib/libsfp_teegw.so
+vendor/lib/libteecl.so
 vendor/lib/vendor.samsung.hardware.hyper-V2-ndk.so
 vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib64/hw/gatekeeper.s5e3830.so
@@ -328,6 +329,7 @@ vendor/lib64/libhypervintf.so
 vendor/lib64/libsfp_teegw.so
 vendor/lib64/libskeymint10device.so
 vendor/lib64/libskeymint_cli.so
+vendor/lib64/libteecl.so
 vendor/lib64/vendor.samsung.hardware.hyper-V2-ndk.so
 vendor/lib64/vendor.samsung.hardware.keymint-V2-ndk.so
 vendor/lib64/vendor.samsung.hardware.security.fkeymaster-V1-ndk.so
@@ -561,16 +563,12 @@ vendor/lib64/nfc_nci_sec.so
 vendor/lib64/vendor.samsung.hardware.nfc_aidl-V1-ndk.so
 
 # Power / Thermal
-vendor/bin/hw/android.hardware.power.samsung-service;MODULE_SUFFIX=_stock
 vendor/bin/hw/android.hardware.thermal@2.0-service.exynos;MODULE_SUFFIX=_stock
 vendor/bin/hw/vendor.samsung.hardware.thermal-service
 vendor/etc/init/android.hardware.thermal@2.0-service.exynos.rc
-vendor/etc/init/power-default-sec.rc
 vendor/etc/init/vendor.samsung.hardware.thermal-default.rc
-vendor/etc/vintf/manifest/power-samsung.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal-default.xml
 vendor/lib/vendor.samsung.hardware.thermal@1.0.so
-vendor/lib64/libSamsngPowerHal.so
 vendor/lib64/vendor.samsung.hardware.thermal-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 
