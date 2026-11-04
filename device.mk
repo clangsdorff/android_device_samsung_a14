@@ -44,6 +44,7 @@ PRODUCT_PACKAGES += \
     android.frameworks.cameraservice.common-V1-ndk.vendor \
     android.frameworks.cameraservice.device-V2-ndk.vendor \
     android.frameworks.cameraservice.service-V2-ndk.vendor \
+    android.frameworks.sensorservice-V1-ndk.vendor \
     android.hardware.security.keymint-V2-ndk.vendor \
     android.hardware.security.rkp-V2-ndk.vendor \
     android.hardware.security.secureclock-V1-ndk.vendor \
