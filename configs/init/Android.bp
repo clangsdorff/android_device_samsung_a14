@@ -17,3 +17,10 @@ prebuilt_root {
     vendor_ramdisk: true,
     install_in_root: true,
 }
+
+prebuilt_etc {
+    name: "init.a14.rc",
+    src: "init.a14.rc",
+    sub_dir: "init",
+    vendor: true,
+}
