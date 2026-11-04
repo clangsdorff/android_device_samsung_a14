@@ -94,7 +94,4 @@
         <transport>hwbinder</transport>
         <fqname>@1.0::IExynosHWCServiceTW/default</fqname>
     </hal>
-    <sepolicy>
-        <version>202404</version>
-    </sepolicy>
 </manifest>
