@@ -65,10 +65,10 @@ vendor/lib/lib_SoundAlive_play_plus_ver400.so;DISABLE_CHECKELF
 vendor/lib/lib_SoundAlive_SRC384_ver320.so
 vendor/lib/lib_soundaliveresampler.so
 vendor/lib/lib_SoundBooster_ver1100.so
-vendor/lib/libaboxdump.so
+vendor/lib/libaboxdump.so;DISABLE_CHECKELF
 vendor/lib/libaudio-ril.so
 vendor/lib/libaudioparamupdate.so;DISABLE_CHECKELF
-vendor/lib/libaudioproxy.so
+vendor/lib/libaudioproxy.so;DISABLE_CHECKELF
 vendor/lib/liblastaboxmsg.so
 vendor/lib/libsecaudiocoreutils.so
 vendor/lib/libsecaudioinfo.so
@@ -197,7 +197,7 @@ vendor/lib64/libsamsungcamerahalutils.so
 vendor/lib64/libsamsungcamerahwl_impl.so
 vendor/lib64/libSEF.quram.so
 vendor/lib64/libvideobeauty.arcsoft.so
-vendor/lib64/unihal_android.so
+vendor/lib64/unihal_android.so;DISABLE_CHECKELF
 vendor/lib64/unihal_cutils.so
 vendor/lib64/unihal_entry.so
 vendor/lib64/unihal_filter_unit.so
