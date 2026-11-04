@@ -1,13 +1,11 @@
 # All blobs are from A145FXXSEDZF2 unless pinned
 
 # ADSP / Audio
-vendor/bin/hw/android.hardware.audio.service;MODULE_SUFFIX=_stock
+vendor/bin/hw/android.hardware.audio.service
 vendor/bin/hw/secaudiohalaidl
 vendor/bin/main_abox
 vendor/etc/a2dpsink_audio_policy_configuration.xml
-vendor/etc/aidl/le_audio/aidl_audio_set_configurations.bfbs
 vendor/etc/aidl/le_audio/aidl_audio_set_configurations.json
-vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.bfbs
 vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.json
 vendor/etc/audio_board_info.xml
 vendor/etc/audio_effects.xml
@@ -21,7 +19,6 @@ vendor/etc/dax3_media_codecs_dolby_audio.xml
 vendor/etc/default_volume_tables.xml
 vendor/etc/dolby/dax-default.xml
 vendor/etc/hearing_aid_audio_policy_configuration.xml
-vendor/etc/init/android.hardware.audio.service.rc
 vendor/etc/init/secaudiohalaidl.rc
 vendor/etc/media_codecs_dolby_audio.xml
 vendor/etc/mixer_gains.xml
@@ -52,16 +49,16 @@ vendor/firmware/SetMultiCalInfo.bin
 vendor/firmware/SoundBoosterParam.bin
 vendor/firmware/txse1.bin
 vendor/firmware/txse2.bin
-vendor/lib/hw/android.hardware.audio.effect@2.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib/hw/android.hardware.audio.effect@6.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib/hw/android.hardware.audio@2.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib/hw/android.hardware.audio@6.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib/hw/android.hardware.soundtrigger@2.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib/hw/audio.bluetooth.default.so;MODULE_SUFFIX=_stock
-vendor/lib/hw/audio.primary.default.so;MODULE_SUFFIX=_stock
+vendor/lib/hw/android.hardware.audio.effect@2.0-impl.so
+vendor/lib/hw/android.hardware.audio.effect@6.0-impl.so
+vendor/lib/hw/android.hardware.audio@2.0-impl.so
+vendor/lib/hw/android.hardware.audio@6.0-impl.so
+vendor/lib/hw/android.hardware.soundtrigger@2.0-impl.so
+vendor/lib/hw/audio.bluetooth.default.so;DISABLE_DEPS
+vendor/lib/hw/audio.primary.default.so
 vendor/lib/hw/audio.primary.s5e3830.so
-vendor/lib/hw/audio.r_submix.default.so;MODULE_SUFFIX=_stock
-vendor/lib/hw/audio.usb.default.so;MODULE_SUFFIX=_stock
+vendor/lib/hw/audio.r_submix.default.so
+vendor/lib/hw/audio.usb.default.so
 vendor/lib/lib_SoundAlive_3DPosition_ver202.so
 vendor/lib/lib_SoundAlive_AlbumArt_ver105.so
 vendor/lib/lib_SoundAlive_play_plus_ver400.so
@@ -72,7 +69,6 @@ vendor/lib/libaboxdump.so
 vendor/lib/libaudio-ril.so
 vendor/lib/libaudioparamupdate.so
 vendor/lib/libaudioproxy.so
-vendor/lib/libbluetooth_audio_session_aidl.so;MODULE_SUFFIX=_stock
 vendor/lib/liblastaboxmsg.so
 vendor/lib/libsecaudiocoreutils.so
 vendor/lib/libsecaudioinfo.so
@@ -82,25 +78,24 @@ vendor/lib/soundfx/libaudioeffectoffload.so
 vendor/lib/soundfx/libaudiosaplus_sec.so
 vendor/lib/soundfx/libmysound.so
 vendor/lib/soundfx/libmyspace.so
-vendor/lib/soundfx/libsamsungSoundbooster_plus.so;MODULE_SUFFIX=_stock
+vendor/lib/soundfx/libsamsungSoundbooster_plus.so
 vendor/lib/soundfx/libswdap.so
 vendor/lib/soundfx/libswspatializer.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
-vendor/lib64/hw/android.hardware.audio.effect@2.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/android.hardware.audio.effect@6.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/android.hardware.audio@2.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/android.hardware.audio@6.0-impl.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/audio.bluetooth.default.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/audio.primary.default.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/audio.r_submix.default.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/audio.usb.default.so;MODULE_SUFFIX=_stock
+vendor/lib64/hw/android.hardware.audio.effect@2.0-impl.so
+vendor/lib64/hw/android.hardware.audio.effect@6.0-impl.so
+vendor/lib64/hw/android.hardware.audio@2.0-impl.so
+vendor/lib64/hw/android.hardware.audio@6.0-impl.so
+vendor/lib64/hw/audio.bluetooth.default.so;DISABLE_DEPS
+vendor/lib64/hw/audio.primary.default.so
+vendor/lib64/hw/audio.r_submix.default.so
+vendor/lib64/hw/audio.usb.default.so
 vendor/lib64/hw/libsecaudiohal_aidl.so
 vendor/lib64/lib_SoundAlive_3DPosition_ver202.so
 vendor/lib64/lib_SoundAlive_AlbumArt_ver105.so
 vendor/lib64/lib_SoundAlive_play_plus_ver400.so
 vendor/lib64/lib_SoundBooster_ver1100.so
-vendor/lib64/libbluetooth_audio_session_aidl.so;MODULE_SUFFIX=_stock
 vendor/lib64/libsecaudiocoreutils.so
 vendor/lib64/libsecaudiohalproxy_vendor.so
 vendor/lib64/libsecaudioinfo.so
@@ -110,7 +105,7 @@ vendor/lib64/soundfx/libaudioeffectoffload.so
 vendor/lib64/soundfx/libaudiosaplus_sec.so
 vendor/lib64/soundfx/libmysound.so
 vendor/lib64/soundfx/libmyspace.so
-vendor/lib64/soundfx/libsamsungSoundbooster_plus.so;MODULE_SUFFIX=_stock
+vendor/lib64/soundfx/libsamsungSoundbooster_plus.so
 vendor/lib64/soundfx/libswdap.so
 vendor/lib64/soundfx/libswspatializer.so
 vendor/lib64/vendor.samsung.hardware.audio-V1-ndk.so
@@ -118,14 +113,13 @@ vendor/lib64/vendor.samsung.hardware.bluetooth.audio-impl.so
 vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 
 # Bluetooth
-vendor/bin/hw/android.hardware.bluetooth@1.0-service;MODULE_SUFFIX=_stock
+vendor/bin/hw/android.hardware.bluetooth@1.0-service
 vendor/etc/bluetooth/bt_did.conf
 vendor/etc/btcon.json
-vendor/etc/init/android.hardware.bluetooth@1.0-service.rc
 vendor/etc/permissions/android.hardware.bluetooth.xml
 vendor/etc/permissions/android.hardware.bluetooth_le.xml
 vendor/lib/libbt-vendor.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/android.hardware.bluetooth@1.0-impl.so;MODULE_SUFFIX=_stock
+vendor/lib64/hw/android.hardware.bluetooth@1.0-impl.so
 vendor/lib64/libbt-vendor.so;MODULE_SUFFIX=_stock
 vendor/lib64/vendor.samsung.hardware.bluetooth@2.0.so
 
@@ -158,7 +152,7 @@ vendor/firmware/tdnr_SC201.json
 vendor/lib/hw/camera.s5e3830.so
 vendor/lib/libBeauty_v4.camera.samsung.so
 vendor/lib/libbeautyshot.arcsoft.so
-vendor/lib/libcamera2ndk_vendor.so;MODULE_SUFFIX=_stock
+vendor/lib/libcamera2ndk_vendor.so;DISABLE_DEPS
 vendor/lib/libDualCamBokehCapture.camera.samsung.so
 vendor/lib/libexifa.camera.samsung.so
 vendor/lib/libexynoscamera3.so
@@ -181,7 +175,7 @@ vendor/lib64/hw/camera.s5e3830.so
 vendor/lib64/hw/camera.unihal.default.so
 vendor/lib64/libBeauty_v4.camera.samsung.so
 vendor/lib64/libbeautyshot.arcsoft.so
-vendor/lib64/libcamera2ndk_vendor.so;MODULE_SUFFIX=_stock
+vendor/lib64/libcamera2ndk_vendor.so;DISABLE_DEPS
 vendor/lib64/libDualCamBokehCapture.camera.samsung.so
 vendor/lib64/libexifa.camera.samsung.so
 vendor/lib64/libexynoscamera3.so
@@ -262,12 +256,10 @@ vendor/lib64/vendor.samsung.hardware.gnss@2.1.so
 
 # Graphics / Mali
 vendor/bin/hw/android.hardware.graphics.allocator@4.0-service;MODULE_SUFFIX=_stock
-vendor/bin/hw/android.hardware.graphics.composer@2.2-service;MODULE_SUFFIX=_stock
+vendor/bin/hw/android.hardware.graphics.composer@2.2-service
 vendor/bin/hw/android.hardware.memtrack-service.exynos;MODULE_SUFFIX=_stock
 vendor/bin/hw/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service
 vendor/etc/init/android.hardware.graphics.allocator@4.0-service.rc
-vendor/etc/init/android.hardware.graphics.composer@2.2-service.rc
-vendor/etc/init/memtrack.rc
 vendor/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc
 vendor/etc/permissions/android.hardware.opengles.aep.xml
 vendor/etc/permissions/android.hardware.vulkan.compute.xml
@@ -275,7 +267,6 @@ vendor/etc/permissions/android.hardware.vulkan.level.xml
 vendor/etc/permissions/android.hardware.vulkan.version.xml
 vendor/etc/permissions/android.software.opengles.deqp.level.xml
 vendor/etc/permissions/android.software.vulkan.deqp.level.xml
-vendor/etc/vintf/manifest/memtrack.xml
 vendor/lib/android.hardware.graphics.extension.composer3-V2-ndk.so
 vendor/lib/egl/libGLES_mali.so
 vendor/lib/hw/android.hardware.graphics.allocator@4.0-impl.so;MODULE_SUFFIX=_stock
@@ -315,25 +306,22 @@ vendor/etc/vintf/manifest/vendor.samsung.hardware.health-service.xml
 vendor/lib64/vendor.samsung.hardware.health-V1-ndk.so
 
 # Keymint / Gatekeeper / TEE
-vendor/bin/hw/android.hardware.gatekeeper@1.0-service;MODULE_SUFFIX=_stock
-vendor/bin/hw/android.hardware.security.keymint-service;MODULE_SUFFIX=_stock
+vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+vendor/bin/hw/android.hardware.security.keymint-service;DISABLE_DEPS
 vendor/bin/tzdaemon
 vendor/bin/tzts_daemon
 vendor/bin/vendor.samsung.hardware.security.fkeymaster-service
-vendor/etc/init/android.hardware.gatekeeper@1.0-service.rc
-vendor/etc/init/android.hardware.security.keymint-service.rc
 vendor/etc/init/pa_daemon_teegris.rc
 vendor/etc/init/teegris.rc
 vendor/etc/init/vendor.samsung.hardware.security.fkeymaster-service.rc
-vendor/etc/permissions/android.hardware.hardware_keystore.xml
 vendor/etc/permissions/android.hardware.keystore.app_attest_key.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.security.fkeymaster-service.xml
-vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so;MODULE_SUFFIX=_stock
+vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib/hw/gatekeeper.s5e3830.so
 vendor/lib/libhypervintf.so
 vendor/lib/libsfp_teegw.so
 vendor/lib/vendor.samsung.hardware.hyper-V2-ndk.so
-vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so;MODULE_SUFFIX=_stock
+vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib64/hw/gatekeeper.s5e3830.so
 vendor/lib64/libengmode_client.so
 vendor/lib64/libhypervintf.so
@@ -372,7 +360,6 @@ vendor/lib64/vendor.samsung.hardware.vibrator-V5-ndk.so
 # Media / Codec2
 vendor/bin/hw/samsung.hardware.media.c2@1.2-service
 vendor/bin/hw/samsung.software.media.c2@1.0-service
-vendor/etc/aidl/hfp/hfp_codec_capabilities.xml
 vendor/etc/init/samsung.hardware.media.c2@1.2-service.rc
 vendor/etc/init/samsung.software.media.c2@1.0-service.rc
 vendor/etc/media_codecs.xml
@@ -392,7 +379,6 @@ vendor/etc/somxreg.conf
 vendor/etc/vintf/manifest/sec_c2_manifest_default1_hidl.xml
 vendor/firmware/mfc_fw.bin
 vendor/lib/libc2filterplugin.so
-vendor/lib/libcodec2_simple_component.so;MODULE_SUFFIX=_stock
 vendor/lib/libExynosC2ComponentRM.so
 vendor/lib/libExynosC2ComponentStore.so
 vendor/lib/libExynosC2H263Dec.so
@@ -417,7 +403,6 @@ vendor/lib64/libcodec2_sec_mp3dec.so
 vendor/lib64/libcodec2_sec_mp4vdec.so
 vendor/lib64/libcodec2_sec_soft_common.so
 vendor/lib64/libcodec2_sec_vc1dec.so
-vendor/lib64/libcodec2_simple_component.so;MODULE_SUFFIX=_stock
 vendor/lib64/libcodec2_soft_ac4dec.so
 vendor/lib64/libcodec2_soft_eac3dec.so
 vendor/lib64/libExynosC2ComponentRM.so
@@ -450,7 +435,6 @@ vendor/etc/floating_feature.xml
 vendor/etc/fstab.ramplus
 vendor/etc/init.insmod.s5e3830.cfg
 vendor/etc/init/atrace_categories.rc
-vendor/etc/init/dumpstate-default.rc
 vendor/etc/init/init.baseband.rc
 vendor/etc/init/init.ramplus.rc
 vendor/etc/init/init.recovery.s5e3830.rc
@@ -479,20 +463,15 @@ vendor/firmware/MCD_NACHO_slog.bin
 vendor/firmware/os.checked.bin
 vendor/lib/arm.graphics-V1-ndk.so
 vendor/lib/lib_SamsungRec_07010.so
-vendor/lib/libatomic_rust.dylib.so;MAKE_COPY_RULE_ONLY
-vendor/lib/libbytemuck.dylib.so;MAKE_COPY_RULE_ONLY
-vendor/lib/libcfg_if.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib/libcsc.so
 vendor/lib/libdisplayaiqe.so
 vendor/lib/libdisplaycolor_default.so
 vendor/lib/libdisplaycolorwrapper.so
 vendor/lib/libexynosgraphicbuffer.so
 vendor/lib/libfloatingfeature.so
-vendor/lib/libgetrandom.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib/libgf_in_system_lib.so
 vendor/lib/libhdrwrapper.so
 vendor/lib/libhwjpeg.so
-vendor/lib/liblibc.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib/liblivefocus_preview_engine.so
 vendor/lib/liblivefocus_preview_interface.so
 vendor/lib/libmfb.so
@@ -506,23 +485,17 @@ vendor/lib/libsavscmn.so
 vendor/lib/libsavsvc.so
 vendor/lib/libsecnativefeature.so
 vendor/lib/libsemnativecarrierfeature.so
-vendor/lib/libserde.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib/libsimba.media.samsung.so
 vendor/lib/libskhynix_q2b_5022Q_shared.so
 vendor/lib/libsnaace.so
 vendor/lib/libsnamrnb.so
 vendor/lib/libsnamrwb.so
-vendor/lib/libstd.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib/libuniapi.so
 vendor/lib/libuniplugin.so
-vendor/lib/libuuid.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib/libuuid.so;MODULE_SUFFIX=_vendor
 vendor/lib/libvideobeauty_interface.so
 vendor/lib64/arm.graphics-V1-ndk.so
 vendor/lib64/lib_samsung_profiler.so
-vendor/lib64/libatomic_rust.dylib.so;MAKE_COPY_RULE_ONLY
-vendor/lib64/libbytemuck.dylib.so;MAKE_COPY_RULE_ONLY
-vendor/lib64/libcfg_if.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/libcsc.so
 vendor/lib64/libdeccfg.so
 vendor/lib64/libdisplayaiqe.so
@@ -537,13 +510,11 @@ vendor/lib64/libfloatingfeature.so
 vendor/lib64/libfocuspeaking.so
 vendor/lib64/libfocuspeaking.uniplugin@1.0.so
 vendor/lib64/libformatConverter.unifunc.so
-vendor/lib64/libgetrandom.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/libgf_in_system_lib.so
 vendor/lib64/libhdrwrapper.so
 vendor/lib64/libhigh_dynamic_range_bokeh.so
 vendor/lib64/libhwjpeg.so
 vendor/lib64/libimgproc_sw.unifunc@common.so
-vendor/lib64/liblibc.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/liblivefocus_preview_engine.so
 vendor/lib64/liblivefocus_preview_interface.so
 vendor/lib64/libmfb.so
@@ -560,17 +531,14 @@ vendor/lib64/libscaler_hw.unifunc.so
 vendor/lib64/libscaler_sw.unifunc.so
 vendor/lib64/libsecnativefeature.so
 vendor/lib64/libsemnativecarrierfeature.so
-vendor/lib64/libserde.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/libsimba.media.samsung.so
 vendor/lib64/libskhynix_q2b_5022Q_shared.so
 vendor/lib64/libsnaace.so
 vendor/lib64/libsnamrnb.so
 vendor/lib64/libsnamrwb.so
-vendor/lib64/libstd.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/libstork_shared.so
 vendor/lib64/libuniapi.so
 vendor/lib64/libuniplugin.so
-vendor/lib64/libuuid.dylib.so;MAKE_COPY_RULE_ONLY
 vendor/lib64/libuuid.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libVendorSemDataProps.so
 vendor/lib64/libVendorSemTelephonyProps.so
@@ -608,8 +576,8 @@ vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 
 # RIL
 vendor/bin/cbd
-vendor/bin/hw/rild;MODULE_SUFFIX=_stock
-vendor/bin/secril_config_svc;MODULE_SUFFIX=_stock
+vendor/bin/hw/rild
+vendor/bin/secril_config_svc
 vendor/etc/init/init.vendor.rilcommon.rc
 vendor/etc/init/vendor.samsung.rilchip.slsi.rc
 vendor/etc/init/vendor.samsung.rild.rc
@@ -641,8 +609,7 @@ vendor/lib64/vendor.samsung.hardware.radio.messaging-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.radio.sim-V1-ndk.so
 
 # Sensors
-vendor/bin/hw/android.hardware.sensors-service.multihal;MODULE_SUFFIX=_stock
-vendor/etc/init/android.hardware.sensors-service-multihal.rc
+vendor/bin/hw/android.hardware.sensors-service.multihal;DISABLE_DEPS
 vendor/etc/init/init.sensorhub.rc
 vendor/etc/permissions/android.hardware.sensor.accelerometer.xml
 vendor/etc/permissions/android.hardware.sensor.compass.xml
@@ -685,16 +652,15 @@ vendor/etc/permissions/android.hardware.usb.host.xml
 vendor/etc/vintf/manifest/android.hardware.usb@1.3-service.coral.xml
 
 # Wi-Fi
-vendor/bin/hw/android.hardware.wifi-service;MODULE_SUFFIX=_stock
+vendor/bin/hw/android.hardware.wifi-service;DISABLE_DEPS
 vendor/bin/hw/hostapd;MODULE_SUFFIX=_stock
 vendor/bin/hw/macloader
 vendor/bin/hw/mfgloader
 vendor/bin/hw/vendor.samsung.hardware.wifi-service
-vendor/bin/hw/wpa_supplicant;MODULE_SUFFIX=_stock
+vendor/bin/hw/wpa_supplicant;DISABLE_DEPS
 vendor/bin/slsi_wlan_udi_log
 vendor/bin/slsi_wlan_udi_log_decode
 vendor/bin/wlbtd
-vendor/etc/init/android.hardware.wifi-service.rc
 vendor/etc/init/android.hardware.wifi.supplicant-service.rc
 vendor/etc/init/hostapd.android.rc
 vendor/etc/init/vendor.samsung.hardware.wifi-service.rc
@@ -745,9 +711,9 @@ vendor/firmware/wifi/mx140_wlan_t.hcf
 vendor/firmware/wifi/mx140_wlan_t_sw.hcf
 vendor/firmware/wifi/platform.txt
 vendor/firmware/wifi/slsi_reg_database.bin
-vendor/lib/libwpa_client.so;MODULE_SUFFIX=_stock
-vendor/lib64/libwifi-hal.so;MODULE_SUFFIX=_vendor
-vendor/lib64/libwpa_client.so;MODULE_SUFFIX=_stock
+vendor/lib/libwpa_client.so
+vendor/lib64/libwifi-hal.so
+vendor/lib64/libwpa_client.so
 vendor/lib64/vendor.samsung.hardware.wifi-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.wifi.hostapd-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.wifi.nan-V1-ndk.so

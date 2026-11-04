@@ -39,6 +39,38 @@ PRODUCT_PACKAGES += \
     fstab.s5e3830 \
     fstab.s5e3830.vendor_ramdisk
 
+# Stock HAL dependencies
+PRODUCT_PACKAGES += \
+    android.frameworks.cameraservice.common-V1-ndk.vendor \
+    android.frameworks.cameraservice.device-V2-ndk.vendor \
+    android.frameworks.cameraservice.service-V2-ndk.vendor \
+    android.hardware.security.keymint-V2-ndk.vendor \
+    android.hardware.security.rkp-V2-ndk.vendor \
+    android.hardware.security.secureclock-V1-ndk.vendor \
+    android.hardware.security.sharedsecret-V1-ndk.vendor \
+    android.hardware.sensors-V2-ndk.vendor \
+    android.hardware.sensors@2.0.vendor \
+    android.hardware.sensors@2.0-ScopedWakelock.vendor \
+    android.hardware.sensors@2.1.vendor \
+    android.hardware.wifi-V2-ndk.vendor \
+    android.hardware.wifi.supplicant-V3-ndk.vendor \
+    android.system.keystore2-V1-ndk.vendor \
+    libaudioutils.vendor \
+    libcamera_metadata.vendor \
+    libcppbor.vendor \
+    libfmq.vendor \
+    libhardware.vendor \
+    libkeymaster_portable.vendor \
+    libkeystore-engine-wifi-hidl \
+    libmediandk.vendor \
+    libnativewindow.vendor \
+    libnl.vendor \
+    libpower.vendor \
+    libpuresoftkeymasterdevice.vendor \
+    libstagefright_foundation.vendor \
+    libwifi-system-iface.vendor \
+    libxml2.vendor
+
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := true
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
