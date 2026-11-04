@@ -7,3 +7,11 @@ type hal_sysinput_default, domain;
 type hal_sysinput_default_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(hal_sysinput_default)
+type hal_sysinput_service, hal_service_type, service_manager_type;
+
+binder_use(hal_sysinput_default)
+add_service(hal_sysinput_default, hal_sysinput_service)
+binder_call(hal_sysinput_default, system_server)
+
+allow hal_sysinput_default sysfs_sec_touchscreen:dir r_dir_perms;
+allow hal_sysinput_default { sysfs_sec_touchscreen sysfs_touchscreen_writable }:file rw_file_perms;

@@ -1,0 +1,7 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+allow system_server hal_sysinput_service:service_manager find;
+binder_call(system_server, hal_sysinput_default)
