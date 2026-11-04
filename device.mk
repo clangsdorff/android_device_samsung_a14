@@ -27,6 +27,9 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 # Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
+# IMS
+$(call inherit-product, hardware/lineage/generic-ims/ims.mk)
+
 # CAS
 TARGET_REQUIRES_HIDL_CAS_HAL := false
 
