@@ -24,6 +24,9 @@ TARGET_2ND_CPU_VARIANT := cortex-a55
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
+
 # Boot image
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_INIT_BOOT_HEADER_VERSION := 4
