@@ -1,0 +1,2 @@
+allow mediacodec sysfs_mfc:dir r_dir_perms;
+allow mediacodec sysfs_mfc:file r_file_perms;

@@ -1,0 +1,28 @@
+# Camera
+genfscon sysfs /devices/virtual/camera                            u:object_r:sysfs_camera:s0
+genfscon sysfs /class/camera                                      u:object_r:sysfs_camera:s0
+genfscon sysfs /devices/virtual/camera/rear/ssrm_camera_info      u:object_r:sysfs_camera_writable:s0
+genfscon sysfs /kernel/mm/vmscan/mem_boost_mode                   u:object_r:sysfs_camera_writable:s0
+genfscon sysfs /kernel/sec_mm/mem_boost_mode                      u:object_r:sysfs_camera_writable:s0
+
+# GPU
+genfscon sysfs /module/mali_kbase                                 u:object_r:sysfs_gpu:s0
+genfscon sysfs /devices/platform/11500000.mali                    u:object_r:sysfs_gpu:s0
+
+# MFC
+genfscon sysfs /devices/platform/mfc                              u:object_r:sysfs_mfc:s0
+
+# PMIC / Battery
+genfscon sysfs /devices/platform/13830000.i2c                     u:object_r:sysfs_battery:s0
+
+# Sensors
+genfscon sysfs /devices/platform/shub                             u:object_r:sysfs_iio:s0
+
+# SoC
+genfscon sysfs /devices/soc0                                      u:object_r:sysfs_soc:s0
+
+# Thermal
+genfscon sysfs /devices/virtual/sec/sec-ap-thermistor             u:object_r:sysfs_thermal:s0
+genfscon sysfs /devices/virtual/sec/sec-lp-thermistor             u:object_r:sysfs_thermal:s0
+genfscon sysfs /devices/virtual/sec/sec-pa-thermistor             u:object_r:sysfs_thermal:s0
+genfscon sysfs /devices/virtual/sec/exynos_tmu                    u:object_r:sysfs_thermal:s0

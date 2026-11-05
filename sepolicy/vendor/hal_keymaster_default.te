@@ -1,0 +1,2 @@
+type hal_fkeymaster_service, hal_service_type, service_manager_type;
+add_service(hal_keymaster_default, hal_fkeymaster_service)

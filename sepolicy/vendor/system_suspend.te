@@ -1,0 +1,1 @@
+allow system_suspend sysfs_battery:file r_file_perms;
