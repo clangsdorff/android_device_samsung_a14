@@ -37,6 +37,10 @@ TARGET_REQUIRES_HIDL_CAS_HAL := false
 TARGET_SCREEN_HEIGHT := 2408
 TARGET_SCREEN_WIDTH := 1080
 
+# Attention
+PRODUCT_PACKAGES += \
+    ScreenAttention
+
 # Init
 PRODUCT_PACKAGES += \
     fstab.s5e3830 \

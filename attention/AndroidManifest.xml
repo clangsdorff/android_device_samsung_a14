@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.attention">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" />
+
+    <application
+        android:label="Screen attention"
+        android:allowBackup="false">
+
+        <service
+            android:name=".FaceAttentionService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ATTENTION_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.attention.AttentionService" />
+            </intent-filter>
+        </service>
+
+    </application>
+</manifest>
