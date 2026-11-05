@@ -136,7 +136,6 @@ include device/samsung_slsi/sepolicy/sepolicy.mk
 include device/lineage/sepolicy/exynos/sepolicy.mk
 
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
-BOARD_VENDOR_SEPOLICY_DIRS += hardware/google/pixel-sepolicy/power-libperfmgr
 
 # Verified boot
 BOARD_AVB_ENABLE := true
