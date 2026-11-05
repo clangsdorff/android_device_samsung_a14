@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <privapp-permissions package="com.android.attention">
+        <!-- PowerManagerService notes the attention user activity under our binder identity -->
+        <permission name="android.permission.UPDATE_DEVICE_STATS" />
+    </privapp-permissions>
+</permissions>

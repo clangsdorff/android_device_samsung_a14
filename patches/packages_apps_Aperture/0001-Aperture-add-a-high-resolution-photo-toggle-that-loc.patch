@@ -1,0 +1,412 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 16:26:02 +0000
+Subject: [PATCH] Aperture: add a high resolution photo toggle that locks zoom
+ to 1x
+
+tetra sensors only expose their full resolution size as a high
+resolution size, which aperture never picks. add a top bar toggle that
+switches to the high resolution jpeg size, forces 4:3 and jpeg only
+since the hal skips remosaic with raw in the request, and locks zoom
+to 1x since the hal can't crop remosaiced captures.
+
+Change-Id: If20d1e635a68014f3b3023f0a439b5f2127cc615
+---
+ .../org/lineageos/aperture/CameraActivity.kt  | 63 +++++++++++++++-
+ .../org/lineageos/aperture/models/Camera.kt   | 35 +++++++++
+ .../repositories/PreferencesRepository.kt     |  8 ++
+ .../aperture/viewmodels/CameraViewModel.kt    | 73 ++++++++++++++++++-
+ app/src/main/res/drawable/ic_high_res.xml     | 15 ++++
+ app/src/main/res/layout/activity_camera.xml   |  6 ++
+ app/src/main/res/values/strings.xml           |  1 +
+ 7 files changed, 195 insertions(+), 6 deletions(-)
+ create mode 100644 app/src/main/res/drawable/ic_high_res.xml
+
+diff --git a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
+index 9d51ad1..1c343ab 100644
+--- a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
++++ b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
+@@ -151,6 +151,7 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+ 
+     // Views
+     private val aspectRatioButton by lazy { findViewById<Button>(R.id.aspectRatioButton) }
++    private val highResolutionButton by lazy { findViewById<Button>(R.id.highResolutionButton) }
+     private val cameraModeSelectorLayout by lazy { findViewById<CameraModeSelectorLayout>(R.id.cameraModeSelectorLayout) }
+     private val capturePreviewLayout by lazy { findViewById<CapturePreviewLayout>(R.id.capturePreviewLayout) }
+     private val countDownView by lazy { findViewById<CountDownView>(R.id.countDownView) }
+@@ -239,9 +240,13 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+                 }
+ 
+                 is ZoomGestureDetector.ZoomEvent.Move -> {
+-                    viewModel.cameraController.onPinchToZoom(it.incrementalScaleFactor)
+-                    handler.removeMessages(MSG_ON_PINCH_TO_ZOOM)
+-                    handler.sendMessageDelayed(handler.obtainMessage(MSG_ON_PINCH_TO_ZOOM), 500)
++                    if (!viewModel.isZoomLocked.value) {
++                        viewModel.cameraController.onPinchToZoom(it.incrementalScaleFactor)
++                        handler.removeMessages(MSG_ON_PINCH_TO_ZOOM)
++                        handler.sendMessageDelayed(
++                            handler.obtainMessage(MSG_ON_PINCH_TO_ZOOM), 500
++                        )
++                    }
+                 }
+ 
+                 is ZoomGestureDetector.ZoomEvent.End -> {
+@@ -431,6 +436,7 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+ 
+         // Set secondary top bar button callbacks
+         aspectRatioButton.setOnClickListener { viewModel.cyclePhotoAspectRatio() }
++        highResolutionButton.setOnClickListener { viewModel.togglePhotoHighResolution() }
+         videoQualityButton.setOnClickListener { viewModel.cycleVideoQuality() }
+         videoFrameRateButton.setOnClickListener { viewModel.cycleVideoFrameRate() }
+         videoDynamicRangeButton.setOnClickListener { viewModel.cycleVideoDynamicRange() }
+@@ -494,7 +500,9 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+         }
+ 
+         zoomLevel.onProgressChangedByUser = {
+-            viewModel.cameraController.setLinearZoom(it)
++            if (!viewModel.isZoomLocked.value) {
++                viewModel.cameraController.setLinearZoom(it)
++            }
+         }
+         zoomLevel.textFormatter = {
+             "%.1fx".format(viewModel.zoomState.value?.zoomRatio)
+@@ -870,6 +878,8 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+                 // Update secondary bar buttons
+                 timerButton.isEnabled = cameraState == CameraState.IDLE
+                 aspectRatioButton.isEnabled = cameraState == CameraState.IDLE
++                        && !viewModel.isZoomLocked.value
++                highResolutionButton.isEnabled = cameraState == CameraState.IDLE
+                 effectButton.isEnabled = cameraState == CameraState.IDLE
+                 settingsButton.isEnabled = cameraState == CameraState.IDLE
+ 
+@@ -1090,6 +1100,14 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+ 
+         launch {
+             viewModel.zoomState.collectLatest { zoomState ->
++                if (viewModel.isZoomLocked.value) {
++                    zoomState?.takeIf { it.zoomRatio != 1f }?.let {
++                        viewModel.cameraController.setZoomRatio(1f)
++                    }
++                    zoomLevel.isVisible = false
++                    return@collectLatest
++                }
++
+                 zoomState?.takeIf { it.minZoomRatio != it.maxZoomRatio }?.let {
+                     zoomLevel.progress = it.linearZoom
+                     zoomLevel.isVisible = true
+@@ -1153,6 +1171,34 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+             }
+         }
+ 
++        launch {
++            viewModel.photoHighResolution.collectLatest { photoHighResolution ->
++                highResolutionButton.isVisible = photoHighResolution != null
++                aspectRatioButton.isEnabled = photoHighResolution != true
++                        && viewModel.cameraState.value == CameraState.IDLE
++
++                if (photoHighResolution == true) {
++                    viewModel.cameraController.setZoomRatio(1f)
++                }
++            }
++        }
++
++        launch {
++            viewModel.cameraConfiguration.collectLatest { cameraConfiguration ->
++                if (cameraConfiguration is CameraConfiguration.Photo) {
++                    val camera = cameraConfiguration.camera
++
++                    highResolutionButton.text = getString(
++                        R.string.photo_megapixels,
++                        when (cameraConfiguration.enableHighResolution) {
++                            true -> camera.highResolutionMegapixels
++                            false -> camera.defaultMegapixels
++                        },
++                    )
++                }
++            }
++        }
++
+         launch {
+             viewModel.photoAspectRatio.collectLatest { photoAspectRatio ->
+                 // Update secondary bar buttons
+@@ -1536,6 +1582,15 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+                                 ResolutionSelector.PREFER_CAPTURE_RATE_OVER_HIGHER_RESOLUTION
+                             }
+                         )
++                        .apply {
++                            if (!cameraConfiguration.enableHighResolution) {
++                                val camera = cameraConfiguration.camera
++
++                                setResolutionFilter { supportedSizes, _ ->
++                                    supportedSizes.filterNot { camera.isHighResolutionSize(it) }
++                                }
++                            }
++                        }
+                         .build()
+ 
+                 CameraController.IMAGE_CAPTURE
+diff --git a/app/src/main/java/org/lineageos/aperture/models/Camera.kt b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
+index 0847e6f..960affe 100644
+--- a/app/src/main/java/org/lineageos/aperture/models/Camera.kt
++++ b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
+@@ -5,9 +5,11 @@
+ 
+ package org.lineageos.aperture.models
+ 
++import android.graphics.ImageFormat
+ import android.hardware.camera2.CameraCharacteristics
+ import android.hardware.camera2.CameraMetadata
+ import android.os.Build
++import android.util.Size
+ import androidx.annotation.OptIn
+ import androidx.camera.camera2.interop.Camera2CameraInfo
+ import androidx.camera.camera2.interop.ExperimentalCamera2Interop
+@@ -117,6 +119,33 @@ class Camera private constructor(
+             )
+         }
+ 
++    private val streamConfigurationMap = camera2CameraInfo.getCameraCharacteristic(
++        CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP
++    )
++
++    private val activeArraySize = camera2CameraInfo.getCameraCharacteristic(
++        CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE
++    )
++
++    private val jpegOutputSizes = streamConfigurationMap?.getOutputSizes(
++        ImageFormat.JPEG
++    ).orEmpty().toList()
++
++    private val highResolutionJpegSizes = streamConfigurationMap?.getHighResolutionOutputSizes(
++        ImageFormat.JPEG
++    ).orEmpty().toList() + jpegOutputSizes.filter { exceedsActiveArray(it) }
++
++    val supportsHighResolution = highResolutionJpegSizes.isNotEmpty()
++
++    val highResolutionMegapixels = highResolutionJpegSizes.maxOfOrNull { it.megapixels() } ?: 0
++
++    val defaultMegapixels = jpegOutputSizes.filterNot {
++        highResolutionJpegSizes.contains(it)
++    }.maxOfOrNull { it.megapixels() } ?: 0
++
++    fun isHighResolutionSize(size: Size) = highResolutionJpegSizes.contains(size)
++            || exceedsActiveArray(size)
++
+     val supportedVideoStabilizationModes = buildList {
+         add(VideoStabilizationMode.OFF)
+ 
+@@ -256,6 +285,12 @@ class Camera private constructor(
+         this.cameraId == it.cameraId
+     } ?: false
+ 
++    private fun exceedsActiveArray(size: Size) = activeArraySize?.let {
++        size.width.toLong() * size.height > it.width().toLong() * it.height()
++    } ?: false
++
++    private fun Size.megapixels() = ((width.toLong() * height + 500_000) / 1_000_000).toInt()
++
+     override fun hashCode() = this::class.qualifiedName.hashCode() + cameraId.hashCode()
+ 
+     fun supportsExtensionMode(extensionMode: Int): Boolean {
+diff --git a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
+index 0d249b8..b1413f0 100644
+--- a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
++++ b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
+@@ -266,6 +266,14 @@ class PreferencesRepository(
+         ),
+     ).asPreferenceHolder()
+ 
++    /**
++     * Whether photos should be taken at the camera's high resolution sizes.
++     */
++    val photoHighResolution = primitivePreference(
++        key = "photo_high_resolution",
++        defaultValue = false,
++    ).asPreferenceHolder()
++
+     /**
+      * Whether bright screen should be enabled.
+      */
+diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+index 2fc11c2..5553bbe 100644
+--- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
++++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+@@ -644,6 +644,39 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+             initialValue = preferencesRepository.photoAspectRatio.value,
+         )
+ 
++    /**
++     * Whether high resolution photos are available and enabled, null when unavailable.
++     */
++    @OptIn(ExperimentalCoroutinesApi::class)
++    val photoHighResolution = cameraConfiguration
++        .mapLatest { cameraConfiguration ->
++            when (cameraConfiguration) {
++                is CameraConfiguration.Photo -> cameraConfiguration.takeIf {
++                    supportsPhotoHighResolution(it.camera)
++                }?.enableHighResolution
++
++                else -> null
++            }
++        }
++        .flowOn(Dispatchers.IO)
++        .stateIn(
++            scope = viewModelScope,
++            started = SharingStarted.Eagerly,
++            initialValue = null,
++        )
++
++    /**
++     * Whether zoom is locked to 1x, the HAL can't crop high resolution captures.
++     */
++    @OptIn(ExperimentalCoroutinesApi::class)
++    val isZoomLocked = photoHighResolution
++        .mapLatest { photoHighResolution -> photoHighResolution == true }
++        .stateIn(
++            scope = viewModelScope,
++            started = SharingStarted.Eagerly,
++            initialValue = false,
++        )
++
+     /**
+      * Photo effect.
+      * @see ExtensionMode.Mode
+@@ -1400,11 +1433,29 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+             )
+         }
+ 
++    /**
++     * Toggle high resolution photos.
++     */
++    fun togglePhotoHighResolution() =
++        updateConfiguration<CameraConfiguration.Photo> { cameraConfiguration ->
++            preferencesRepository.photoHighResolution.value =
++                !cameraConfiguration.enableHighResolution
++
++            createInitialCameraConfiguration(
++                camera = cameraConfiguration.camera,
++                cameraMode = CameraMode.PHOTO,
++            )
++        }
++
+     /**
+      * Cycle the photo aspect ratio.
+      */
+     fun cyclePhotoAspectRatio() =
+         updateConfiguration<CameraConfiguration.Photo> { cameraConfiguration ->
++            if (cameraConfiguration.enableHighResolution) {
++                return@updateConfiguration cameraConfiguration
++            }
++
+             val newAspectRatio = when (cameraConfiguration.photoAspectRatio) {
+                 AspectRatio.RATIO_4_3 -> AspectRatio.RATIO_16_9
+                 AspectRatio.RATIO_16_9 -> AspectRatio.RATIO_4_3
+@@ -1543,6 +1594,10 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+      * @param zoomRatio The zoom ratio to apply
+      */
+     fun smoothZoom(zoomRatio: Float) {
++        if (isZoomLocked.value) {
++            return
++        }
++
+         val acquired = zoomGestureMutex.tryLock()
+         if (!acquired) {
+             return
+@@ -1661,12 +1716,18 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+                 else -> photoCaptureMode
+             }
+ 
++            val enableHighResolution = supportsPhotoHighResolution(camera)
++                    && preferencesRepository.photoHighResolution.value
++
+             val usePhotoJpegUltraHdr = preferencesRepository.usePhotoJpegUltraHdr.value
+             val enableRawImageCapture = preferencesRepository.enableRawImageCapture.value
+             val disableJpegWithRaw = preferencesRepository.disableJpegWithRaw.value
+             val photoOutputFormat = when {
+                 inSingleCaptureMode.value -> PhotoOutputFormat.JPEG
+ 
++                // The HAL skips remosaic when RAW shares the request
++                enableHighResolution -> PhotoOutputFormat.JPEG
++
+                 enableRawImageCapture
+                         && disableJpegWithRaw
+                         && camera.supportedPhotoOutputFormats.contains(
+@@ -1689,8 +1750,11 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+                 extensionMode = preferencesRepository.photoEffect.value,
+                 camera2Options = buildPhotoCamera2Options(camera, photoCaptureMode),
+                 photoCaptureMode = photoCaptureMode,
+-                photoAspectRatio = preferencesRepository.photoAspectRatio.value,
+-                enableHighResolution = overlaysRepository.enableHighResolution,
++                photoAspectRatio = when (enableHighResolution) {
++                    true -> AspectRatio.RATIO_4_3
++                    false -> preferencesRepository.photoAspectRatio.value
++                },
++                enableHighResolution = enableHighResolution,
+                 photoOutputFormat = photoOutputFormat,
+             )
+         }
+@@ -1732,6 +1796,11 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+         )
+     }
+ 
++    private fun supportsPhotoHighResolution(camera: Camera) =
++        overlaysRepository.enableHighResolution
++                && camera.supportsHighResolution
++                && !inSingleCaptureMode.value
++
+     @androidx.annotation.OptIn(ExperimentalZeroShutterLag::class)
+     private fun buildPhotoCamera2Options(
+         camera: Camera,
+diff --git a/app/src/main/res/drawable/ic_high_res.xml b/app/src/main/res/drawable/ic_high_res.xml
+new file mode 100644
+index 0000000..e723a44
+--- /dev/null
++++ b/app/src/main/res/drawable/ic_high_res.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: Material Design Authors / Google LLC
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:tint="#000000"
++    android:viewportWidth="960"
++    android:viewportHeight="960">
++    <path
++        android:fillColor="@android:color/white"
++        android:pathData="M180,740L240,740L240,660L264,660L300,740L360,740L324,656Q339,647 349.5,632.5Q360,618 360,600L360,560Q360,535 342.5,517.5Q325,500 300,500L180,500L180,740ZM400,740L560,740L560,680L460,680L460,650L540,650L540,590L460,590L460,560L560,560L560,500L400,500L400,740ZM600,740L740,740Q757,740 768.5,728.5Q780,717 780,700L780,640Q780,623 768.5,611.5Q757,600 740,600L660,600L660,560L780,560L780,500L640,500Q623,500 611.5,511.5Q600,523 600,540L600,600Q600,617 611.5,628.5Q623,640 640,640L720,640L720,680L600,680L600,740ZM240,600L240,560L300,560Q300,560 300,560Q300,560 300,560L300,600Q300,600 300,600Q300,600 300,600L240,600ZM300,460L360,460L360,370L420,370L420,460L480,460L480,220L420,220L420,310L360,310L360,220L300,220L300,460ZM580,460L640,460L640,220L580,220L580,460ZM120,840Q87,840 63.5,816.5Q40,793 40,760L40,200Q40,167 63.5,143.5Q87,120 120,120L840,120Q873,120 896.5,143.5Q920,167 920,200L920,760Q920,793 896.5,816.5Q873,840 840,840L120,840ZM120,760L840,760Q840,760 840,760Q840,760 840,760L840,200Q840,200 840,200Q840,200 840,200L120,200Q120,200 120,200Q120,200 120,200L120,760Q120,760 120,760Q120,760 120,760ZM120,760Q120,760 120,760Q120,760 120,760L120,200Q120,200 120,200Q120,200 120,200L120,200Q120,200 120,200Q120,200 120,200L120,760Q120,760 120,760Q120,760 120,760L120,760Z" />
++</vector>
+diff --git a/app/src/main/res/layout/activity_camera.xml b/app/src/main/res/layout/activity_camera.xml
+index d5f291f..e07c1cb 100644
+--- a/app/src/main/res/layout/activity_camera.xml
++++ b/app/src/main/res/layout/activity_camera.xml
+@@ -148,6 +148,12 @@
+                 android:drawableTop="@drawable/ic_aspect_ratio"
+                 android:text="@string/aspect_ratio_4_3" />
+ 
++            <Button
++                android:id="@+id/highResolutionButton"
++                style="@style/Theme.Aperture.Camera.SecondaryTopBarButton"
++                android:drawableTop="@drawable/ic_high_res"
++                android:visibility="gone" />
++
+             <Button
+                 android:id="@+id/effectButton"
+                 style="@style/Theme.Aperture.Camera.SecondaryTopBarButton"
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index b4997eb..c1e62c8 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -27,6 +27,7 @@
+ 
+     <string name="aspect_ratio_4_3" translatable="false">4:3</string>
+     <string name="aspect_ratio_16_9" translatable="false">16:9</string>
++    <string name="photo_megapixels" translatable="false">%1$d MP</string>
+ 
+     <string name="video_quality_sd" translatable="false">480p</string>
+     <string name="video_quality_hd" translatable="false">720p</string>
+-- 
+2.43.0
+

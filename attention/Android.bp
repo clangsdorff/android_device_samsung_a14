@@ -1,0 +1,25 @@
+//
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+android_app {
+    name: "ScreenAttention",
+    srcs: ["src/**/*.java"],
+    manifest: "AndroidManifest.xml",
+    sdk_version: "system_current",
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    required: ["privapp-permissions-com.android.attention.xml"],
+    optimize: {
+        enabled: true,
+    },
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-com.android.attention.xml",
+    src: "privapp-permissions-com.android.attention.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}

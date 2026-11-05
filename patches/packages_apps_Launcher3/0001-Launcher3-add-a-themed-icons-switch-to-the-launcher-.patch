@@ -1,0 +1,110 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 16:26:02 +0000
+Subject: [PATCH] Launcher3: add a themed icons switch to the launcher settings
+
+lineage only offers themed icons for the app drawer, the home screen
+switch lives in the wallpaper picker. add a themed icons switch to the
+launcher settings and make the drawer switch depend on it.
+
+Change-Id: I84cb69caa429952655e0a6f1bab30d8443e9af56
+---
+ res/values-tr/lineage_strings.xml                    |  2 ++
+ res/values/lineage_strings.xml                       |  2 ++
+ res/xml/launcher_preferences.xml                     |  7 +++++++
+ .../android/launcher3/settings/SettingsActivity.java | 12 ++++++++++++
+ 4 files changed, 23 insertions(+)
+
+diff --git a/res/values-tr/lineage_strings.xml b/res/values-tr/lineage_strings.xml
+index 036f5f7907..7df025e3c4 100644
+--- a/res/values-tr/lineage_strings.xml
++++ b/res/values-tr/lineage_strings.xml
+@@ -14,6 +14,8 @@
+      limitations under the License.
+ -->
+ <resources>
++    <string name="pref_home_themed_icons_title">Temalı simgeler</string>
++    <string name="pref_home_themed_icons_summary">Uygulama simgelerini duvar kağıdı renklerine göre renklendir</string>
+     <string name="pref_themed_icons_title">Çekmecede temalı simgeler uygula</string>
+     <string name="pref_themed_icons_summary">Ana ekranda kullanılan temalı simgeleri takip edin</string>
+     <string name="pref_suggestions_title">Öneriler</string>
+diff --git a/res/values/lineage_strings.xml b/res/values/lineage_strings.xml
+index f223b4c384..ef76403bd0 100644
+--- a/res/values/lineage_strings.xml
++++ b/res/values/lineage_strings.xml
+@@ -23,6 +23,8 @@
+     <!-- Settings -->
+ 
+     <!-- All apps themed icons -->
++    <string name="pref_home_themed_icons_title">Themed icons</string>
++    <string name="pref_home_themed_icons_summary">Tint app icons to match your wallpaper colors</string>
+     <string name="pref_themed_icons_title">Use themed icons in drawer</string>
+     <string name="pref_themed_icons_summary">Follow themed icons used on home screen</string>
+ 
+diff --git a/res/xml/launcher_preferences.xml b/res/xml/launcher_preferences.xml
+index 3ef7795214..466b8345fb 100644
+--- a/res/xml/launcher_preferences.xml
++++ b/res/xml/launcher_preferences.xml
+@@ -66,8 +66,15 @@
+         android:defaultValue="false"
+         android:persistent="true" />
+ 
++    <SwitchPreferenceCompat
++        android:key="pref_home_themed_icons"
++        android:title="@string/pref_home_themed_icons_title"
++        android:summary="@string/pref_home_themed_icons_summary"
++        android:persistent="false" />
++
+     <SwitchPreferenceCompat
+         android:key="pref_allapps_themed_icons"
++        android:dependency="pref_home_themed_icons"
+         android:title="@string/pref_themed_icons_title"
+         android:summary="@string/pref_themed_icons_summary"
+         android:defaultValue="false"
+diff --git a/src/com/android/launcher3/settings/SettingsActivity.java b/src/com/android/launcher3/settings/SettingsActivity.java
+index d4b18483c0..967936d8a1 100644
+--- a/src/com/android/launcher3/settings/SettingsActivity.java
++++ b/src/com/android/launcher3/settings/SettingsActivity.java
+@@ -52,6 +52,7 @@ import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartScreenCallb
+ import androidx.preference.PreferenceGroup;
+ import androidx.preference.PreferenceGroup.PreferencePositionCallback;
+ import androidx.preference.PreferenceScreen;
++import androidx.preference.TwoStatePreference;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+ import com.android.launcher3.BuildConfig;
+@@ -60,6 +61,7 @@ import com.android.launcher3.LauncherFiles;
+ import com.android.launcher3.R;
+ import com.android.launcher3.display.DisplayController;
+ import com.android.launcher3.display.LauncherDisplayInfo;
++import com.android.launcher3.graphics.ThemeManager;
+ import com.android.launcher3.lineage.LineageUtils;
+ import com.android.launcher3.lineage.trust.TrustAppsActivity;
+ import com.android.launcher3.util.SafeCloseable;
+@@ -96,6 +98,7 @@ public class SettingsActivity extends FragmentActivity
+     private static final String SEARCH_PACKAGE = "com.google.android.googlequicksearchbox";
+     public static final String KEY_TRUST_APPS = "pref_trust_apps";
+ 
++    private static final String KEY_HOME_THEMED_ICONS = "pref_home_themed_icons";
+     private static final String KEY_SUGGESTIONS = "pref_suggestions";
+     private static final String SUGGESTIONS_PACKAGE = "com.google.android.as";
+ 
+@@ -359,6 +362,15 @@ public class SettingsActivity extends FragmentActivity
+                 case KEY_MINUS_ONE:
+                     return launcherApps != null &&
+                             launcherApps.isPackageEnabled(SEARCH_PACKAGE, myUserHandle());
++                case KEY_HOME_THEMED_ICONS:
++                    ThemeManager themeManager = ThemeManager.INSTANCE.get(getContext());
++                    ((TwoStatePreference) preference).setChecked(
++                            themeManager.isMonoThemeEnabled());
++                    preference.setOnPreferenceChangeListener((pref, newValue) -> {
++                        themeManager.setMonoThemeEnabled((boolean) newValue);
++                        return true;
++                    });
++                    return true;
+                 case KEY_SUGGESTIONS:
+                     return launcherApps != null &&
+                             launcherApps.isPackageEnabled(SUGGESTIONS_PACKAGE, myUserHandle());
+-- 
+2.43.0
+

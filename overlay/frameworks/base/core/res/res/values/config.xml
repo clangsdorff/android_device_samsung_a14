@@ -59,4 +59,8 @@
     <bool name="config_device_volte_available">true</bool>
     <bool name="config_device_vt_available">true</bool>
     <bool name="config_device_wfc_ims_available">true</bool>
+    <bool name="config_adaptive_sleep_available">true</bool>
+    <string name="config_defaultAttentionService" translatable="false">com.android.attention/.FaceAttentionService</string>
+    <!-- role holders are exempt from the camera privacy indicator -->
+    <string name="config_systemVisualIntelligence" translatable="false">com.android.attention</string>
 </resources>
