@@ -21,6 +21,8 @@
 # Fingerprint
 /(vendor|system/vendor)/bin/goodixfingerprintd                                                      u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.biometrics\.fingerprint-service           u:object_r:hal_fingerprint_default_exec:s0
+/dev/goodix_fp                                                                                      u:object_r:fp_sensor_device:s0
+/sys/class/fingerprint(/.*)?                                                                        u:object_r:sysfs_fingerprint:s0
 
 # GNSS
 /(vendor|system/vendor)/bin/hw/gps\.sh                                                              u:object_r:gpsd_exec:s0
@@ -67,6 +69,8 @@
 
 # Devices
 /dev/mali0                                                                                       u:object_r:gpu_device:s0
+/dev/scsc_h4_0                                                                                   u:object_r:bt_device:s0
+/dev/ttySAC0                                                                                     u:object_r:bt_device:s0
 
 # Same Process HAL
 /(vendor|system/vendor)/lib(64)?/libdrm\.so                                                         u:object_r:same_process_hal_file:s0

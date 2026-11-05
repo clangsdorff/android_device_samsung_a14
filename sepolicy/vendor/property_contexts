@@ -1,3 +1,4 @@
 vendor.powerhal.                               u:object_r:vendor_power_prop:s0
+persist.vendor.sys.camera.                      u:object_r:vendor_camera_prop:s0
 ro.vendor.arm.                                 u:object_r:vendor_graphics_prop:s0
 ro.vendor.gpu.                                 u:object_r:vendor_graphics_prop:s0
