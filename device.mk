@@ -75,6 +75,11 @@ PRODUCT_PACKAGES += \
     libwifi-system-iface.vendor \
     libxml2.vendor
 
+# vndbinder context manager, only pulled in below shipping api level 30
+PRODUCT_PACKAGES += \
+    vndservice \
+    vndservicemanager
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS += *
