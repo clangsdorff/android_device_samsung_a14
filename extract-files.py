@@ -61,6 +61,8 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libsensorndkbridge.so', 'libsensorndkbridge_sec.so'),
     ('vendor/lib/libsensorndkbridge_sec.so', 'vendor/lib64/libsensorndkbridge_sec.so'): blob_fixup()
         .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
+    'vendor/etc/init/android.hardware.bluetooth@1.0-service.samsung.rc': blob_fixup()
+        .regex_replace('(?m)^ +interface vendor\\.samsung\\.hardware\\.bluetooth@2\\.0::ISehBluetooth default\\n', ''),
     'vendor/etc/init/android.hardware.security.keymint-service.samsung.rc': blob_fixup()
         .regex_replace('(?m)keymint-service$', 'keymint-service.samsung'),
     'vendor/etc/init/android.hardware.sensors-service-multihal.samsung.rc': blob_fixup()
