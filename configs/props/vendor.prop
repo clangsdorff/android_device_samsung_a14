@@ -81,7 +81,6 @@ debug.sf.disable_backpressure=1
 debug.slsi_platform=1
 debug.hwc.winupdate=1
 ro.crypto.volume.filenames_mode=aes-256-cts
-ro.lmk.use_minfree_levels=true
 persist.vendor.multithreaded_present=0
 persist.vendor.layer_batch_command=0
 ro.hw.wfd_use_c2_encoder=1
