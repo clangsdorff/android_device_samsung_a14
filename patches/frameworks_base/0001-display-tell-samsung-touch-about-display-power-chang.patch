@@ -1,0 +1,109 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 16:25:53 +0000
+Subject: [PATCH 1/3] display: tell samsung touch about display power changes
+
+in-cell samsung panels skip the backlight ic init while the touch ic
+holds the lcd rails, which leaves the screen black after a double tap
+wake. stock tells the touch ic through the sysinput hal before and
+after every display power change. do the same from the local display
+adapter when the hal is declared.
+
+Change-Id: I7d0add55d82a006b17e2e8f0415e12fc4f33894e
+---
+ .../server/display/LocalDisplayAdapter.java   | 50 +++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+
+diff --git a/services/core/java/com/android/server/display/LocalDisplayAdapter.java b/services/core/java/com/android/server/display/LocalDisplayAdapter.java
+index ae8e01484074..dfe208f61a20 100644
+--- a/services/core/java/com/android/server/display/LocalDisplayAdapter.java
++++ b/services/core/java/com/android/server/display/LocalDisplayAdapter.java
+@@ -34,7 +34,10 @@ import android.os.Build;
+ import android.os.Handler;
+ import android.os.IBinder;
+ import android.os.Looper;
++import android.os.Parcel;
+ import android.os.PowerManager;
++import android.os.RemoteException;
++import android.os.ServiceManager;
+ import android.os.SystemClock;
+ import android.os.SystemProperties;
+ import android.os.Trace;
+@@ -269,6 +272,9 @@ final class LocalDisplayAdapter extends DisplayAdapter {
+         private boolean mAllmRequested;
+         private boolean mGameContentTypeRequested;
+         private boolean mSidekickActive;
++        private IBinder mSamsungSysinput;
++        private boolean mTriedSamsungSysinput;
++        private long mSamsungTspLateOnUptime;
+         private SurfaceControl.StaticDisplayInfo mStaticDisplayInfo;
+         // The supported display modes according to SurfaceFlinger
+         private SurfaceControl.DisplayMode[] mSfDisplayModes;
+@@ -908,6 +914,48 @@ final class LocalDisplayAdapter extends DisplayAdapter {
+             return mInfo;
+         }
+ 
++        private static final String SAMSUNG_SYSINPUT =
++                "vendor.samsung.hardware.sysinput.ISehSysInputDev";
++
++        // in-cell samsung panels skip the backlight ic init while the touch ic holds the lcd
++        // rails, so touch has to hear about the power change before and after it
++        private void samsungTspActivate(int state, boolean early) {
++            if (!mIsFirstDisplay) return;
++            if (!mTriedSamsungSysinput) {
++                mTriedSamsungSysinput = true;
++                final String fqName = SAMSUNG_SYSINPUT + "/default";
++                if (ServiceManager.isDeclared(fqName)) {
++                    mSamsungSysinput = Binder.allowBlocking(
++                            ServiceManager.waitForDeclaredService(fqName));
++                }
++            }
++            if (mSamsungSysinput == null) return;
++            // the hal queues activate; a panel off before the queued late resume lands
++            // resets the backlight ic
++            if (early && state != Display.STATE_ON) {
++                final long settle = mSamsungTspLateOnUptime + 1500 - SystemClock.uptimeMillis();
++                if (settle > 0) SystemClock.sleep(settle);
++            }
++            final Parcel data = Parcel.obtain();
++            final Parcel reply = Parcel.obtain();
++            try {
++                data.writeInterfaceToken(SAMSUNG_SYSINPUT);
++                data.writeInt(1);
++                data.writeInt(state);
++                data.writeBoolean(early);
++                mSamsungSysinput.transact(IBinder.FIRST_CALL_TRANSACTION + 4, data, reply, 0);
++                reply.readException();
++                if (!early && state == Display.STATE_ON) {
++                    mSamsungTspLateOnUptime = SystemClock.uptimeMillis();
++                }
++            } catch (RemoteException | RuntimeException e) {
++                Slog.w(TAG, "samsung sysinput activate failed", e);
++            } finally {
++                data.recycle();
++                reply.recycle();
++            }
++        }
++
+         @Override
+         public Runnable requestDisplayStateLocked(
+                 final int state,
+@@ -987,6 +1035,7 @@ final class LocalDisplayAdapter extends DisplayAdapter {
+                             displayOffloadSession.stopOffload(state);
+                         }
+ 
++                        samsungTspActivate(state, true);
+ 
+                         final int mode = getPowerModeForState(state);
+                         Trace.traceBegin(Trace.TRACE_TAG_POWER, "setDisplayState("
+@@ -1001,6 +1050,7 @@ final class LocalDisplayAdapter extends DisplayAdapter {
+                         } finally {
+                             Trace.traceEnd(Trace.TRACE_TAG_POWER);
+                         }
++                        samsungTspActivate(state, false);
+                         setCommittedState(state);
+ 
+                         // If we're entering a suspended (but not OFF) power state and we
+-- 
+2.43.0
+
