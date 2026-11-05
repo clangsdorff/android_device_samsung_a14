@@ -2,6 +2,7 @@
 
 # ADSP / Audio
 vendor/bin/hw/android.hardware.audio.service
+vendor/etc/init/android.hardware.audio.service.rc
 vendor/bin/hw/secaudiohalaidl
 vendor/bin/main_abox
 vendor/etc/a2dpsink_audio_policy_configuration.xml
@@ -114,6 +115,7 @@ vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service
+vendor/etc/init/android.hardware.bluetooth@1.0-service.rc
 vendor/etc/bluetooth/bt_did.conf
 vendor/etc/btcon.json
 vendor/etc/permissions/android.hardware.bluetooth.xml
@@ -255,7 +257,9 @@ vendor/lib64/vendor.samsung.hardware.gnss@2.1.so
 # Graphics / Mali
 vendor/bin/hw/android.hardware.graphics.allocator@4.0-service;MODULE_SUFFIX=_stock
 vendor/bin/hw/android.hardware.graphics.composer@2.2-service
+vendor/etc/init/android.hardware.graphics.composer@2.2-service.rc
 vendor/bin/hw/android.hardware.memtrack-service.exynos;MODULE_SUFFIX=_stock
+vendor/etc/init/memtrack.rc
 vendor/bin/hw/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service
 vendor/etc/init/android.hardware.graphics.allocator@4.0-service.rc
 vendor/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc
@@ -305,6 +309,7 @@ vendor/lib64/vendor.samsung.hardware.health-V1-ndk.so
 
 # Keymint / Gatekeeper / TEE
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+vendor/etc/init/android.hardware.gatekeeper@1.0-service.rc
 vendor/bin/hw/android.hardware.security.keymint-service:vendor/bin/hw/android.hardware.security.keymint-service.samsung
 vendor/bin/tzdaemon
 vendor/bin/tzts_daemon
@@ -426,6 +431,7 @@ vendor/lib64/libstagefright_foundation_vendor.so
 vendor/bin/cld
 vendor/bin/hcgcd
 vendor/bin/hw/android.hardware.dumpstate-service;MODULE_SUFFIX=_stock
+vendor/etc/init/dumpstate-default.rc
 vendor/bin/hw/vendor.samsung.hardware.sysinput-service
 vendor/bin/init.insmod.sh
 vendor/bin/iod
