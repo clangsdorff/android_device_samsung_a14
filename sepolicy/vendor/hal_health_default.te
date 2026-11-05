@@ -5,5 +5,4 @@ allow hal_health_default efs_file:dir search;
 allow hal_health_default app_efs_file:dir r_dir_perms;
 allow hal_health_default app_efs_file:file { rw_file_perms setattr };
 
-binder_call(hal_health_default, hal_thermal_default)
-allow hal_health_default hal_thermal_service:service_manager find;
+hal_client_domain(hal_health_default, hal_thermal)
