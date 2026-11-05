@@ -1,0 +1,2 @@
+vendor.samsung.hardware.bluetooth::ISehBluetooth                    u:object_r:hal_bluetooth_hwservice:s0
+vendor.samsung.hardware.gnss::ISehGnss                              u:object_r:hal_gnss_hwservice:s0
