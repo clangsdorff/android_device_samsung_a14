@@ -1,0 +1,13 @@
+//
+// SPDX-FileCopyrightText: 2021-2025 The LineageOS Project
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_static {
+    name: "libinit_a14",
+    recovery_available: true,
+    shared_libs: ["libbase"],
+    srcs: ["init_a14.cpp"],
+    include_dirs: ["system/core/init"],
+}
