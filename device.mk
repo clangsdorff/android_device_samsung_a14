@@ -40,7 +40,8 @@ TARGET_SCREEN_WIDTH := 1080
 # Init
 PRODUCT_PACKAGES += \
     fstab.s5e3830 \
-    fstab.s5e3830.vendor_ramdisk
+    fstab.s5e3830.vendor_ramdisk \
+    init.a14.rc
 
 # Stock HAL dependencies
 PRODUCT_PACKAGES += \
