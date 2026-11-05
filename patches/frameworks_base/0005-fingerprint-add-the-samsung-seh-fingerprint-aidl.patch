@@ -1,0 +1,87 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 17:22:46 +0000
+Subject: [PATCH] fingerprint: add the samsung seh fingerprint aidl
+
+the samsung fingerprint navigation backend imports ISehFingerprint
+and SehResult, but the framework has no java library for them, so
+services.core fails to compile.
+
+add the unstable aidl definition of the vendor extension interface
+(sehRequest and its result parcelable) and link it into
+services.core.
+
+Change-Id: I7d507e640ff5488752f360964c9a64be2839b8e8
+---
+ services/core/Android.bp                        |  1 +
+ services/core/seh/Android.bp                    | 17 +++++++++++++++++
+ .../biometrics/fingerprint/ISehFingerprint.aidl |  7 +++++++
+ .../biometrics/fingerprint/SehResult.aidl       |  6 ++++++
+ 4 files changed, 31 insertions(+)
+ create mode 100644 services/core/seh/Android.bp
+ create mode 100644 services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/ISehFingerprint.aidl
+ create mode 100644 services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/SehResult.aidl
+
+diff --git a/services/core/Android.bp b/services/core/Android.bp
+index 7ce5d205b891..054f40298768 100644
+--- a/services/core/Android.bp
++++ b/services/core/Android.bp
+@@ -230,6 +230,7 @@ java_library_static {
+         "statsd_audio_java_gen",
+         "icu4j_calendar_astronomer",
+         "android.security.aaid_aidl-java",
++        "vendor.samsung.hardware.biometrics.fingerprint-java",
+         "netd-client",
+         "overlayable_policy_aidl-java",
+         "SettingsLibDisplayUtils",
+diff --git a/services/core/seh/Android.bp b/services/core/seh/Android.bp
+new file mode 100644
+index 000000000000..d68bc260635f
+--- /dev/null
++++ b/services/core/seh/Android.bp
+@@ -0,0 +1,17 @@
++aidl_interface {
++    name: "vendor.samsung.hardware.biometrics.fingerprint",
++    srcs: ["vendor/samsung/hardware/biometrics/fingerprint/*.aidl"],
++    unstable: true,
++    backend: {
++        java: {
++            enabled: true,
++            platform_apis: true,
++        },
++        cpp: {
++            enabled: false,
++        },
++        ndk: {
++            enabled: false,
++        },
++    },
++}
+diff --git a/services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/ISehFingerprint.aidl b/services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/ISehFingerprint.aidl
+new file mode 100644
+index 000000000000..a92dfdf1d916
+--- /dev/null
++++ b/services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/ISehFingerprint.aidl
+@@ -0,0 +1,7 @@
++package vendor.samsung.hardware.biometrics.fingerprint;
++
++import vendor.samsung.hardware.biometrics.fingerprint.SehResult;
++
++interface ISehFingerprint {
++    SehResult sehRequest(int sensorId, int command, int param, in byte[] data);
++}
+diff --git a/services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/SehResult.aidl b/services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/SehResult.aidl
+new file mode 100644
+index 000000000000..a9fa1b4a5ad5
+--- /dev/null
++++ b/services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/SehResult.aidl
+@@ -0,0 +1,6 @@
++package vendor.samsung.hardware.biometrics.fingerprint;
++
++parcelable SehResult {
++    int retValue;
++    byte[] data;
++}
+-- 
+2.43.0
+
