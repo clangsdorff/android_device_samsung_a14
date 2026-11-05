@@ -58,16 +58,6 @@
             "ResetOnInit": true
         },
         {
-            "Name": "CPUMaxFreq",
-            "Path": "/sys/power/cpufreq_max_limit",
-            "Values": [
-                "2002000",
-                "0"
-            ],
-            "DefaultIndex": 0,
-            "ResetOnInit": true
-        },
-        {
             "Name": "EmsTuneReqMode",
             "Path": "/sys/kernel/ems/emstune/req_mode",
             "Values": [
