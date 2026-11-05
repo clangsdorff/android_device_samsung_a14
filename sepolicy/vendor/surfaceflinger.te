@@ -1,0 +1,1 @@
+dontaudit surfaceflinger unlabeled:filesystem getattr;
