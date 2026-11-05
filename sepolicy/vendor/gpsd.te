@@ -1,5 +1,7 @@
 wakelock_use(gpsd)
 
+get_prop(gpsd, bootanim_system_prop)
+
 allow gpsd sysfs_soc:dir r_dir_perms;
 allow gpsd sysfs_soc:file r_file_perms;
 allow gpsd gpsd_exec:file { rx_file_perms execute_no_trans };

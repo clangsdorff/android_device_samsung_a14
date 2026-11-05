@@ -12,6 +12,17 @@ genfscon sysfs /devices/platform/11500000.mali                    u:object_r:sys
 # MFC
 genfscon sysfs /devices/platform/mfc                              u:object_r:sysfs_mfc:s0
 
+# Power / Devfreq
+genfscon sysfs /kernel/gpu/gpu_max_clock                             u:object_r:sysfs_power_writable:s0
+genfscon sysfs /kernel/mm/vmscan/am_app_launch                       u:object_r:sysfs_power_writable:s0
+genfscon sysfs /kernel/sec_mm/am_app_launch                          u:object_r:sysfs_power_writable:s0
+genfscon sysfs /devices/platform/ems/emstune/req_mode                u:object_r:sysfs_power_writable:s0
+genfscon sysfs /devices/platform/17000010.devfreq_mif                u:object_r:sysfs_power_writable:s0
+genfscon sysfs /devices/platform/17000020.devfreq_int                u:object_r:sysfs_power_writable:s0
+genfscon sysfs /devices/platform/17000030.devfreq_disp               u:object_r:sysfs_power_writable:s0
+genfscon sysfs /devices/platform/17000040.devfreq_cam                u:object_r:sysfs_power_writable:s0
+genfscon sysfs /devices/platform/17000050.devfreq_aud                u:object_r:sysfs_power_writable:s0
+
 # PMIC / Battery
 genfscon sysfs /devices/platform/13830000.i2c                     u:object_r:sysfs_battery:s0
 
