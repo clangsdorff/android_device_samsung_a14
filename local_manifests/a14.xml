@@ -7,6 +7,9 @@
   <remote  name="gitlab-tejas101k"
            fetch="https://gitlab.com/tejas101k" />
 
+  <remote  name="gitlab-mindthegapps"
+           fetch="https://gitlab.com/MindTheGapps" />
+
   <remote  name="lineage-a14"
            fetch="https://github.com/LineageOS"
            revision="lineage-24.0" />
@@ -26,5 +29,8 @@
   <!-- Samsung -->
   <project name="android_device_samsung_slsi_sepolicy" path="device/samsung_slsi/sepolicy" remote="lineage-a14" />
   <project name="android_hardware_samsung" path="hardware/samsung" remote="lineage-a14" />
+
+  <!-- GApps -->
+  <project name="vendor_gapps" path="vendor/gapps" remote="gitlab-mindthegapps" revision="cinnamonbun" clone-depth="1" />
 
 </manifest>
