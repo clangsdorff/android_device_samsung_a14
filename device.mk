@@ -89,6 +89,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb.gadget-service.samsung
 
+# NFC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/libnfc-nci.conf \
+    $(foreach f,android.hardware.nfc.xml android.hardware.nfc.hce.xml android.hardware.nfc.hcef.xml android.hardware.nfc.uicc.xml com.nxp.mifare.xml,\
+        $(LOCAL_PATH)/configs/nfc/$(f):$(TARGET_COPY_OUT_ODM)/etc/permissions/$(f))
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS += *
