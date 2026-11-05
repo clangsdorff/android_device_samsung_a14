@@ -26,6 +26,7 @@
 
 # GNSS
 /(vendor|system/vendor)/bin/hw/gps\.sh                                                              u:object_r:gpsd_exec:s0
+/dev/gnss_ipc                                                                                       u:object_r:gnss_device:s0
 
 # Health
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.health-service                            u:object_r:hal_health_default_exec:s0
