@@ -9,6 +9,9 @@ $(call inherit-product, device/samsung/a14/device.mk)
 # Inherit some common Lineage stuff
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# GApps
+$(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
+
 PRODUCT_NAME := lineage_a14
 PRODUCT_DEVICE := a14
 PRODUCT_MODEL := SM-A145F
