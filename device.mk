@@ -80,6 +80,10 @@ PRODUCT_PACKAGES += \
     vndservice \
     vndservicemanager
 
+# USB
+PRODUCT_PACKAGES += \
+    android.hardware.usb.gadget-service.samsung
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_ENFORCE_RRO_TARGETS += *
