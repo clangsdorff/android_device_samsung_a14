@@ -137,6 +137,11 @@ include device/lineage/sepolicy/exynos/sepolicy.mk
 
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
+# USB gadget
+SOONG_CONFIG_NAMESPACES += samsungUsbGadgetVars
+SOONG_CONFIG_samsungUsbGadgetVars += gadget_name
+SOONG_CONFIG_samsungUsbGadgetVars_gadget_name := 13600000.dwc3
+
 # Verified boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS := --flags 3
