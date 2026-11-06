@@ -71,7 +71,9 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('(?m)wifi-service$', 'wifi-service.samsung'),
     'vendor/etc/init/android.hardware.wifi.supplicant-service.samsung.rc': blob_fixup()
         .regex_replace('hw/wpa_supplicant ', 'hw/wpa_supplicant.samsung ')
-        .regex_replace('(?m)^(\t*)#\\s*(group wifi inet keystore)', r'\1\2'),
+        .regex_replace('(?m)^(\t*)#\\s*user wifi', r'\1user wifi')
+        .regex_replace('(?m)^(\t*)#\\s*group wifi inet keystore', r'\1group wifi inet keystore\n\1capabilities NET_RAW NET_ADMIN')
+        .regex_replace('(?m)^(\t*)user root', r'#\1user root'),
     'vendor/lib/lib_SoundAlive_play_plus_ver400.so': blob_fixup()
         .add_needed('liblog.so'),
 }  # fmt: skip
