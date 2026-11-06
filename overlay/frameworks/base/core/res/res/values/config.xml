@@ -63,4 +63,19 @@
     <string name="config_defaultAttentionService" translatable="false">com.android.attention/.FaceAttentionService</string>
     <!-- role holders are exempt from the camera privacy indicator -->
     <string name="config_systemVisualIntelligence" translatable="false">com.android.attention</string>
+
+    <!-- Default list of files pinned by the Pinner Service -->
+    <string-array translatable="false" name="config_defaultPinnerServiceFiles">
+        <item>"/system/framework/framework.jar"</item>
+        <item>"/system/framework/services.jar"</item>
+        <item>"/apex/com.android.art/javalib/core-oj.jar"</item>
+        <item>"/apex/com.android.art/javalib/core-libart.jar"</item>
+        <item>"/system_ext/priv-app/SystemUI/SystemUI.apk"</item>
+        <item>"/system/bin/surfaceflinger"</item>
+    </string-array>
+
+    <bool name="config_enableAutoPowerModes">true</bool>
+    <bool name="config_setColorTransformAccelerated">true</bool>
+    <bool name="config_useDevInputEventForAudioJack">true</bool>
+    <integer name="config_num_physical_slots">2</integer>
 </resources>
