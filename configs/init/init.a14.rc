@@ -4,6 +4,9 @@
 #
 
 on post-fs-data
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     swapon_all /vendor/etc/fstab.s5e3830
 
 on property:sys.boot_completed=1
