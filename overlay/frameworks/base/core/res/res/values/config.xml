@@ -49,9 +49,9 @@
     <item type="dimen" name="config_letterboxHorizontalPositionMultiplier">0.5</item>
     <item type="dimen" name="config_letterboxVerticalPositionMultiplier">0.5</item>
     <dimen name="status_bar_height_portrait">4.069977mm</dimen>
-    <dimen name="rounded_corner_radius">21dp</dimen>
-    <dimen name="rounded_corner_radius_top">21dp</dimen>
-    <dimen name="rounded_corner_radius_bottom">21dp</dimen>
+    <dimen name="rounded_corner_radius">0dp</dimen>
+    <dimen name="rounded_corner_radius_top">0dp</dimen>
+    <dimen name="rounded_corner_radius_bottom">0dp</dimen>
     <string name="config_mainBuiltInDisplayCutout">M 0,0 H -25.6 V 22.75555555555556 H 25.6 V 0 H 0 Z @dp</string>
     <bool name="config_supportAudioSourceUnprocessed">false</bool>
     <bool name="config_showNavigationBar">true</bool>

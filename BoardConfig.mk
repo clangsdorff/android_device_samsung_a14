@@ -146,6 +146,7 @@ include device/samsung_slsi/sepolicy/sepolicy.mk
 include device/lineage/sepolicy/exynos/sepolicy.mk
 
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
 
 # Verified boot
 BOARD_AVB_ENABLE := true

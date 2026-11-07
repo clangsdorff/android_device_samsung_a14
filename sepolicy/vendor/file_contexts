@@ -11,6 +11,9 @@
 # Camera
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.camera\.provider-service_64               u:object_r:hal_camera_default_exec:s0
 
+# Block
+/dev/block/zram0                                                                                    u:object_r:swap_block_device:s0
+
 # DRM
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.security\.widevine\.keyprov-service       u:object_r:hal_wvkprov_default_exec:s0
 /data/vendor/mediadrm(/.*)?                                                                         u:object_r:mediadrm_vendor_data_file:s0

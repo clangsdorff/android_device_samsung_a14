@@ -1,7 +1,10 @@
 typeattribute hal_power_default mlstrustedsubject;
 
 allow hal_power_default sysfs_devices_system_cpu:file rw_file_perms;
+allow hal_power_default sysfs_power_writable:dir r_dir_perms;
 allow hal_power_default sysfs_power_writable:file rw_file_perms;
+allow hal_power_default sysfs_gpu:dir r_dir_perms;
+allow hal_power_default sysfs_gpu:file rw_file_perms;
 allow hal_power_default sysfs_sec_touchscreen:dir search;
 allow hal_power_default sysfs_touchscreen_writable:file rw_file_perms;
 allow hal_power_default cgroup:file r_file_perms;
@@ -31,6 +34,7 @@ allow hal_power_default proc_vendor_sched:dir r_dir_perms;
 allow hal_power_default proc_vendor_sched:file r_file_perms;
 
 # Allow read/write thermal sysfs and property
+hal_client_domain(hal_power_default, hal_thermal)
 allow hal_power_default thermal_link_device:dir r_dir_perms;
 allow hal_power_default sysfs_thermal:dir r_dir_perms;
 allow hal_power_default sysfs_thermal:file rw_file_perms;

@@ -17,3 +17,6 @@ allow hal_sysinput_default sysfs_sec_touchscreen:dir r_dir_perms;
 allow hal_sysinput_default sysfs_sec_touchscreen:file r_file_perms;
 allow hal_sysinput_default sysfs_touchscreen_writable:file rw_file_perms;
 allow hal_sysinput_default mnt_vendor_file:dir search;
+
+allow hal_sysinput_default efs_file:dir search;
+allow hal_sysinput_default input_device:dir r_dir_perms;

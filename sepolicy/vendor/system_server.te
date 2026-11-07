@@ -5,3 +5,6 @@
 
 allow system_server hal_sysinput_service:service_manager find;
 binder_call(system_server, hal_sysinput_default)
+
+allow system_server sysfs_ksm:dir r_dir_perms;
+allow system_server sysfs_ksm:file r_file_perms;

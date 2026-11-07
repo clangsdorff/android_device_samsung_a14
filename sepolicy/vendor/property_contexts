@@ -6,3 +6,7 @@ vendor.wlbtd.                                   u:object_r:vendor_wlbtd_prop:s0
 persist.vendor.sys.camera.                      u:object_r:vendor_camera_prop:s0
 ro.vendor.arm.                                 u:object_r:vendor_graphics_prop:s0
 ro.vendor.gpu.                                 u:object_r:vendor_graphics_prop:s0
+vendor.mali.                                    u:object_r:vendor_graphics_prop:s0
+vendor.hwc.                                     u:object_r:vendor_graphics_prop:s0
+ro.build.PDA                                    u:object_r:vendor_samsung_build_prop:s0
+ro.factory.factory_binary                       u:object_r:vendor_samsung_build_prop:s0
