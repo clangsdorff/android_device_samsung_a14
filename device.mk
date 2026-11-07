@@ -24,6 +24,26 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/media_vendor.mk)
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
+# Dexpreopt
+PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := speed
+
+# Dexopt & JIT
+PRODUCT_PRODUCT_PROPERTIES += \
+    dalvik.vm.usejit=false \
+    dalvik.vm.usejitprofiles=false \
+    dalvik.vm.dex2oat-filter=speed \
+    pm.dexopt.install=speed \
+    pm.dexopt.install-bulk=speed \
+    pm.dexopt.install-fast=speed \
+    pm.dexopt.first-boot=verify \
+    pm.dexopt.boot-after-ota=verify \
+    pm.dexopt.boot-after-mainline-update=verify \
+    pm.dexopt.post-boot=speed \
+    pm.dexopt.bg-dexopt=speed \
+    pm.dexopt.inactive=speed \
+    pm.dexopt.cmdline=speed \
+    pm.dexopt.shared=speed
+
 # Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
