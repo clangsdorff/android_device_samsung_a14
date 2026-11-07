@@ -61,7 +61,7 @@ index 4c19ccf20e..551f6c75a7 100644
 +            status_t transactStatus = extBinder->transact(IBinder::FIRST_CALL_TRANSACTION, data, &reply);
 +            if (transactStatus == OK && reply.readExceptionCode() == 0) {
 +                std::vector<std::string> allDevices;
-+                if (reply.readUtf8StringVector(&allDevices) == OK && !allDevices.empty()) {
++                if (reply.readUtf8VectorFromUtf16Vector(&allDevices) == OK && !allDevices.empty()) {
 +                    retDevices = std::move(allDevices);
 +                }
 +            }
