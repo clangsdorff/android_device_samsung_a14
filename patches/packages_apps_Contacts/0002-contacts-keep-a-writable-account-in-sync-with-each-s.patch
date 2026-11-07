@@ -1,0 +1,2181 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 25 Oct 2026 04:07:40 +0300
+Subject: [PATCH] contacts: keep a writable account in sync with each sim card
+
+sim contacts are only reachable through a one-shot import dialog and
+edits never go back to the card. register a writable sim account per
+subscription so sim entries appear in the contact list and new contacts
+can target the sim, with name fields capped to the adn byte limit.
+
+push local edits and deletions to the card before resyncing cp2, roll
+back writes the sim rejects, store the record number right after
+inserting so interrupted syncs do not duplicate entries, and follow sim
+insertion and removal on carrier config changes.
+---
+ AndroidManifest.xml                           |   2 +
+ res/values-af/strings.xml                     |   5 +
+ res/values-am/strings.xml                     |   5 +
+ res/values-ar/strings.xml                     |   5 +
+ res/values-as/strings.xml                     |   5 +
+ res/values-az/strings.xml                     |   5 +
+ res/values-b+sr+Latn/strings.xml              |   5 +
+ res/values-be/strings.xml                     |   5 +
+ res/values-bg/strings.xml                     |   5 +
+ res/values-bn/strings.xml                     |   5 +
+ res/values-bs/strings.xml                     |   5 +
+ res/values-ca/strings.xml                     |   5 +
+ res/values-cs/strings.xml                     |   5 +
+ res/values-da/strings.xml                     |   5 +
+ res/values-de/strings.xml                     |   5 +
+ res/values-el/strings.xml                     |   5 +
+ res/values-en-rAU/strings.xml                 |   5 +
+ res/values-en-rCA/strings.xml                 |   5 +
+ res/values-en-rGB/strings.xml                 |   5 +
+ res/values-en-rIN/strings.xml                 |   5 +
+ res/values-es-rUS/strings.xml                 |   5 +
+ res/values-es/strings.xml                     |   5 +
+ res/values-et/strings.xml                     |   5 +
+ res/values-eu/strings.xml                     |   5 +
+ res/values-fa/strings.xml                     |   5 +
+ res/values-fi/strings.xml                     |   5 +
+ res/values-fr-rCA/strings.xml                 |   5 +
+ res/values-fr/strings.xml                     |   5 +
+ res/values-gl/strings.xml                     |   5 +
+ res/values-gu/strings.xml                     |   5 +
+ res/values-hi/strings.xml                     |   5 +
+ res/values-hr/strings.xml                     |   5 +
+ res/values-hu/strings.xml                     |   5 +
+ res/values-hy/strings.xml                     |   5 +
+ res/values-in/strings.xml                     |   5 +
+ res/values-is/strings.xml                     |   5 +
+ res/values-it/strings.xml                     |   5 +
+ res/values-iw/strings.xml                     |   5 +
+ res/values-ja/strings.xml                     |   5 +
+ res/values-ka/strings.xml                     |   5 +
+ res/values-kk/strings.xml                     |   5 +
+ res/values-km/strings.xml                     |   5 +
+ res/values-kn/strings.xml                     |   5 +
+ res/values-ko/strings.xml                     |   5 +
+ res/values-ky/strings.xml                     |   5 +
+ res/values-lo/strings.xml                     |   5 +
+ res/values-lt/strings.xml                     |   5 +
+ res/values-lv/strings.xml                     |   5 +
+ res/values-mk/strings.xml                     |   5 +
+ res/values-ml/strings.xml                     |   5 +
+ res/values-mn/strings.xml                     |   5 +
+ res/values-mr/strings.xml                     |   5 +
+ res/values-ms/strings.xml                     |   5 +
+ res/values-my/strings.xml                     |   5 +
+ res/values-nb/strings.xml                     |   5 +
+ res/values-ne/strings.xml                     |   5 +
+ res/values-nl/strings.xml                     |   5 +
+ res/values-or/strings.xml                     |   5 +
+ res/values-pa/strings.xml                     |   5 +
+ res/values-pl/strings.xml                     |   5 +
+ res/values-pt-rBR/strings.xml                 |   5 +
+ res/values-pt-rPT/strings.xml                 |   5 +
+ res/values-pt/strings.xml                     |   5 +
+ res/values-ro/strings.xml                     |   5 +
+ res/values-ru/strings.xml                     |   5 +
+ res/values-si/strings.xml                     |   5 +
+ res/values-sk/strings.xml                     |   5 +
+ res/values-sl/strings.xml                     |   5 +
+ res/values-sq/strings.xml                     |   5 +
+ res/values-sr/strings.xml                     |   5 +
+ res/values-sv/strings.xml                     |   5 +
+ res/values-ta/strings.xml                     |   5 +
+ res/values-te/strings.xml                     |   5 +
+ res/values-th/strings.xml                     |   5 +
+ res/values-tl/strings.xml                     |   5 +
+ res/values-tr/strings.xml                     |   1 +
+ res/values-uk/strings.xml                     |   5 +
+ res/values-ur/strings.xml                     |   5 +
+ res/values-uz/strings.xml                     |   5 +
+ res/values-vi/strings.xml                     |   5 +
+ res/values-zh-rCN/strings.xml                 |   5 +
+ res/values-zh-rHK/strings.xml                 |   5 +
+ res/values-zh-rTW/strings.xml                 |   5 +
+ res/values-zu/strings.xml                     |   5 +
+ res/values/strings.xml                        |   3 +
+ .../android/contacts/ContactSaveService.java  |   7 +
+ .../contacts/activities/PeopleActivity.java   |   7 +
+ .../contacts/database/SimContactDaoImpl.java  |  85 +++-
+ .../contacts/database/SimContactSync.java     | 447 ++++++++++++++++++
+ .../contacts/editor/SimNameLengthFilter.java  | 116 +++++
+ .../contacts/editor/TextFieldsEditorView.java |   7 +
+ .../interactions/OnBootOrUpgradeReceiver.java |  15 +
+ .../model/account/SimAccountType.java         |   2 +-
+ .../quickcontact/QuickContactActivity.java    |  17 +-
+ 94 files changed, 1103 insertions(+), 16 deletions(-)
+ create mode 100644 src/com/android/contacts/database/SimContactSync.java
+ create mode 100644 src/com/android/contacts/editor/SimNameLengthFilter.java
+
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index db16cf1..2d4d161 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -47,6 +47,7 @@
+     <uses-permission android:name="android.permission.VIBRATE"/>
+     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
+     <uses-permission android:name="android.permission.SET_DEFAULT_ACCOUNT_FOR_CONTACTS"/>
++    <uses-permission android:name="android.contacts.permission.MANAGE_SIM_ACCOUNTS"/>
+     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+     <!-- Following used for Contact metadata syncing -->
+     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+@@ -346,6 +347,7 @@
+             <intent-filter>
+                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
++                <action android:name="android.telephony.action.CARRIER_CONFIG_CHANGED" />
+             </intent-filter>
+         </receiver>
+ 
+diff --git a/res/values-af/strings.xml b/res/values-af/strings.xml
+index b4dc881..336fd2f 100644
+--- a/res/values-af/strings.xml
++++ b/res/values-af/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ja"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nee"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Diensverskafferdiensnommers"</string>
++    <string name="menu_copy_to_sim">"Kopieer na SIM"</string>
++    <string name="copy_to_sim_choose">"Kies SIM"</string>
++    <string name="copy_to_sim_done">"Na SIM gekopieer"</string>
++    <string name="copy_to_sim_failed">"Kon nie na SIM kopieer nie"</string>
++    <string name="sim_contact_save_failed">"Kon nie die kontak op die SIM stoor nie"</string>
+ </resources>
+diff --git a/res/values-am/strings.xml b/res/values-am/strings.xml
+index 01a09bd..f9f19df 100644
+--- a/res/values-am/strings.xml
++++ b/res/values-am/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"አዎ"</string>
+     <string name="no_button" msgid="8965841385742548947">"አይ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"የአገልግሎት አቅራቢ አገልግሎት ቁጥሮች"</string>
++    <string name="menu_copy_to_sim">"ወደ ሲም ቅዳ"</string>
++    <string name="copy_to_sim_choose">"ሲም ይምረጡ"</string>
++    <string name="copy_to_sim_done">"ወደ ሲም ተቀድቷል"</string>
++    <string name="copy_to_sim_failed">"ወደ ሲም መቅዳት አልተቻለም"</string>
++    <string name="sim_contact_save_failed">"እውቂያውን ወደ ሲም ማስቀመጥ አልተቻለም"</string>
+ </resources>
+diff --git a/res/values-ar/strings.xml b/res/values-ar/strings.xml
+index c712ec4..e19ea24 100644
+--- a/res/values-ar/strings.xml
++++ b/res/values-ar/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"نعم"</string>
+     <string name="no_button" msgid="8965841385742548947">"لا"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"أرقام خدمات مشغّلي شبكة الجوّال"</string>
++    <string name="menu_copy_to_sim">"نسخ إلى شريحة SIM"</string>
++    <string name="copy_to_sim_choose">"اختيار شريحة SIM"</string>
++    <string name="copy_to_sim_done">"تم النسخ إلى شريحة SIM"</string>
++    <string name="copy_to_sim_failed">"تعذّر النسخ إلى شريحة SIM"</string>
++    <string name="sim_contact_save_failed">"تعذّر حفظ جهة الاتصال في شريحة SIM"</string>
+ </resources>
+diff --git a/res/values-as/strings.xml b/res/values-as/strings.xml
+index 3256089..1ba7775 100644
+--- a/res/values-as/strings.xml
++++ b/res/values-as/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"হয়"</string>
+     <string name="no_button" msgid="8965841385742548947">"নহয়"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"বাহকৰ সেৱাৰ নম্বৰ"</string>
++    <string name="menu_copy_to_sim">"ছিমলৈ প্ৰতিলিপি কৰক"</string>
++    <string name="copy_to_sim_choose">"ছিম বাছনি কৰক"</string>
++    <string name="copy_to_sim_done">"ছিমলৈ প্ৰতিলিপি কৰা হ’ল"</string>
++    <string name="copy_to_sim_failed">"ছিমলৈ প্ৰতিলিপি কৰিব পৰা নগ’ল"</string>
++    <string name="sim_contact_save_failed">"সম্পৰ্কটো ছিমত ছেভ কৰিব পৰা নগ’ল"</string>
+ </resources>
+diff --git a/res/values-az/strings.xml b/res/values-az/strings.xml
+index 3f207cf..b2a0808 100644
+--- a/res/values-az/strings.xml
++++ b/res/values-az/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Hə"</string>
+     <string name="no_button" msgid="8965841385742548947">"Yox"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operatorun xidmət nömrələri"</string>
++    <string name="menu_copy_to_sim">"SIM-ə kopyalayın"</string>
++    <string name="copy_to_sim_choose">"SIM seçin"</string>
++    <string name="copy_to_sim_done">"SIM-ə kopyalandı"</string>
++    <string name="copy_to_sim_failed">"SIM-ə kopyalamaq mümkün olmadı"</string>
++    <string name="sim_contact_save_failed">"Kontaktı SIM-də yadda saxlamaq mümkün olmadı"</string>
+ </resources>
+diff --git a/res/values-b+sr+Latn/strings.xml b/res/values-b+sr+Latn/strings.xml
+index 826f7ec..897b62e 100644
+--- a/res/values-b+sr+Latn/strings.xml
++++ b/res/values-b+sr+Latn/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Da"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ne"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Uslužni brojevi mobilnog operatera"</string>
++    <string name="menu_copy_to_sim">"Kopiraj na SIM"</string>
++    <string name="copy_to_sim_choose">"Izaberite SIM"</string>
++    <string name="copy_to_sim_done">"Kopirano na SIM"</string>
++    <string name="copy_to_sim_failed">"Kopiranje na SIM nije uspelo"</string>
++    <string name="sim_contact_save_failed">"Čuvanje kontakta na SIM-u nije uspelo"</string>
+ </resources>
+diff --git a/res/values-be/strings.xml b/res/values-be/strings.xml
+index a49f668..b4ba8e5 100644
+--- a/res/values-be/strings.xml
++++ b/res/values-be/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Так"</string>
+     <string name="no_button" msgid="8965841385742548947">"Не"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Сэрвісныя нумары аператара"</string>
++    <string name="menu_copy_to_sim">"Скапіраваць на SIM-карту"</string>
++    <string name="copy_to_sim_choose">"Выберыце SIM-карту"</string>
++    <string name="copy_to_sim_done">"Скапіравана на SIM-карту"</string>
++    <string name="copy_to_sim_failed">"Не ўдалося скапіраваць на SIM-карту"</string>
++    <string name="sim_contact_save_failed">"Не ўдалося захаваць кантакт на SIM-карце"</string>
+ </resources>
+diff --git a/res/values-bg/strings.xml b/res/values-bg/strings.xml
+index 4eaa6ca..598d5db 100644
+--- a/res/values-bg/strings.xml
++++ b/res/values-bg/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Да"</string>
+     <string name="no_button" msgid="8965841385742548947">"Не"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Номера за обслужване от оператора"</string>
++    <string name="menu_copy_to_sim">"Копиране в SIM картата"</string>
++    <string name="copy_to_sim_choose">"Изберете SIM карта"</string>
++    <string name="copy_to_sim_done">"Копирано в SIM картата"</string>
++    <string name="copy_to_sim_failed">"Копирането в SIM картата не бе успешно"</string>
++    <string name="sim_contact_save_failed">"Контактът не можа да бъде запазен в SIM картата"</string>
+ </resources>
+diff --git a/res/values-bn/strings.xml b/res/values-bn/strings.xml
+index 625aef5..61a7dd9 100644
+--- a/res/values-bn/strings.xml
++++ b/res/values-bn/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"হ্যাঁ"</string>
+     <string name="no_button" msgid="8965841385742548947">"না"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"পরিষেবা প্রদানকারীর অপারেটরের নম্বর"</string>
++    <string name="menu_copy_to_sim">"সিমে কপি করুন"</string>
++    <string name="copy_to_sim_choose">"সিম বেছে নিন"</string>
++    <string name="copy_to_sim_done">"সিমে কপি করা হয়েছে"</string>
++    <string name="copy_to_sim_failed">"সিমে কপি করা যায়নি"</string>
++    <string name="sim_contact_save_failed">"পরিচিতি সিমে সেভ করা যায়নি"</string>
+ </resources>
+diff --git a/res/values-bs/strings.xml b/res/values-bs/strings.xml
+index a145823..c598317 100644
+--- a/res/values-bs/strings.xml
++++ b/res/values-bs/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Da"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ne"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Uslužni brojevi mobilnog operatera"</string>
++    <string name="menu_copy_to_sim">"Kopiraj na SIM"</string>
++    <string name="copy_to_sim_choose">"Odaberite SIM"</string>
++    <string name="copy_to_sim_done">"Kopirano na SIM"</string>
++    <string name="copy_to_sim_failed">"Kopiranje na SIM nije uspjelo"</string>
++    <string name="sim_contact_save_failed">"Spremanje kontakta na SIM nije uspjelo"</string>
+ </resources>
+diff --git a/res/values-ca/strings.xml b/res/values-ca/strings.xml
+index 47ed7af..856dd4f 100644
+--- a/res/values-ca/strings.xml
++++ b/res/values-ca/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Sí"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Números de servei de l\'operador"</string>
++    <string name="menu_copy_to_sim">"Copia a la SIM"</string>
++    <string name="copy_to_sim_choose">"Tria una SIM"</string>
++    <string name="copy_to_sim_done">"S\'ha copiat a la SIM"</string>
++    <string name="copy_to_sim_failed">"No s\'ha pogut copiar a la SIM"</string>
++    <string name="sim_contact_save_failed">"No s\'ha pogut desar el contacte a la SIM"</string>
+ </resources>
+diff --git a/res/values-cs/strings.xml b/res/values-cs/strings.xml
+index d80a877..e5d9154 100644
+--- a/res/values-cs/strings.xml
++++ b/res/values-cs/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ano"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ne"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Čísla služeb operátorů"</string>
++    <string name="menu_copy_to_sim">"Kopírovat na SIM kartu"</string>
++    <string name="copy_to_sim_choose">"Vyberte SIM kartu"</string>
++    <string name="copy_to_sim_done">"Zkopírováno na SIM kartu"</string>
++    <string name="copy_to_sim_failed">"Na SIM kartu nelze kopírovat"</string>
++    <string name="sim_contact_save_failed">"Kontakt se nepodařilo uložit na SIM kartu"</string>
+ </resources>
+diff --git a/res/values-da/strings.xml b/res/values-da/strings.xml
+index 90d568c..31b2a60 100644
+--- a/res/values-da/strings.xml
++++ b/res/values-da/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ja"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nej"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Mobilselskabs servicenumre"</string>
++    <string name="menu_copy_to_sim">"Kopiér til SIM-kort"</string>
++    <string name="copy_to_sim_choose">"Vælg SIM-kort"</string>
++    <string name="copy_to_sim_done">"Kopieret til SIM-kort"</string>
++    <string name="copy_to_sim_failed">"Der kunne ikke kopieres til SIM-kortet"</string>
++    <string name="sim_contact_save_failed">"Kontakten kunne ikke gemmes på SIM-kortet"</string>
+ </resources>
+diff --git a/res/values-de/strings.xml b/res/values-de/strings.xml
+index 5e74ab5..70fa484 100644
+--- a/res/values-de/strings.xml
++++ b/res/values-de/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ja"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nein"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Servicenummern des Mobilfunkanbieters"</string>
++    <string name="menu_copy_to_sim">"Auf SIM kopieren"</string>
++    <string name="copy_to_sim_choose">"SIM auswählen"</string>
++    <string name="copy_to_sim_done">"Auf SIM kopiert"</string>
++    <string name="copy_to_sim_failed">"Kopieren auf SIM fehlgeschlagen"</string>
++    <string name="sim_contact_save_failed">"Kontakt konnte nicht auf der SIM gespeichert werden"</string>
+ </resources>
+diff --git a/res/values-el/strings.xml b/res/values-el/strings.xml
+index b79a940..62f11d4 100644
+--- a/res/values-el/strings.xml
++++ b/res/values-el/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ναι"</string>
+     <string name="no_button" msgid="8965841385742548947">"Όχι"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Αριθμοί εταιρείας κινητής τηλεφωνίας"</string>
++    <string name="menu_copy_to_sim">"Αντιγραφή στη SIM"</string>
++    <string name="copy_to_sim_choose">"Επιλογή SIM"</string>
++    <string name="copy_to_sim_done">"Αντιγράφηκε στη SIM"</string>
++    <string name="copy_to_sim_failed">"Δεν ήταν δυνατή η αντιγραφή στη SIM"</string>
++    <string name="sim_contact_save_failed">"Δεν ήταν δυνατή η αποθήκευση της επαφής στη SIM"</string>
+ </resources>
+diff --git a/res/values-en-rAU/strings.xml b/res/values-en-rAU/strings.xml
+index e4d3500..ff723c0 100644
+--- a/res/values-en-rAU/strings.xml
++++ b/res/values-en-rAU/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Yes"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operator service numbers"</string>
++    <string name="menu_copy_to_sim">"Copy to SIM"</string>
++    <string name="copy_to_sim_choose">"Choose SIM"</string>
++    <string name="copy_to_sim_done">"Copied to SIM"</string>
++    <string name="copy_to_sim_failed">"Couldn\'t copy to SIM"</string>
++    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
+ </resources>
+diff --git a/res/values-en-rCA/strings.xml b/res/values-en-rCA/strings.xml
+index ff4bb7b..df8d1aa 100644
+--- a/res/values-en-rCA/strings.xml
++++ b/res/values-en-rCA/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Yes"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Carrier service numbers"</string>
++    <string name="menu_copy_to_sim">"Copy to SIM"</string>
++    <string name="copy_to_sim_choose">"Choose SIM"</string>
++    <string name="copy_to_sim_done">"Copied to SIM"</string>
++    <string name="copy_to_sim_failed">"Couldn\'t copy to SIM"</string>
++    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
+ </resources>
+diff --git a/res/values-en-rGB/strings.xml b/res/values-en-rGB/strings.xml
+index e4d3500..ff723c0 100644
+--- a/res/values-en-rGB/strings.xml
++++ b/res/values-en-rGB/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Yes"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operator service numbers"</string>
++    <string name="menu_copy_to_sim">"Copy to SIM"</string>
++    <string name="copy_to_sim_choose">"Choose SIM"</string>
++    <string name="copy_to_sim_done">"Copied to SIM"</string>
++    <string name="copy_to_sim_failed">"Couldn\'t copy to SIM"</string>
++    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
+ </resources>
+diff --git a/res/values-en-rIN/strings.xml b/res/values-en-rIN/strings.xml
+index e4d3500..ff723c0 100644
+--- a/res/values-en-rIN/strings.xml
++++ b/res/values-en-rIN/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Yes"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operator service numbers"</string>
++    <string name="menu_copy_to_sim">"Copy to SIM"</string>
++    <string name="copy_to_sim_choose">"Choose SIM"</string>
++    <string name="copy_to_sim_done">"Copied to SIM"</string>
++    <string name="copy_to_sim_failed">"Couldn\'t copy to SIM"</string>
++    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
+ </resources>
+diff --git a/res/values-es-rUS/strings.xml b/res/values-es-rUS/strings.xml
+index eb4d4ce..40b816b 100644
+--- a/res/values-es-rUS/strings.xml
++++ b/res/values-es-rUS/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Sí"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Números de servicio del operador"</string>
++    <string name="menu_copy_to_sim">"Copiar a la SIM"</string>
++    <string name="copy_to_sim_choose">"Elegir SIM"</string>
++    <string name="copy_to_sim_done">"Se copió a la SIM"</string>
++    <string name="copy_to_sim_failed">"No se pudo copiar a la SIM"</string>
++    <string name="sim_contact_save_failed">"No se pudo guardar el contacto en la SIM"</string>
+ </resources>
+diff --git a/res/values-es/strings.xml b/res/values-es/strings.xml
+index 727b4d8..251289c 100644
+--- a/res/values-es/strings.xml
++++ b/res/values-es/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Sí"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Números de servicios del operador"</string>
++    <string name="menu_copy_to_sim">"Copiar en la SIM"</string>
++    <string name="copy_to_sim_choose">"Elegir SIM"</string>
++    <string name="copy_to_sim_done">"Copiado en la SIM"</string>
++    <string name="copy_to_sim_failed">"No se ha podido copiar en la SIM"</string>
++    <string name="sim_contact_save_failed">"No se ha podido guardar el contacto en la SIM"</string>
+ </resources>
+diff --git a/res/values-et/strings.xml b/res/values-et/strings.xml
+index e49a0fb..d79398e 100644
+--- a/res/values-et/strings.xml
++++ b/res/values-et/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Jah"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ei"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operaatori klienditeeninduse numbrid"</string>
++    <string name="menu_copy_to_sim">"Kopeeri SIM-kaardile"</string>
++    <string name="copy_to_sim_choose">"Valige SIM-kaart"</string>
++    <string name="copy_to_sim_done">"Kopeeriti SIM-kaardile"</string>
++    <string name="copy_to_sim_failed">"SIM-kaardile ei saanud kopeerida"</string>
++    <string name="sim_contact_save_failed">"Kontakti ei saanud SIM-kaardile salvestada"</string>
+ </resources>
+diff --git a/res/values-eu/strings.xml b/res/values-eu/strings.xml
+index e0861cd..d14863a 100644
+--- a/res/values-eu/strings.xml
++++ b/res/values-eu/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Bai"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ez"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operadorearen zerbitzu-zenbakiak"</string>
++    <string name="menu_copy_to_sim">"Kopiatu SIM txartelean"</string>
++    <string name="copy_to_sim_choose">"Aukeratu SIM txartela"</string>
++    <string name="copy_to_sim_done">"SIM txartelean kopiatu da"</string>
++    <string name="copy_to_sim_failed">"Ezin izan da kopiatu SIM txartelean"</string>
++    <string name="sim_contact_save_failed">"Ezin izan da gorde kontaktua SIM txartelean"</string>
+ </resources>
+diff --git a/res/values-fa/strings.xml b/res/values-fa/strings.xml
+index 963a9fb..c57595b 100644
+--- a/res/values-fa/strings.xml
++++ b/res/values-fa/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"بله"</string>
+     <string name="no_button" msgid="8965841385742548947">"نه"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"شماره‌های سرویس شرکت مخابراتی"</string>
++    <string name="menu_copy_to_sim">"کپی در سیم‌کارت"</string>
++    <string name="copy_to_sim_choose">"انتخاب سیم‌کارت"</string>
++    <string name="copy_to_sim_done">"در سیم‌کارت کپی شد"</string>
++    <string name="copy_to_sim_failed">"کپی در سیم‌کارت ممکن نبود"</string>
++    <string name="sim_contact_save_failed">"ذخیره مخاطب در سیم‌کارت ممکن نبود"</string>
+ </resources>
+diff --git a/res/values-fi/strings.xml b/res/values-fi/strings.xml
+index 4eaccf0..308526a 100644
+--- a/res/values-fi/strings.xml
++++ b/res/values-fi/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Kyllä"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ei"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operaattorin palvelunumerot"</string>
++    <string name="menu_copy_to_sim">"Kopioi SIM-kortille"</string>
++    <string name="copy_to_sim_choose">"Valitse SIM-kortti"</string>
++    <string name="copy_to_sim_done">"Kopioitu SIM-kortille"</string>
++    <string name="copy_to_sim_failed">"SIM-kortille kopioiminen epäonnistui"</string>
++    <string name="sim_contact_save_failed">"Yhteystiedon tallentaminen SIM-kortille epäonnistui"</string>
+ </resources>
+diff --git a/res/values-fr-rCA/strings.xml b/res/values-fr-rCA/strings.xml
+index ad32458..86967bc 100644
+--- a/res/values-fr-rCA/strings.xml
++++ b/res/values-fr-rCA/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Oui"</string>
+     <string name="no_button" msgid="8965841385742548947">"Non"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Numéros de service du fournisseur"</string>
++    <string name="menu_copy_to_sim">"Copier sur la carte SIM"</string>
++    <string name="copy_to_sim_choose">"Choisir une carte SIM"</string>
++    <string name="copy_to_sim_done">"Copié sur la carte SIM"</string>
++    <string name="copy_to_sim_failed">"Impossible de copier sur la carte SIM"</string>
++    <string name="sim_contact_save_failed">"Impossible d\'enregistrer le contact sur la carte SIM"</string>
+ </resources>
+diff --git a/res/values-fr/strings.xml b/res/values-fr/strings.xml
+index c2444e0..94d8a14 100644
+--- a/res/values-fr/strings.xml
++++ b/res/values-fr/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Oui"</string>
+     <string name="no_button" msgid="8965841385742548947">"Non"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Numéros de service de l\'opérateur"</string>
++    <string name="menu_copy_to_sim">"Copier sur la SIM"</string>
++    <string name="copy_to_sim_choose">"Choisir une SIM"</string>
++    <string name="copy_to_sim_done">"Copié sur la SIM"</string>
++    <string name="copy_to_sim_failed">"Impossible de copier sur la SIM"</string>
++    <string name="sim_contact_save_failed">"Impossible d\'enregistrer le contact sur la SIM"</string>
+ </resources>
+diff --git a/res/values-gl/strings.xml b/res/values-gl/strings.xml
+index 4771864..f3f7759 100644
+--- a/res/values-gl/strings.xml
++++ b/res/values-gl/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Si"</string>
+     <string name="no_button" msgid="8965841385742548947">"Non"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Números de servizo do operador"</string>
++    <string name="menu_copy_to_sim">"Copiar na SIM"</string>
++    <string name="copy_to_sim_choose">"Escoller SIM"</string>
++    <string name="copy_to_sim_done">"Copiouse na SIM"</string>
++    <string name="copy_to_sim_failed">"Non se puido copiar na SIM"</string>
++    <string name="sim_contact_save_failed">"Non se puido gardar o contacto na SIM"</string>
+ </resources>
+diff --git a/res/values-gu/strings.xml b/res/values-gu/strings.xml
+index d2c58cd..03ae4da 100644
+--- a/res/values-gu/strings.xml
++++ b/res/values-gu/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"હા"</string>
+     <string name="no_button" msgid="8965841385742548947">"ના"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"મોબાઇલ ઑપરેટરના ફોન નંબર"</string>
++    <string name="menu_copy_to_sim">"સિમ પર કૉપિ કરો"</string>
++    <string name="copy_to_sim_choose">"સિમ પસંદ કરો"</string>
++    <string name="copy_to_sim_done">"સિમ પર કૉપિ કર્યું"</string>
++    <string name="copy_to_sim_failed">"સિમ પર કૉપિ કરી શક્યાં નથી"</string>
++    <string name="sim_contact_save_failed">"સંપર્કને સિમ પર સાચવી શક્યાં નથી"</string>
+ </resources>
+diff --git a/res/values-hi/strings.xml b/res/values-hi/strings.xml
+index f59d617..1710eed 100644
+--- a/res/values-hi/strings.xml
++++ b/res/values-hi/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"हां"</string>
+     <string name="no_button" msgid="8965841385742548947">"नहीं"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"मोबाइल और इंटरनेट सेवा वाली कंपनी के नंबर"</string>
++    <string name="menu_copy_to_sim">"सिम पर कॉपी करें"</string>
++    <string name="copy_to_sim_choose">"सिम चुनें"</string>
++    <string name="copy_to_sim_done">"सिम पर कॉपी किया गया"</string>
++    <string name="copy_to_sim_failed">"सिम पर कॉपी नहीं किया जा सका"</string>
++    <string name="sim_contact_save_failed">"संपर्क को सिम पर सेव नहीं किया जा सका"</string>
+ </resources>
+diff --git a/res/values-hr/strings.xml b/res/values-hr/strings.xml
+index 2244437..ecda261 100644
+--- a/res/values-hr/strings.xml
++++ b/res/values-hr/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Da"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ne"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Servisni brojevi operatera"</string>
++    <string name="menu_copy_to_sim">"Kopiraj na SIM"</string>
++    <string name="copy_to_sim_choose">"Odaberite SIM"</string>
++    <string name="copy_to_sim_done">"Kopirano na SIM"</string>
++    <string name="copy_to_sim_failed">"Kopiranje na SIM nije uspjelo"</string>
++    <string name="sim_contact_save_failed">"Spremanje kontakta na SIM nije uspjelo"</string>
+ </resources>
+diff --git a/res/values-hu/strings.xml b/res/values-hu/strings.xml
+index 229a390..1e85bdf 100644
+--- a/res/values-hu/strings.xml
++++ b/res/values-hu/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Igen"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nem"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Szolgáltatói számok"</string>
++    <string name="menu_copy_to_sim">"Másolás SIM-kártyára"</string>
++    <string name="copy_to_sim_choose">"SIM-kártya kiválasztása"</string>
++    <string name="copy_to_sim_done">"SIM-kártyára másolva"</string>
++    <string name="copy_to_sim_failed">"Nem sikerült a SIM-kártyára másolni"</string>
++    <string name="sim_contact_save_failed">"Nem sikerült menteni a névjegyet a SIM-kártyára"</string>
+ </resources>
+diff --git a/res/values-hy/strings.xml b/res/values-hy/strings.xml
+index 4089d4d..3988138 100644
+--- a/res/values-hy/strings.xml
++++ b/res/values-hy/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Այո"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ոչ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Օպերատորի ծառայության հեռախոսահամարներ"</string>
++    <string name="menu_copy_to_sim">"Պատճենել SIM քարտում"</string>
++    <string name="copy_to_sim_choose">"Ընտրեք SIM քարտը"</string>
++    <string name="copy_to_sim_done">"Պատճենվեց SIM քարտում"</string>
++    <string name="copy_to_sim_failed">"Չհաջողվեց պատճենել SIM քարտում"</string>
++    <string name="sim_contact_save_failed">"Չհաջողվեց պահել կոնտակտը SIM քարտում"</string>
+ </resources>
+diff --git a/res/values-in/strings.xml b/res/values-in/strings.xml
+index 6f2495b..ff190f8 100644
+--- a/res/values-in/strings.xml
++++ b/res/values-in/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ya"</string>
+     <string name="no_button" msgid="8965841385742548947">"Tidak"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Nomor layanan operator"</string>
++    <string name="menu_copy_to_sim">"Salin ke SIM"</string>
++    <string name="copy_to_sim_choose">"Pilih SIM"</string>
++    <string name="copy_to_sim_done">"Disalin ke SIM"</string>
++    <string name="copy_to_sim_failed">"Tidak dapat menyalin ke SIM"</string>
++    <string name="sim_contact_save_failed">"Tidak dapat menyimpan kontak ke SIM"</string>
+ </resources>
+diff --git a/res/values-is/strings.xml b/res/values-is/strings.xml
+index aa9809d..a2bc955 100644
+--- a/res/values-is/strings.xml
++++ b/res/values-is/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Já"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nei"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Þjónustunúmer símafyrirtækis"</string>
++    <string name="menu_copy_to_sim">"Afrita á SIM-kort"</string>
++    <string name="copy_to_sim_choose">"Veldu SIM-kort"</string>
++    <string name="copy_to_sim_done">"Afritað á SIM-kort"</string>
++    <string name="copy_to_sim_failed">"Ekki tókst að afrita á SIM-kort"</string>
++    <string name="sim_contact_save_failed">"Ekki tókst að vista tengiliðinn á SIM-kortinu"</string>
+ </resources>
+diff --git a/res/values-it/strings.xml b/res/values-it/strings.xml
+index a17a424..f03c851 100644
+--- a/res/values-it/strings.xml
++++ b/res/values-it/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Sì"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Numeri di servizio degli operatori"</string>
++    <string name="menu_copy_to_sim">"Copia sulla SIM"</string>
++    <string name="copy_to_sim_choose">"Scegli SIM"</string>
++    <string name="copy_to_sim_done">"Copiato sulla SIM"</string>
++    <string name="copy_to_sim_failed">"Impossibile copiare sulla SIM"</string>
++    <string name="sim_contact_save_failed">"Impossibile salvare il contatto sulla SIM"</string>
+ </resources>
+diff --git a/res/values-iw/strings.xml b/res/values-iw/strings.xml
+index 4385857..f70104a 100644
+--- a/res/values-iw/strings.xml
++++ b/res/values-iw/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"כן"</string>
+     <string name="no_button" msgid="8965841385742548947">"לא"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"מספרי השירות של ספק הסלולר"</string>
++    <string name="menu_copy_to_sim">"העתקה ל-SIM"</string>
++    <string name="copy_to_sim_choose">"בחירת SIM"</string>
++    <string name="copy_to_sim_done">"הועתק ל-SIM"</string>
++    <string name="copy_to_sim_failed">"לא ניתן להעתיק ל-SIM"</string>
++    <string name="sim_contact_save_failed">"לא ניתן לשמור את איש הקשר ב-SIM"</string>
+ </resources>
+diff --git a/res/values-ja/strings.xml b/res/values-ja/strings.xml
+index 38889a9..c54d9cc 100644
+--- a/res/values-ja/strings.xml
++++ b/res/values-ja/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"はい"</string>
+     <string name="no_button" msgid="8965841385742548947">"いいえ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"携帯通信会社のサービス番号"</string>
++    <string name="menu_copy_to_sim">"SIM にコピー"</string>
++    <string name="copy_to_sim_choose">"SIM を選択"</string>
++    <string name="copy_to_sim_done">"SIM にコピーしました"</string>
++    <string name="copy_to_sim_failed">"SIM にコピーできませんでした"</string>
++    <string name="sim_contact_save_failed">"連絡先を SIM に保存できませんでした"</string>
+ </resources>
+diff --git a/res/values-ka/strings.xml b/res/values-ka/strings.xml
+index eb6821c..a20eff5 100644
+--- a/res/values-ka/strings.xml
++++ b/res/values-ka/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"დიახ"</string>
+     <string name="no_button" msgid="8965841385742548947">"არა"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"ოპერატორის სერვისის ნომრები"</string>
++    <string name="menu_copy_to_sim">"SIM-ზე კოპირება"</string>
++    <string name="copy_to_sim_choose">"აირჩიეთ SIM"</string>
++    <string name="copy_to_sim_done">"კოპირებულია SIM-ზე"</string>
++    <string name="copy_to_sim_failed">"SIM-ზე კოპირება ვერ მოხერხდა"</string>
++    <string name="sim_contact_save_failed">"კონტაქტის SIM-ზე შენახვა ვერ მოხერხდა"</string>
+ </resources>
+diff --git a/res/values-kk/strings.xml b/res/values-kk/strings.xml
+index 143c198..18336ff 100644
+--- a/res/values-kk/strings.xml
++++ b/res/values-kk/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Иә"</string>
+     <string name="no_button" msgid="8965841385742548947">"Жоқ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Оператордың қызмет көрсету нөмірлері"</string>
++    <string name="menu_copy_to_sim">"SIM картасына көшіру"</string>
++    <string name="copy_to_sim_choose">"SIM картасын таңдаңыз"</string>
++    <string name="copy_to_sim_done">"SIM картасына көшірілді"</string>
++    <string name="copy_to_sim_failed">"SIM картасына көшіру мүмкін болмады"</string>
++    <string name="sim_contact_save_failed">"Контактіні SIM картасына сақтау мүмкін болмады"</string>
+ </resources>
+diff --git a/res/values-km/strings.xml b/res/values-km/strings.xml
+index d7deb2d..e43b346 100644
+--- a/res/values-km/strings.xml
++++ b/res/values-km/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"បាទ/ចាស"</string>
+     <string name="no_button" msgid="8965841385742548947">"ទេ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"លេខ​ក្រុមហ៊ុន​សេវា​ទូរសព្ទ"</string>
++    <string name="menu_copy_to_sim">"ចម្លងទៅស៊ីម"</string>
++    <string name="copy_to_sim_choose">"ជ្រើសរើសស៊ីម"</string>
++    <string name="copy_to_sim_done">"បានចម្លងទៅស៊ីម"</string>
++    <string name="copy_to_sim_failed">"មិនអាចចម្លងទៅស៊ីមបានទេ"</string>
++    <string name="sim_contact_save_failed">"មិនអាចរក្សាទុកទំនាក់ទំនងទៅស៊ីមបានទេ"</string>
+ </resources>
+diff --git a/res/values-kn/strings.xml b/res/values-kn/strings.xml
+index 971948c..69b22f2 100644
+--- a/res/values-kn/strings.xml
++++ b/res/values-kn/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ಹೌದು"</string>
+     <string name="no_button" msgid="8965841385742548947">"ಇಲ್ಲ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"ವಾಹಕ ಸೇವೆಗಳ ಸಂಖ್ಯೆಗಳು"</string>
++    <string name="menu_copy_to_sim">"ಸಿಮ್‌ಗೆ ನಕಲಿಸಿ"</string>
++    <string name="copy_to_sim_choose">"ಸಿಮ್ ಆಯ್ಕೆಮಾಡಿ"</string>
++    <string name="copy_to_sim_done">"ಸಿಮ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ"</string>
++    <string name="copy_to_sim_failed">"ಸಿಮ್‌ಗೆ ನಕಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"</string>
++    <string name="sim_contact_save_failed">"ಸಂಪರ್ಕವನ್ನು ಸಿಮ್‌ಗೆ ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"</string>
+ </resources>
+diff --git a/res/values-ko/strings.xml b/res/values-ko/strings.xml
+index 1a5ac8e..c271d01 100644
+--- a/res/values-ko/strings.xml
++++ b/res/values-ko/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"예"</string>
+     <string name="no_button" msgid="8965841385742548947">"아니요"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"이동통신사 서비스 전화번호"</string>
++    <string name="menu_copy_to_sim">"SIM에 복사"</string>
++    <string name="copy_to_sim_choose">"SIM 선택"</string>
++    <string name="copy_to_sim_done">"SIM에 복사됨"</string>
++    <string name="copy_to_sim_failed">"SIM에 복사할 수 없음"</string>
++    <string name="sim_contact_save_failed">"연락처를 SIM에 저장할 수 없음"</string>
+ </resources>
+diff --git a/res/values-ky/strings.xml b/res/values-ky/strings.xml
+index 9343407..fe6676d 100644
+--- a/res/values-ky/strings.xml
++++ b/res/values-ky/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ооба"</string>
+     <string name="no_button" msgid="8965841385742548947">"Жок"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Оператордун кызмат номерлери"</string>
++    <string name="menu_copy_to_sim">"SIM картага көчүрүү"</string>
++    <string name="copy_to_sim_choose">"SIM картаны тандаңыз"</string>
++    <string name="copy_to_sim_done">"SIM картага көчүрүлдү"</string>
++    <string name="copy_to_sim_failed">"SIM картага көчүрүлгөн жок"</string>
++    <string name="sim_contact_save_failed">"Байланыш SIM картага сакталган жок"</string>
+ </resources>
+diff --git a/res/values-lo/strings.xml b/res/values-lo/strings.xml
+index 9cc1b76..5160550 100644
+--- a/res/values-lo/strings.xml
++++ b/res/values-lo/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ແມ່ນ"</string>
+     <string name="no_button" msgid="8965841385742548947">"ບໍ່"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"ໝາຍເລກບໍລິການຂອງຜູ້ໃຫ້ບໍລິການ"</string>
++    <string name="menu_copy_to_sim">"ສຳເນົາໄປໃສ່ SIM"</string>
++    <string name="copy_to_sim_choose">"ເລືອກ SIM"</string>
++    <string name="copy_to_sim_done">"ສຳເນົາໄປໃສ່ SIM ແລ້ວ"</string>
++    <string name="copy_to_sim_failed">"ບໍ່ສາມາດສຳເນົາໄປໃສ່ SIM ໄດ້"</string>
++    <string name="sim_contact_save_failed">"ບໍ່ສາມາດບັນທຶກລາຍຊື່ຜູ້ຕິດຕໍ່ໄວ້ໃນ SIM ໄດ້"</string>
+ </resources>
+diff --git a/res/values-lt/strings.xml b/res/values-lt/strings.xml
+index ea79f2f..6af7e04 100644
+--- a/res/values-lt/strings.xml
++++ b/res/values-lt/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Taip"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ne"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operatoriaus paslaugų numeriai"</string>
++    <string name="menu_copy_to_sim">"Kopijuoti į SIM kortelę"</string>
++    <string name="copy_to_sim_choose">"Pasirinkite SIM kortelę"</string>
++    <string name="copy_to_sim_done">"Nukopijuota į SIM kortelę"</string>
++    <string name="copy_to_sim_failed">"Nepavyko nukopijuoti į SIM kortelę"</string>
++    <string name="sim_contact_save_failed">"Nepavyko išsaugoti kontakto SIM kortelėje"</string>
+ </resources>
+diff --git a/res/values-lv/strings.xml b/res/values-lv/strings.xml
+index 8b807ef..a09e367 100644
+--- a/res/values-lv/strings.xml
++++ b/res/values-lv/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Jā"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nē"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operatora dienesta tālruņa numuri"</string>
++    <string name="menu_copy_to_sim">"Kopēt SIM kartē"</string>
++    <string name="copy_to_sim_choose">"Izvēlieties SIM karti"</string>
++    <string name="copy_to_sim_done">"Nokopēts SIM kartē"</string>
++    <string name="copy_to_sim_failed">"Nevarēja kopēt SIM kartē"</string>
++    <string name="sim_contact_save_failed">"Nevarēja saglabāt kontaktpersonu SIM kartē"</string>
+ </resources>
+diff --git a/res/values-mk/strings.xml b/res/values-mk/strings.xml
+index 3bf0132..723f928 100644
+--- a/res/values-mk/strings.xml
++++ b/res/values-mk/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Да"</string>
+     <string name="no_button" msgid="8965841385742548947">"Не"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Броеви за услуги на операторот"</string>
++    <string name="menu_copy_to_sim">"Копирај на SIM"</string>
++    <string name="copy_to_sim_choose">"Изберете SIM"</string>
++    <string name="copy_to_sim_done">"Копирано на SIM"</string>
++    <string name="copy_to_sim_failed">"Не може да се копира на SIM"</string>
++    <string name="sim_contact_save_failed">"Контактот не може да се зачува на SIM"</string>
+ </resources>
+diff --git a/res/values-ml/strings.xml b/res/values-ml/strings.xml
+index 371a9f3..ccef263 100644
+--- a/res/values-ml/strings.xml
++++ b/res/values-ml/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"അതെ"</string>
+     <string name="no_button" msgid="8965841385742548947">"ഇല്ല"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Carrier Service നമ്പറുകൾ"</string>
++    <string name="menu_copy_to_sim">"സിമ്മിലേക്ക് പകർത്തുക"</string>
++    <string name="copy_to_sim_choose">"സിം തിരഞ്ഞെടുക്കുക"</string>
++    <string name="copy_to_sim_done">"സിമ്മിലേക്ക് പകർത്തി"</string>
++    <string name="copy_to_sim_failed">"സിമ്മിലേക്ക് പകർത്താനായില്ല"</string>
++    <string name="sim_contact_save_failed">"കോൺടാക്റ്റ് സിമ്മിൽ സംരക്ഷിക്കാനായില്ല"</string>
+ </resources>
+diff --git a/res/values-mn/strings.xml b/res/values-mn/strings.xml
+index eb84601..a701594 100644
+--- a/res/values-mn/strings.xml
++++ b/res/values-mn/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Тийм"</string>
+     <string name="no_button" msgid="8965841385742548947">"Үгүй"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Оператор компанийн үйлчилгээний дугаар"</string>
++    <string name="menu_copy_to_sim">"SIM рүү хуулах"</string>
++    <string name="copy_to_sim_choose">"SIM сонгох"</string>
++    <string name="copy_to_sim_done">"SIM рүү хуулсан"</string>
++    <string name="copy_to_sim_failed">"SIM рүү хуулж чадсангүй"</string>
++    <string name="sim_contact_save_failed">"Харилцагчийг SIM-д хадгалж чадсангүй"</string>
+ </resources>
+diff --git a/res/values-mr/strings.xml b/res/values-mr/strings.xml
+index c3fde66..914081a 100644
+--- a/res/values-mr/strings.xml
++++ b/res/values-mr/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"होय"</string>
+     <string name="no_button" msgid="8965841385742548947">"नाही"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"वाहक सेवा नंबर"</string>
++    <string name="menu_copy_to_sim">"सिमवर कॉपी करा"</string>
++    <string name="copy_to_sim_choose">"सिम निवडा"</string>
++    <string name="copy_to_sim_done">"सिमवर कॉपी केले"</string>
++    <string name="copy_to_sim_failed">"सिमवर कॉपी करता आले नाही"</string>
++    <string name="sim_contact_save_failed">"संपर्क सिमवर सेव्ह करता आला नाही"</string>
+ </resources>
+diff --git a/res/values-ms/strings.xml b/res/values-ms/strings.xml
+index 81d69de..61f1926 100644
+--- a/res/values-ms/strings.xml
++++ b/res/values-ms/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ya"</string>
+     <string name="no_button" msgid="8965841385742548947">"Tidak"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Nombor perkhidmatan operator"</string>
++    <string name="menu_copy_to_sim">"Salin ke SIM"</string>
++    <string name="copy_to_sim_choose">"Pilih SIM"</string>
++    <string name="copy_to_sim_done">"Disalin ke SIM"</string>
++    <string name="copy_to_sim_failed">"Tidak dapat menyalin ke SIM"</string>
++    <string name="sim_contact_save_failed">"Tidak dapat menyimpan kenalan ke SIM"</string>
+ </resources>
+diff --git a/res/values-my/strings.xml b/res/values-my/strings.xml
+index eb84c79..b7e37ce 100644
+--- a/res/values-my/strings.xml
++++ b/res/values-my/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Yes"</string>
+     <string name="no_button" msgid="8965841385742548947">"No"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"မိုဘိုင်းဖုန်းကုမ္ပဏီနံပါတ်များ"</string>
++    <string name="menu_copy_to_sim">"ဆင်းမ်သို့ မိတ္တူကူးရန်"</string>
++    <string name="copy_to_sim_choose">"ဆင်းမ် ရွေးပါ"</string>
++    <string name="copy_to_sim_done">"ဆင်းမ်သို့ မိတ္တူကူးပြီးပါပြီ"</string>
++    <string name="copy_to_sim_failed">"ဆင်းမ်သို့ မိတ္တူကူး၍ မရပါ"</string>
++    <string name="sim_contact_save_failed">"အဆက်အသွယ်ကို ဆင်းမ်တွင် သိမ်း၍ မရပါ"</string>
+ </resources>
+diff --git a/res/values-nb/strings.xml b/res/values-nb/strings.xml
+index 1e6aba8..8e730af 100644
+--- a/res/values-nb/strings.xml
++++ b/res/values-nb/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ja"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nei"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operatørtjenestenumre"</string>
++    <string name="menu_copy_to_sim">"Kopiér til SIM-kort"</string>
++    <string name="copy_to_sim_choose">"Velg SIM-kort"</string>
++    <string name="copy_to_sim_done">"Kopiert til SIM-kort"</string>
++    <string name="copy_to_sim_failed">"Kunne ikke kopiere til SIM-kortet"</string>
++    <string name="sim_contact_save_failed">"Kunne ikke lagre kontakten på SIM-kortet"</string>
+ </resources>
+diff --git a/res/values-ne/strings.xml b/res/values-ne/strings.xml
+index fee0740..4399f95 100644
+--- a/res/values-ne/strings.xml
++++ b/res/values-ne/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"हुन्छ"</string>
+     <string name="no_button" msgid="8965841385742548947">"हुँदैन"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"मोबाइल सेवा प्रदायकका सर्भिस नम्बरहरू"</string>
++    <string name="menu_copy_to_sim">"SIM मा कपी गर्नुहोस्"</string>
++    <string name="copy_to_sim_choose">"SIM छनौट गर्नुहोस्"</string>
++    <string name="copy_to_sim_done">"SIM मा कपी गरियो"</string>
++    <string name="copy_to_sim_failed">"SIM मा कपी गर्न सकिएन"</string>
++    <string name="sim_contact_save_failed">"सम्पर्क SIM मा सेभ गर्न सकिएन"</string>
+ </resources>
+diff --git a/res/values-nl/strings.xml b/res/values-nl/strings.xml
+index a8e0ed8..f70db70 100644
+--- a/res/values-nl/strings.xml
++++ b/res/values-nl/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ja"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nee"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Providerservicenummers"</string>
++    <string name="menu_copy_to_sim">"Kopiëren naar simkaart"</string>
++    <string name="copy_to_sim_choose">"Simkaart kiezen"</string>
++    <string name="copy_to_sim_done">"Gekopieerd naar simkaart"</string>
++    <string name="copy_to_sim_failed">"Kan niet kopiëren naar simkaart"</string>
++    <string name="sim_contact_save_failed">"Kan het contact niet opslaan op de simkaart"</string>
+ </resources>
+diff --git a/res/values-or/strings.xml b/res/values-or/strings.xml
+index 966f83b..df18f13 100644
+--- a/res/values-or/strings.xml
++++ b/res/values-or/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ହଁ"</string>
+     <string name="no_button" msgid="8965841385742548947">"ନାହିଁ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"କ୍ୟାରିଅର୍ ସେବା ନମ୍ବର"</string>
++    <string name="menu_copy_to_sim">"SIMକୁ କପି କରନ୍ତୁ"</string>
++    <string name="copy_to_sim_choose">"SIM ବାଛନ୍ତୁ"</string>
++    <string name="copy_to_sim_done">"SIMକୁ କପି କରାଗଲା"</string>
++    <string name="copy_to_sim_failed">"SIMକୁ କପି କରାଯାଇପାରିଲା ନାହିଁ"</string>
++    <string name="sim_contact_save_failed">"ଯୋଗାଯୋଗକୁ SIMରେ ସେଭ କରାଯାଇପାରିଲା ନାହିଁ"</string>
+ </resources>
+diff --git a/res/values-pa/strings.xml b/res/values-pa/strings.xml
+index 0e74029..8620006 100644
+--- a/res/values-pa/strings.xml
++++ b/res/values-pa/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ਹਾਂ"</string>
+     <string name="no_button" msgid="8965841385742548947">"ਨਹੀਂ"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"ਕੈਰੀਅਰ ਸੇਵਾ ਨੰਬਰ"</string>
++    <string name="menu_copy_to_sim">"ਸਿਮ \'ਤੇ ਕਾਪੀ ਕਰੋ"</string>
++    <string name="copy_to_sim_choose">"ਸਿਮ ਚੁਣੋ"</string>
++    <string name="copy_to_sim_done">"ਸਿਮ \'ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ"</string>
++    <string name="copy_to_sim_failed">"ਸਿਮ \'ਤੇ ਕਾਪੀ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"</string>
++    <string name="sim_contact_save_failed">"ਸੰਪਰਕ ਨੂੰ ਸਿਮ \'ਤੇ ਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"</string>
+ </resources>
+diff --git a/res/values-pl/strings.xml b/res/values-pl/strings.xml
+index ca4b3ef..08906f2 100644
+--- a/res/values-pl/strings.xml
++++ b/res/values-pl/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Tak"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nie"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Numery obsługi klienta u operatora"</string>
++    <string name="menu_copy_to_sim">"Kopiuj na kartę SIM"</string>
++    <string name="copy_to_sim_choose">"Wybierz kartę SIM"</string>
++    <string name="copy_to_sim_done">"Skopiowano na kartę SIM"</string>
++    <string name="copy_to_sim_failed">"Nie udało się skopiować na kartę SIM"</string>
++    <string name="sim_contact_save_failed">"Nie udało się zapisać kontaktu na karcie SIM"</string>
+ </resources>
+diff --git a/res/values-pt-rBR/strings.xml b/res/values-pt-rBR/strings.xml
+index f63a988..20bd4fb 100644
+--- a/res/values-pt-rBR/strings.xml
++++ b/res/values-pt-rBR/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Sim"</string>
+     <string name="no_button" msgid="8965841385742548947">"Não"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Números de serviço da operadora"</string>
++    <string name="menu_copy_to_sim">"Copiar para o chip"</string>
++    <string name="copy_to_sim_choose">"Escolher chip"</string>
++    <string name="copy_to_sim_done">"Copiado para o chip"</string>
++    <string name="copy_to_sim_failed">"Não foi possível copiar para o chip"</string>
++    <string name="sim_contact_save_failed">"Não foi possível salvar o contato no chip"</string>
+ </resources>
+diff --git a/res/values-pt-rPT/strings.xml b/res/values-pt-rPT/strings.xml
+index b966bc9..79f1b15 100644
+--- a/res/values-pt-rPT/strings.xml
++++ b/res/values-pt-rPT/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Sim"</string>
+     <string name="no_button" msgid="8965841385742548947">"Não"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Números de serviço do operador"</string>
++    <string name="menu_copy_to_sim">"Copiar para o SIM"</string>
++    <string name="copy_to_sim_choose">"Escolher SIM"</string>
++    <string name="copy_to_sim_done">"Copiado para o SIM"</string>
++    <string name="copy_to_sim_failed">"Não foi possível copiar para o SIM"</string>
++    <string name="sim_contact_save_failed">"Não foi possível guardar o contacto no SIM"</string>
+ </resources>
+diff --git a/res/values-pt/strings.xml b/res/values-pt/strings.xml
+index f63a988..20bd4fb 100644
+--- a/res/values-pt/strings.xml
++++ b/res/values-pt/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Sim"</string>
+     <string name="no_button" msgid="8965841385742548947">"Não"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Números de serviço da operadora"</string>
++    <string name="menu_copy_to_sim">"Copiar para o chip"</string>
++    <string name="copy_to_sim_choose">"Escolher chip"</string>
++    <string name="copy_to_sim_done">"Copiado para o chip"</string>
++    <string name="copy_to_sim_failed">"Não foi possível copiar para o chip"</string>
++    <string name="sim_contact_save_failed">"Não foi possível salvar o contato no chip"</string>
+ </resources>
+diff --git a/res/values-ro/strings.xml b/res/values-ro/strings.xml
+index e66a87f..fc6ffa1 100644
+--- a/res/values-ro/strings.xml
++++ b/res/values-ro/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Da"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nu"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Numere pentru servicii ale operatorului"</string>
++    <string name="menu_copy_to_sim">"Copiază pe SIM"</string>
++    <string name="copy_to_sim_choose">"Alege cardul SIM"</string>
++    <string name="copy_to_sim_done">"S-a copiat pe SIM"</string>
++    <string name="copy_to_sim_failed">"Nu s-a putut copia pe SIM"</string>
++    <string name="sim_contact_save_failed">"Persoana de contact nu a putut fi salvată pe SIM"</string>
+ </resources>
+diff --git a/res/values-ru/strings.xml b/res/values-ru/strings.xml
+index aedcf6e..311576f 100644
+--- a/res/values-ru/strings.xml
++++ b/res/values-ru/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Да"</string>
+     <string name="no_button" msgid="8965841385742548947">"Нет"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Сервисные номера оператора"</string>
++    <string name="menu_copy_to_sim">"Копировать на SIM-карту"</string>
++    <string name="copy_to_sim_choose">"Выберите SIM-карту"</string>
++    <string name="copy_to_sim_done">"Скопировано на SIM-карту"</string>
++    <string name="copy_to_sim_failed">"Не удалось скопировать на SIM-карту"</string>
++    <string name="sim_contact_save_failed">"Не удалось сохранить контакт на SIM-карте"</string>
+ </resources>
+diff --git a/res/values-si/strings.xml b/res/values-si/strings.xml
+index 9ceb420..8fe305f 100644
+--- a/res/values-si/strings.xml
++++ b/res/values-si/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ඔව්"</string>
+     <string name="no_button" msgid="8965841385742548947">"නැත"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"වාහක සේවා අංක"</string>
++    <string name="menu_copy_to_sim">"SIM වෙත පිටපත් කරන්න"</string>
++    <string name="copy_to_sim_choose">"SIM තෝරන්න"</string>
++    <string name="copy_to_sim_done">"SIM වෙත පිටපත් කළා"</string>
++    <string name="copy_to_sim_failed">"SIM වෙත පිටපත් කළ නොහැකි විය"</string>
++    <string name="sim_contact_save_failed">"සම්බන්ධතාව SIM වෙත සුරැකිය නොහැකි විය"</string>
+ </resources>
+diff --git a/res/values-sk/strings.xml b/res/values-sk/strings.xml
+index d9823b9..82b38f4 100644
+--- a/res/values-sk/strings.xml
++++ b/res/values-sk/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Áno"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nie"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Služobné čísla operátorov"</string>
++    <string name="menu_copy_to_sim">"Kopírovať na SIM kartu"</string>
++    <string name="copy_to_sim_choose">"Vyberte SIM kartu"</string>
++    <string name="copy_to_sim_done">"Skopírované na SIM kartu"</string>
++    <string name="copy_to_sim_failed">"Na SIM kartu sa nepodarilo kopírovať"</string>
++    <string name="sim_contact_save_failed">"Kontakt sa nepodarilo uložiť na SIM kartu"</string>
+ </resources>
+diff --git a/res/values-sl/strings.xml b/res/values-sl/strings.xml
+index 0257ed3..c52948a 100644
+--- a/res/values-sl/strings.xml
++++ b/res/values-sl/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Da"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ne"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operaterjeve številke za storitve"</string>
++    <string name="menu_copy_to_sim">"Kopiraj na SIM"</string>
++    <string name="copy_to_sim_choose">"Izberite SIM"</string>
++    <string name="copy_to_sim_done">"Kopirano na SIM"</string>
++    <string name="copy_to_sim_failed">"Kopiranje na SIM ni uspelo"</string>
++    <string name="sim_contact_save_failed">"Stika ni bilo mogoče shraniti na SIM"</string>
+ </resources>
+diff --git a/res/values-sq/strings.xml b/res/values-sq/strings.xml
+index 7885026..3fa5ca0 100644
+--- a/res/values-sq/strings.xml
++++ b/res/values-sq/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Po"</string>
+     <string name="no_button" msgid="8965841385742548947">"Jo"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Numrat e shërbimit të operatorit celular"</string>
++    <string name="menu_copy_to_sim">"Kopjo në kartën SIM"</string>
++    <string name="copy_to_sim_choose">"Zgjidh kartën SIM"</string>
++    <string name="copy_to_sim_done">"U kopjua në kartën SIM"</string>
++    <string name="copy_to_sim_failed">"Nuk mund të kopjohej në kartën SIM"</string>
++    <string name="sim_contact_save_failed">"Kontakti nuk mund të ruhej në kartën SIM"</string>
+ </resources>
+diff --git a/res/values-sr/strings.xml b/res/values-sr/strings.xml
+index a6e1bd8..6a687e6 100644
+--- a/res/values-sr/strings.xml
++++ b/res/values-sr/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Да"</string>
+     <string name="no_button" msgid="8965841385742548947">"Не"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Услужни бројеви мобилног оператера"</string>
++    <string name="menu_copy_to_sim">"Копирај на SIM"</string>
++    <string name="copy_to_sim_choose">"Изаберите SIM"</string>
++    <string name="copy_to_sim_done">"Копирано на SIM"</string>
++    <string name="copy_to_sim_failed">"Копирање на SIM није успело"</string>
++    <string name="sim_contact_save_failed">"Чување контакта на SIM-у није успело"</string>
+ </resources>
+diff --git a/res/values-sv/strings.xml b/res/values-sv/strings.xml
+index 91ab328..8b04812 100644
+--- a/res/values-sv/strings.xml
++++ b/res/values-sv/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ja"</string>
+     <string name="no_button" msgid="8965841385742548947">"Nej"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operatörens tjänstenummer"</string>
++    <string name="menu_copy_to_sim">"Kopiera till SIM-kort"</string>
++    <string name="copy_to_sim_choose">"Välj SIM-kort"</string>
++    <string name="copy_to_sim_done">"Kopierat till SIM-kort"</string>
++    <string name="copy_to_sim_failed">"Det gick inte att kopiera till SIM-kortet"</string>
++    <string name="sim_contact_save_failed">"Det gick inte att spara kontakten på SIM-kortet"</string>
+ </resources>
+diff --git a/res/values-ta/strings.xml b/res/values-ta/strings.xml
+index 491f246..085d6a2 100644
+--- a/res/values-ta/strings.xml
++++ b/res/values-ta/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ஆம்"</string>
+     <string name="no_button" msgid="8965841385742548947">"இல்லை"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"மொபைல் நிறுவனத்தின் சேவை எண்கள்"</string>
++    <string name="menu_copy_to_sim">"சிம்மிற்கு நகலெடு"</string>
++    <string name="copy_to_sim_choose">"சிம்மைத் தேர்ந்தெடுக்கவும்"</string>
++    <string name="copy_to_sim_done">"சிம்மிற்கு நகலெடுக்கப்பட்டது"</string>
++    <string name="copy_to_sim_failed">"சிம்மிற்கு நகலெடுக்க முடியவில்லை"</string>
++    <string name="sim_contact_save_failed">"தொடர்பைச் சிம்மில் சேமிக்க முடியவில்லை"</string>
+ </resources>
+diff --git a/res/values-te/strings.xml b/res/values-te/strings.xml
+index e05cf34..40b199d 100644
+--- a/res/values-te/strings.xml
++++ b/res/values-te/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"అవును"</string>
+     <string name="no_button" msgid="8965841385742548947">"కాదు"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"క్యారియర్ సర్వీస్ నంబర్‌లు"</string>
++    <string name="menu_copy_to_sim">"SIMకు కాపీ చేయండి"</string>
++    <string name="copy_to_sim_choose">"SIMను ఎంచుకోండి"</string>
++    <string name="copy_to_sim_done">"SIMకు కాపీ చేయబడింది"</string>
++    <string name="copy_to_sim_failed">"SIMకు కాపీ చేయడం సాధ్యపడలేదు"</string>
++    <string name="sim_contact_save_failed">"కాంటాక్ట్‌ను SIMలో సేవ్ చేయడం సాధ్యపడలేదు"</string>
+ </resources>
+diff --git a/res/values-th/strings.xml b/res/values-th/strings.xml
+index e03577c..6d5a4d1 100644
+--- a/res/values-th/strings.xml
++++ b/res/values-th/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ใช่"</string>
+     <string name="no_button" msgid="8965841385742548947">"ไม่"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"หมายเลขบริการของผู้ให้บริการ"</string>
++    <string name="menu_copy_to_sim">"คัดลอกไปยังซิม"</string>
++    <string name="copy_to_sim_choose">"เลือกซิม"</string>
++    <string name="copy_to_sim_done">"คัดลอกไปยังซิมแล้ว"</string>
++    <string name="copy_to_sim_failed">"คัดลอกไปยังซิมไม่ได้"</string>
++    <string name="sim_contact_save_failed">"บันทึกรายชื่อติดต่อลงในซิมไม่ได้"</string>
+ </resources>
+diff --git a/res/values-tl/strings.xml b/res/values-tl/strings.xml
+index e7a0a05..10e4ff2 100644
+--- a/res/values-tl/strings.xml
++++ b/res/values-tl/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Oo"</string>
+     <string name="no_button" msgid="8965841385742548947">"Hindi"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Mga numero ng serbisyo ng carrier"</string>
++    <string name="menu_copy_to_sim">"Kopyahin sa SIM"</string>
++    <string name="copy_to_sim_choose">"Pumili ng SIM"</string>
++    <string name="copy_to_sim_done">"Nakopya sa SIM"</string>
++    <string name="copy_to_sim_failed">"Hindi makopya sa SIM"</string>
++    <string name="sim_contact_save_failed">"Hindi ma-save ang contact sa SIM"</string>
+ </resources>
+diff --git a/res/values-tr/strings.xml b/res/values-tr/strings.xml
+index 3ef7c85..ecc7592 100644
+--- a/res/values-tr/strings.xml
++++ b/res/values-tr/strings.xml
+@@ -75,6 +75,7 @@
+     <string name="copy_to_sim_choose">"SIM seçin"</string>
+     <string name="copy_to_sim_done">"SIM\'e kopyalandı"</string>
+     <string name="copy_to_sim_failed">"SIM\'e kopyalanamadı"</string>
++    <string name="sim_contact_save_failed">"Kişi SIM\'e kaydedilemedi"</string>
+     <string name="menu_redirect_calls_to_vm" msgid="3027178444991878913">"Sesli mesaja yönlendir"</string>
+     <string name="menu_unredirect_calls_to_vm" msgid="2294919685954790892">"Yönlendirmeyi iptal et"</string>
+     <string name="readOnlyContactWarning" msgid="4158660823025751201">"Bu kişi salt okunur. Kişi silinemez ancak gizlenebilir."</string>
+diff --git a/res/values-uk/strings.xml b/res/values-uk/strings.xml
+index 1b3173a..4bed90f 100644
+--- a/res/values-uk/strings.xml
++++ b/res/values-uk/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Так"</string>
+     <string name="no_button" msgid="8965841385742548947">"Ні"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Сервісні номери оператора"</string>
++    <string name="menu_copy_to_sim">"Копіювати на SIM-карту"</string>
++    <string name="copy_to_sim_choose">"Виберіть SIM-карту"</string>
++    <string name="copy_to_sim_done">"Скопійовано на SIM-карту"</string>
++    <string name="copy_to_sim_failed">"Не вдалося скопіювати на SIM-карту"</string>
++    <string name="sim_contact_save_failed">"Не вдалося зберегти контакт на SIM-карті"</string>
+ </resources>
+diff --git a/res/values-ur/strings.xml b/res/values-ur/strings.xml
+index 5617e22..1c9a666 100644
+--- a/res/values-ur/strings.xml
++++ b/res/values-ur/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"ہاں"</string>
+     <string name="no_button" msgid="8965841385742548947">"نہیں"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"کیرئیر سروس نمبرز"</string>
++    <string name="menu_copy_to_sim">"SIM میں کاپی کریں"</string>
++    <string name="copy_to_sim_choose">"SIM منتخب کریں"</string>
++    <string name="copy_to_sim_done">"SIM میں کاپی ہو گیا"</string>
++    <string name="copy_to_sim_failed">"SIM میں کاپی نہیں کیا جا سکا"</string>
++    <string name="sim_contact_save_failed">"رابطہ SIM میں محفوظ نہیں کیا جا سکا"</string>
+ </resources>
+diff --git a/res/values-uz/strings.xml b/res/values-uz/strings.xml
+index 80b2dc7..a190ffb 100644
+--- a/res/values-uz/strings.xml
++++ b/res/values-uz/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Ha"</string>
+     <string name="no_button" msgid="8965841385742548947">"Yo‘q"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Operator xizmat raqamlari"</string>
++    <string name="menu_copy_to_sim">"SIM kartaga nusxalash"</string>
++    <string name="copy_to_sim_choose">"SIM kartani tanlang"</string>
++    <string name="copy_to_sim_done">"SIM kartaga nusxalandi"</string>
++    <string name="copy_to_sim_failed">"SIM kartaga nusxalanmadi"</string>
++    <string name="sim_contact_save_failed">"Kontakt SIM kartaga saqlanmadi"</string>
+ </resources>
+diff --git a/res/values-vi/strings.xml b/res/values-vi/strings.xml
+index d6a3783..dba3213 100644
+--- a/res/values-vi/strings.xml
++++ b/res/values-vi/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Có"</string>
+     <string name="no_button" msgid="8965841385742548947">"Không"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Số dịch vụ của nhà mạng"</string>
++    <string name="menu_copy_to_sim">"Sao chép vào SIM"</string>
++    <string name="copy_to_sim_choose">"Chọn SIM"</string>
++    <string name="copy_to_sim_done">"Đã sao chép vào SIM"</string>
++    <string name="copy_to_sim_failed">"Không thể sao chép vào SIM"</string>
++    <string name="sim_contact_save_failed">"Không thể lưu người liên hệ vào SIM"</string>
+ </resources>
+diff --git a/res/values-zh-rCN/strings.xml b/res/values-zh-rCN/strings.xml
+index 7b75542..db90350 100644
+--- a/res/values-zh-rCN/strings.xml
++++ b/res/values-zh-rCN/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"是"</string>
+     <string name="no_button" msgid="8965841385742548947">"否"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"运营商服务号码"</string>
++    <string name="menu_copy_to_sim">"复制到 SIM 卡"</string>
++    <string name="copy_to_sim_choose">"选择 SIM 卡"</string>
++    <string name="copy_to_sim_done">"已复制到 SIM 卡"</string>
++    <string name="copy_to_sim_failed">"无法复制到 SIM 卡"</string>
++    <string name="sim_contact_save_failed">"无法将联系人保存到 SIM 卡"</string>
+ </resources>
+diff --git a/res/values-zh-rHK/strings.xml b/res/values-zh-rHK/strings.xml
+index 14bceb9..8025d0f 100644
+--- a/res/values-zh-rHK/strings.xml
++++ b/res/values-zh-rHK/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"是"</string>
+     <string name="no_button" msgid="8965841385742548947">"否"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"流動網絡供應商服務電話號碼"</string>
++    <string name="menu_copy_to_sim">"複製至 SIM 卡"</string>
++    <string name="copy_to_sim_choose">"選擇 SIM 卡"</string>
++    <string name="copy_to_sim_done">"已複製至 SIM 卡"</string>
++    <string name="copy_to_sim_failed">"無法複製至 SIM 卡"</string>
++    <string name="sim_contact_save_failed">"無法將聯絡人儲存至 SIM 卡"</string>
+ </resources>
+diff --git a/res/values-zh-rTW/strings.xml b/res/values-zh-rTW/strings.xml
+index 4a6e213..32de5dc 100644
+--- a/res/values-zh-rTW/strings.xml
++++ b/res/values-zh-rTW/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"是"</string>
+     <string name="no_button" msgid="8965841385742548947">"否"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"電信業者服務電話號碼"</string>
++    <string name="menu_copy_to_sim">"複製到 SIM 卡"</string>
++    <string name="copy_to_sim_choose">"選擇 SIM 卡"</string>
++    <string name="copy_to_sim_done">"已複製到 SIM 卡"</string>
++    <string name="copy_to_sim_failed">"無法複製到 SIM 卡"</string>
++    <string name="sim_contact_save_failed">"無法將聯絡人儲存到 SIM 卡"</string>
+ </resources>
+diff --git a/res/values-zu/strings.xml b/res/values-zu/strings.xml
+index d5432a1..8f2efec 100644
+--- a/res/values-zu/strings.xml
++++ b/res/values-zu/strings.xml
+@@ -494,4 +494,9 @@
+     <string name="yes_button" msgid="1120514817091581293">"Yebo"</string>
+     <string name="no_button" msgid="8965841385742548947">"Cha"</string>
+     <string name="sdn_contacts_directory_search_label" msgid="9146122809408008443">"Izinombolo zesevisi zenkampani yenethiwekhi"</string>
++    <string name="menu_copy_to_sim">"Kopishela ku-SIM"</string>
++    <string name="copy_to_sim_choose">"Khetha i-SIM"</string>
++    <string name="copy_to_sim_done">"Kukopishelwe ku-SIM"</string>
++    <string name="copy_to_sim_failed">"Akukwazanga ukukopishela ku-SIM"</string>
++    <string name="sim_contact_save_failed">"Akukwazanga ukulondoloza oxhumana naye ku-SIM"</string>
+ </resources>
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 7d45ed3..2d89b3b 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -207,6 +207,9 @@
+     <!-- Toast shown when the SIM card rejected the contact, e.g. because it is full -->
+     <string name="copy_to_sim_failed">Couldn\'t copy to SIM</string>
+ 
++    <!-- Toast shown when the SIM card rejected a new or edited SIM contact, e.g. because it is full -->
++    <string name="sim_contact_save_failed">Couldn\'t save the contact to the SIM</string>
++
+     <!-- Menu item to route all calls from a given contact to voice mail [CHAR LIMIT=30] -->
+     <string name="menu_redirect_calls_to_vm">Route to voicemail</string>
+ 
+diff --git a/src/com/android/contacts/ContactSaveService.java b/src/com/android/contacts/ContactSaveService.java
+index 30e4f82..61e5917 100644
+--- a/src/com/android/contacts/ContactSaveService.java
++++ b/src/com/android/contacts/ContactSaveService.java
+@@ -59,6 +59,7 @@ import com.android.contacts.compat.CompatUtils;
+ import com.android.contacts.compat.PinnedPositionsCompat;
+ import com.android.contacts.database.ContactUpdateUtils;
+ import com.android.contacts.database.SimContactDao;
++import com.android.contacts.database.SimContactSync;
+ import com.android.contacts.model.AccountTypeManager;
+ import com.android.contacts.model.CPOWrapper;
+ import com.android.contacts.model.RawContactDelta;
+@@ -662,6 +663,10 @@ public class ContactSaveService extends IntentService {
+             }
+         }
+ 
++        if (succeeded && SimContactSync.syncIfDirty(this) > 0) {
++            showToast(R.string.sim_contact_save_failed);
++        }
++
+         Intent callbackIntent = intent.getParcelableExtra(EXTRA_CALLBACK_INTENT);
+         if (callbackIntent != null) {
+             if (succeeded) {
+@@ -1202,6 +1207,7 @@ public class ContactSaveService extends IntentService {
+         }
+ 
+         getContentResolver().delete(contactUri, null, null);
++        SimContactSync.syncIfDirty(this);
+     }
+ 
+     private void deleteMultipleContacts(Intent intent) {
+@@ -1214,6 +1220,7 @@ public class ContactSaveService extends IntentService {
+             final Uri contactUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, contactId);
+             getContentResolver().delete(contactUri, null, null);
+         }
++        SimContactSync.syncIfDirty(this);
+         final String[] names = intent.getStringArrayExtra(
+                 ContactSaveService.EXTRA_DISPLAY_NAME_ARRAY);
+         final String deleteToastMessage;
+diff --git a/src/com/android/contacts/activities/PeopleActivity.java b/src/com/android/contacts/activities/PeopleActivity.java
+index 62dc48e..242963d 100644
+--- a/src/com/android/contacts/activities/PeopleActivity.java
++++ b/src/com/android/contacts/activities/PeopleActivity.java
+@@ -62,6 +62,7 @@ import com.android.contacts.AppCompatContactsActivity;
+ import com.android.contacts.ContactSaveService;
+ import com.android.contacts.R;
+ import com.android.contacts.compat.CompatUtils;
++import com.android.contacts.database.SimContactSync;
+ import com.android.contacts.drawer.DrawerFragment;
+ import com.android.contacts.drawer.DrawerFragment.DrawerFragmentListener;
+ import com.android.contacts.editor.ContactEditorFragment;
+@@ -365,6 +366,12 @@ public class PeopleActivity extends AppCompatContactsActivity implements
+ 
+         mContactListFilterController.checkFilterValidity(false);
+ 
++        // Picks up a SIM inserted after boot and SIM contacts changed by other apps.
++        if (savedState == null) {
++            final Context appContext = getApplicationContext();
++            new Thread(() -> SimContactSync.sync(appContext)).start();
++        }
++
+         super.setContentView(R.layout.contacts_drawer_activity);
+ 
+         // Set up the action bar.
+diff --git a/src/com/android/contacts/database/SimContactDaoImpl.java b/src/com/android/contacts/database/SimContactDaoImpl.java
+index 2c01a2e..6f56a5d 100644
+--- a/src/com/android/contacts/database/SimContactDaoImpl.java
++++ b/src/com/android/contacts/database/SimContactDaoImpl.java
+@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
+ import android.content.ContentProviderOperation;
+ import android.content.ContentProviderResult;
+ import android.content.ContentResolver;
++import android.content.ContentUris;
+ import android.content.ContentValues;
+ import android.content.Context;
+ import android.content.OperationApplicationException;
+@@ -156,29 +157,85 @@ public class SimContactDaoImpl extends SimContactDao {
+      * SIM can hold. Returns false if the SIM rejected the record, e.g. because it is full.
+      */
+     public boolean exportContact(SimCard sim, String name, String number) {
+-        final int subscriptionId = sim.getSubscriptionId();
+-        final int maxNameLength = getAdnNameMaxLength(subscriptionId);
+-        String simName = name != null ? name : "";
+-        while (maxNameLength >= 0 && !simName.isEmpty()
+-                && SimRecords.getEncodedNameLength(mResolver, simName) > maxNameLength) {
+-            simName = simName.substring(0, simName.offsetByCodePoints(simName.length(), -1));
+-        }
++        return writeAdnRecord(sim.getSubscriptionId(), -1, name, number) > 0;
++    }
+ 
+-        final ContentValues values = new ContentValues();
+-        values.put(SimRecords.NAME, simName);
+-        values.put(SimRecords.PHONE_NUMBER, PhoneNumberUtils.stripSeparators(number));
++    /**
++     * Inserts a record into the ADN file, or overwrites the given record if recordNumber is
++     * positive. Returns the record number, or -1 if the SIM rejected the write.
++     */
++    public int writeAdnRecord(int subscriptionId, int recordNumber, String name, String number) {
+         synchronized (SIM_READ_LOCK) {
+             try {
+-                return mResolver.insert(SimRecords.getContentUri(subscriptionId,
+-                        ElementaryFiles.EF_ADN), values) != null;
++                final int maxNameLength = getAdnNameMaxLength(subscriptionId);
++                String simName = name != null ? name : "";
++                while (maxNameLength >= 0 && !simName.isEmpty()
++                        && SimRecords.getEncodedNameLength(mResolver, simName) > maxNameLength) {
++                    simName = simName.substring(0,
++                            simName.offsetByCodePoints(simName.length(), -1));
++                }
++
++                final ContentValues values = new ContentValues();
++                values.put(SimRecords.NAME, simName);
++                values.put(SimRecords.PHONE_NUMBER,
++                        PhoneNumberUtils.stripSeparators(number != null ? number : ""));
++                if (recordNumber > 0) {
++                    return mResolver.update(SimRecords.getItemUri(subscriptionId,
++                            ElementaryFiles.EF_ADN, recordNumber), values, null) > 0
++                            ? recordNumber : -1;
++                }
++                final Uri uri = mResolver.insert(SimRecords.getContentUri(subscriptionId,
++                        ElementaryFiles.EF_ADN), values);
++                return uri != null ? (int) ContentUris.parseId(uri) : -1;
+             } catch (IllegalArgumentException | IllegalStateException e) {
+                 Log.w(TAG, "Failed to write SIM contact", e);
+-                return false;
++                return -1;
++            }
++        }
++    }
++
++    /**
++     * Same as {@link #loadSimContacts} but returns null instead of an empty list if the SIM
++     * could not be read.
++     */
++    public ArrayList<SimContact> loadAdnRecords(int subscriptionId) {
++        synchronized (SIM_READ_LOCK) {
++            final Cursor cursor;
++            try {
++                cursor = mResolver.query(
++                        SimRecords.getContentUri(subscriptionId, ElementaryFiles.EF_ADN),
++                        new String[]{
++                                SimRecords.RECORD_NUMBER,
++                                SimRecords.NAME,
++                                SimRecords.PHONE_NUMBER
++                        }, null, null);
++            } catch (IllegalArgumentException | IllegalStateException e) {
++                Log.w(TAG, "Failed to read SIM contacts", e);
++                return null;
++            }
++            if (cursor == null) {
++                return null;
++            }
++            try {
++                return loadFromCursor(cursor);
++            } finally {
++                cursor.close();
++            }
++        }
++    }
++
++    public void deleteAdnRecord(int subscriptionId, int recordNumber) {
++        synchronized (SIM_READ_LOCK) {
++            try {
++                mResolver.delete(SimRecords.getItemUri(subscriptionId, ElementaryFiles.EF_ADN,
++                        recordNumber), null);
++            } catch (IllegalArgumentException | IllegalStateException e) {
++                Log.w(TAG, "Failed to delete SIM contact", e);
+             }
+         }
+     }
+ 
+-    private int getAdnNameMaxLength(int subscriptionId) {
++    public int getAdnNameMaxLength(int subscriptionId) {
+         final Cursor cursor = mResolver.query(
+                 ElementaryFiles.getItemUri(subscriptionId, ElementaryFiles.EF_ADN),
+                 new String[]{ElementaryFiles.NAME_MAX_LENGTH}, null, null);
+diff --git a/src/com/android/contacts/database/SimContactSync.java b/src/com/android/contacts/database/SimContactSync.java
+new file mode 100644
+index 0000000..d662899
+--- /dev/null
++++ b/src/com/android/contacts/database/SimContactSync.java
+@@ -0,0 +1,447 @@
++/*
++ * Copyright (C) 2026 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package com.android.contacts.database;
++
++import android.content.ContentProviderOperation;
++import android.content.ContentResolver;
++import android.content.ContentValues;
++import android.content.Context;
++import android.content.OperationApplicationException;
++import android.content.pm.PackageManager;
++import android.database.Cursor;
++import android.net.Uri;
++import android.os.RemoteException;
++import android.provider.ContactsContract;
++import android.provider.ContactsContract.CommonDataKinds.Phone;
++import android.provider.ContactsContract.CommonDataKinds.StructuredName;
++import android.provider.ContactsContract.Data;
++import android.provider.ContactsContract.RawContacts;
++import android.provider.ContactsContract.SimAccount;
++import android.provider.ContactsContract.SimContacts;
++import android.telephony.PhoneNumberUtils;
++import android.telephony.SubscriptionInfo;
++import android.telephony.SubscriptionManager;
++import android.telephony.TelephonyManager;
++import android.text.TextUtils;
++import android.util.Log;
++import android.util.SparseArray;
++
++import com.android.contacts.model.SimContact;
++import com.android.contacts.util.PermissionsUtil;
++
++import java.util.ArrayList;
++import java.util.HashMap;
++import java.util.List;
++import java.util.Map;
++import java.util.Objects;
++
++/**
++ * Keeps one CP2 account per inserted SIM in step with the SIM's ADN file.
++ *
++ * The SIM account behaves like a sync adapter account: the editor writes to CP2 as usual,
++ * which leaves raw contacts marked dirty or deleted. A sync first pushes those local changes
++ * to the SIM and then makes CP2 match the SIM, so a write the SIM rejected is rolled back.
++ * The ADN record number is kept in RawContacts.SOURCE_ID and the record as last synced in
++ * SYNC1 (name) and SYNC2 (number), so a record changed on another phone is not overwritten.
++ */
++public class SimContactSync {
++    private static final String TAG = "SimContactSync";
++
++    public static final String ACCOUNT_TYPE = "com.android.contacts.sim";
++
++    private static final String ACCOUNT_NAME_PREFIX = "sim";
++
++    private static final int MAX_BATCH_SIZE = 300;
++
++    private static final Uri RAW_CONTACTS_URI = asSyncAdapter(RawContacts.CONTENT_URI);
++    private static final Uri DATA_URI = asSyncAdapter(Data.CONTENT_URI);
++
++    private final Context mContext;
++    private final ContentResolver mResolver;
++    private final SimContactDaoImpl mSimDao;
++
++    private SimContactSync(Context context) {
++        mContext = context;
++        mResolver = context.getContentResolver();
++        mSimDao = new SimContactDaoImpl(context);
++    }
++
++    /**
++     * Registers an account for every active SIM, drops accounts of SIMs that are gone and
++     * syncs every SIM account. Returns the number of local changes the SIM rejected.
++     */
++    public static int sync(Context context) {
++        synchronized (SimContactSync.class) {
++            try {
++                return new SimContactSync(context).syncAll();
++            } catch (RuntimeException e) {
++                Log.w(TAG, "Failed to sync SIM contacts", e);
++                return 0;
++            }
++        }
++    }
++
++    /**
++     * Same as {@link #sync} but returns right away unless a SIM contact was edited or deleted.
++     */
++    public static int syncIfDirty(Context context) {
++        synchronized (SimContactSync.class) {
++            try {
++                final SimContactSync sync = new SimContactSync(context);
++                return sync.hasLocalChanges() ? sync.syncAll() : 0;
++            } catch (RuntimeException e) {
++                Log.w(TAG, "Failed to sync SIM contacts", e);
++                return 0;
++            }
++        }
++    }
++
++    private int syncAll() {
++        if (!mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)
++                || !PermissionsUtil.hasContactsPermissions(mContext)
++                || !PermissionsUtil.hasPhonePermissions(mContext)) {
++            return 0;
++        }
++
++        final TelephonyManager telephonyManager = mContext.getSystemService(TelephonyManager.class);
++        final SubscriptionManager subscriptionManager =
++                mContext.getSystemService(SubscriptionManager.class);
++        final List<SubscriptionInfo> subscriptions =
++                subscriptionManager.getActiveSubscriptionInfoList();
++        final SparseArray<SubscriptionInfo> subscriptionsBySlot = new SparseArray<>();
++        if (subscriptions != null) {
++            for (SubscriptionInfo info : subscriptions) {
++                if (info.getSimSlotIndex() >= 0) {
++                    subscriptionsBySlot.put(info.getSimSlotIndex(), info);
++                }
++            }
++        }
++
++        // A new card gets a new subscription id, so keying the account on it keeps contacts of
++        // the old card from being pushed to the new one.
++        final SparseArray<String> registered = new SparseArray<>();
++        for (SimAccount account : SimContacts.getSimAccounts(mResolver)) {
++            if (!ACCOUNT_TYPE.equals(account.getAccountType())) {
++                continue;
++            }
++            final int slot = account.getSimSlotIndex();
++            final SubscriptionInfo info = subscriptionsBySlot.get(slot);
++            if (info != null && accountName(info).equals(account.getAccountName())) {
++                registered.put(slot, account.getAccountName());
++            } else if (info != null
++                    || telephonyManager.getSimState(slot) == TelephonyManager.SIM_STATE_ABSENT) {
++                // A SIM that is only still loading keeps its account. CP2 drops the raw
++                // contacts of a removed SIM account by itself.
++                SimContacts.removeSimAccounts(mResolver, slot);
++            }
++        }
++
++        int failures = 0;
++        for (int i = 0; i < subscriptionsBySlot.size(); i++) {
++            final int slot = subscriptionsBySlot.keyAt(i);
++            final SubscriptionInfo info = subscriptionsBySlot.valueAt(i);
++            if (telephonyManager.getSimState(slot) != TelephonyManager.SIM_STATE_READY) {
++                continue;
++            }
++            final String accountName = accountName(info);
++            if (registered.get(slot) == null) {
++                SimContacts.addSimAccount(mResolver, accountName, ACCOUNT_TYPE, slot,
++                        SimAccount.ADN_EF_TYPE);
++            }
++            try {
++                failures += syncAccount(info.getSubscriptionId(), accountName);
++            } catch (RemoteException | OperationApplicationException | RuntimeException e) {
++                Log.w(TAG, "Failed to sync SIM contacts of slot " + slot, e);
++            }
++        }
++        return failures;
++    }
++
++    private static String accountName(SubscriptionInfo info) {
++        return ACCOUNT_NAME_PREFIX + info.getSubscriptionId();
++    }
++
++    /** Returns the subscription id a SIM account belongs to, or -1. */
++    public static int getSubscriptionId(String accountName) {
++        if (accountName == null || !accountName.startsWith(ACCOUNT_NAME_PREFIX)) {
++            return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
++        }
++        try {
++            return Integer.parseInt(accountName.substring(ACCOUNT_NAME_PREFIX.length()));
++        } catch (NumberFormatException e) {
++            return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
++        }
++    }
++
++    private boolean hasLocalChanges() {
++        try (Cursor c = mResolver.query(RAW_CONTACTS_URI, new String[] {RawContacts._ID},
++                RawContacts.ACCOUNT_TYPE + "=? AND (" + RawContacts.DIRTY + "=1 OR "
++                        + RawContacts.DELETED + "=1)",
++                new String[] {ACCOUNT_TYPE}, null)) {
++            return c != null && c.getCount() > 0;
++        }
++    }
++
++    private int syncAccount(int subscriptionId, String accountName)
++            throws RemoteException, OperationApplicationException {
++        final Map<Long, LocalContact> local = loadLocalContacts(accountName);
++        SparseArray<SimContact> sim = loadSim(subscriptionId);
++        if (sim == null) {
++            return 0;
++        }
++
++        // Push local edits to the SIM. A record that changed since the last sync is left alone:
++        // a deletion is dropped and an edit goes to a new record, so both versions are kept.
++        int failures = 0;
++        boolean wrote = false;
++        for (LocalContact contact : local.values()) {
++            final boolean unchanged = contact.recordNumber > 0
++                    && isUnchangedOnSim(contact, sim.get(contact.recordNumber));
++            if (contact.deleted) {
++                if (unchanged) {
++                    mSimDao.deleteAdnRecord(subscriptionId, contact.recordNumber);
++                    wrote = true;
++                }
++            } else if (contact.dirty) {
++                final int recordNumber = mSimDao.writeAdnRecord(subscriptionId,
++                        unchanged ? contact.recordNumber : -1, contact.name, contact.number);
++                wrote = true;
++                if (recordNumber > 0 && recordNumber != contact.recordNumber) {
++                    // Stored right away so a sync that fails later doesn't add the record again.
++                    final ContentValues values = new ContentValues();
++                    values.put(RawContacts.SOURCE_ID, String.valueOf(recordNumber));
++                    values.putNull(RawContacts.SYNC1);
++                    values.putNull(RawContacts.SYNC2);
++                    mResolver.update(RAW_CONTACTS_URI.buildUpon()
++                            .appendPath(String.valueOf(contact.rawContactId)).build(),
++                            values, null, null);
++                    contact.recordNumber = recordNumber;
++                } else if (recordNumber <= 0) {
++                    failures++;
++                }
++            }
++        }
++
++        // Then make CP2 match the SIM.
++        if (wrote) {
++            sim = loadSim(subscriptionId);
++            if (sim == null) {
++                return failures;
++            }
++        }
++
++        final ArrayList<ContentProviderOperation> ops = new ArrayList<>();
++        final SparseArray<Long> recordToRawContact = new SparseArray<>();
++        for (LocalContact contact : local.values()) {
++            final SimContact simContact =
++                    contact.deleted || contact.recordNumber <= 0
++                            || recordToRawContact.get(contact.recordNumber) != null
++                    ? null : sim.get(contact.recordNumber);
++            applyIfFull(ops);
++            if (simContact == null) {
++                ops.add(ContentProviderOperation.newDelete(
++                        RAW_CONTACTS_URI.buildUpon()
++                                .appendPath(String.valueOf(contact.rawContactId)).build())
++                        .build());
++                continue;
++            }
++            recordToRawContact.put(contact.recordNumber, contact.rawContactId);
++            final boolean changed =
++                    !Objects.equals(contact.name, nullIfEmpty(simContact.getName()))
++                            || !Objects.equals(contact.number,
++                                    nullIfEmpty(simContact.getPhone()));
++            if (changed) {
++                ops.add(ContentProviderOperation.newDelete(DATA_URI)
++                        .withSelection(Data.RAW_CONTACT_ID + "=?",
++                                new String[] {String.valueOf(contact.rawContactId)})
++                        .build());
++                appendDataInserts(ops, contact.rawContactId, -1, simContact);
++            }
++            if (changed || contact.dirty || !isSyncedWith(contact, simContact)) {
++                ops.add(ContentProviderOperation.newUpdate(
++                        RAW_CONTACTS_URI.buildUpon()
++                                .appendPath(String.valueOf(contact.rawContactId)).build())
++                        .withValue(RawContacts.SOURCE_ID, String.valueOf(contact.recordNumber))
++                        .withValue(RawContacts.SYNC1, emptyIfNull(simContact.getName()))
++                        .withValue(RawContacts.SYNC2, emptyIfNull(simContact.getPhone()))
++                        .withValue(RawContacts.DIRTY, 0)
++                        .build());
++            }
++        }
++        for (int i = 0; i < sim.size(); i++) {
++            if (recordToRawContact.get(sim.keyAt(i)) != null) {
++                continue;
++            }
++            applyIfFull(ops);
++            final int rawContactOp = ops.size();
++            ops.add(ContentProviderOperation.newInsert(RAW_CONTACTS_URI)
++                    .withValue(RawContacts.ACCOUNT_NAME, accountName)
++                    .withValue(RawContacts.ACCOUNT_TYPE, ACCOUNT_TYPE)
++                    .withValue(RawContacts.SOURCE_ID, String.valueOf(sim.keyAt(i)))
++                    .withValue(RawContacts.SYNC1, emptyIfNull(sim.valueAt(i).getName()))
++                    .withValue(RawContacts.SYNC2, emptyIfNull(sim.valueAt(i).getPhone()))
++                    .build());
++            appendDataInserts(ops, -1, rawContactOp, sim.valueAt(i));
++        }
++
++        apply(ops);
++        return failures;
++    }
++
++    private SparseArray<SimContact> loadSim(int subscriptionId) {
++        final ArrayList<SimContact> records = mSimDao.loadAdnRecords(subscriptionId);
++        if (records == null) {
++            return null;
++        }
++        final SparseArray<SimContact> sim = new SparseArray<>();
++        for (SimContact simContact : records) {
++            sim.put(simContact.getRecordNumber(), simContact);
++        }
++        return sim;
++    }
++
++    private static boolean isUnchangedOnSim(LocalContact contact, SimContact simContact) {
++        // Contacts synced before SYNC1 was kept have no snapshot to compare with.
++        return simContact != null
++                && (contact.syncName == null || isSyncedWith(contact, simContact));
++    }
++
++    private static boolean isSyncedWith(LocalContact contact, SimContact simContact) {
++        return emptyIfNull(simContact.getName()).equals(emptyIfNull(contact.syncName))
++                && emptyIfNull(simContact.getPhone()).equals(emptyIfNull(contact.syncNumber));
++    }
++
++    private Map<Long, LocalContact> loadLocalContacts(String accountName) {
++        final Map<Long, LocalContact> contacts = new HashMap<>();
++        try (Cursor c = mResolver.query(RAW_CONTACTS_URI,
++                new String[] {RawContacts._ID, RawContacts.SOURCE_ID, RawContacts.DIRTY,
++                        RawContacts.DELETED, RawContacts.SYNC1, RawContacts.SYNC2},
++                RawContacts.ACCOUNT_TYPE + "=? AND " + RawContacts.ACCOUNT_NAME + "=?",
++                new String[] {ACCOUNT_TYPE, accountName}, null)) {
++            while (c != null && c.moveToNext()) {
++                final LocalContact contact = new LocalContact();
++                contact.rawContactId = c.getLong(0);
++                contact.recordNumber = parseRecordNumber(c.getString(1));
++                contact.dirty = c.getInt(2) != 0;
++                contact.deleted = c.getInt(3) != 0;
++                contact.syncName = c.getString(4);
++                contact.syncNumber = c.getString(5);
++                contacts.put(contact.rawContactId, contact);
++            }
++        }
++
++        try (Cursor c = mResolver.query(DATA_URI,
++                new String[] {Data.RAW_CONTACT_ID, Data.MIMETYPE, Data.DATA1,
++                        Data.IS_SUPER_PRIMARY},
++                RawContacts.ACCOUNT_TYPE + "=? AND " + RawContacts.ACCOUNT_NAME + "=? AND "
++                        + Data.MIMETYPE + " IN (?,?)",
++                new String[] {ACCOUNT_TYPE, accountName, StructuredName.CONTENT_ITEM_TYPE,
++                        Phone.CONTENT_ITEM_TYPE},
++                null)) {
++            while (c != null && c.moveToNext()) {
++                final LocalContact contact = contacts.get(c.getLong(0));
++                final String value = nullIfEmpty(c.getString(2));
++                if (contact == null || value == null) {
++                    continue;
++                }
++                if (StructuredName.CONTENT_ITEM_TYPE.equals(c.getString(1))) {
++                    contact.name = value;
++                } else if (contact.number == null || c.getInt(3) != 0) {
++                    contact.number = PhoneNumberUtils.stripSeparators(value);
++                }
++            }
++        }
++        return contacts;
++    }
++
++    private static void appendDataInserts(List<ContentProviderOperation> ops, long rawContactId,
++            int rawContactOp, SimContact simContact) {
++        if (simContact.hasName()) {
++            ops.add(newDataInsert(rawContactId, rawContactOp)
++                    .withValue(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
++                    .withValue(StructuredName.DISPLAY_NAME, simContact.getName())
++                    .build());
++        }
++        if (simContact.hasPhone()) {
++            ops.add(newDataInsert(rawContactId, rawContactOp)
++                    .withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
++                    .withValue(Phone.NUMBER, simContact.getPhone())
++                    .withValue(Phone.TYPE, Phone.TYPE_MOBILE)
++                    .build());
++        }
++    }
++
++    private static ContentProviderOperation.Builder newDataInsert(long rawContactId,
++            int rawContactOp) {
++        final ContentProviderOperation.Builder builder =
++                ContentProviderOperation.newInsert(DATA_URI);
++        return rawContactOp >= 0
++                ? builder.withValueBackReference(Data.RAW_CONTACT_ID, rawContactOp)
++                : builder.withValue(Data.RAW_CONTACT_ID, rawContactId);
++    }
++
++    // Back references are indices into one batch, so only call this between contacts.
++    private void applyIfFull(ArrayList<ContentProviderOperation> ops)
++            throws RemoteException, OperationApplicationException {
++        if (ops.size() >= MAX_BATCH_SIZE) {
++            apply(ops);
++        }
++    }
++
++    private void apply(ArrayList<ContentProviderOperation> ops)
++            throws RemoteException, OperationApplicationException {
++        if (!ops.isEmpty()) {
++            mResolver.applyBatch(ContactsContract.AUTHORITY, new ArrayList<>(ops));
++            ops.clear();
++        }
++    }
++
++    private static int parseRecordNumber(String sourceId) {
++        if (TextUtils.isEmpty(sourceId)) {
++            return -1;
++        }
++        try {
++            return Integer.parseInt(sourceId);
++        } catch (NumberFormatException e) {
++            return -1;
++        }
++    }
++
++    private static String nullIfEmpty(String value) {
++        return TextUtils.isEmpty(value) ? null : value;
++    }
++
++    private static String emptyIfNull(String value) {
++        return value != null ? value : "";
++    }
++
++    private static Uri asSyncAdapter(Uri uri) {
++        return uri.buildUpon()
++                .appendQueryParameter(ContactsContract.CALLER_IS_SYNCADAPTER, "true")
++                .build();
++    }
++
++    private static class LocalContact {
++        long rawContactId;
++        int recordNumber;
++        boolean dirty;
++        boolean deleted;
++        String name;
++        String number;
++        String syncName;
++        String syncNumber;
++    }
++}
+diff --git a/src/com/android/contacts/editor/SimNameLengthFilter.java b/src/com/android/contacts/editor/SimNameLengthFilter.java
+new file mode 100644
+index 0000000..65ee1e6
+--- /dev/null
++++ b/src/com/android/contacts/editor/SimNameLengthFilter.java
+@@ -0,0 +1,116 @@
++/*
++ * Copyright (C) 2026 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package com.android.contacts.editor;
++
++import android.content.ContentResolver;
++import android.content.Context;
++import android.provider.SimPhonebookContract.SimRecords;
++import android.text.InputFilter;
++import android.text.Spanned;
++import android.util.Log;
++import android.widget.EditText;
++
++import com.android.contacts.database.SimContactDaoImpl;
++import com.android.contacts.database.SimContactSync;
++
++import java.util.Arrays;
++
++/**
++ * Stops the name fields of a SIM contact from growing past what the SIM can store. The limit is
++ * in encoded bytes, so it depends on the characters typed.
++ */
++public class SimNameLengthFilter implements InputFilter {
++    private static final String TAG = "SimNameLengthFilter";
++
++    private final ContentResolver mResolver;
++    private final EditText[] mFields;
++    private final int mMaxLength;
++
++    private SimNameLengthFilter(ContentResolver resolver, EditText[] fields, int maxLength) {
++        mResolver = resolver;
++        mFields = fields;
++        mMaxLength = maxLength;
++    }
++
++    /** Looks up the limit of the account's SIM in the background and then adds the filter. */
++    public static void attach(Context context, String accountName, EditText[] fields) {
++        final int subscriptionId = SimContactSync.getSubscriptionId(accountName);
++        if (subscriptionId < 0 || fields.length == 0) {
++            return;
++        }
++        final Context appContext = context.getApplicationContext();
++        new Thread(() -> {
++            final int maxLength;
++            try {
++                maxLength = new SimContactDaoImpl(appContext).getAdnNameMaxLength(subscriptionId);
++            } catch (RuntimeException e) {
++                Log.w(TAG, "Failed to read the SIM name length", e);
++                return;
++            }
++            if (maxLength <= 0) {
++                return;
++            }
++            fields[0].post(() -> {
++                final SimNameLengthFilter filter = new SimNameLengthFilter(
++                        appContext.getContentResolver(), fields, maxLength);
++                for (EditText field : fields) {
++                    final InputFilter[] filters = Arrays.copyOf(field.getFilters(),
++                            field.getFilters().length + 1);
++                    filters[filters.length - 1] = filter;
++                    field.setFilters(filters);
++                }
++            });
++        }).start();
++    }
++
++    @Override
++    public CharSequence filter(CharSequence source, int start, int end, Spanned dest,
++            int dstart, int dend) {
++        final String before = dest.subSequence(0, dstart).toString();
++        final String after = dest.subSequence(dend, dest.length()).toString();
++        String inserted = source.subSequence(start, end).toString();
++        if (fits(dest, before + inserted + after)) {
++            return null;
++        }
++        while (!inserted.isEmpty()) {
++            inserted = inserted.substring(0, inserted.offsetByCodePoints(inserted.length(), -1));
++            if (fits(dest, before + inserted + after)) {
++                break;
++            }
++        }
++        return inserted;
++    }
++
++    // The SIM gets the display name, which joins the name fields with a space.
++    private boolean fits(Spanned dest, String value) {
++        final StringBuilder name = new StringBuilder();
++        for (EditText field : mFields) {
++            final String text = field.getText() == dest ? value : field.getText().toString();
++            if (text.trim().isEmpty()) {
++                continue;
++            }
++            if (name.length() > 0) {
++                name.append(' ');
++            }
++            name.append(text.trim());
++        }
++        try {
++            return SimRecords.getEncodedNameLength(mResolver, name.toString()) <= mMaxLength;
++        } catch (RuntimeException e) {
++            return true;
++        }
++    }
++}
+diff --git a/src/com/android/contacts/editor/TextFieldsEditorView.java b/src/com/android/contacts/editor/TextFieldsEditorView.java
+index d7f9545..2c0faa7 100644
+--- a/src/com/android/contacts/editor/TextFieldsEditorView.java
++++ b/src/com/android/contacts/editor/TextFieldsEditorView.java
+@@ -46,6 +46,7 @@ import android.widget.LinearLayout;
+ import com.android.contacts.ContactsUtils;
+ import com.android.contacts.R;
+ import com.android.contacts.compat.PhoneNumberUtilsCompat;
++import com.android.contacts.database.SimContactSync;
+ import com.android.contacts.model.RawContactDelta;
+ import com.android.contacts.model.ValuesDelta;
+ import com.android.contacts.model.account.AccountType.EditField;
+@@ -424,6 +425,12 @@ public class TextFieldsEditorView extends LabeledEditorView {
+             mFields.addView(fieldView);
+         }
+ 
++        if (SimContactSync.ACCOUNT_TYPE.equals(state.getAccountType()) && !readOnly
++                && (DataKind.PSEUDO_MIME_TYPE_NAME.equals(kind.mimeType)
++                        || StructuredName.CONTENT_ITEM_TYPE.equals(kind.mimeType))) {
++            SimNameLengthFilter.attach(getContext(), state.getAccountName(), mFieldEditTexts);
++        }
++
+         if (mExpansionView != null) {
+             // When hiding fields, place expandable
+             setupExpansionView(hidePossible, mHideOptional);
+diff --git a/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java b/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java
+index 5c55f20..f918442 100644
+--- a/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java
++++ b/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java
+@@ -19,7 +19,9 @@ package com.android.contacts.interactions;
+ import android.content.BroadcastReceiver;
+ import android.content.Context;
+ import android.content.Intent;
++import android.telephony.CarrierConfigManager;
+ 
++import com.android.contacts.database.SimContactSync;
+ import com.android.contacts.util.ContactsNotificationChannelsUtil;
+ 
+ public class OnBootOrUpgradeReceiver extends BroadcastReceiver {
+@@ -31,5 +33,18 @@ public class OnBootOrUpgradeReceiver extends BroadcastReceiver {
+                 || Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)) {
+             ContactsNotificationChannelsUtil.createDefaultChannel(context);
+         }
++        // Carrier config is reloaded whenever a SIM is inserted, loaded or removed.
++        if (Intent.ACTION_BOOT_COMPLETED.equals(action)
++                || Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)
++                || CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED.equals(action)) {
++            final PendingResult result = goAsync();
++            new Thread(() -> {
++                try {
++                    SimContactSync.sync(context);
++                } finally {
++                    result.finish();
++                }
++            }).start();
++        }
+     }
+ }
+diff --git a/src/com/android/contacts/model/account/SimAccountType.java b/src/com/android/contacts/model/account/SimAccountType.java
+index 19332e6..531f001 100644
+--- a/src/com/android/contacts/model/account/SimAccountType.java
++++ b/src/com/android/contacts/model/account/SimAccountType.java
+@@ -60,7 +60,7 @@ public class SimAccountType extends BaseAccountType {
+ 
+     @Override
+     public boolean areContactsWritable() {
+-        return false;
++        return true;
+     }
+ 
+     @Override
+diff --git a/src/com/android/contacts/quickcontact/QuickContactActivity.java b/src/com/android/contacts/quickcontact/QuickContactActivity.java
+index fd9dd0a..a1c093f 100644
+--- a/src/com/android/contacts/quickcontact/QuickContactActivity.java
++++ b/src/com/android/contacts/quickcontact/QuickContactActivity.java
+@@ -121,6 +121,7 @@ import com.android.contacts.compat.MultiWindowCompat;
+ import com.android.contacts.compat.PhoneNumberUtilsCompat;
+ import com.android.contacts.database.SimContactDao;
+ import com.android.contacts.database.SimContactDaoImpl;
++import com.android.contacts.database.SimContactSync;
+ import com.android.contacts.detail.ContactDisplayUtils;
+ import com.android.contacts.dialog.CallSubjectDialog;
+ import com.android.contacts.editor.ContactEditorFragment;
+@@ -2524,6 +2525,15 @@ public class QuickContactActivity extends ContactsActivity {
+         return number;
+     }
+ 
++    private boolean isOnSim() {
++        for (RawContact rawContact : mContactData.getRawContacts()) {
++            if (SimContactSync.ACCOUNT_TYPE.equals(rawContact.getAccountTypeString())) {
++                return true;
++            }
++        }
++        return false;
++    }
++
+     private void copyContactToSim() {
+         final List<SimCard> sims = SimContactDao.create(this).getSimCards();
+         if (sims.isEmpty()) {
+@@ -2550,7 +2560,11 @@ public class QuickContactActivity extends ContactsActivity {
+         new AsyncTask<Void, Void, Boolean>() {
+             @Override
+             protected Boolean doInBackground(Void... params) {
+-                return new SimContactDaoImpl(appContext).exportContact(sim, name, number);
++                if (!new SimContactDaoImpl(appContext).exportContact(sim, name, number)) {
++                    return false;
++                }
++                SimContactSync.sync(appContext);
++                return true;
+             }
+ 
+             @Override
+@@ -2749,6 +2763,7 @@ public class QuickContactActivity extends ContactsActivity {
+             final MenuItem copyToSimMenuItem = menu.findItem(R.id.menu_copy_to_sim);
+             copyToSimMenuItem.setVisible(
+                     !mContactData.isUserProfile()
++                            && !isOnSim()
+                             && !mContactData.isDirectoryEntry()
+                             && getPrimaryPhoneNumber() != null
+                             && !SimContactDao.create(this).getSimCards().isEmpty());
+-- 
+2.56.0
+
