@@ -1,0 +1,60 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 3 Oct 2026 04:33:58 +0300
+Subject: [PATCH] Aperture: hide lenses that can't record the selected video
+ frame rate
+
+auxiliary cameras often top out at 30fps while the main camera records
+at 60fps. filter the lens selector against the active video quality and
+frame rate so switching lenses does not drop the selected frame rate.
+---
+ .../java/org/lineageos/aperture/models/Camera.kt  |  5 +++++
+ .../aperture/viewmodels/CameraViewModel.kt        | 15 +++++++++++----
+ 2 files changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/app/src/main/java/org/lineageos/aperture/models/Camera.kt b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
+index 1832b8c..14b1449 100644
+--- a/app/src/main/java/org/lineageos/aperture/models/Camera.kt
++++ b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
+@@ -310,6 +310,11 @@ class Camera private constructor(
+         }
+     }
+ 
++    fun supportsVideoFrameRate(videoQuality: Quality, videoFrameRate: FrameRate?) =
++        supportedVideoQualities[videoQuality]?.supportedFrameRates?.let {
++            videoFrameRate == null || it.contains(videoFrameRate)
++        } ?: true
++
+     private fun canSustainFrameRate(resolution: Size?, frameRate: FrameRate): Boolean {
+         val minFrameDuration = resolution?.let {
+             runCatching {
+diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+index 5553bbe..b9c57c1 100644
+--- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
++++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+@@ -261,11 +261,18 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+      */
+     val lenses = combine(
+         cameraRepository.cameras,
+-        camera,
+-        cameraMode,
+-    ) { cameras, camera, cameraMode ->
++        cameraConfiguration,
++    ) { cameras, cameraConfiguration ->
++        val camera = cameraConfiguration.camera
++
+         camera to cameras.filter {
+-            it.cameraFacing == camera.cameraFacing && it.supportsCameraMode(cameraMode)
++            it.cameraFacing == camera.cameraFacing
++                    && it.supportsCameraMode(cameraConfiguration.cameraMode)
++                    && (cameraConfiguration !is CameraConfiguration.Video
++                    || it.supportsVideoFrameRate(
++                cameraConfiguration.videoQuality,
++                cameraConfiguration.videoFrameRate,
++            ))
+         }
+     }
+         .flowOn(Dispatchers.IO)
+-- 
+2.56.0
+
