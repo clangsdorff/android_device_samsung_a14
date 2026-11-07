@@ -157,19 +157,19 @@
         {
             "PowerHint": "INTERACTION",
             "Node": "CPUNormalClusterMinFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "1456000"
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "CPULittleClusterMinFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "1456000"
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "MemFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "1539000"
         },
         {
@@ -181,7 +181,7 @@
         {
             "PowerHint": "INTERACTION",
             "Node": "GPUMinFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "598000"
         },
         {
