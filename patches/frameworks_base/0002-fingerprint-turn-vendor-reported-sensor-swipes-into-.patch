@@ -206,7 +206,7 @@ index 000000000000..691b2dacc7e7
 +
 +    private void updateEnabled() {
 +        final boolean enabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
-+                Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
++                Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED, 1, UserHandle.USER_CURRENT) == 1;
 +        if (enabled == mEnabled) {
 +            return;
 +        }

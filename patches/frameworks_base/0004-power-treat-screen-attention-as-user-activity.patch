@@ -7,13 +7,13 @@ the attention check only ran 2 seconds before the screen dims and every
 extension counted towards the maximum extension, so the screen still
 went off while the user kept looking at it. start the check 5 seconds
 before the dim, count a face like a touch so the timeout restarts and
-the extension is not capped, and check again 10 seconds after each
-positive result.
+the extension is not capped, check again 10 seconds after each
+positive result, and default the setting to on.
 
 Change-Id: Ie6be38200e9ebb4404fed881f411f367bae7fd75
 ---
- .../server/power/AttentionDetector.java        | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ .../server/power/AttentionDetector.java        | 20 ++++++++++++++++--
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
 diff --git a/services/core/java/com/android/server/power/AttentionDetector.java b/services/core/java/com/android/server/power/AttentionDetector.java
 index b8011186dbda..5b8929747c49 100644
@@ -43,6 +43,15 @@ index b8011186dbda..5b8929747c49 100644
      @VisibleForTesting
      protected AttentionManagerInternal mAttentionManager;
  
+@@ -164,7 +172,7 @@ public class AttentionDetector {
+     @VisibleForTesting
+     void updateEnabledFromSettings(Context context) {
+         mIsSettingEnabled = Settings.Secure.getIntForUser(context.getContentResolver(),
+-                Settings.Secure.ADAPTIVE_SLEEP, 0, UserHandle.USER_CURRENT) == 1;
++                Settings.Secure.ADAPTIVE_SLEEP, 1, UserHandle.USER_CURRENT) == 1;
+     }
+ 
+     public void systemReady(Context context) {
 @@ -208,7 +216,10 @@ public class AttentionDetector {
          }
  
@@ -68,4 +77,3 @@ index b8011186dbda..5b8929747c49 100644
              case PowerManager.USER_ACTIVITY_EVENT_BUTTON:
 -- 
 2.43.0
-
