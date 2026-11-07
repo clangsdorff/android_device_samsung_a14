@@ -22,7 +22,6 @@ import android.media.ImageReader;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.service.attention.AttentionService;
 import android.util.Log;
 import android.util.Size;
@@ -42,8 +41,6 @@ public class FaceAttentionService extends AttentionService {
     private static final int MIN_HAL_FACE_SCORE = 50;
     // the framework cancels after its own timeout, this only guards a stuck camera
     private static final long CHECK_TIMEOUT_MS = 3000;
-    // written by the screen attention page in Settings: "hal" or "system"
-    private static final String DETECTOR_SETTING = "screen_attention_detector";
 
     private HandlerThread mThread;
     private Handler mHandler;
@@ -173,9 +170,7 @@ public class FaceAttentionService extends AttentionService {
             }
             Integer sensor = c == null ? null : c.get(CameraCharacteristics.SENSOR_ORIENTATION);
             mBaseRotation = ((sensor == null ? 270 : sensor) + displayRotation()) % 360;
-            boolean useSystem = "system".equals(
-                    Settings.Secure.getString(getContentResolver(), DETECTOR_SETTING));
-            mHalFaceMode = c == null || useSystem ? 0 : halFaceMode(c);
+            mHalFaceMode = c == null ? 0 : halFaceMode(c);
             mSize = c == null ? null : pickSize(c);
         }
 
