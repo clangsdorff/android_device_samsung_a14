@@ -79,6 +79,8 @@ vendor/lib/soundfx/libmyspace.so
 vendor/lib/soundfx/libsamsungSoundbooster_plus.so
 vendor/lib/soundfx/libswdap.so
 vendor/lib/soundfx/libswspatializer.so
+vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
+vendor/lib/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 vendor/lib64/hw/android.hardware.audio.effect@2.0-impl.so
 vendor/lib64/hw/android.hardware.audio.effect@6.0-impl.so
 vendor/lib64/hw/android.hardware.audio@2.0-impl.so
@@ -105,6 +107,8 @@ vendor/lib64/soundfx/libsamsungSoundbooster_plus.so
 vendor/lib64/soundfx/libswdap.so
 vendor/lib64/soundfx/libswspatializer.so
 vendor/lib64/vendor.samsung.hardware.audio-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.bluetooth.audio-impl.so
+vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service
