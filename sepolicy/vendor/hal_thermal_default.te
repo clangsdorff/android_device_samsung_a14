@@ -2,3 +2,6 @@ allow hal_thermal_default sysfs_battery:dir r_dir_perms;
 allow hal_thermal_default sysfs_battery:file r_file_perms;
 
 binder_call(hal_thermal_default, hal_health_default)
+
+get_prop(hal_thermal_default, system_boot_reason_prop)
+allow hal_thermal_default sysfs_switch:dir search;
