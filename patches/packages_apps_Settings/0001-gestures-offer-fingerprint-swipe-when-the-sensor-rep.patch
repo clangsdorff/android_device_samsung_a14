@@ -1756,7 +1756,7 @@ index af541ff..1e496e0 100644
 +            }
 +        }
 +        return false;
-     }
++    }
  
      @Override
 @@ -82,7 +101,7 @@ public class SwipeToNotificationPreferenceController extends GesturePreferenceCo

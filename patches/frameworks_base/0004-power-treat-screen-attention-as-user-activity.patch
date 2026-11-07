@@ -7,31 +7,27 @@ the attention check only ran 2 seconds before the screen dims and every
 extension counted towards the maximum extension, so the screen still
 went off while the user kept looking at it. start the check 5 seconds
 before the dim, count a face like a touch so the timeout restarts and
-the extension is not capped, check again 10 seconds after each
-positive result, and default the setting to on.
+the extension is not capped, and default the setting to on.
 
 Change-Id: Ie6be38200e9ebb4404fed881f411f367bae7fd75
 ---
- .../server/power/AttentionDetector.java        | 20 ++++++++++++++++--
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ .../server/power/AttentionDetector.java        | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/services/core/java/com/android/server/power/AttentionDetector.java b/services/core/java/com/android/server/power/AttentionDetector.java
-index b8011186dbda..5b8929747c49 100644
+index b8011186dbda..ddbd649a8b92 100644
 --- a/services/core/java/com/android/server/power/AttentionDetector.java
 +++ b/services/core/java/com/android/server/power/AttentionDetector.java
-@@ -66,7 +66,10 @@ public class AttentionDetector {
+@@ -66,7 +66,7 @@ public class AttentionDetector {
      static final String KEY_PRE_DIM_CHECK_DURATION_MILLIS = "pre_dim_check_duration_millis";
  
      /** Default value in absence of {@link DeviceConfig} override. */
 -    static final long DEFAULT_PRE_DIM_CHECK_DURATION_MILLIS = 2_000;
 +    static final long DEFAULT_PRE_DIM_CHECK_DURATION_MILLIS = 5_000;
-+
-+    /** How long after a positive check the next one runs. */
-+    static final long ATTENTION_RECHECK_MILLIS = 10_000;
  
      @VisibleForTesting
      protected long mPreDimCheckDurationMillis;
-@@ -129,6 +132,11 @@ public class AttentionDetector {
+@@ -129,6 +129,11 @@ public class AttentionDetector {
       */
      private long mLastUserActivityTime;
  
@@ -43,7 +39,7 @@ index b8011186dbda..5b8929747c49 100644
      @VisibleForTesting
      protected AttentionManagerInternal mAttentionManager;
  
-@@ -164,7 +172,7 @@ public class AttentionDetector {
+@@ -164,7 +169,7 @@ public class AttentionDetector {
      @VisibleForTesting
      void updateEnabledFromSettings(Context context) {
          mIsSettingEnabled = Settings.Secure.getIntForUser(context.getContentResolver(),
@@ -52,19 +48,7 @@ index b8011186dbda..5b8929747c49 100644
      }
  
      public void systemReady(Context context) {
-@@ -208,7 +216,10 @@ public class AttentionDetector {
-         }
- 
-         final long now = SystemClock.uptimeMillis();
--        final long whenToCheck = nextScreenDimming - mPreDimCheckDurationMillis;
-+        long whenToCheck = nextScreenDimming - mPreDimCheckDurationMillis;
-+        if (mLastAttentionTime != 0 && mLastAttentionTime == mLastUserActivityTime) {
-+            whenToCheck = Math.min(whenToCheck, mLastAttentionTime + ATTENTION_RECHECK_MILLIS);
-+        }
-         final long whenToStopExtending = mLastUserActivityTime + mMaximumExtensionMillis;
-         if (now < whenToCheck) {
-             if (DEBUG) {
-@@ -260,7 +271,10 @@ public class AttentionDetector {
+@@ -260,7 +265,10 @@ public class AttentionDetector {
      public int onUserActivity(long eventTime, int event) {
          switch (event) {
              case PowerManager.USER_ACTIVITY_EVENT_ATTENTION:
