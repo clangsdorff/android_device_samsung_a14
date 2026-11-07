@@ -1,0 +1,66 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 3 Oct 2026 04:34:13 +0300
+Subject: [PATCH] Aperture: fall back to the closest lower video frame rate
+
+when the saved or active frame rate is unavailable for a video quality,
+firstOrNull() picked the lowest entry in the set instead of the nearest
+lower rate. pick the highest supported rate below the requested one.
+---
+ .../lineageos/aperture/models/VideoQualityInfo.kt    | 12 +++++++++++-
+ .../lineageos/aperture/viewmodels/CameraViewModel.kt | 12 ++++++------
+ 2 files changed, 17 insertions(+), 7 deletions(-)
+
+diff --git a/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt b/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt
+index 86d85c8..acd852e 100644
+--- a/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt
++++ b/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt
+@@ -17,4 +17,14 @@ data class VideoQualityInfo(
+     val quality: Quality,
+     val supportedFrameRates: Set<FrameRate>,
+     val supportedDynamicRanges: Set<VideoDynamicRange>,
+-)
++) {
++    fun getClosestFrameRate(frameRate: FrameRate?): FrameRate? {
++        if (frameRate == null) {
++            return supportedFrameRates.firstOrNull()
++        }
++
++        return frameRate.takeIf { supportedFrameRates.contains(it) }
++            ?: supportedFrameRates.filter { it < frameRate }.maxOrNull()
++            ?: supportedFrameRates.minOrNull()
++    }
++}
+diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+index b9c57c1..ea2e86d 100644
+--- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
++++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+@@ -1495,9 +1495,9 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+                 videoQuality
+             ] ?: error("Video quality not supported")
+ 
+-            val videoFrameRate = cameraConfiguration.videoFrameRate.takeIf {
+-                videoQualityInfo.supportedFrameRates.contains(it)
+-            } ?: videoQualityInfo.supportedFrameRates.firstOrNull()
++            val videoFrameRate = videoQualityInfo.getClosestFrameRate(
++                cameraConfiguration.videoFrameRate
++            )
+ 
+             val videoDynamicRange = cameraConfiguration.videoDynamicRange.takeIf {
+                 videoQualityInfo.supportedDynamicRanges.contains(it)
+@@ -1777,9 +1777,9 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+                 "Camera ${camera.cameraId} does not support video quality $videoQuality"
+             )
+ 
+-            val videoFrameRate = preferencesRepository.videoFrameRate.value.takeIf {
+-                videoQualityInfo.supportedFrameRates.contains(it)
+-            } ?: videoQualityInfo.supportedFrameRates.firstOrNull()
++            val videoFrameRate = videoQualityInfo.getClosestFrameRate(
++                preferencesRepository.videoFrameRate.value
++            )
+ 
+             val videoDynamicRange = preferencesRepository.videoDynamicRange.value.takeIf {
+                 videoQualityInfo.supportedDynamicRanges.contains(it)
+-- 
+2.56.0
+

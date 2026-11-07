@@ -1,0 +1,75 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 7 Nov 2026 16:40:00 +0300
+Subject: [PATCH] camera: expose samsung aidl auxiliary cameras
+
+samsung aidl camera providers only return cameras with id below 20 on
+the standard ICameraProvider::getCameraIdList() call. auxiliary sensors
+such as macro (id 54) are only returned by the vendor binder extension
+ISehCameraProvider::getCameraIdListAll().
+
+query the vendor extension binder via AIBinder_getExtension and call
+getCameraIdListAll() if present. also treat auxiliary cameras as public
+so camera applications without system privileges can access macro mode.
+---
+ .../common/CameraProviderManager.cpp          |  6 ------
+ .../common/aidl/AidlProviderInfo.cpp          | 19 +++++++++++++++++++
+ 2 files changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
+index 019934c..83d9501 100644
+--- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
++++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
+@@ -1128,12 +1128,6 @@ SystemCameraKind CameraProviderManager::ProviderInfo::DeviceInfo3::getSystemCame
+         return SystemCameraKind::HIDDEN_SECURE_CAMERA;
+     }
+ 
+-    // Go through the capabilities and check if it has
+-    // ANDROID_REQUEST_AVAILABLE_CAPABILITIES_SYSTEM_CAMERA
+-    for (size_t i = 0; i < entryCap.count; ++i) {
+-        uint8_t capability = entryCap.data.u8[i];
+-        if (capability == ANDROID_REQUEST_AVAILABLE_CAPABILITIES_SYSTEM_CAMERA) {
+-            return SystemCameraKind::SYSTEM_ONLY_CAMERA;
+-        }
+-    }
+     return SystemCameraKind::PUBLIC;
+ }
+ 
+diff --git a/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp b/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp
+index d3ca574..8ec1318 100644
+--- a/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp
++++ b/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp
+@@ -32,6 +32,8 @@
+ #include <utils/AttributionAndPermissionUtils.h>
+ #include <utils/SessionConfigurationUtils.h>
+ #include <utils/Trace.h>
++#include <android/binder_libbinder.h>
++#include <binder/Parcel.h>
+ 
+ namespace {
+ const bool kEnableLazyHal(property_get_bool("ro.camera.enableLazyHal", false));
+@@ -176,6 +178,23 @@ status_t AidlProviderInfo::initializeAidlProvider(
+         return mapToStatusT(status);
+     }
+ 
++    AIBinder *ext = nullptr;
++    if (AIBinder_getExtension(interface->asBinder().get(), &ext) == STATUS_OK && ext != nullptr) {
++        sp<IBinder> extBinder = AIBinder_toPlatformBinder(ext);
++        if (extBinder != nullptr) {
++            Parcel data, reply;
++            data.writeInterfaceToken(String16("vendor.samsung.hardware.camera.provider.ISehCameraProvider"));
++            status_t transactStatus = extBinder->transact(IBinder::FIRST_CALL_TRANSACTION, data, &reply);
++            if (transactStatus == OK && reply.readExceptionCode() == 0) {
++                std::vector<std::string> allDevices;
++                if (reply.readUtf8StringVector(&allDevices) == OK && !allDevices.empty()) {
++                    retDevices = std::move(allDevices);
++                }
++            }
++        }
++    }
++
+     for (auto& name : retDevices) {
+         uint16_t major, minor;
+         std::string type, id;
+-- 
+2.48.1

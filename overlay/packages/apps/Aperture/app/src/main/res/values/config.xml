@@ -7,6 +7,7 @@
     <bool name="config_enableAuxCameras">true</bool>
 
     <string-array name="config_ignoredAuxCameraIds">
+        <item>3</item>
         <item>4</item>
         <item>23</item>
         <item>50</item>
