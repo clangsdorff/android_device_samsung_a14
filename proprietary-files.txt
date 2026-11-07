@@ -1,8 +1,6 @@
 # All blobs are from A145FXXSEDZF2 unless pinned
 
 # ADSP / Audio
-vendor/bin/hw/android.hardware.audio.service
-vendor/etc/init/android.hardware.audio.service.rc:vendor/etc/init/android.hardware.audio.service.samsung.rc
 vendor/bin/hw/secaudiohalaidl
 vendor/bin/main_abox
 vendor/etc/a2dpsink_audio_policy_configuration.xml
@@ -31,7 +29,6 @@ vendor/etc/situation_audio_policy_volumes_sec.xml
 vendor/etc/SoundBoosterParam.txt
 vendor/etc/usb_audio_policy_configuration.xml
 vendor/etc/vintf/manifest/secaudiohalaidl_manifest.xml
-vendor/etc/vintf/manifest/seh_bluetooth_audio.xml
 vendor/firmware/abox_tplg.bin
 vendor/firmware/abox_tplg.conf
 vendor/firmware/AP_AUDIO_SLSI.bin
@@ -82,8 +79,6 @@ vendor/lib/soundfx/libmyspace.so
 vendor/lib/soundfx/libsamsungSoundbooster_plus.so
 vendor/lib/soundfx/libswdap.so
 vendor/lib/soundfx/libswspatializer.so
-vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
-vendor/lib/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 vendor/lib64/hw/android.hardware.audio.effect@2.0-impl.so
 vendor/lib64/hw/android.hardware.audio.effect@6.0-impl.so
 vendor/lib64/hw/android.hardware.audio@2.0-impl.so
@@ -110,8 +105,6 @@ vendor/lib64/soundfx/libsamsungSoundbooster_plus.so
 vendor/lib64/soundfx/libswdap.so
 vendor/lib64/soundfx/libswspatializer.so
 vendor/lib64/vendor.samsung.hardware.audio-V1-ndk.so
-vendor/lib64/vendor.samsung.hardware.bluetooth.audio-impl.so
-vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service
