@@ -3,7 +3,10 @@ genfscon sysfs /module/scsc_bt/parameters                           u:object_r:s
 
 # Camera
 genfscon sysfs /devices/virtual/camera                            u:object_r:sysfs_camera:s0
+genfscon sysfs /devices/virtual/camera/flash/rear_flash           u:object_r:sysfs_camera_writable:s0
+genfscon sysfs /devices/virtual/camera/flash/front_flash          u:object_r:sysfs_camera_writable:s0
 genfscon sysfs /class/camera                                      u:object_r:sysfs_camera:s0
+genfscon sysfs /class/camera/flash/rear_flash                     u:object_r:sysfs_camera_writable:s0
 genfscon sysfs /devices/virtual/camera/rear/ssrm_camera_info      u:object_r:sysfs_camera_writable:s0
 genfscon sysfs /kernel/mm/vmscan/mem_boost_mode                   u:object_r:sysfs_camera_writable:s0
 genfscon sysfs /kernel/sec_mm/mem_boost_mode                      u:object_r:sysfs_camera_writable:s0
