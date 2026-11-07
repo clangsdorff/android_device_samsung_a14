@@ -1,3 +1,6 @@
+# Bluetooth
+genfscon sysfs /module/scsc_bt/parameters                           u:object_r:sysfs_bt_writable:s0
+
 # Camera
 genfscon sysfs /devices/virtual/camera                            u:object_r:sysfs_camera:s0
 genfscon sysfs /class/camera                                      u:object_r:sysfs_camera:s0
