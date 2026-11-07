@@ -1,0 +1,473 @@
+From 5192d17b2aa334a2649e32bf67c53190b7714e0e Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Wed, 7 Oct 2026 21:29:12 +0300
+Subject: [PATCH] Aperture: add a macro camera mode
+
+aperture groups auxiliary cameras into the lens selector using zoom
+ratios calculated from focal length. macro lenses do not fit this model
+and should not appear as wide or telephoto steps in photo mode.
+
+add a dedicated macro camera mode, read macro camera ids from an overlay
+resource, and switch to the macro sensor when the mode is selected.
+
+Change-Id: Iea0d34d8bb8a5314e23dfa564cd079e419262da2
+---
+ .../org/lineageos/aperture/CameraActivity.kt  | 22 +++++++--
+ .../org/lineageos/aperture/models/Camera.kt   | 18 +++++--
+ .../aperture/models/CameraConfiguration.kt    |  5 +-
+ .../lineageos/aperture/models/CameraMode.kt   | 12 ++++-
+ .../repositories/OverlaysRepository.kt        |  5 ++
+ .../repositories/PreferencesRepository.kt     |  1 +
+ .../ui/views/CameraModeSelectorLayout.kt      | 23 ++++++++-
+ .../aperture/viewmodels/CameraViewModel.kt    | 47 ++++++++++++++-----
+ app/src/main/res/values-tr/strings.xml        |  1 +
+ app/src/main/res/values/config.xml            |  5 ++
+ app/src/main/res/values/strings.xml           |  1 +
+ 11 files changed, 115 insertions(+), 25 deletions(-)
+
+diff --git a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
+index bc17c13..976eb88 100644
+--- a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
++++ b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
+@@ -526,7 +526,9 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+         shutterButton.setOnClickListener {
+             // Shutter animation
+             when (viewModel.cameraMode.value) {
+-                CameraMode.PHOTO -> startShutterAnimation(ShutterAnimation.PhotoCapture)
++                CameraMode.PHOTO, CameraMode.MACRO ->
++                    startShutterAnimation(ShutterAnimation.PhotoCapture)
++
+                 CameraMode.VIDEO -> {
+                     if (countDownView.cancelCountDown()) {
+                         viewModel.cameraState.value = CameraState.IDLE
+@@ -543,7 +545,7 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+ 
+             startTimerAndRun {
+                 when (viewModel.cameraMode.value) {
+-                    CameraMode.PHOTO -> viewModel.takePhoto()
++                    CameraMode.PHOTO, CameraMode.MACRO -> viewModel.takePhoto()
+                     CameraMode.VIDEO -> viewModel.captureVideo()
+                     else -> {}
+                 }
+@@ -738,27 +740,37 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
+ 
+                 // Update primary bar buttons
+                 shutterButton.isInvisible = cameraMode == CameraMode.QR
++                lensSelectorLayout.isInvisible = cameraMode == CameraMode.MACRO
+ 
+                 // Update camera mode selector
+                 cameraModeSelectorLayout.setCurrentCameraMode(cameraMode)
+             }
+         }
+ 
++        launch {
++            viewModel.availableCameraModes.collectLatest { availableCameraModes ->
++                cameraModeSelectorLayout.setAvailableCameraModes(availableCameraModes)
++            }
++        }
++
+         launch {
+             viewModel.cameraModeTransition.collectLatest { (oldCameraMode, newCameraMode) ->
+                 when (oldCameraMode) {
+-                    CameraMode.PHOTO -> when (newCameraMode) {
++                    CameraMode.PHOTO, CameraMode.MACRO -> when (newCameraMode) {
+                         CameraMode.VIDEO -> startShutterAnimation(ShutterAnimation.PhotoToVideo)
+                         else -> startShutterAnimation(ShutterAnimation.InitPhoto)
+                     }
+ 
+                     CameraMode.VIDEO -> when (newCameraMode) {
+-                        CameraMode.PHOTO -> startShutterAnimation(ShutterAnimation.VideoToPhoto)
++                        CameraMode.PHOTO, CameraMode.MACRO ->
++                            startShutterAnimation(ShutterAnimation.VideoToPhoto)
++
+                         else -> startShutterAnimation(ShutterAnimation.InitVideo)
+                     }
+ 
+                     CameraMode.QR, null -> when (newCameraMode) {
+-                        CameraMode.PHOTO -> startShutterAnimation(ShutterAnimation.InitPhoto)
++                        CameraMode.PHOTO, CameraMode.MACRO ->
++                            startShutterAnimation(ShutterAnimation.InitPhoto)
+ 
+                         CameraMode.VIDEO -> startShutterAnimation(ShutterAnimation.InitVideo)
+ 
+diff --git a/app/src/main/java/org/lineageos/aperture/models/Camera.kt b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
+index 14b1449..7d0932e 100644
+--- a/app/src/main/java/org/lineageos/aperture/models/Camera.kt
++++ b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
+@@ -44,6 +44,7 @@ class Camera private constructor(
+     val logicalZoomRatios: SortedMap<Float, Float>,
+     additionalVideoFrameRates: Map<Quality, Map<FrameRate, Boolean>>,
+     val supportedExtensionModes: Set<Int>,
++    val isMacro: Boolean,
+ ) {
+     /**
+      * The [androidx.camera.core.CameraSelector] for this camera.
+@@ -277,8 +278,15 @@ class Camera private constructor(
+         add(FlashMode.OFF)
+ 
+         if (cameraInfo.hasFlashUnit()) {
+-            add(FlashMode.AUTO)
+-            add(FlashMode.ON)
++            val aeModes = camera2CameraInfo.getCameraCharacteristic(
++                CameraCharacteristics.CONTROL_AE_AVAILABLE_MODES
++            )
++            if (aeModes?.contains(CameraMetadata.CONTROL_AE_MODE_ON_AUTO_FLASH) != false) {
++                add(FlashMode.AUTO)
++            }
++            if (aeModes?.contains(CameraMetadata.CONTROL_AE_MODE_ON_ALWAYS_FLASH) != false) {
++                add(FlashMode.ON)
++            }
+             add(FlashMode.TORCH)
+         }
+ 
+@@ -305,8 +313,9 @@ class Camera private constructor(
+ 
+     fun supportsCameraMode(cameraMode: CameraMode): Boolean {
+         return when (cameraMode) {
+-            CameraMode.VIDEO -> supportedVideoQualities.isNotEmpty()
+-            else -> true
++            CameraMode.MACRO -> isMacro
++            CameraMode.VIDEO -> !isMacro && supportedVideoQualities.isNotEmpty()
++            else -> !isMacro
+         }
+     }
+ 
+@@ -358,6 +367,7 @@ class Camera private constructor(
+                 logicalZoomRatios,
+                 additionalVideoFrameRates,
+                 supportedExtensionModes,
++                cameraId in overlaysRepository.macroCameraIds,
+             )
+         }
+     }
+diff --git a/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt b/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt
+index f9bfe1d..c4101aa 100644
+--- a/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt
++++ b/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt
+@@ -84,9 +84,8 @@ sealed interface CameraConfiguration {
+         val photoAspectRatio: Int,
+         val enableHighResolution: Boolean,
+         val photoOutputFormat: PhotoOutputFormat,
+-    ) : CameraConfiguration {
+-        override val cameraMode = CameraMode.PHOTO
+-    }
++        override val cameraMode: CameraMode = CameraMode.PHOTO,
++    ) : CameraConfiguration
+ 
+     /**
+      * Video mode configuration.
+diff --git a/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt b/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt
+index 1197537..e5ec64c 100644
+--- a/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt
++++ b/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt
+@@ -22,10 +22,20 @@ enum class CameraMode(
+             FlashMode.TORCH,
+         ),
+     ),
+-    QR(
++    MACRO(
+         setOf(
+             FlashMode.OFF,
++            FlashMode.AUTO,
++            FlashMode.ON,
+             FlashMode.TORCH,
+         ),
+     ),
++    QR(
++        setOf(
++            FlashMode.OFF,
++            FlashMode.TORCH,
++        ),
++    );
++
++    val capturesPhotos get() = this == PHOTO || this == MACRO
+ }
+diff --git a/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt b/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt
+index 78d39a2..13fcf36 100644
+--- a/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt
++++ b/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt
+@@ -48,6 +48,11 @@ class OverlaysRepository(private val context: Context) {
+      */
+     val ignoredAuxCameraIds = getStringArray(R.array.config_ignoredAuxCameraIds)
+ 
++    /**
++     * @see R.array.config_macroCameraIds
++     */
++    val macroCameraIds = getStringArray(R.array.config_macroCameraIds)
++
+     /**
+      * @see R.bool.config_ignoreLogicalAuxCameras
+      */
+diff --git a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
+index b1413f0..978b6e5 100644
+--- a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
++++ b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
+@@ -90,6 +90,7 @@ class PreferencesRepository(
+             when (it) {
+                 CameraMode.PHOTO -> "photo"
+                 CameraMode.VIDEO -> "video"
++                CameraMode.MACRO -> "macro"
+                 CameraMode.QR -> "qr"
+             }
+         },
+diff --git a/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt b/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt
+index a32f3df..9c343ea 100644
+--- a/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt
++++ b/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt
+@@ -9,9 +9,11 @@ import android.animation.ValueAnimator
+ import android.content.Context
+ import android.util.AttributeSet
+ import android.view.LayoutInflater
++import android.view.View
+ import android.widget.FrameLayout
+ import android.widget.LinearLayout
+ import androidx.core.view.doOnLayout
++import androidx.core.view.doOnNextLayout
+ import androidx.core.view.isInvisible
+ import androidx.core.view.isVisible
+ import com.google.android.material.button.MaterialButton
+@@ -35,8 +37,10 @@ class CameraModeSelectorLayout @JvmOverloads constructor(
+ 
+     private val cameraToButton = mutableMapOf<CameraMode, MaterialButton>()
+ 
++    private var availableCameraModes = CameraMode.entries.filter { it != CameraMode.MACRO }
+     private var inSingleCaptureMode = false
+     private var cameraState = CameraState.IDLE
++    private var currentCameraMode: CameraMode? = null
+ 
+     var onModeSelectedCallback: (cameraMode: CameraMode) -> Unit = {}
+ 
+@@ -53,6 +57,7 @@ class CameraModeSelectorLayout @JvmOverloads constructor(
+                     when (cameraMode) {
+                         CameraMode.PHOTO -> R.string.camera_mode_photo
+                         CameraMode.VIDEO -> R.string.camera_mode_video
++                        CameraMode.MACRO -> R.string.camera_mode_macro
+                         CameraMode.QR -> R.string.camera_mode_qr
+                     }
+                 )
+@@ -64,6 +69,8 @@ class CameraModeSelectorLayout @JvmOverloads constructor(
+     }
+ 
+     fun setCurrentCameraMode(cameraMode: CameraMode) {
++        currentCameraMode = cameraMode
++
+         val currentCameraModeButton =
+             cameraToButton[cameraMode] ?: throw Exception("No button for $cameraMode")
+ 
+@@ -93,6 +100,16 @@ class CameraModeSelectorLayout @JvmOverloads constructor(
+         }
+     }
+ 
++    fun setAvailableCameraModes(availableCameraModes: List<CameraMode>) {
++        this.availableCameraModes = availableCameraModes
++
++        updateButtons()
++
++        cameraModeButtonsLinearLayout.doOnNextLayout {
++            currentCameraMode?.let { setCurrentCameraMode(it) }
++        }
++    }
++
+     fun setInSingleCaptureMode(inSingleCaptureMode: Boolean) {
+         this.inSingleCaptureMode = inSingleCaptureMode
+ 
+@@ -115,7 +132,11 @@ class CameraModeSelectorLayout @JvmOverloads constructor(
+     private fun updateButtons() {
+         cameraModeHighlightButton.isInvisible = cameraState.isRecordingVideo || inSingleCaptureMode
+         cameraToButton.forEach {
+-            it.value.isInvisible = cameraState.isRecordingVideo || inSingleCaptureMode
++            it.value.visibility = when {
++                it.key !in availableCameraModes -> View.GONE
++                cameraState.isRecordingVideo || inSingleCaptureMode -> View.INVISIBLE
++                else -> View.VISIBLE
++            }
+         }
+     }
+ }
+diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+index ea2e86d..f2f4f58 100644
+--- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
++++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
+@@ -51,6 +51,7 @@ import kotlinx.coroutines.flow.first
+ import kotlinx.coroutines.flow.flatMapLatest
+ import kotlinx.coroutines.flow.flowOf
+ import kotlinx.coroutines.flow.flowOn
++import kotlinx.coroutines.flow.map
+ import kotlinx.coroutines.flow.mapLatest
+ import kotlinx.coroutines.flow.onStart
+ import kotlinx.coroutines.flow.runningFold
+@@ -243,6 +244,22 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+             initialValue = mapOf(),
+         )
+ 
++    /**
++     * The [CameraMode]s at least one camera supports.
++     */
++    val availableCameraModes = cameraRepository.cameras
++        .map { cameras ->
++            CameraMode.entries.filter { cameraMode ->
++                cameras.any { it.supportsCameraMode(cameraMode) }
++            }
++        }
++        .flowOn(Dispatchers.IO)
++        .stateIn(
++            scope = viewModelScope,
++            started = SharingStarted.Eagerly,
++            initialValue = CameraMode.entries.filter { it != CameraMode.MACRO },
++        )
++
+     /**
+      * Flow used for camera mode animations.
+      */
+@@ -366,7 +383,7 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+         qrFlashMode,
+     ) { cameraConfiguration, photoFlashMode, videoFlashMode, qrFlashMode ->
+         when (cameraConfiguration.cameraMode) {
+-            CameraMode.PHOTO -> photoFlashMode
++            CameraMode.PHOTO, CameraMode.MACRO -> photoFlashMode
+             CameraMode.VIDEO -> videoFlashMode
+             CameraMode.QR -> qrFlashMode
+         }
+@@ -390,7 +407,7 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+         val flashMode = wantedFlashMode.takeIf { it in supportedFlashModes } ?: FlashMode.OFF
+ 
+         val shouldForceTorch = forceTorch
+-                && cameraConfiguration.cameraMode == CameraMode.PHOTO
++                && cameraConfiguration.cameraMode.capturesPhotos
+                 && FlashMode.TORCH in cameraConfiguration.camera.supportedFlashModes
+ 
+         when (shouldForceTorch) {
+@@ -709,7 +726,7 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+         cameraMode,
+         photoCaptureMode,
+     ) { cameraConfiguration, cameraMode, photoCaptureMode ->
+-        cameraMode == CameraMode.PHOTO &&
++        cameraMode.capturesPhotos &&
+                 photoCaptureMode != ImageCapture.CAPTURE_MODE_ZERO_SHUTTER_LAG &&
+                 cameraConfiguration.camera.supportedExtensionModes.size > 1
+     }
+@@ -1019,13 +1036,16 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+      * [initialCameraMode] and [initialCameraFacing] must be initialized.
+      */
+     suspend fun initializeCameraConfiguration(): Boolean {
+-        val cameraMode = initialCameraMode
++        var cameraMode = initialCameraMode
+         val cameraFacing = initialCameraFacing
+ 
+         val camera = getSuitableCamera(
+             cameraMode = cameraMode,
+             cameraFacing = cameraFacing,
+-        ) ?: return false
++        ) ?: getSuitableCamera(
++            cameraMode = CameraMode.PHOTO,
++            cameraFacing = cameraFacing,
++        )?.also { cameraMode = CameraMode.PHOTO } ?: return false
+ 
+         val cameraConfiguration = createInitialCameraConfiguration(
+             camera = camera,
+@@ -1339,12 +1359,14 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+     /**
+      * Switch to the previous camera mode.
+      */
+-    fun previousCameraMode() = cameraMode.value.previous()?.let { setCameraMode(it) }
++    fun previousCameraMode() =
++        availableCameraModes.value.previous(cameraMode.value)?.let { setCameraMode(it) }
+ 
+     /**
+      * Switch to the next camera mode.
+      */
+-    fun nextCameraMode() = cameraMode.value.next()?.let { setCameraMode(it) }
++    fun nextCameraMode() =
++        availableCameraModes.value.next(cameraMode.value)?.let { setCameraMode(it) }
+ 
+     /**
+      * Cycle flash mode
+@@ -1356,7 +1378,7 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+         val cameraConfiguration = _cameraConfiguration.value ?: return false
+ 
+         // Long-press is supported only on photo mode and if torch mode is available
+-        val forceTorchAvailable = cameraConfiguration.cameraMode == CameraMode.PHOTO
++        val forceTorchAvailable = cameraConfiguration.cameraMode.capturesPhotos
+                 && cameraConfiguration.camera.supportedFlashModes.contains(FlashMode.TORCH)
+         if (forceTorch && !forceTorchAvailable) {
+             this.forceTorch.value = false
+@@ -1377,7 +1399,9 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+ 
+                 false -> supportedFlashModes.value.toList().next(flashMode.value)?.let {
+                     when (cameraConfiguration.cameraMode) {
+-                        CameraMode.PHOTO -> preferencesRepository.photoFlashMode.value = it
++                        CameraMode.PHOTO, CameraMode.MACRO ->
++                            preferencesRepository.photoFlashMode.value = it
++
+                         CameraMode.VIDEO -> preferencesRepository.videoFlashMode.value = it
+                         CameraMode.QR -> qrFlashMode.value = it
+                     }
+@@ -1450,7 +1474,7 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+ 
+             createInitialCameraConfiguration(
+                 camera = cameraConfiguration.camera,
+-                cameraMode = CameraMode.PHOTO,
++                cameraMode = cameraConfiguration.cameraMode,
+             )
+         }
+ 
+@@ -1708,7 +1732,7 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+         camera: Camera,
+         cameraMode: CameraMode,
+     ) = when (cameraMode) {
+-        CameraMode.PHOTO -> {
++        CameraMode.PHOTO, CameraMode.MACRO -> {
+             // Enable ZSL when requested by the user and supported by the camera
+             val photoCaptureMode = when (
+                 val photoCaptureMode = preferencesRepository.photoCaptureMode.value
+@@ -1763,6 +1787,7 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
+                 },
+                 enableHighResolution = enableHighResolution,
+                 photoOutputFormat = photoOutputFormat,
++                cameraMode = cameraMode,
+             )
+         }
+ 
+diff --git a/app/src/main/res/values-tr/strings.xml b/app/src/main/res/values-tr/strings.xml
+index 09970fe..3300b38 100644
+--- a/app/src/main/res/values-tr/strings.xml
++++ b/app/src/main/res/values-tr/strings.xml
+@@ -175,6 +175,7 @@
+     <string name="camera_mode_photo">Fotoğraf</string>
+     <string name="camera_mode_video">Video</string>
+     <string name="camera_mode_qr">Tara</string>
++    <string name="camera_mode_macro">Makro</string>
+     <string name="video_mirror_mode_off">Kapalı</string>
+     <string name="video_mirror_mode_on">Açık</string>
+     <string name="video_mirror_mode_on_ffc_only">Yalnızca ön kamera</string>
+diff --git a/app/src/main/res/values/config.xml b/app/src/main/res/values/config.xml
+index 72cd4c7..fc6cdc2 100644
+--- a/app/src/main/res/values/config.xml
++++ b/app/src/main/res/values/config.xml
+@@ -12,6 +12,11 @@
+         <!-- No camera is ignored by default. -->
+     </string-array>
+ 
++    <!-- List of ID of macro cameras. These are only offered in the macro camera mode. -->
++    <string-array name="config_macroCameraIds">
++        <item>54</item>
++    </string-array>
++
+     <!-- Decide whether to ignore auxiliary cameras that
+          are logical (made of multiple physical sensors).
+          Set this to false if your camera HAL doesn't expose
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index c1e62c8..1920a9e 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -240,6 +240,7 @@
+     <string name="camera_mode_photo">Photo</string>
+     <string name="camera_mode_video">Video</string>
+     <string name="camera_mode_qr">Scan</string>
++    <string name="camera_mode_macro">Macro</string>
+ 
+     <!-- Video dynamic ranges -->
+     <string name="video_dynamic_range_sdr" translatable="false">SDR</string>
+-- 
+2.43.0
+
