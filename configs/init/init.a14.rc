@@ -3,9 +3,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-on late-fs
-    symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
-
 on post-fs-data
     swapon_all /vendor/etc/fstab.s5e3830
 
