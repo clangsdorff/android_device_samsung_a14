@@ -6,6 +6,4 @@
 
 allow hal_wifi_supplicant_default wifi_vendor_data_file:dir create_dir_perms;
 allow hal_wifi_supplicant_default wifi_vendor_data_file:file create_file_perms;
-allow hal_wifi_supplicant_default wpa_vendor_data_file:dir create_dir_perms;
-allow hal_wifi_supplicant_default wpa_vendor_data_file:file create_file_perms;
-allow hal_wifi_supplicant_default wpa_vendor_data_file:sock_file create_file_perms;
+allow hal_wifi_supplicant_default wifi_vendor_data_file:sock_file create_file_perms;
