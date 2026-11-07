@@ -21,7 +21,6 @@
 # Fingerprint
 /(vendor|system/vendor)/bin/goodixfingerprintd                                                      u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.biometrics\.fingerprint-service           u:object_r:hal_fingerprint_default_exec:s0
-/dev/goodix_fp                                                                                      u:object_r:fp_sensor_device:s0
 /sys/class/fingerprint(/.*)?                                                                        u:object_r:sysfs_fingerprint:s0
 
 # GNSS
