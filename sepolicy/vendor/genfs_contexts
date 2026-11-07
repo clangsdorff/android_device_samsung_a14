@@ -26,6 +26,13 @@ genfscon sysfs /devices/platform/17000050.devfreq_aud                u:object_r:
 # PMIC / Battery
 genfscon sysfs /devices/platform/13830000.i2c                     u:object_r:sysfs_battery:s0
 
+# Suspend / Wakeup
+genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003c/power_supply/usbpd-manager/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003d/s2mu106-muic/power_supply/muic-manager/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003d/s2mu106-charger/power_supply/s2mu106-otg/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003d/s2mu106-charger/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/13600000.usb/13600000.dwc3/wakeup u:object_r:sysfs_wakeup:s0
+
 # Sensors
 genfscon sysfs /devices/platform/shub                             u:object_r:sysfs_iio:s0
 

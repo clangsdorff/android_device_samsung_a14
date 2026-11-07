@@ -87,7 +87,11 @@ PRODUCT_PACKAGES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb.gadget-service.samsung
+    android.hardware.usb-service.samsung \
+    android.hardware.usb.gadget-service.samsung \
+    init.s5e3830.usb.rc
+
+$(call soong_config_set,samsungUsbGadgetVars,gadget_name,13600000.dwc3)
 
 # NFC
 PRODUCT_COPY_FILES += \
