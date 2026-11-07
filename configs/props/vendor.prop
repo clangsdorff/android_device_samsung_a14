@@ -63,6 +63,7 @@ ro.camera.disableJpegR=true
 persist.sys.sf.color_saturation=1.0
 ro.surface_flinger.game_default_frame_rate_override=60
 dev.usbsetting.embedded=on
+vendor.usb.controller=13600000.dwc3
 aaudio.mmap_policy=2
 aaudio.mmap_exclusive_policy=2
 aaudio.hw_burst_min_usec=2000
