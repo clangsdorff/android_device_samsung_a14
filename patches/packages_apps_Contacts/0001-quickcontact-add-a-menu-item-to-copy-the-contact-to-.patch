@@ -1,0 +1,263 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 24 Oct 2026 23:57:57 +0300
+Subject: [PATCH] quickcontact: add a menu item to copy the contact to the sim
+ card
+
+contacts can import from the sim card through SimPhonebookContract, but
+there is no way to write an existing contact back to it. add a copy to
+sim overflow item that trims the name to the adn byte limit, lets the
+user pick a card on dual-sim devices, and writes the primary number.
+---
+ res/menu/quickcontact.xml                     |  4 ++
+ res/values-tr/strings.xml                     |  4 ++
+ res/values/strings.xml                        | 12 ++++
+ .../contacts/database/SimContactDaoImpl.java  | 45 ++++++++++++
+ .../quickcontact/QuickContactActivity.java    | 69 +++++++++++++++++++
+ 5 files changed, 134 insertions(+)
+
+diff --git a/res/menu/quickcontact.xml b/res/menu/quickcontact.xml
+index 7d87708..603fb52 100644
+--- a/res/menu/quickcontact.xml
++++ b/res/menu/quickcontact.xml
+@@ -46,6 +46,10 @@
+         android:id="@+id/menu_create_contact_shortcut"
+         android:title="@string/menu_create_contact_shortcut" />
+ 
++    <item
++        android:id="@+id/menu_copy_to_sim"
++        android:title="@string/menu_copy_to_sim" />
++
+     <item
+         android:id="@+id/menu_set_ringtone"
+         android:title="@string/menu_set_ring_tone" />
+diff --git a/res/values-tr/strings.xml b/res/values-tr/strings.xml
+index 826c024..3ef7c85 100644
+--- a/res/values-tr/strings.xml
++++ b/res/values-tr/strings.xml
+@@ -71,6 +71,10 @@
+     <string name="title_from_google" msgid="2554633992366572820">"Google\'dan"</string>
+     <string name="title_from_other_accounts" msgid="7813596336566711843">"<xliff:g id="ACCOUNT">%s</xliff:g> hesabından"</string>
+     <string name="menu_set_ring_tone" msgid="8876328286439724181">"Zil sesi ayarla"</string>
++    <string name="menu_copy_to_sim">"SIM\'e kopyala"</string>
++    <string name="copy_to_sim_choose">"SIM seçin"</string>
++    <string name="copy_to_sim_done">"SIM\'e kopyalandı"</string>
++    <string name="copy_to_sim_failed">"SIM\'e kopyalanamadı"</string>
+     <string name="menu_redirect_calls_to_vm" msgid="3027178444991878913">"Sesli mesaja yönlendir"</string>
+     <string name="menu_unredirect_calls_to_vm" msgid="2294919685954790892">"Yönlendirmeyi iptal et"</string>
+     <string name="readOnlyContactWarning" msgid="4158660823025751201">"Bu kişi salt okunur. Kişi silinemez ancak gizlenebilir."</string>
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index fc24b10..7d45ed3 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -195,6 +195,18 @@
+     <!-- Menu item to set ring tone for a given contact [CHAR LIMIT=15] -->
+     <string name="menu_set_ring_tone">Set ringtone</string>
+ 
++    <!-- Menu item that copies the contact's name and number to the SIM card -->
++    <string name="menu_copy_to_sim">Copy to SIM</string>
++
++    <!-- Title of the dialog for choosing which SIM to copy the contact to -->
++    <string name="copy_to_sim_choose">Choose SIM</string>
++
++    <!-- Toast shown after the contact was written to the SIM card -->
++    <string name="copy_to_sim_done">Copied to SIM</string>
++
++    <!-- Toast shown when the SIM card rejected the contact, e.g. because it is full -->
++    <string name="copy_to_sim_failed">Couldn\'t copy to SIM</string>
++
+     <!-- Menu item to route all calls from a given contact to voice mail [CHAR LIMIT=30] -->
+     <string name="menu_redirect_calls_to_vm">Route to voicemail</string>
+ 
+diff --git a/src/com/android/contacts/database/SimContactDaoImpl.java b/src/com/android/contacts/database/SimContactDaoImpl.java
+index 54106f0..2c01a2e 100644
+--- a/src/com/android/contacts/database/SimContactDaoImpl.java
++++ b/src/com/android/contacts/database/SimContactDaoImpl.java
+@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
+ import android.content.ContentProviderOperation;
+ import android.content.ContentProviderResult;
+ import android.content.ContentResolver;
++import android.content.ContentValues;
+ import android.content.Context;
+ import android.content.OperationApplicationException;
+ import android.content.pm.PackageManager;
+@@ -32,10 +33,13 @@ import android.provider.ContactsContract.CommonDataKinds.StructuredName;
+ import android.provider.ContactsContract.Data;
+ import android.provider.ContactsContract.RawContacts;
+ import android.provider.SimPhonebookContract;
++import android.provider.SimPhonebookContract.ElementaryFiles;
+ import android.provider.SimPhonebookContract.SimRecords;
++import android.telephony.PhoneNumberUtils;
+ import android.telephony.SubscriptionInfo;
+ import android.telephony.SubscriptionManager;
+ import android.telephony.TelephonyManager;
++import android.util.Log;
+ import android.util.SparseArray;
+ 
+ import androidx.collection.ArrayMap;
+@@ -147,6 +151,47 @@ public class SimContactDaoImpl extends SimContactDao {
+         return results.toArray(new ContentProviderResult[results.size()]);
+     }
+ 
++    /**
++     * Writes a single record to the ADN file of the given SIM, trimming the name to what the
++     * SIM can hold. Returns false if the SIM rejected the record, e.g. because it is full.
++     */
++    public boolean exportContact(SimCard sim, String name, String number) {
++        final int subscriptionId = sim.getSubscriptionId();
++        final int maxNameLength = getAdnNameMaxLength(subscriptionId);
++        String simName = name != null ? name : "";
++        while (maxNameLength >= 0 && !simName.isEmpty()
++                && SimRecords.getEncodedNameLength(mResolver, simName) > maxNameLength) {
++            simName = simName.substring(0, simName.offsetByCodePoints(simName.length(), -1));
++        }
++
++        final ContentValues values = new ContentValues();
++        values.put(SimRecords.NAME, simName);
++        values.put(SimRecords.PHONE_NUMBER, PhoneNumberUtils.stripSeparators(number));
++        synchronized (SIM_READ_LOCK) {
++            try {
++                return mResolver.insert(SimRecords.getContentUri(subscriptionId,
++                        ElementaryFiles.EF_ADN), values) != null;
++            } catch (IllegalArgumentException | IllegalStateException e) {
++                Log.w(TAG, "Failed to write SIM contact", e);
++                return false;
++            }
++        }
++    }
++
++    private int getAdnNameMaxLength(int subscriptionId) {
++        final Cursor cursor = mResolver.query(
++                ElementaryFiles.getItemUri(subscriptionId, ElementaryFiles.EF_ADN),
++                new String[]{ElementaryFiles.NAME_MAX_LENGTH}, null, null);
++        if (cursor == null) {
++            return -1;
++        }
++        try {
++            return cursor.moveToFirst() ? cursor.getInt(0) : -1;
++        } finally {
++            cursor.close();
++        }
++    }
++
+     public void persistSimState(SimCard sim) {
+         SharedPreferenceUtil.persistSimStates(mContext, Collections.singletonList(sim));
+     }
+diff --git a/src/com/android/contacts/quickcontact/QuickContactActivity.java b/src/com/android/contacts/quickcontact/QuickContactActivity.java
+index eeaf115..fd9dd0a 100644
+--- a/src/com/android/contacts/quickcontact/QuickContactActivity.java
++++ b/src/com/android/contacts/quickcontact/QuickContactActivity.java
+@@ -21,6 +21,7 @@ import android.accounts.Account;
+ import android.animation.ArgbEvaluator;
+ import android.animation.ObjectAnimator;
+ import android.app.Activity;
++import android.app.AlertDialog;
+ import android.app.LoaderManager.LoaderCallbacks;
+ import android.app.ProgressDialog;
+ import android.app.SearchManager;
+@@ -118,6 +119,8 @@ import com.android.contacts.compat.CompatUtils;
+ import com.android.contacts.compat.EventCompat;
+ import com.android.contacts.compat.MultiWindowCompat;
+ import com.android.contacts.compat.PhoneNumberUtilsCompat;
++import com.android.contacts.database.SimContactDao;
++import com.android.contacts.database.SimContactDaoImpl;
+ import com.android.contacts.detail.ContactDisplayUtils;
+ import com.android.contacts.dialog.CallSubjectDialog;
+ import com.android.contacts.editor.ContactEditorFragment;
+@@ -136,6 +139,7 @@ import com.android.contacts.model.AccountTypeManager;
+ import com.android.contacts.model.Contact;
+ import com.android.contacts.model.ContactLoader;
+ import com.android.contacts.model.RawContact;
++import com.android.contacts.model.SimCard;
+ import com.android.contacts.model.account.AccountType;
+ import com.android.contacts.model.dataitem.CustomDataItem;
+ import com.android.contacts.model.dataitem.DataItem;
+@@ -2502,6 +2506,62 @@ public class QuickContactActivity extends ContactsActivity {
+         ContactDeletionInteraction.start(this, contactUri, /* finishActivityWhenDone= */ true);
+     }
+ 
++    private String getPrimaryPhoneNumber() {
++        String number = null;
++        for (RawContact rawContact : mContactData.getRawContacts()) {
++            for (DataItem dataItem : rawContact.getDataItems()) {
++                if (!(dataItem instanceof PhoneDataItem)) {
++                    continue;
++                }
++                if (dataItem.isSuperPrimary()) {
++                    return ((PhoneDataItem) dataItem).getNumber();
++                }
++                if (number == null) {
++                    number = ((PhoneDataItem) dataItem).getNumber();
++                }
++            }
++        }
++        return number;
++    }
++
++    private void copyContactToSim() {
++        final List<SimCard> sims = SimContactDao.create(this).getSimCards();
++        if (sims.isEmpty()) {
++            return;
++        }
++        if (sims.size() == 1) {
++            copyContactToSim(sims.get(0));
++            return;
++        }
++        final CharSequence[] simNames = new CharSequence[sims.size()];
++        for (int i = 0; i < sims.size(); i++) {
++            simNames[i] = sims.get(i).getDisplayName();
++        }
++        new AlertDialog.Builder(this)
++                .setTitle(R.string.copy_to_sim_choose)
++                .setItems(simNames, (dialog, which) -> copyContactToSim(sims.get(which)))
++                .show();
++    }
++
++    private void copyContactToSim(SimCard sim) {
++        final String name = mContactData.getDisplayName();
++        final String number = getPrimaryPhoneNumber();
++        final Context appContext = getApplicationContext();
++        new AsyncTask<Void, Void, Boolean>() {
++            @Override
++            protected Boolean doInBackground(Void... params) {
++                return new SimContactDaoImpl(appContext).exportContact(sim, name, number);
++            }
++
++            @Override
++            protected void onPostExecute(Boolean success) {
++                Toast.makeText(appContext,
++                        success ? R.string.copy_to_sim_done : R.string.copy_to_sim_failed,
++                        Toast.LENGTH_SHORT).show();
++            }
++        }.execute();
++    }
++
+     private void toggleStar(MenuItem starredMenuItem, boolean isStarred) {
+         // To improve responsiveness, swap out the picture (and tag) in the UI already
+         ContactDisplayUtils.configureStarredMenuItem(
+@@ -2686,6 +2746,13 @@ public class QuickContactActivity extends ContactsActivity {
+             final MenuItem shortcutMenuItem = menu.findItem(R.id.menu_create_contact_shortcut);
+             shortcutMenuItem.setVisible(isShortcutCreatable());
+ 
++            final MenuItem copyToSimMenuItem = menu.findItem(R.id.menu_copy_to_sim);
++            copyToSimMenuItem.setVisible(
++                    !mContactData.isUserProfile()
++                            && !mContactData.isDirectoryEntry()
++                            && getPrimaryPhoneNumber() != null
++                            && !SimContactDao.create(this).getSimCards().isEmpty());
++
+             // Hide telephony-related settings (ringtone, send to voicemail)
+             // if we don't have a telephone
+             final MenuItem ringToneMenuItem = menu.findItem(R.id.menu_set_ringtone);
+@@ -2834,6 +2901,8 @@ public class QuickContactActivity extends ContactsActivity {
+             if (isShortcutCreatable()) {
+                 createLauncherShortcutWithContact();
+             }
++        } else if (id == R.id.menu_copy_to_sim) {
++            copyContactToSim();
+         } else if (id == R.id.menu_set_ringtone) {
+             doPickRingtone();
+         } else if (id == R.id.menu_send_to_voicemail) { // Update state and save
+-- 
+2.56.0
+
