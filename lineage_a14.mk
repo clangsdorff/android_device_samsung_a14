@@ -10,9 +10,7 @@ $(call inherit-product, device/samsung/a14/device.mk)
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # GApps
-ifeq ($(WITH_GMS),true)
-$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
-endif
+$(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
 
 PRODUCT_NAME := lineage_a14
 PRODUCT_DEVICE := a14
