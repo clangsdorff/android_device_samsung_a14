@@ -55,6 +55,7 @@ ro.vendor.arm.egl.configs.p010.recordable=true
 ro.vendor.arm.egl.configs.q410.hal_format=0x10a
 ro.vendor.arm.egl.configs.q410.recordable=true
 ro.vendor.sec.radio.def_network=9
+ro.telephony.default_network=9,9
 ro.radio.noril=no
 ro.telephony.default_cdma_sub=0
 ro.vendor.epdg.support=true
