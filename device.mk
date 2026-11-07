@@ -29,8 +29,8 @@ PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := speed
 
 # Dexopt & JIT
 PRODUCT_PRODUCT_PROPERTIES += \
-    dalvik.vm.usejit=false \
-    dalvik.vm.usejitprofiles=false \
+    dalvik.vm.usejit=true \
+    dalvik.vm.usejitprofiles=true \
     dalvik.vm.dex2oat-filter=speed \
     pm.dexopt.install=speed \
     pm.dexopt.install-bulk=speed \
