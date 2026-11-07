@@ -63,6 +63,7 @@
             "Name": "GPUMinFreq",
             "Path": "/sys/kernel/gpu/gpu_min_clock",
             "Values": [
+                "754000",
                 "598000",
                 "377000",
                 "156000",
@@ -156,19 +157,19 @@
         {
             "PowerHint": "INTERACTION",
             "Node": "CPUNormalClusterMinFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "1456000"
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "CPULittleClusterMinFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "1456000"
         },
         {
             "PowerHint": "INTERACTION",
             "Node": "MemFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "1539000"
         },
         {
@@ -180,7 +181,7 @@
         {
             "PowerHint": "INTERACTION",
             "Node": "GPUMinFreq",
-            "Duration": 300,
+            "Duration": 1000,
             "Value": "598000"
         },
         {
@@ -212,6 +213,12 @@
             "Node": "PMQoSCpuDmaLatency",
             "Duration": 1000,
             "Value": "0x0000002c"
+        },
+        {
+            "PowerHint": "LAUNCH",
+            "Node": "GPUMinFreq",
+            "Duration": 1500,
+            "Value": "754000"
         },
         {
             "PowerHint": "CAMERA_LAUNCH",
@@ -301,7 +308,7 @@
             "PowerHint": "EXPENSIVE_RENDERING",
             "Node": "GPUMinFreq",
             "Duration": 0,
-            "Value": "156000"
+            "Value": "598000"
         },
         {
             "PowerHint": "LOW_POWER",
