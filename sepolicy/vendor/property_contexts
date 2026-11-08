@@ -1,4 +1,3 @@
-vendor.powerhal.                               u:object_r:vendor_power_prop:s0
 vendor.bluetooth.                               u:object_r:vendor_bluetooth_prop:s0
 vendor.bluetooth_                              u:object_r:vendor_bluetooth_prop:s0
 vendor.wlan.                                    u:object_r:vendor_wifi_prop:s0
