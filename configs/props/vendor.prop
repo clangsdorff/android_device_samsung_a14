@@ -87,6 +87,7 @@ persist.vendor.multithreaded_present=0
 persist.vendor.layer_batch_command=0
 dalvik.vm.dex2oat64.enabled=true
 dalvik.vm.lockprof.threshold=500
+ro.lmk.swap_compression_ratio=3
 ro.hw.wfd_use_c2_encoder=1
 ro.hw.use_hwc_services=1
 ro.hw.use_contig_memory_for_scratch_buf=1
