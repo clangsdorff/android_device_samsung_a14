@@ -70,6 +70,9 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('(?m)^(\t*)user root', r'#\1user root'),
     'vendor/lib/lib_SoundAlive_play_plus_ver400.so': blob_fixup()
         .add_needed('liblog.so'),
+    # skip the verify callback logging that reads the X509 struct layout directly
+    'vendor/bin/hw/gpsd': blob_fixup()
+        .binary_regex_replace(b'\x88\x02\x40\xf9\x76\x03\x40\xf9\x00\x01\x40\xf9', b'\x2b\x00\x00\x14\x76\x03\x40\xf9\x00\x01\x40\xf9'),
 }  # fmt: skip
 
 def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
