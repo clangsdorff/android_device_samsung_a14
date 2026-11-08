@@ -11,3 +11,4 @@ type sysfs_vendor_display, sysfs_type, fs_type;
 type sysfs_abox_writable, sysfs_type, fs_type;
 type sysfs_shub, sysfs_type, fs_type;
 
+type sysfs_ksm, sysfs_type, fs_type;
