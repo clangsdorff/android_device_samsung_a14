@@ -30,13 +30,6 @@
         </interface>
     </hal>
     <hal format="aidl" optional="true">
-        <name>vendor.samsung.hardware.wifi</name>
-        <interface>
-            <name>ISehWifi</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="aidl" optional="true">
         <name>vendor.samsung.hardware.wifi.nan</name>
         <interface>
             <name>IWifiVendorNan</name>
