@@ -97,4 +97,8 @@
         <version>1</version>
         <fqname>ISunlightEnhancement/default</fqname>
     </hal>
+    <hal format="aidl">
+        <name>vendor.samsung.hardware.wifi.nan</name>
+        <fqname>IWifiVendorNan/default</fqname>
+    </hal>
 </manifest>

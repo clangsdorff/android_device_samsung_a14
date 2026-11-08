@@ -605,7 +605,6 @@ vendor/bin/hw/android.hardware.wifi-service:vendor/bin/hw/android.hardware.wifi-
 vendor/bin/hw/hostapd;MODULE_SUFFIX=_stock
 vendor/bin/hw/macloader
 vendor/bin/hw/mfgloader
-vendor/bin/hw/vendor.samsung.hardware.wifi-service
 vendor/bin/hw/wpa_supplicant:vendor/bin/hw/wpa_supplicant.samsung
 vendor/bin/slsi_wlan_udi_log
 vendor/bin/slsi_wlan_udi_log_decode
@@ -619,13 +618,11 @@ vendor/etc/vintf/manifest/android.hardware.sensors-multihal.xml:vendor/etc/vintf
 vendor/etc/vintf/manifest/android.hardware.wifi-service.xml:vendor/etc/vintf/manifest/android.hardware.wifi-service.samsung.xml
 vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml:vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.samsung.xml
 vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml:vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.samsung.xml
-vendor/etc/init/vendor.samsung.hardware.wifi-service.rc
 vendor/etc/init/wifi.rc
 vendor/etc/init/wifi_slsi_850.rc
 vendor/etc/permissions/android.hardware.wifi.direct.xml
 vendor/etc/permissions/android.hardware.wifi.passpoint.xml
 vendor/etc/permissions/android.hardware.wifi.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi-service.xml
 vendor/etc/wifi/indoorchannel.info
 vendor/etc/wifi/p2p_supplicant_overlay.conf
 vendor/etc/wifi/wpa_supplicant.conf
@@ -670,7 +667,6 @@ vendor/firmware/wifi/slsi_reg_database.bin
 vendor/lib/libwpa_client.so
 vendor/lib64/libwifi-hal.so
 vendor/lib64/libwpa_client.so
-vendor/lib64/vendor.samsung.hardware.wifi-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.wifi.hostapd-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.wifi.nan-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.wifi.supplicant-V1-ndk.so
