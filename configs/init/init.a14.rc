@@ -20,3 +20,7 @@ on post-fs-data
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
     swapon_all /vendor/etc/fstab.s5e3830
 
+# The camera hal never restores emstune if it dies with a session open
+on property:init.svc.sec-camera-provider=running
+    write /sys/devices/platform/ems/emstune/req_mode 0
+
