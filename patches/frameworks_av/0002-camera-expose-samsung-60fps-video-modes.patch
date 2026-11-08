@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From f84f761427ae7ab3cdf6fd3ce909d3291f3b1a9e Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 4 Oct 2026 23:12:38 +0300
-Subject: [PATCH] camera: expose samsung 60fps video modes
+Subject: [PATCH 2/3] camera: expose samsung 60fps video modes
 
 the samsung hal keeps its 60fps video modes in its own video
 configuration tags, so standard camera apps only see 30fps. expose the
@@ -23,7 +23,7 @@ mode for other aspect ratios.
  6 files changed, 174 insertions(+)
 
 diff --git a/services/camera/libcameraservice/common/CameraDeviceBase.h b/services/camera/libcameraservice/common/CameraDeviceBase.h
-index 4dcd2d5..ce619c5 100644
+index 4dcd2d59e7c2..ce619c5cc11c 100644
 --- a/services/camera/libcameraservice/common/CameraDeviceBase.h
 +++ b/services/camera/libcameraservice/common/CameraDeviceBase.h
 @@ -135,6 +135,9 @@ class CameraDeviceBase : public virtual FrameProducer {
@@ -37,7 +37,7 @@ index 4dcd2d5..ce619c5 100644
      typedef List<PhysicalCameraSettings> PhysicalCameraSettingsList;
  
 diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-index 29fc88f..019934c 100644
+index 29fc88fa8b7a..019934c1e2a9 100644
 --- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
 +++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
 @@ -3264,6 +3264,7 @@ status_t CameraProviderManager::ProviderInfo::DeviceInfo3::getCameraCharacterist
@@ -49,7 +49,7 @@ index 29fc88f..019934c 100644
      if (compatInfo.shouldRotateAndCrop() && compatInfo.shouldOverrideSensorOrientation()) {
          const auto &lensFacingEntry = characteristics->find(ANDROID_LENS_FACING);
 diff --git a/services/camera/libcameraservice/device3/Camera3Device.cpp b/services/camera/libcameraservice/device3/Camera3Device.cpp
-index a7472a0..da8ca54 100644
+index a7472a037c3d..da8ca54b3707 100644
 --- a/services/camera/libcameraservice/device3/Camera3Device.cpp
 +++ b/services/camera/libcameraservice/device3/Camera3Device.cpp
 @@ -2436,6 +2436,14 @@ sp<Camera3Device::CaptureRequest> Camera3Device::createCaptureRequest(
@@ -176,7 +176,7 @@ index a7472a0..da8ca54 100644
      ATRACE_CALL();
      Mutex::Autolock l(mTriggerMutex);
 diff --git a/services/camera/libcameraservice/device3/Camera3Device.h b/services/camera/libcameraservice/device3/Camera3Device.h
-index dcc1280..877749e 100644
+index dcc1280d9309..877749ee3602 100644
 --- a/services/camera/libcameraservice/device3/Camera3Device.h
 +++ b/services/camera/libcameraservice/device3/Camera3Device.h
 @@ -444,6 +444,7 @@ class Camera3Device :
@@ -227,7 +227,7 @@ index dcc1280..877749e 100644
          int32_t            mSettingsOverride; // -1 = use original, otherwise
                                                // the settings override to use.
 diff --git a/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp b/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
-index e603b71..3cbdfdc 100644
+index e603b71ea0d9..3cbdfdc61a69 100644
 --- a/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
 +++ b/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
 @@ -1473,6 +1473,91 @@ void setSamsungRemosaicCameraClient(const CameraMetadata& deviceInfo, int64_t ma
@@ -323,7 +323,7 @@ index e603b71..3cbdfdc 100644
      // Override the template request with ZoomRatioMapper
      status_t res = ZoomRatioMapper::initZoomRatioInTemplate(request);
 diff --git a/services/camera/libcameraservice/utils/SessionConfigurationUtils.h b/services/camera/libcameraservice/utils/SessionConfigurationUtils.h
-index dff76d4..d1d060b 100644
+index dff76d48ffee..d1d060b34760 100644
 --- a/services/camera/libcameraservice/utils/SessionConfigurationUtils.h
 +++ b/services/camera/libcameraservice/utils/SessionConfigurationUtils.h
 @@ -195,6 +195,12 @@ void addSamsungRemosaicJpegSizes(CameraMetadata* info);

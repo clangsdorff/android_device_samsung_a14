@@ -1,8 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 8b06f0c52492b9acb8a04a17de2135c0658fd833 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 7 Nov 2026 19:37:17 +0300
-Subject: [PATCH] settingsprovider: default screen attention and fingerprint
- swipe on
+Subject: [PATCH 08/10] settingsprovider: default screen attention and
+ fingerprint swipe on
 
 screen attention and the fingerprint swipe navigation gesture should be
 enabled out of the box. seed both secure settings to 1 when the secure
@@ -12,7 +12,7 @@ settings database is initialized.
  1 file changed, 2 insertions(+)
 
 diff --git a/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java b/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
-index e057682..5e66edc 100644
+index e057682d6d95..5e66edcbeadb 100644
 --- a/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
 +++ b/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
 @@ -2182,6 +2182,8 @@ class DatabaseHelper extends SQLiteOpenHelper {

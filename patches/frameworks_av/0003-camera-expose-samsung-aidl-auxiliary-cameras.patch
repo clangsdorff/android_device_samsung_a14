@@ -1,7 +1,7 @@
-From 6037a81739c577780d388aec08c3b734bbe5f62c Mon Sep 17 00:00:00 2001
+From b8232b44ac58fe86476bdba1624723662ef424ce Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 7 Nov 2026 14:07:42 +0000
-Subject: [PATCH] camera: expose samsung aidl auxiliary cameras
+Subject: [PATCH 3/3] camera: expose samsung aidl auxiliary cameras
 
 samsung aidl camera providers only return cameras with id below 20 on
 the standard ICameraProvider::getCameraIdList() call. auxiliary sensors
@@ -17,7 +17,7 @@ so camera applications without system privileges can access macro mode.
  2 files changed, 18 insertions(+), 8 deletions(-)
 
 diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-index 019934c1e2..a78038846a 100644
+index 019934c1e2a9..a78038846a04 100644
 --- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
 +++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
 @@ -1133,14 +1133,6 @@ SystemCameraKind CameraProviderManager::ProviderInfo::DeviceInfo3::getSystemCame
@@ -36,7 +36,7 @@ index 019934c1e2..a78038846a 100644
  }
  
 diff --git a/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp b/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp
-index 4c19ccf20e..551f6c75a7 100644
+index 4c19ccf20e16..b00d18a997c6 100644
 --- a/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp
 +++ b/services/camera/libcameraservice/common/aidl/AidlProviderInfo.cpp
 @@ -33,6 +33,8 @@
@@ -72,4 +72,5 @@ index 4c19ccf20e..551f6c75a7 100644
          uint16_t major, minor;
          std::string type, id;
 -- 
-2.43.0
+2.56.0
+

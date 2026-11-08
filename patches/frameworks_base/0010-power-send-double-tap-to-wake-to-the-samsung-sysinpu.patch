@@ -1,7 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From a52ba98f297dcc21c3a7947f25c98893d14e2177 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 8 Nov 2026 11:04:51 +0300
-Subject: [PATCH] power: send double tap to wake to the samsung sysinput hal
+Subject: [PATCH 10/10] power: send double tap to wake to the samsung sysinput
+ hal
 
 the stock samsung power hal does nothing for the double tap mode, so
 the setting never reaches the touch ic. stock sends aot_enable to the
@@ -12,7 +13,7 @@ changes, on a background thread since the hal may not be up yet.
  1 file changed, 30 insertions(+)
 
 diff --git a/services/core/java/com/android/server/power/PowerManagerService.java b/services/core/java/com/android/server/power/PowerManagerService.java
-index 02ad3cd..9a320ae 100644
+index 02ad3cd66945..9a320aee0bc6 100644
 --- a/services/core/java/com/android/server/power/PowerManagerService.java
 +++ b/services/core/java/com/android/server/power/PowerManagerService.java
 @@ -102,7 +102,9 @@ import android.os.PowerManager.WakeReason;

@@ -1,4 +1,4 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 023f98b852c3664c80623ad3bdd45b152a6e266c Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Fri, 2 Oct 2026 21:17:53 +0300
 Subject: [PATCH] aconfig: enable the ime switcher button in navbar setting
@@ -14,7 +14,7 @@ toggle is offered.
 
 diff --git a/aconfig/cp2a/android.view.inputmethod/ime_switcher_button_in_navbar_setting_flag_values.textproto b/aconfig/cp2a/android.view.inputmethod/ime_switcher_button_in_navbar_setting_flag_values.textproto
 new file mode 100644
-index 0000000..266e8bd
+index 000000000000..266e8bd850fe
 --- /dev/null
 +++ b/aconfig/cp2a/android.view.inputmethod/ime_switcher_button_in_navbar_setting_flag_values.textproto
 @@ -0,0 +1,6 @@

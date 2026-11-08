@@ -1,8 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 793bb0d579ba920e951698adbeb31b3e70875c40 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 3 Oct 2026 04:33:58 +0300
-Subject: [PATCH] Aperture: hide lenses that can't record the selected video
- frame rate
+Subject: [PATCH 3/6] Aperture: hide lenses that can't record the selected
+ video frame rate
 
 auxiliary cameras often top out at 30fps while the main camera records
 at 60fps. filter the lens selector against the active video quality and
@@ -13,7 +13,7 @@ frame rate so switching lenses does not drop the selected frame rate.
  2 files changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/app/src/main/java/org/lineageos/aperture/models/Camera.kt b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
-index 1832b8c..14b1449 100644
+index 1832b8c1873e..14b144982049 100644
 --- a/app/src/main/java/org/lineageos/aperture/models/Camera.kt
 +++ b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
 @@ -310,6 +310,11 @@ class Camera private constructor(
@@ -29,7 +29,7 @@ index 1832b8c..14b1449 100644
          val minFrameDuration = resolution?.let {
              runCatching {
 diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
-index 5553bbe..b9c57c1 100644
+index 5553bbe88076..b9c57c15354b 100644
 --- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 +++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 @@ -261,11 +261,18 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)

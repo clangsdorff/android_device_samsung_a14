@@ -1,4 +1,4 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 8fd27ab23c86ae3fd17ef1e321f4488ee82cd7f8 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 16:26:02 +0000
 Subject: [PATCH] Launcher3: add a themed icons switch to the launcher settings
@@ -16,7 +16,7 @@ Change-Id: I84cb69caa429952655e0a6f1bab30d8443e9af56
  4 files changed, 23 insertions(+)
 
 diff --git a/res/values-tr/lineage_strings.xml b/res/values-tr/lineage_strings.xml
-index 036f5f7907..7df025e3c4 100644
+index 036f5f790755..7df025e3c4a5 100644
 --- a/res/values-tr/lineage_strings.xml
 +++ b/res/values-tr/lineage_strings.xml
 @@ -14,6 +14,8 @@
@@ -29,7 +29,7 @@ index 036f5f7907..7df025e3c4 100644
      <string name="pref_themed_icons_summary">Ana ekranda kullanılan temalı simgeleri takip edin</string>
      <string name="pref_suggestions_title">Öneriler</string>
 diff --git a/res/values/lineage_strings.xml b/res/values/lineage_strings.xml
-index f223b4c384..ef76403bd0 100644
+index f223b4c38452..ef76403bd054 100644
 --- a/res/values/lineage_strings.xml
 +++ b/res/values/lineage_strings.xml
 @@ -23,6 +23,8 @@
@@ -42,7 +42,7 @@ index f223b4c384..ef76403bd0 100644
      <string name="pref_themed_icons_summary">Follow themed icons used on home screen</string>
  
 diff --git a/res/xml/launcher_preferences.xml b/res/xml/launcher_preferences.xml
-index 3ef7795214..466b8345fb 100644
+index 3ef779521455..466b8345fb83 100644
 --- a/res/xml/launcher_preferences.xml
 +++ b/res/xml/launcher_preferences.xml
 @@ -66,8 +66,15 @@
@@ -62,7 +62,7 @@ index 3ef7795214..466b8345fb 100644
          android:summary="@string/pref_themed_icons_summary"
          android:defaultValue="false"
 diff --git a/src/com/android/launcher3/settings/SettingsActivity.java b/src/com/android/launcher3/settings/SettingsActivity.java
-index d4b18483c0..967936d8a1 100644
+index d4b18483c008..967936d8a1df 100644
 --- a/src/com/android/launcher3/settings/SettingsActivity.java
 +++ b/src/com/android/launcher3/settings/SettingsActivity.java
 @@ -52,6 +52,7 @@ import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartScreenCallb
@@ -106,5 +106,5 @@ index d4b18483c0..967936d8a1 100644
                      return launcherApps != null &&
                              launcherApps.isPackageEnabled(SUGGESTIONS_PACKAGE, myUserHandle());
 -- 
-2.43.0
+2.56.0
 

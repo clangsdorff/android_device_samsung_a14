@@ -1,7 +1,7 @@
-From 5192d17b2aa334a2649e32bf67c53190b7714e0e Mon Sep 17 00:00:00 2001
+From 69d1089a1075c49ecba3d198df1e657f9a59fd7b Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 7 Oct 2026 21:29:12 +0300
-Subject: [PATCH] Aperture: add a macro camera mode
+Subject: [PATCH 6/6] Aperture: add a macro camera mode
 
 aperture groups auxiliary cameras into the lens selector using zoom
 ratios calculated from focal length. macro lenses do not fit this model
@@ -26,7 +26,7 @@ Change-Id: Iea0d34d8bb8a5314e23dfa564cd079e419262da2
  11 files changed, 115 insertions(+), 25 deletions(-)
 
 diff --git a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
-index bc17c13..976eb88 100644
+index bc17c1381df6..976eb887fcfb 100644
 --- a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
 +++ b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
 @@ -526,7 +526,9 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
@@ -91,7 +91,7 @@ index bc17c13..976eb88 100644
                          CameraMode.VIDEO -> startShutterAnimation(ShutterAnimation.InitVideo)
  
 diff --git a/app/src/main/java/org/lineageos/aperture/models/Camera.kt b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
-index 14b1449..7d0932e 100644
+index 14b144982049..7d0932e58663 100644
 --- a/app/src/main/java/org/lineageos/aperture/models/Camera.kt
 +++ b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
 @@ -44,6 +44,7 @@ class Camera private constructor(
@@ -141,7 +141,7 @@ index 14b1449..7d0932e 100644
          }
      }
 diff --git a/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt b/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt
-index f9bfe1d..c4101aa 100644
+index f9bfe1d87e84..c4101aaa9e07 100644
 --- a/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt
 +++ b/app/src/main/java/org/lineageos/aperture/models/CameraConfiguration.kt
 @@ -84,9 +84,8 @@ sealed interface CameraConfiguration {
@@ -157,7 +157,7 @@ index f9bfe1d..c4101aa 100644
      /**
       * Video mode configuration.
 diff --git a/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt b/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt
-index 1197537..e5ec64c 100644
+index 1197537f6657..e5ec64c816b0 100644
 --- a/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt
 +++ b/app/src/main/java/org/lineageos/aperture/models/CameraMode.kt
 @@ -22,10 +22,20 @@ enum class CameraMode(
@@ -183,7 +183,7 @@ index 1197537..e5ec64c 100644
 +    val capturesPhotos get() = this == PHOTO || this == MACRO
  }
 diff --git a/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt b/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt
-index 78d39a2..13fcf36 100644
+index 78d39a2ccccb..13fcf362f8d0 100644
 --- a/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt
 +++ b/app/src/main/java/org/lineageos/aperture/repositories/OverlaysRepository.kt
 @@ -48,6 +48,11 @@ class OverlaysRepository(private val context: Context) {
@@ -199,7 +199,7 @@ index 78d39a2..13fcf36 100644
       * @see R.bool.config_ignoreLogicalAuxCameras
       */
 diff --git a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
-index b1413f0..978b6e5 100644
+index b1413f083c10..978b6e540108 100644
 --- a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
 +++ b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
 @@ -90,6 +90,7 @@ class PreferencesRepository(
@@ -211,7 +211,7 @@ index b1413f0..978b6e5 100644
              }
          },
 diff --git a/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt b/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt
-index a32f3df..9c343ea 100644
+index a32f3df0b527..9c343eaf3bd5 100644
 --- a/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt
 +++ b/app/src/main/java/org/lineageos/aperture/ui/views/CameraModeSelectorLayout.kt
 @@ -9,9 +9,11 @@ import android.animation.ValueAnimator
@@ -285,7 +285,7 @@ index a32f3df..9c343ea 100644
      }
  }
 diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
-index ea2e86d..f2f4f58 100644
+index ea2e86dda947..f2f4f588f1d3 100644
 --- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 +++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 @@ -51,6 +51,7 @@ import kotlinx.coroutines.flow.first
@@ -429,7 +429,7 @@ index ea2e86d..f2f4f58 100644
          }
  
 diff --git a/app/src/main/res/values-tr/strings.xml b/app/src/main/res/values-tr/strings.xml
-index 09970fe..3300b38 100644
+index 09970fe4832a..3300b3863ed3 100644
 --- a/app/src/main/res/values-tr/strings.xml
 +++ b/app/src/main/res/values-tr/strings.xml
 @@ -175,6 +175,7 @@
@@ -441,7 +441,7 @@ index 09970fe..3300b38 100644
      <string name="video_mirror_mode_on">Açık</string>
      <string name="video_mirror_mode_on_ffc_only">Yalnızca ön kamera</string>
 diff --git a/app/src/main/res/values/config.xml b/app/src/main/res/values/config.xml
-index 72cd4c7..fc6cdc2 100644
+index 72cd4c7ca386..fc6cdc21dc19 100644
 --- a/app/src/main/res/values/config.xml
 +++ b/app/src/main/res/values/config.xml
 @@ -12,6 +12,11 @@
@@ -457,7 +457,7 @@ index 72cd4c7..fc6cdc2 100644
           are logical (made of multiple physical sensors).
           Set this to false if your camera HAL doesn't expose
 diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
-index c1e62c8..1920a9e 100644
+index c1e62c89ef70..1920a9e39870 100644
 --- a/app/src/main/res/values/strings.xml
 +++ b/app/src/main/res/values/strings.xml
 @@ -240,6 +240,7 @@
@@ -469,5 +469,5 @@ index c1e62c8..1920a9e 100644
      <!-- Video dynamic ranges -->
      <string name="video_dynamic_range_sdr" translatable="false">SDR</string>
 -- 
-2.43.0
+2.56.0
 

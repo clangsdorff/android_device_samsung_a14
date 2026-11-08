@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 8624e8f7b45dcaefb81ac9a5c363819747503221 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 3 Oct 2026 01:43:26 +0300
-Subject: [PATCH] camera: expose samsung remosaic capture
+Subject: [PATCH 1/3] camera: expose samsung remosaic capture
 
 samsung tetra sensors only list their full resolution jpeg size in
 samsung.android.scaler.availablePictureStreamConfigurations, so apps
@@ -26,7 +26,7 @@ Change-Id: Id43f12ee8e13d2bf5bed8ccc31c5e9de209c2a28
  4 files changed, 133 insertions(+)
 
 diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-index cfa8e6d8df..29fc88fa8b 100644
+index cfa8e6d8dfab..29fc88fa8b7a 100644
 --- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
 +++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
 @@ -3263,6 +3263,8 @@ status_t CameraProviderManager::ProviderInfo::DeviceInfo3::getCameraCharacterist
@@ -39,7 +39,7 @@ index cfa8e6d8df..29fc88fa8b 100644
          const auto &lensFacingEntry = characteristics->find(ANDROID_LENS_FACING);
          const auto &sensorOrientationEntry = characteristics->find(ANDROID_SENSOR_ORIENTATION);
 diff --git a/services/camera/libcameraservice/device3/Camera3Device.cpp b/services/camera/libcameraservice/device3/Camera3Device.cpp
-index ca159874fb..a7472a037c 100644
+index ca159874fb96..a7472a037c3d 100644
 --- a/services/camera/libcameraservice/device3/Camera3Device.cpp
 +++ b/services/camera/libcameraservice/device3/Camera3Device.cpp
 @@ -1503,6 +1503,14 @@ status_t Camera3Device::filterParamsAndConfigureLocked(const CameraMetadata& par
@@ -58,7 +58,7 @@ index ca159874fb..a7472a037c 100644
  }
  
 diff --git a/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp b/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
-index 4e7553513f..e603b71ea0 100644
+index 4e7553513f3a..e603b71ea0d9 100644
 --- a/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
 +++ b/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
 @@ -1357,6 +1357,122 @@ void filterParameters(const CameraMetadata& src, const CameraMetadata& deviceInf
@@ -185,7 +185,7 @@ index 4e7553513f..e603b71ea0 100644
      // Override the template request with ZoomRatioMapper
      status_t res = ZoomRatioMapper::initZoomRatioInTemplate(request);
 diff --git a/services/camera/libcameraservice/utils/SessionConfigurationUtils.h b/services/camera/libcameraservice/utils/SessionConfigurationUtils.h
-index a398ffad33..dff76d48ff 100644
+index a398ffad33e1..dff76d48ffee 100644
 --- a/services/camera/libcameraservice/utils/SessionConfigurationUtils.h
 +++ b/services/camera/libcameraservice/utils/SessionConfigurationUtils.h
 @@ -188,6 +188,13 @@ void filterParameters(const CameraMetadata& src, const CameraMetadata& deviceInf
@@ -203,5 +203,5 @@ index a398ffad33..dff76d48ff 100644
  
  template <typename T> bool contains(std::set<T> container, T value) {
 -- 
-2.43.0
+2.56.0
 
