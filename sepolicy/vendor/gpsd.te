@@ -8,3 +8,5 @@ allow hal_gnss_default gpsd:unix_stream_socket connectto;
 allow gpsd sysfs_soc:dir r_dir_perms;
 allow gpsd sysfs_soc:file r_file_perms;
 allow gpsd gpsd_exec:file { rx_file_perms execute_no_trans };
+
+allow gpsd system_data_file:dir search;
