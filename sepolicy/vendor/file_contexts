@@ -52,7 +52,7 @@
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.thermal-service                           u:object_r:hal_thermal_default_exec:s0
 
 # Vibrator
-/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.vibrator-service                          u:object_r:hal_vibrator_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator-service\.samsung                         u:object_r:hal_vibrator_default_exec:s0
 
 # Wi-Fi
 /(vendor|system/vendor)/bin/hw/mfgloader                                                            u:object_r:mfgloader_exec:s0

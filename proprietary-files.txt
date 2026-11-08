@@ -332,12 +332,6 @@ vendor/tee/00000000-0000-0000-0000-6b6e78677564
 vendor/tee/driver/00000000-0000-0000-0000-494363447256
 vendor/tee/driver/00000000-0000-0000-0000-564c544b4456
 
-# Lights / Vibrator
-vendor/bin/hw/vendor.samsung.hardware.vibrator-service
-vendor/etc/init/vendor.samsung.hardware.vibrator-default.rc
-vendor/etc/vintf/manifest/vendor.samsung.hardware.vibrator-default.xml
-vendor/lib64/vendor.samsung.hardware.vibrator-V5-ndk.so
-
 # Media / Codec2
 vendor/bin/hw/samsung.hardware.media.c2@1.2-service
 vendor/bin/hw/samsung.software.media.c2@1.0-service
