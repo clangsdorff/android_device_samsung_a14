@@ -6,3 +6,7 @@ allow hal_health_default app_efs_file:dir r_dir_perms;
 allow hal_health_default app_efs_file:file { rw_file_perms setattr };
 
 hal_client_domain(hal_health_default, hal_thermal)
+
+allow hal_health_default log_vendor_data_file:dir search;
+
+get_prop(hal_health_default, boot_status_prop)
