@@ -49,6 +49,9 @@
 # Power
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power\.samsung-service                            u:object_r:hal_power_default_exec:s0
 
+# Hyper
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.hyper-service                         u:object_r:hal_hyper_default_exec:s0
+
 # Sysinput
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.sysinput-service                          u:object_r:hal_sysinput_default_exec:s0
 
@@ -76,6 +79,5 @@
 /(vendor|system/vendor)/lib(64)?/libdrm\.so                                                         u:object_r:same_process_hal_file:s0
 
 # Power
-/(vendor|system/vendor)/bin/hw/android\.hardware\.power-service\.pixel-libperfmgr                u:object_r:hal_power_default_exec:s0
 /(vendor|system/vendor)/bin/sendhint                                                              u:object_r:sendhint_vendor_exec:s0
 /dev/socket/pps                                                                                   u:object_r:pps_socket:s0

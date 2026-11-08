@@ -1,0 +1,24 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+type hal_hyper_default, domain;
+type hal_hyper_default_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(hal_hyper_default)
+type hal_hyper_service, hal_service_type, service_manager_type;
+
+binder_use(hal_hyper_default)
+add_service(hal_hyper_default, hal_hyper_service)
+
+allow hal_hyper_default self:capability sys_nice;
+allow hal_hyper_default sysfs_devices_system_cpu:file rw_file_perms;
+allow hal_hyper_default sysfs_power_writable:dir r_dir_perms;
+allow hal_hyper_default sysfs_power_writable:file rw_file_perms;
+allow hal_hyper_default sysfs_gpu:dir r_dir_perms;
+allow hal_hyper_default sysfs_gpu:file rw_file_perms;
+
+allow hal_power_default hal_hyper_service:service_manager find;
+binder_call(hal_power_default, hal_hyper_default)
+binder_call(hal_hyper_default, hal_power_default)
