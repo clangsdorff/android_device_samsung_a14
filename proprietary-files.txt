@@ -320,24 +320,16 @@ vendor/tee/driver/00000000-0000-0000-0000-564c544b4456
 
 # Media / Codec2
 vendor/bin/hw/samsung.hardware.media.c2@1.2-service
-vendor/bin/hw/samsung.software.media.c2@1.0-service
 vendor/etc/init/samsung.hardware.media.c2@1.2-service.rc
-vendor/etc/init/samsung.software.media.c2@1.0-service.rc
 vendor/etc/media_codecs.xml
 vendor/etc/media_codecs_c2.xml
-vendor/etc/media_codecs_c2_sec.xml
-vendor/etc/media_codecs_c2_sec_ape.xml
-vendor/etc/media_codecs_c2_sec_qcp.xml
 vendor/etc/media_codecs_performance.xml
 vendor/etc/media_codecs_performance_c2.xml
 vendor/etc/media_profiles_V1_0.xml
 vendor/etc/seccomp_policy/codec2.vendor.base.policy
 vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 vendor/etc/seccomp_policy/mediaextractor_sec.policy
-vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy
-vendor/etc/seccomp_policy/samsung.software.media.c2-ext-policy
 vendor/etc/somxreg.conf
-vendor/etc/vintf/manifest/sec_c2_manifest_default1_hidl.xml
 vendor/firmware/mfc_fw.bin
 vendor/lib/libc2filterplugin.so
 vendor/lib/libExynosC2ComponentRM.so
@@ -354,18 +346,6 @@ vendor/lib/libExynosC2Vp8Dec.so
 vendor/lib/libExynosC2Vp8Enc.so
 vendor/lib/libstagefright_foundation_vendor.so
 vendor/lib64/libc2filterplugin.so
-vendor/lib64/libcodec2_sec_aacdec.so
-vendor/lib64/libcodec2_sec_aacenc.so
-vendor/lib64/libcodec2_sec_amrnbdec.so
-vendor/lib64/libcodec2_sec_amrwbdec.so
-vendor/lib64/libcodec2_sec_flacdec.so
-vendor/lib64/libcodec2_sec_imadec.so
-vendor/lib64/libcodec2_sec_mp3dec.so
-vendor/lib64/libcodec2_sec_mp4vdec.so
-vendor/lib64/libcodec2_sec_soft_common.so
-vendor/lib64/libcodec2_sec_vc1dec.so
-vendor/lib64/libcodec2_soft_ac4dec.so
-vendor/lib64/libcodec2_soft_eac3dec.so
 vendor/lib64/libExynosC2ComponentRM.so
 vendor/lib64/libExynosC2ComponentStore.so
 vendor/lib64/libExynosC2H263Dec.so
@@ -379,7 +359,6 @@ vendor/lib64/libExynosC2Mpeg4Enc.so
 vendor/lib64/libExynosC2Vp8Dec.so
 vendor/lib64/libExynosC2Vp8Enc.so
 vendor/lib64/libsec2lsi_conversion.so
-vendor/lib64/libSecC2ComponentStore.so
 vendor/lib64/libsomxcmn.so
 vendor/lib64/libstagefright_foundation_vendor.so
 
