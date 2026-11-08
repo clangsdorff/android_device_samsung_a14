@@ -78,4 +78,5 @@
     <bool name="config_setColorTransformAccelerated">true</bool>
     <bool name="config_useDevInputEventForAudioJack">true</bool>
     <integer name="config_num_physical_slots">2</integer>
+    <string name="config_deviceConfiguratorPackageName" translatable="false">com.google.android.gms</string>
 </resources>
