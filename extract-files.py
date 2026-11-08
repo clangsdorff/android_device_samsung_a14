@@ -27,9 +27,6 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/lib/hw/audio.primary.s5e3830.so': blob_fixup()
         .replace_needed('libaudioroute.so', 'libaudioroute_sec.so')
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
-    'vendor/lib/hw/audio.usb.default.so': blob_fixup()
-        .replace_needed('libalsautils.so', 'libalsautils_sec.so')
-        .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
     'vendor/lib/libaboxdump.so': blob_fixup()
         .replace_needed('libaudioroute.so', 'libaudioroute_sec.so')
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
@@ -47,9 +44,6 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/lib/libsensorlistener.so': blob_fixup()
         .replace_needed('libsensorndkbridge.so', 'libsensorndkbridge_sec.so'),
     'vendor/lib/soundfx/libaudioeffectoffload.so': blob_fixup()
-        .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
-    'vendor/lib64/hw/audio.usb.default.so': blob_fixup()
-        .replace_needed('libalsautils.so', 'libalsautils_sec.so')
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
     'vendor/lib64/libalsautils_sec.so': blob_fixup()
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
