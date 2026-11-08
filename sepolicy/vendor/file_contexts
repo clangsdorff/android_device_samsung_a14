@@ -22,7 +22,6 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.dumpstate-service                                 u:object_r:hal_dumpstate_default_exec:s0
 
 # Fingerprint
-/(vendor|system/vendor)/bin/goodixfingerprintd                                                      u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.biometrics\.fingerprint-service           u:object_r:hal_fingerprint_default_exec:s0
 /sys/class/fingerprint(/.*)?                                                                        u:object_r:sysfs_fingerprint:s0
 
@@ -65,7 +64,6 @@
 /(vendor|system/vendor)/bin/hw/mfgloader                                                            u:object_r:mfgloader_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.wifi-service                              u:object_r:hal_wifi_default_exec:s0
 /(vendor|system/vendor)/bin/wlbtd                                                                   u:object_r:wlbtd_exec:s0
-/(vendor|system/vendor)/bin/wpal                                                                    u:object_r:wpal_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors-service\.multihal\.samsung     u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi-service\.samsung                  u:object_r:hal_wifi_default_exec:s0
 /(vendor|system/vendor)/bin/hw/wpa_supplicant\.samsung                                   u:object_r:hal_wifi_supplicant_default_exec:s0
