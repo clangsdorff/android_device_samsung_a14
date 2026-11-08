@@ -19,3 +19,5 @@ allow hal_camera_default hal_graphics_composer_default:fd use;
 allow hal_camera_default efs_file:dir search;
 
 vndbinder_use(hal_camera_default)
+
+get_prop(hal_camera_default, vendor_samsung_build_prop)
