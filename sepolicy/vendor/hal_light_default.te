@@ -1,2 +1,5 @@
 allow hal_light_default sysfs_vendor_display:dir r_dir_perms;
 allow hal_light_default sysfs_vendor_display:file rw_file_perms;
+
+hal_server_domain(hal_light_default, hal_lineage_livedisplay)
+binder_call(hal_light_default, servicemanager)
