@@ -8,8 +8,6 @@ vendor/etc/aidl/le_audio/aidl_audio_set_configurations.json
 vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.json
 vendor/etc/audio_board_info.xml
 vendor/etc/audio_effects.xml
-vendor/etc/audio_effects_sec.xml
-vendor/etc/audio_effects_spatializer.xml
 vendor/etc/audio_policy_configuration.xml
 vendor/etc/audio_policy_configuration_sec.xml
 vendor/etc/audio_policy_volumes.xml
@@ -66,12 +64,6 @@ vendor/lib/libsecaudioinfo.so
 vendor/lib/libsehbluetooth_audio_session_aidl.so
 vendor/lib/libspatializerparamstorage.so
 vendor/lib/soundfx/libaudioeffectoffload.so
-vendor/lib/soundfx/libaudiosaplus_sec.so
-vendor/lib/soundfx/libmysound.so
-vendor/lib/soundfx/libmyspace.so
-vendor/lib/soundfx/libsamsungSoundbooster_plus.so
-vendor/lib/soundfx/libswdap.so
-vendor/lib/soundfx/libswspatializer.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 vendor/lib64/hw/audio.primary.default.so
@@ -86,12 +78,6 @@ vendor/lib64/libsecaudioinfo.so
 vendor/lib64/libsehbluetooth_audio_session_aidl.so
 vendor/lib64/libspatializerparamstorage.so
 vendor/lib64/soundfx/libaudioeffectoffload.so
-vendor/lib64/soundfx/libaudiosaplus_sec.so
-vendor/lib64/soundfx/libmysound.so
-vendor/lib64/soundfx/libmyspace.so
-vendor/lib64/soundfx/libsamsungSoundbooster_plus.so
-vendor/lib64/soundfx/libswdap.so
-vendor/lib64/soundfx/libswspatializer.so
 vendor/lib64/vendor.samsung.hardware.audio-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.bluetooth.audio-impl.so
 vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
