@@ -1,0 +1,1463 @@
+From bcdf443e278032d92c9ff498e0805a0f1b443f14 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 9 Nov 2026 01:19:10 +0300
+Subject: [PATCH 3/3] display: add an outdoor mode toggle under brightness
+
+outdoor mode only lives in the livedisplay page, which has no entry
+in settings, so there is no way to reach it.
+
+add a switch to the brightness category that sets the livedisplay
+mode to outdoor or off.
+---
+ AndroidManifest.xml                           |  1 +
+ res/values-ar/outdoor_mode_strings.xml        |  9 ++++
+ res/values-as/outdoor_mode_strings.xml        |  9 ++++
+ res/values-az/outdoor_mode_strings.xml        |  9 ++++
+ res/values-b+sr+Latn/outdoor_mode_strings.xml |  9 ++++
+ res/values-be/outdoor_mode_strings.xml        |  9 ++++
+ res/values-bg/outdoor_mode_strings.xml        |  9 ++++
+ res/values-bn/outdoor_mode_strings.xml        |  9 ++++
+ res/values-bs/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ca/outdoor_mode_strings.xml        |  9 ++++
+ res/values-cs/outdoor_mode_strings.xml        |  9 ++++
+ res/values-da/outdoor_mode_strings.xml        |  9 ++++
+ res/values-de/outdoor_mode_strings.xml        |  9 ++++
+ res/values-el/outdoor_mode_strings.xml        |  9 ++++
+ res/values-es-rUS/outdoor_mode_strings.xml    |  9 ++++
+ res/values-es/outdoor_mode_strings.xml        |  9 ++++
+ res/values-et/outdoor_mode_strings.xml        |  9 ++++
+ res/values-eu/outdoor_mode_strings.xml        |  9 ++++
+ res/values-fa/outdoor_mode_strings.xml        |  9 ++++
+ res/values-fi/outdoor_mode_strings.xml        |  9 ++++
+ res/values-fr-rCA/outdoor_mode_strings.xml    |  9 ++++
+ res/values-fr/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ga/outdoor_mode_strings.xml        |  9 ++++
+ res/values-gl/outdoor_mode_strings.xml        |  9 ++++
+ res/values-gu/outdoor_mode_strings.xml        |  9 ++++
+ res/values-hi/outdoor_mode_strings.xml        |  9 ++++
+ res/values-hr/outdoor_mode_strings.xml        |  9 ++++
+ res/values-hu/outdoor_mode_strings.xml        |  9 ++++
+ res/values-hy/outdoor_mode_strings.xml        |  9 ++++
+ res/values-in/outdoor_mode_strings.xml        |  9 ++++
+ res/values-is/outdoor_mode_strings.xml        |  9 ++++
+ res/values-it/outdoor_mode_strings.xml        |  9 ++++
+ res/values-iw/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ja/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ka/outdoor_mode_strings.xml        |  9 ++++
+ res/values-kk/outdoor_mode_strings.xml        |  9 ++++
+ res/values-km/outdoor_mode_strings.xml        |  9 ++++
+ res/values-kn/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ko/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ky/outdoor_mode_strings.xml        |  9 ++++
+ res/values-lo/outdoor_mode_strings.xml        |  9 ++++
+ res/values-lt/outdoor_mode_strings.xml        |  9 ++++
+ res/values-lv/outdoor_mode_strings.xml        |  9 ++++
+ res/values-mk/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ml/outdoor_mode_strings.xml        |  9 ++++
+ res/values-mn/outdoor_mode_strings.xml        |  9 ++++
+ res/values-mr/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ms/outdoor_mode_strings.xml        |  9 ++++
+ res/values-my/outdoor_mode_strings.xml        |  9 ++++
+ res/values-nb/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ne/outdoor_mode_strings.xml        |  9 ++++
+ res/values-nl/outdoor_mode_strings.xml        |  9 ++++
+ res/values-or/outdoor_mode_strings.xml        |  9 ++++
+ res/values-pa/outdoor_mode_strings.xml        |  9 ++++
+ res/values-pl/outdoor_mode_strings.xml        |  9 ++++
+ res/values-pt-rBR/outdoor_mode_strings.xml    |  9 ++++
+ res/values-pt-rPT/outdoor_mode_strings.xml    |  9 ++++
+ res/values-pt/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ro/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ru/outdoor_mode_strings.xml        |  9 ++++
+ res/values-si/outdoor_mode_strings.xml        |  9 ++++
+ res/values-sk/outdoor_mode_strings.xml        |  9 ++++
+ res/values-sl/outdoor_mode_strings.xml        |  9 ++++
+ res/values-sq/outdoor_mode_strings.xml        |  9 ++++
+ res/values-sr/outdoor_mode_strings.xml        |  9 ++++
+ res/values-sv/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ta/outdoor_mode_strings.xml        |  9 ++++
+ res/values-te/outdoor_mode_strings.xml        |  9 ++++
+ res/values-tg/outdoor_mode_strings.xml        |  9 ++++
+ res/values-th/outdoor_mode_strings.xml        |  9 ++++
+ res/values-tk/outdoor_mode_strings.xml        |  9 ++++
+ res/values-tl/outdoor_mode_strings.xml        |  9 ++++
+ res/values-tr/outdoor_mode_strings.xml        |  9 ++++
+ res/values-uk/outdoor_mode_strings.xml        |  9 ++++
+ res/values-ur/outdoor_mode_strings.xml        |  9 ++++
+ res/values-uz/outdoor_mode_strings.xml        |  9 ++++
+ res/values-vi/outdoor_mode_strings.xml        |  9 ++++
+ res/values-zh-rCN/outdoor_mode_strings.xml    |  9 ++++
+ res/values-zh-rHK/outdoor_mode_strings.xml    |  9 ++++
+ res/values-zh-rTW/outdoor_mode_strings.xml    |  9 ++++
+ res/values/outdoor_mode_strings.xml           |  9 ++++
+ res/xml/display_settings.xml                  |  7 +++
+ .../OutdoorModePreferenceController.java      | 47 +++++++++++++++++++
+ 83 files changed, 775 insertions(+)
+ create mode 100644 res/values-ar/outdoor_mode_strings.xml
+ create mode 100644 res/values-as/outdoor_mode_strings.xml
+ create mode 100644 res/values-az/outdoor_mode_strings.xml
+ create mode 100644 res/values-b+sr+Latn/outdoor_mode_strings.xml
+ create mode 100644 res/values-be/outdoor_mode_strings.xml
+ create mode 100644 res/values-bg/outdoor_mode_strings.xml
+ create mode 100644 res/values-bn/outdoor_mode_strings.xml
+ create mode 100644 res/values-bs/outdoor_mode_strings.xml
+ create mode 100644 res/values-ca/outdoor_mode_strings.xml
+ create mode 100644 res/values-cs/outdoor_mode_strings.xml
+ create mode 100644 res/values-da/outdoor_mode_strings.xml
+ create mode 100644 res/values-de/outdoor_mode_strings.xml
+ create mode 100644 res/values-el/outdoor_mode_strings.xml
+ create mode 100644 res/values-es-rUS/outdoor_mode_strings.xml
+ create mode 100644 res/values-es/outdoor_mode_strings.xml
+ create mode 100644 res/values-et/outdoor_mode_strings.xml
+ create mode 100644 res/values-eu/outdoor_mode_strings.xml
+ create mode 100644 res/values-fa/outdoor_mode_strings.xml
+ create mode 100644 res/values-fi/outdoor_mode_strings.xml
+ create mode 100644 res/values-fr-rCA/outdoor_mode_strings.xml
+ create mode 100644 res/values-fr/outdoor_mode_strings.xml
+ create mode 100644 res/values-ga/outdoor_mode_strings.xml
+ create mode 100644 res/values-gl/outdoor_mode_strings.xml
+ create mode 100644 res/values-gu/outdoor_mode_strings.xml
+ create mode 100644 res/values-hi/outdoor_mode_strings.xml
+ create mode 100644 res/values-hr/outdoor_mode_strings.xml
+ create mode 100644 res/values-hu/outdoor_mode_strings.xml
+ create mode 100644 res/values-hy/outdoor_mode_strings.xml
+ create mode 100644 res/values-in/outdoor_mode_strings.xml
+ create mode 100644 res/values-is/outdoor_mode_strings.xml
+ create mode 100644 res/values-it/outdoor_mode_strings.xml
+ create mode 100644 res/values-iw/outdoor_mode_strings.xml
+ create mode 100644 res/values-ja/outdoor_mode_strings.xml
+ create mode 100644 res/values-ka/outdoor_mode_strings.xml
+ create mode 100644 res/values-kk/outdoor_mode_strings.xml
+ create mode 100644 res/values-km/outdoor_mode_strings.xml
+ create mode 100644 res/values-kn/outdoor_mode_strings.xml
+ create mode 100644 res/values-ko/outdoor_mode_strings.xml
+ create mode 100644 res/values-ky/outdoor_mode_strings.xml
+ create mode 100644 res/values-lo/outdoor_mode_strings.xml
+ create mode 100644 res/values-lt/outdoor_mode_strings.xml
+ create mode 100644 res/values-lv/outdoor_mode_strings.xml
+ create mode 100644 res/values-mk/outdoor_mode_strings.xml
+ create mode 100644 res/values-ml/outdoor_mode_strings.xml
+ create mode 100644 res/values-mn/outdoor_mode_strings.xml
+ create mode 100644 res/values-mr/outdoor_mode_strings.xml
+ create mode 100644 res/values-ms/outdoor_mode_strings.xml
+ create mode 100644 res/values-my/outdoor_mode_strings.xml
+ create mode 100644 res/values-nb/outdoor_mode_strings.xml
+ create mode 100644 res/values-ne/outdoor_mode_strings.xml
+ create mode 100644 res/values-nl/outdoor_mode_strings.xml
+ create mode 100644 res/values-or/outdoor_mode_strings.xml
+ create mode 100644 res/values-pa/outdoor_mode_strings.xml
+ create mode 100644 res/values-pl/outdoor_mode_strings.xml
+ create mode 100644 res/values-pt-rBR/outdoor_mode_strings.xml
+ create mode 100644 res/values-pt-rPT/outdoor_mode_strings.xml
+ create mode 100644 res/values-pt/outdoor_mode_strings.xml
+ create mode 100644 res/values-ro/outdoor_mode_strings.xml
+ create mode 100644 res/values-ru/outdoor_mode_strings.xml
+ create mode 100644 res/values-si/outdoor_mode_strings.xml
+ create mode 100644 res/values-sk/outdoor_mode_strings.xml
+ create mode 100644 res/values-sl/outdoor_mode_strings.xml
+ create mode 100644 res/values-sq/outdoor_mode_strings.xml
+ create mode 100644 res/values-sr/outdoor_mode_strings.xml
+ create mode 100644 res/values-sv/outdoor_mode_strings.xml
+ create mode 100644 res/values-ta/outdoor_mode_strings.xml
+ create mode 100644 res/values-te/outdoor_mode_strings.xml
+ create mode 100644 res/values-tg/outdoor_mode_strings.xml
+ create mode 100644 res/values-th/outdoor_mode_strings.xml
+ create mode 100644 res/values-tk/outdoor_mode_strings.xml
+ create mode 100644 res/values-tl/outdoor_mode_strings.xml
+ create mode 100644 res/values-tr/outdoor_mode_strings.xml
+ create mode 100644 res/values-uk/outdoor_mode_strings.xml
+ create mode 100644 res/values-ur/outdoor_mode_strings.xml
+ create mode 100644 res/values-uz/outdoor_mode_strings.xml
+ create mode 100644 res/values-vi/outdoor_mode_strings.xml
+ create mode 100644 res/values-zh-rCN/outdoor_mode_strings.xml
+ create mode 100644 res/values-zh-rHK/outdoor_mode_strings.xml
+ create mode 100644 res/values-zh-rTW/outdoor_mode_strings.xml
+ create mode 100644 res/values/outdoor_mode_strings.xml
+ create mode 100644 src/com/android/settings/display/OutdoorModePreferenceController.java
+
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index e45bc1b..cf28704 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -17,6 +17,7 @@
+         android:protectionLevel="signature|privileged"/>
+ 
+     <uses-permission android:name="android.permission.REQUEST_NETWORK_SCORES" />
++    <uses-permission android:name="lineageos.permission.MANAGE_LIVEDISPLAY" />
+     <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
+     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+diff --git a/res/values-ar/outdoor_mode_strings.xml b/res/values-ar/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..129be6d
+--- /dev/null
++++ b/res/values-ar/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">وضع بالخارج</string>
++    <string name="outdoor_mode_summary">اجعل الشاشة أكثر سطوعاً لعرض المناظر الخارجية.</string>
++</resources>
+diff --git a/res/values-as/outdoor_mode_strings.xml b/res/values-as/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..b998d6c
+--- /dev/null
++++ b/res/values-as/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">বৰ্হিভাগ ম\'ড</string>
++    <string name="outdoor_mode_summary">বৰ্হিভাগ দৰ্শনৰ বাবে স্ক্ৰীণখন উজ্জ্বল কৰক।</string>
++</resources>
+diff --git a/res/values-az/outdoor_mode_strings.xml b/res/values-az/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..b7ab3a2
+--- /dev/null
++++ b/res/values-az/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Açıq hava rejimi</string>
++    <string name="outdoor_mode_summary">Açıq havada görünüş üçün ekranı daha parlaq edin.</string>
++</resources>
+diff --git a/res/values-b+sr+Latn/outdoor_mode_strings.xml b/res/values-b+sr+Latn/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..e84bce4
+--- /dev/null
++++ b/res/values-b+sr+Latn/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Spoljni režim</string>
++    <string name="outdoor_mode_summary">Učinite da ekran bude svetliji radi prikazivanja na otvorenom.</string>
++</resources>
+diff --git a/res/values-be/outdoor_mode_strings.xml b/res/values-be/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..d2f184d
+--- /dev/null
++++ b/res/values-be/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Рэжым «Знадворку»</string>
++    <string name="outdoor_mode_summary">Зрабіце экран ярчэйшым, каб праглядаць яго на вуліцы.</string>
++</resources>
+diff --git a/res/values-bg/outdoor_mode_strings.xml b/res/values-bg/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..6ca9ad6
+--- /dev/null
++++ b/res/values-bg/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Режим на открито</string>
++    <string name="outdoor_mode_summary">Направете екрана по-ярък за преглеждане на открито.</string>
++</resources>
+diff --git a/res/values-bn/outdoor_mode_strings.xml b/res/values-bn/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..b085b2a
+--- /dev/null
++++ b/res/values-bn/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">আউটডোর মোড</string>
++    <string name="outdoor_mode_summary">বাড়ির বাইরে দেখতে স্ক্রিনটিকে আরও উজ্জ্বল করুন।</string>
++</resources>
+diff --git a/res/values-bs/outdoor_mode_strings.xml b/res/values-bs/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..d9fbb63
+--- /dev/null
++++ b/res/values-bs/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Vanjski režim</string>
++    <string name="outdoor_mode_summary">Povećanje osvjetljenja ekrana radi lakše vidljivosti vani.</string>
++</resources>
+diff --git a/res/values-ca/outdoor_mode_strings.xml b/res/values-ca/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..08ce7e3
+--- /dev/null
++++ b/res/values-ca/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mode Exterior</string>
++    <string name="outdoor_mode_summary">Augmenti la brillantor de la pantalla per veure exteriors.</string>
++</resources>
+diff --git a/res/values-cs/outdoor_mode_strings.xml b/res/values-cs/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..b35d2b3
+--- /dev/null
++++ b/res/values-cs/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Režim Venku</string>
++    <string name="outdoor_mode_summary">Zvýší jas obrazovky, abyste na ní venku lépe viděli.</string>
++</resources>
+diff --git a/res/values-da/outdoor_mode_strings.xml b/res/values-da/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..ed2c0fa
+--- /dev/null
++++ b/res/values-da/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Udendørstilstand</string>
++    <string name="outdoor_mode_summary">Gør skærmen lysere til visning udendørs.</string>
++</resources>
+diff --git a/res/values-de/outdoor_mode_strings.xml b/res/values-de/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..799d24a
+--- /dev/null
++++ b/res/values-de/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Outdoor-Modus</string>
++    <string name="outdoor_mode_summary">Die Bildschirmhelligkeit für Lesbarkeit im Freien erhöhen.</string>
++</resources>
+diff --git a/res/values-el/outdoor_mode_strings.xml b/res/values-el/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..2ec5ede
+--- /dev/null
++++ b/res/values-el/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Υπαίθρια λειτουργία</string>
++    <string name="outdoor_mode_summary">Να αυξηθεί η φωτεινότητα της οθόνης για προβολή περιεχομένου σε εξωτερικούς χώρους.</string>
++</resources>
+diff --git a/res/values-es-rUS/outdoor_mode_strings.xml b/res/values-es-rUS/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..0a8c027
+--- /dev/null
++++ b/res/values-es-rUS/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Modo Exterior</string>
++    <string name="outdoor_mode_summary">Aumentar el brillo de la pantalla para verla mejor en el exterior.</string>
++</resources>
+diff --git a/res/values-es/outdoor_mode_strings.xml b/res/values-es/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..110088b
+--- /dev/null
++++ b/res/values-es/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Modo Exterior</string>
++    <string name="outdoor_mode_summary">Aumenta el brillo de la pantalla para verla en el exterior.</string>
++</resources>
+diff --git a/res/values-et/outdoor_mode_strings.xml b/res/values-et/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..32bbf0e
+--- /dev/null
++++ b/res/values-et/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Välitingimuste režiim</string>
++    <string name="outdoor_mode_summary">Saate tõsta ekraani heledust välitingimuste jaoks.</string>
++</resources>
+diff --git a/res/values-eu/outdoor_mode_strings.xml b/res/values-eu/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..89e4a9b
+--- /dev/null
++++ b/res/values-eu/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Kanpoan modua</string>
++    <string name="outdoor_mode_summary">Egin pantaila distiratsuago kanpoaldean ikusi ahal izateko.</string>
++</resources>
+diff --git a/res/values-fa/outdoor_mode_strings.xml b/res/values-fa/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..14e78f0
+--- /dev/null
++++ b/res/values-fa/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">حالت بیرون از ساختمان</string>
++    <string name="outdoor_mode_summary">برای مشاهده در خارج از ساختمان،‌ صفحه را روشن‌تر می‌کند.</string>
++</resources>
+diff --git a/res/values-fi/outdoor_mode_strings.xml b/res/values-fi/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..672410d
+--- /dev/null
++++ b/res/values-fi/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Ulkotila</string>
++    <string name="outdoor_mode_summary">Lisää näytön kirkkautta ulkotiloissa tapahtuvaa katselua varten.</string>
++</resources>
+diff --git a/res/values-fr-rCA/outdoor_mode_strings.xml b/res/values-fr-rCA/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..4312929
+--- /dev/null
++++ b/res/values-fr-rCA/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mode Extérieur</string>
++    <string name="outdoor_mode_summary">Augmentez la luminosité de l\'écran pour l\'affichage à l\'extérieur.</string>
++</resources>
+diff --git a/res/values-fr/outdoor_mode_strings.xml b/res/values-fr/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..4312929
+--- /dev/null
++++ b/res/values-fr/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mode Extérieur</string>
++    <string name="outdoor_mode_summary">Augmentez la luminosité de l\'écran pour l\'affichage à l\'extérieur.</string>
++</resources>
+diff --git a/res/values-ga/outdoor_mode_strings.xml b/res/values-ga/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..01fb825
+--- /dev/null
++++ b/res/values-ga/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mód lasmuigh</string>
++    <string name="outdoor_mode_summary">Déan an scáileán níos gile le go mbeidh sé níos éasca amharc air lasmuigh.</string>
++</resources>
+diff --git a/res/values-gl/outdoor_mode_strings.xml b/res/values-gl/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..2fe57f8
+--- /dev/null
++++ b/res/values-gl/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Modo Exteriores</string>
++    <string name="outdoor_mode_summary">Aumenta o brillo da pantalla para mellorar a visualización en lugares exteriores.</string>
++</resources>
+diff --git a/res/values-gu/outdoor_mode_strings.xml b/res/values-gu/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..d957e6c
+--- /dev/null
++++ b/res/values-gu/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">આઉટડોર મોડ</string>
++    <string name="outdoor_mode_summary">આઉટડોર વ્યૂઇંગ માટે સ્ક્રીનને વધુ તેજસ્વિતા વાળી બનાવો.</string>
++</resources>
+diff --git a/res/values-hi/outdoor_mode_strings.xml b/res/values-hi/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..47d2f44
+--- /dev/null
++++ b/res/values-hi/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">बाह्य मोड</string>
++    <string name="outdoor_mode_summary">बाहर देखने के लिए स्क्रीन को चमकदार बनाएँ।</string>
++</resources>
+diff --git a/res/values-hr/outdoor_mode_strings.xml b/res/values-hr/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..5a6d29d
+--- /dev/null
++++ b/res/values-hr/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Način Vani</string>
++    <string name="outdoor_mode_summary">Povećajte svjetlinu zaslona radi pregledavanja dok ste vani.</string>
++</resources>
+diff --git a/res/values-hu/outdoor_mode_strings.xml b/res/values-hu/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..c2cf382
+--- /dev/null
++++ b/res/values-hu/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Utcai üzemmód</string>
++    <string name="outdoor_mode_summary">Megnöveli a képernyő fényerejét, hogy az jobban látható legyen a szabadban.</string>
++</resources>
+diff --git a/res/values-hy/outdoor_mode_strings.xml b/res/values-hy/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..0f5afe8
+--- /dev/null
++++ b/res/values-hy/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Բացօթյա ռեժիմ</string>
++    <string name="outdoor_mode_summary">Էկրանն ավելի պայծառ դարձրեք բացօթյա դիտման համար:</string>
++</resources>
+diff --git a/res/values-in/outdoor_mode_strings.xml b/res/values-in/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..2e29ad5
+--- /dev/null
++++ b/res/values-in/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mode Luar Ruang</string>
++    <string name="outdoor_mode_summary">Buat layar lebih cerah agar lebih mudah dilihat di luar ruang.</string>
++</resources>
+diff --git a/res/values-is/outdoor_mode_strings.xml b/res/values-is/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..3c5c307
+--- /dev/null
++++ b/res/values-is/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Utandyra</string>
++    <string name="outdoor_mode_summary">Auka skjábirtuna fyrir notkun úti.</string>
++</resources>
+diff --git a/res/values-it/outdoor_mode_strings.xml b/res/values-it/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..f699f39
+--- /dev/null
++++ b/res/values-it/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Modalità All\'aperto</string>
++    <string name="outdoor_mode_summary">Rende lo schermo più luminoso per la visualizzazione all\'aperto.</string>
++</resources>
+diff --git a/res/values-iw/outdoor_mode_strings.xml b/res/values-iw/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..9dbb247
+--- /dev/null
++++ b/res/values-iw/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">מצב חוץ</string>
++    <string name="outdoor_mode_summary">הגבר את בהירות המסך לשיפור הצפייה יותר כשאתה בחוץ.</string>
++</resources>
+diff --git a/res/values-ja/outdoor_mode_strings.xml b/res/values-ja/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..a412b63
+--- /dev/null
++++ b/res/values-ja/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">アウトドアモード</string>
++    <string name="outdoor_mode_summary">屋外でも見やすいように画面を明るくします。</string>
++</resources>
+diff --git a/res/values-ka/outdoor_mode_strings.xml b/res/values-ka/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..58cfb20
+--- /dev/null
++++ b/res/values-ka/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">შენობის გარეთ რეჟიმი</string>
++    <string name="outdoor_mode_summary">გაზარდეთ ეკრანის სიკაშკაშე, რომ დაინახოთ შენობის გარეთ.</string>
++</resources>
+diff --git a/res/values-kk/outdoor_mode_strings.xml b/res/values-kk/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..88e7b00
+--- /dev/null
++++ b/res/values-kk/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Сыртқы режим</string>
++    <string name="outdoor_mode_summary">Сыртта қарау үшін экранды жарығырақ етіңіз.</string>
++</resources>
+diff --git a/res/values-km/outdoor_mode_strings.xml b/res/values-km/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..2daaf5e
+--- /dev/null
++++ b/res/values-km/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">ទម្រង់​ក្រៅអគារ</string>
++    <string name="outdoor_mode_summary">ធ្វើ​ឲ្យ​អេក្រង់​ភ្លឺ​ជាងមុន​សម្រាប់​ការមើល​នៅ​ក្រៅ​អគារ។</string>
++</resources>
+diff --git a/res/values-kn/outdoor_mode_strings.xml b/res/values-kn/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..163fa99
+--- /dev/null
++++ b/res/values-kn/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">ಹೊರಾಂಗಣ ಮೋಡ್‌</string>
++    <string name="outdoor_mode_summary">ಹೊರಾಂಗಣ ವೀಕ್ಷಣೆಗಾಗಿ ಸ್ಕ್ರೀನ್ ಉಜ್ವಲವಾಗಿಸಿ.</string>
++</resources>
+diff --git a/res/values-ko/outdoor_mode_strings.xml b/res/values-ko/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..d7c1eaf
+--- /dev/null
++++ b/res/values-ko/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">야외 모드</string>
++    <string name="outdoor_mode_summary">야외에서도 잘 볼 수 있도록 화면을 더 밝게 유지합니다.</string>
++</resources>
+diff --git a/res/values-ky/outdoor_mode_strings.xml b/res/values-ky/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..a33c75a
+--- /dev/null
++++ b/res/values-ky/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Сыртта режими</string>
++    <string name="outdoor_mode_summary">Сыртты оңоюраак көрүү үчүн экран жарыктыгын ачыгыраак кыңыз.</string>
++</resources>
+diff --git a/res/values-lo/outdoor_mode_strings.xml b/res/values-lo/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..34702a6
+--- /dev/null
++++ b/res/values-lo/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">ໂໝດຢູ່ຂ້າງນອກ</string>
++    <string name="outdoor_mode_summary">ເຮັດໃຫ້ໜ້າຈໍແຈ້ງຂຶ້ນສຳລັບການເບິ່ງຢູ່ກາງແຈ້ງ.</string>
++</resources>
+diff --git a/res/values-lt/outdoor_mode_strings.xml b/res/values-lt/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..ef67bd8
+--- /dev/null
++++ b/res/values-lt/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Lauko režimas</string>
++    <string name="outdoor_mode_summary">Padidinkite ekrano ryškumą, kad būtų patogiau žiūrėti lauke.</string>
++</resources>
+diff --git a/res/values-lv/outdoor_mode_strings.xml b/res/values-lv/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..cdd3caa
+--- /dev/null
++++ b/res/values-lv/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Āra režīms</string>
++    <string name="outdoor_mode_summary">Padariet ekrānu spilgtāku lietošanai ārā.</string>
++</resources>
+diff --git a/res/values-mk/outdoor_mode_strings.xml b/res/values-mk/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..89342ad
+--- /dev/null
++++ b/res/values-mk/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Режим за надвор</string>
++    <string name="outdoor_mode_summary">Направете го екранот посветол за прегледување на отворено.</string>
++</resources>
+diff --git a/res/values-ml/outdoor_mode_strings.xml b/res/values-ml/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..4990df8
+--- /dev/null
++++ b/res/values-ml/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">പുറംവേദി മോഡ്</string>
++    <string name="outdoor_mode_summary">പുറംവേദിയിലെ കാഴ്ചക്കായി സ്ക്രീൻ തെളിച്ചം വർദ്ധിപ്പിക്കുക.</string>
++</resources>
+diff --git a/res/values-mn/outdoor_mode_strings.xml b/res/values-mn/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..ad5b002
+--- /dev/null
++++ b/res/values-mn/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Гадаа горим</string>
++    <string name="outdoor_mode_summary">Гадаа харахад зориулж дэлгэцээ илүү гэрэлтэй байлга.</string>
++</resources>
+diff --git a/res/values-mr/outdoor_mode_strings.xml b/res/values-mr/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..c3d97b2
+--- /dev/null
++++ b/res/values-mr/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">बाह्य मोड</string>
++    <string name="outdoor_mode_summary">बाह्य पाहण्या साठी स्क्रीन उजळ करा.</string>
++</resources>
+diff --git a/res/values-ms/outdoor_mode_strings.xml b/res/values-ms/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..a4659f2
+--- /dev/null
++++ b/res/values-ms/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mod kawasan luar</string>
++    <string name="outdoor_mode_summary">Cerahkan skrin untuk pandangan di luar bangunan.</string>
++</resources>
+diff --git a/res/values-my/outdoor_mode_strings.xml b/res/values-my/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..f99f1c0
+--- /dev/null
++++ b/res/values-my/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">အပြင်ဘက် အနေအထား</string>
++    <string name="outdoor_mode_summary">ပြင်ပတွင် ကြည့်ရှုရန်အတွက် ဖန်သားပြင်ကို ပို၍လင်းနေအောင်ပြုလုပ်ပါ။</string>
++</resources>
+diff --git a/res/values-nb/outdoor_mode_strings.xml b/res/values-nb/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..b01b12d
+--- /dev/null
++++ b/res/values-nb/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Utemodus</string>
++    <string name="outdoor_mode_summary">Gjør skjermen lysere for å se bedre utendørs.</string>
++</resources>
+diff --git a/res/values-ne/outdoor_mode_strings.xml b/res/values-ne/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..fdc67f8
+--- /dev/null
++++ b/res/values-ne/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">आउटडोर मोड</string>
++    <string name="outdoor_mode_summary">घरबाहिर हेर्नका लागि स्क्रीनलाई अझ चहकिलो बनाउनुहोस्।</string>
++</resources>
+diff --git a/res/values-nl/outdoor_mode_strings.xml b/res/values-nl/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..6ea2bcf
+--- /dev/null
++++ b/res/values-nl/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Buitenstand</string>
++    <string name="outdoor_mode_summary">Verhoog de helderheid van het scherm zodat het buiten beter zichtbaar is.</string>
++</resources>
+diff --git a/res/values-or/outdoor_mode_strings.xml b/res/values-or/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..e1823d6
+--- /dev/null
++++ b/res/values-or/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">ଆଉଟଡୋର୍ ମୋଡ୍</string>
++    <string name="outdoor_mode_summary">ଆଉଟଡୋର୍ ଦେଖିବା ପାଇଁ ସ୍କ୍ରିନ୍ ଔଜଲ୍ୟ କରନ୍ତୁ।</string>
++</resources>
+diff --git a/res/values-pa/outdoor_mode_strings.xml b/res/values-pa/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..e17f4e0
+--- /dev/null
++++ b/res/values-pa/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">ਆਉਟਡੋਰ ਮੋਡ</string>
++    <string name="outdoor_mode_summary">ਆਉਟਡੋਰ ਵੇਖਣ ਲਈ ਸਕ੍ਰੀਨ ਦੀ ਚਮਕ ਨੂੰ ਵਧਾਉ।</string>
++</resources>
+diff --git a/res/values-pl/outdoor_mode_strings.xml b/res/values-pl/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..10bee31
+--- /dev/null
++++ b/res/values-pl/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Tryb Na zewnątrz</string>
++    <string name="outdoor_mode_summary">Zwiększ jasność ekranu, aby był widoczny na zewnątrz.</string>
++</resources>
+diff --git a/res/values-pt-rBR/outdoor_mode_strings.xml b/res/values-pt-rBR/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..c9d9e3a
+--- /dev/null
++++ b/res/values-pt-rBR/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Modo externo</string>
++    <string name="outdoor_mode_summary">Torna a tela mais brilhante para visualização em lugares ao ar livre.</string>
++</resources>
+diff --git a/res/values-pt-rPT/outdoor_mode_strings.xml b/res/values-pt-rPT/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..1730da4
+--- /dev/null
++++ b/res/values-pt-rPT/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Modo de exterior</string>
++    <string name="outdoor_mode_summary">Aumente o brilho do ecrã para visualização no exterior.</string>
++</resources>
+diff --git a/res/values-pt/outdoor_mode_strings.xml b/res/values-pt/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..c9d9e3a
+--- /dev/null
++++ b/res/values-pt/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Modo externo</string>
++    <string name="outdoor_mode_summary">Torna a tela mais brilhante para visualização em lugares ao ar livre.</string>
++</resources>
+diff --git a/res/values-ro/outdoor_mode_strings.xml b/res/values-ro/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..4e66d29
+--- /dev/null
++++ b/res/values-ro/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mod Exterior</string>
++    <string name="outdoor_mode_summary">Măriți luminozitatea ecranului pentru vizualizarea în exterior.</string>
++</resources>
+diff --git a/res/values-ru/outdoor_mode_strings.xml b/res/values-ru/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..f8aa228
+--- /dev/null
++++ b/res/values-ru/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Режим “На улице”</string>
++    <string name="outdoor_mode_summary">Увеличение яркости экрана для более удобной работы с устройством на улице.</string>
++</resources>
+diff --git a/res/values-si/outdoor_mode_strings.xml b/res/values-si/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..4a13ee5
+--- /dev/null
++++ b/res/values-si/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">එළිමහන් ප්‍රකාරය</string>
++    <string name="outdoor_mode_summary">එළිමහනේ බැලීම සඳහා තිරය දීප්තිමත් කරන්න.</string>
++</resources>
+diff --git a/res/values-sk/outdoor_mode_strings.xml b/res/values-sk/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..5c9c11a
+--- /dev/null
++++ b/res/values-sk/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Exteriérový režim</string>
++    <string name="outdoor_mode_summary">Zvýši jas obrazovky na používanie vonku.</string>
++</resources>
+diff --git a/res/values-sl/outdoor_mode_strings.xml b/res/values-sl/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..3ee5ba9
+--- /dev/null
++++ b/res/values-sl/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Zunanji način</string>
++    <string name="outdoor_mode_summary">Za lažje gledanje zunaj osvetlite zaslon.</string>
++</resources>
+diff --git a/res/values-sq/outdoor_mode_strings.xml b/res/values-sq/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..c9d361a
+--- /dev/null
++++ b/res/values-sq/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Regjimi Përjashta</string>
++    <string name="outdoor_mode_summary">Bëje ekranin më të ndritshëm që ta shohësh mirë përjashta.</string>
++</resources>
+diff --git a/res/values-sr/outdoor_mode_strings.xml b/res/values-sr/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..5148b99
+--- /dev/null
++++ b/res/values-sr/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Спољни режим</string>
++    <string name="outdoor_mode_summary">Учините да екран буде светлији ради приказивања на отвореном.</string>
++</resources>
+diff --git a/res/values-sv/outdoor_mode_strings.xml b/res/values-sv/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..f5e4a78
+--- /dev/null
++++ b/res/values-sv/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Utomhusläge</string>
++    <string name="outdoor_mode_summary">Gör skärmen ljusstarkare för utomhusanvändning.</string>
++</resources>
+diff --git a/res/values-ta/outdoor_mode_strings.xml b/res/values-ta/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..7456deb
+--- /dev/null
++++ b/res/values-ta/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">வெளியரங்க முறை</string>
++    <string name="outdoor_mode_summary">வெளிப்புறங்களில் பார்ப்பதற்கு திரையை வெளிச்சமாக்கவும்.</string>
++</resources>
+diff --git a/res/values-te/outdoor_mode_strings.xml b/res/values-te/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..edd8e97
+--- /dev/null
++++ b/res/values-te/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">అవుట్‌డోర్ మోడ్</string>
++    <string name="outdoor_mode_summary">వెలుపల సులభంగా వీక్షించడం కోసం స్క్రీన్‌ని ప్రకాశవంతంగా చేయండి.</string>
++</resources>
+diff --git a/res/values-tg/outdoor_mode_strings.xml b/res/values-tg/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..6dfd27d
+--- /dev/null
++++ b/res/values-tg/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Реҷаи берун</string>
++    <string name="outdoor_mode_summary">Барои намоёниро берун аз биноҳо беҳтар кардан, экран равшантар карда мешавад.</string>
++</resources>
+diff --git a/res/values-th/outdoor_mode_strings.xml b/res/values-th/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..afabf31
+--- /dev/null
++++ b/res/values-th/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">โหมดกลางแจ้ง</string>
++    <string name="outdoor_mode_summary">ทำให้หน้าจอสว่างขึ้นสำหรับการดูกลางแจ้ง</string>
++</resources>
+diff --git a/res/values-tk/outdoor_mode_strings.xml b/res/values-tk/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..af3c561
+--- /dev/null
++++ b/res/values-tk/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Daşarda tertibi</string>
++    <string name="outdoor_mode_summary">Daşarda görmek üçin ekrany has ýagtyldyň.</string>
++</resources>
+diff --git a/res/values-tl/outdoor_mode_strings.xml b/res/values-tl/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..f24e5cc
+--- /dev/null
++++ b/res/values-tl/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Mode sa labas ng bahay</string>
++    <string name="outdoor_mode_summary">Gawing mas maliwanag ang screen para sa pagtingin habang nasa labas.</string>
++</resources>
+diff --git a/res/values-tr/outdoor_mode_strings.xml b/res/values-tr/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..5179457
+--- /dev/null
++++ b/res/values-tr/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Açık hava modu</string>
++    <string name="outdoor_mode_summary">Açık havada görüntüleme için ekranı daha parlak hale getirin.</string>
++</resources>
+diff --git a/res/values-uk/outdoor_mode_strings.xml b/res/values-uk/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..7d0a8a5
+--- /dev/null
++++ b/res/values-uk/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Режим «На вулиці»</string>
++    <string name="outdoor_mode_summary">Збільште яскравість екрана для перегляду на вулиці.</string>
++</resources>
+diff --git a/res/values-ur/outdoor_mode_strings.xml b/res/values-ur/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..43d9ddf
+--- /dev/null
++++ b/res/values-ur/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">خارجی موڈ</string>
++    <string name="outdoor_mode_summary">خارج میں دیکھنے کے لیے اسکرین چمکدار بنائیں۔</string>
++</resources>
+diff --git a/res/values-uz/outdoor_mode_strings.xml b/res/values-uz/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..9af4091
+--- /dev/null
++++ b/res/values-uz/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Tashqari rejimi</string>
++    <string name="outdoor_mode_summary">Tashqaridagi ko‘rinish uchun ekranni yorqinlashtiring.</string>
++</resources>
+diff --git a/res/values-vi/outdoor_mode_strings.xml b/res/values-vi/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..e0de664
+--- /dev/null
++++ b/res/values-vi/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Chế độ Ngoài trời</string>
++    <string name="outdoor_mode_summary">Làm cho màn hình sáng hơn để xem ngoài trời.</string>
++</resources>
+diff --git a/res/values-zh-rCN/outdoor_mode_strings.xml b/res/values-zh-rCN/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..6699d8f
+--- /dev/null
++++ b/res/values-zh-rCN/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">户外模式</string>
++    <string name="outdoor_mode_summary">增大屏幕亮度，以便您在户外查看。</string>
++</resources>
+diff --git a/res/values-zh-rHK/outdoor_mode_strings.xml b/res/values-zh-rHK/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..c86bb76
+--- /dev/null
++++ b/res/values-zh-rHK/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">戶外模式</string>
++    <string name="outdoor_mode_summary">增加螢幕亮度以在戶外檢視。</string>
++</resources>
+diff --git a/res/values-zh-rTW/outdoor_mode_strings.xml b/res/values-zh-rTW/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..fe941d1
+--- /dev/null
++++ b/res/values-zh-rTW/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">戶外模式</string>
++    <string name="outdoor_mode_summary">調亮螢幕以便於戶外檢視。</string>
++</resources>
+diff --git a/res/values/outdoor_mode_strings.xml b/res/values/outdoor_mode_strings.xml
+new file mode 100644
+index 0000000..adf11aa
+--- /dev/null
++++ b/res/values/outdoor_mode_strings.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="outdoor_mode_title">Outdoor mode</string>
++    <string name="outdoor_mode_summary">Make the screen brighter for outdoor viewing.</string>
++</resources>
+diff --git a/res/xml/display_settings.xml b/res/xml/display_settings.xml
+index 65fddf3..3ff5799 100644
+--- a/res/xml/display_settings.xml
++++ b/res/xml/display_settings.xml
+@@ -42,6 +42,13 @@
+             settings:userRestriction="no_config_brightness"
+             settings:controller="com.android.settings.display.AutoBrightnessPreferenceController" />
+ 
++        <SwitchPreferenceCompat
++            android:key="outdoor_mode"
++            android:title="@string/outdoor_mode_title"
++            android:summary="@string/outdoor_mode_summary"
++            android:persistent="false"
++            settings:controller="com.android.settings.display.OutdoorModePreferenceController" />
++
+         <com.android.settingslib.PrimarySwitchPreference
+             android:fragment="com.android.settings.display.HdrBrightnessSettings"
+             android:key="hdr_preference"
+diff --git a/src/com/android/settings/display/OutdoorModePreferenceController.java b/src/com/android/settings/display/OutdoorModePreferenceController.java
+new file mode 100644
+index 0000000..43b94f3
+--- /dev/null
++++ b/src/com/android/settings/display/OutdoorModePreferenceController.java
+@@ -0,0 +1,47 @@
++/*
++ * SPDX-FileCopyrightText: 2026 Langsdorff
++ * SPDX-License-Identifier: Apache-2.0
++ */
++
++package com.android.settings.display;
++
++import android.content.Context;
++
++import com.android.settings.R;
++import com.android.settings.core.TogglePreferenceController;
++
++import lineageos.hardware.LiveDisplayConfig;
++import lineageos.hardware.LiveDisplayManager;
++
++public class OutdoorModePreferenceController extends TogglePreferenceController {
++
++    private final LiveDisplayManager mLiveDisplay;
++
++    public OutdoorModePreferenceController(Context context, String key) {
++        super(context, key);
++        mLiveDisplay = LiveDisplayManager.getInstance(context);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        final LiveDisplayConfig config = mLiveDisplay.getConfig();
++        return config != null && config.hasFeature(LiveDisplayManager.MODE_OUTDOOR)
++                ? AVAILABLE : UNSUPPORTED_ON_DEVICE;
++    }
++
++    @Override
++    public boolean isChecked() {
++        return mLiveDisplay.getMode() == LiveDisplayManager.MODE_OUTDOOR;
++    }
++
++    @Override
++    public boolean setChecked(boolean isChecked) {
++        return mLiveDisplay.setMode(
++                isChecked ? LiveDisplayManager.MODE_OUTDOOR : LiveDisplayManager.MODE_OFF);
++    }
++
++    @Override
++    public int getSliceHighlightMenuRes() {
++        return R.string.menu_key_display;
++    }
++}
+-- 
+2.56.0
+

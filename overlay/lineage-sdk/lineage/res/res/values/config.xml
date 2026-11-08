@@ -18,4 +18,7 @@
 
     <!-- Ambient lux that turns on outdoor mode, the curve reaches 255 here -->
     <integer name="config_outdoorAmbientLux">3000</integer>
+
+    <!-- Outdoor mode is left to the toggle under brightness -->
+    <integer name="config_defaultLiveDisplayMode">0</integer>
 </resources>
