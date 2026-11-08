@@ -1,0 +1,162 @@
+From bf2c04898a46e177f16fd78f68dac7776cfc6c78 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 8 Nov 2026 20:47:11 +0300
+Subject: [PATCH] light: scale above 255 only in outdoor mode
+
+the panel takes up to 306 but 256-306 is the hbm range. scaling every
+value by max_brightness keeps the panel 1.2 times too bright and puts
+100% in hbm all the time.
+
+write the platform value as is, and only scale while outdoor mode is
+on. expose it as ISunlightEnhancement from this service so livedisplay
+can drive it, and reapply the backlight when it changes.
+---
+ aidl/light/Android.bp  |  1 +
+ aidl/light/Lights.cpp  | 31 ++++++++++++++++++++++++++++---
+ aidl/light/Lights.h    |  7 +++++++
+ aidl/light/service.cpp | 29 +++++++++++++++++++++++++++++
+ 4 files changed, 65 insertions(+), 3 deletions(-)
+
+diff --git a/aidl/light/Android.bp b/aidl/light/Android.bp
+index ba5f196..a42894b 100644
+--- a/aidl/light/Android.bp
++++ b/aidl/light/Android.bp
+@@ -18,6 +18,7 @@ cc_binary {
+         "libbase",
+         "libbinder_ndk",
+         "android.hardware.light-V2-ndk",
++        "vendor.lineage.livedisplay-V1-ndk",
+     ],
+     vendor: true,
+ }
+diff --git a/aidl/light/Lights.cpp b/aidl/light/Lights.cpp
+index caa5891..7c3b01c 100644
+--- a/aidl/light/Lights.cpp
++++ b/aidl/light/Lights.cpp
+@@ -73,16 +73,41 @@ ndk::ScopedAStatus Lights::setLightState(int32_t id, const HwLightState& state)
+ }
+ 
+ void Lights::handleBacklight(const HwLightState& state) {
+-    uint32_t max_brightness = get(PANEL_MAX_BRIGHTNESS_NODE, MAX_INPUT_BRIGHTNESS);
+-    uint32_t brightness = rgbToBrightness(state);
++    mBacklight = rgbToBrightness(state);
++    applyBacklight();
++}
+ 
+-    if (max_brightness != MAX_INPUT_BRIGHTNESS) {
++void Lights::applyBacklight() {
++    uint32_t brightness = mBacklight;
++
++    if (mOutdoor) {
++        uint32_t max_brightness = get(PANEL_MAX_BRIGHTNESS_NODE, MAX_INPUT_BRIGHTNESS);
+         brightness = brightness * max_brightness / MAX_INPUT_BRIGHTNESS;
+     }
+ 
+     set(PANEL_BRIGHTNESS_NODE, brightness);
+ }
+ 
++void Lights::setOutdoorEnabled(bool enabled) {
++    std::lock_guard<std::mutex> lock(mLock);
++
++    if (mOutdoor == enabled) {
++        return;
++    }
++
++    mOutdoor = enabled;
++
++    if (mBacklight > 0) {
++        applyBacklight();
++    }
++}
++
++bool Lights::isOutdoorEnabled() {
++    std::lock_guard<std::mutex> lock(mLock);
++
++    return mOutdoor;
++}
++
+ #ifdef BUTTON_BRIGHTNESS_NODE
+ void Lights::handleButtons(const HwLightState& state) {
+ #ifdef VAR_BUTTON_BRIGHTNESS
+diff --git a/aidl/light/Lights.h b/aidl/light/Lights.h
+index 548ceb7..fc9ef04 100644
+--- a/aidl/light/Lights.h
++++ b/aidl/light/Lights.h
+@@ -27,8 +27,12 @@ class Lights : public BnLights {
+     ndk::ScopedAStatus setLightState(int32_t id, const HwLightState& state) override;
+     ndk::ScopedAStatus getLights(std::vector<HwLight>* _aidl_return) override;
+ 
++    void setOutdoorEnabled(bool enabled);
++    bool isOutdoorEnabled();
++
+   private:
+     void handleBacklight(const HwLightState& state);
++    void applyBacklight();
+ #ifdef BUTTON_BRIGHTNESS_NODE
+     void handleButtons(const HwLightState& state);
+ #endif /* BUTTON_BRIGHTNESS_NODE */
+@@ -46,6 +50,9 @@ class Lights : public BnLights {
+ 
+     uint32_t rgbToBrightness(const HwLightState& state);
+ 
++    uint32_t mBacklight = 0;
++    bool mOutdoor = false;
++
+     std::mutex mLock;
+     std::unordered_map<LightType, std::function<void(const HwLightState&)>> mLights;
+ };
+diff --git a/aidl/light/service.cpp b/aidl/light/service.cpp
+index c859b1c..23acff2 100644
+--- a/aidl/light/service.cpp
++++ b/aidl/light/service.cpp
+@@ -8,11 +8,31 @@
+ 
+ #include "Lights.h"
+ 
++#include <aidl/vendor/lineage/livedisplay/BnSunlightEnhancement.h>
+ #include <android-base/logging.h>
+ #include <android/binder_manager.h>
+ #include <android/binder_process.h>
+ 
+ using ::aidl::android::hardware::light::Lights;
++using ::aidl::vendor::lineage::livedisplay::BnSunlightEnhancement;
++
++class SunlightEnhancement : public BnSunlightEnhancement {
++  public:
++    explicit SunlightEnhancement(std::shared_ptr<Lights> lights) : mLights(std::move(lights)) {}
++
++    ndk::ScopedAStatus getEnabled(bool* _aidl_return) override {
++        *_aidl_return = mLights->isOutdoorEnabled();
++        return ndk::ScopedAStatus::ok();
++    }
++
++    ndk::ScopedAStatus setEnabled(bool enabled) override {
++        mLights->setOutdoorEnabled(enabled);
++        return ndk::ScopedAStatus::ok();
++    }
++
++  private:
++    std::shared_ptr<Lights> mLights;
++};
+ 
+ int main() {
+     ABinderProcess_setThreadPoolMaxThreadCount(0);
+@@ -22,6 +42,15 @@ int main() {
+     binder_status_t status = AServiceManager_addService(lights->asBinder().get(), instance.c_str());
+     CHECK(status == STATUS_OK);
+ 
++    std::shared_ptr<SunlightEnhancement> sunlight =
++            ndk::SharedRefBase::make<SunlightEnhancement>(lights);
++    const std::string sunlightInstance =
++            std::string() + SunlightEnhancement::descriptor + "/default";
++    status = AServiceManager_addService(sunlight->asBinder().get(), sunlightInstance.c_str());
++    if (status != STATUS_OK) {
++        LOG(ERROR) << "Could not register " << sunlightInstance << " (" << status << ")";
++    }
++
+     ABinderProcess_joinThreadPool();
+     return EXIT_FAILURE;  // should not reach
+ }
+-- 
+2.56.0
+

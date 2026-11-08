@@ -1,0 +1,33 @@
+From 02837b44b81bd17505be33c9dc6d2fae6e8b201d Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 9 Nov 2026 01:30:59 +0300
+Subject: [PATCH 2/2] light: lock the backlight to max in outdoor mode
+
+scaling by max_brightness only reaches 306 when the slider is already
+at 100%, so outdoor mode barely helps at lower levels.
+
+write max_brightness directly while outdoor mode is on, and keep 0 so
+the panel can still turn off.
+---
+ aidl/light/Lights.cpp | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/aidl/light/Lights.cpp b/aidl/light/Lights.cpp
+index 7c3b01c..a491ffd 100644
+--- a/aidl/light/Lights.cpp
++++ b/aidl/light/Lights.cpp
+@@ -80,9 +80,8 @@ void Lights::handleBacklight(const HwLightState& state) {
+ void Lights::applyBacklight() {
+     uint32_t brightness = mBacklight;
+ 
+-    if (mOutdoor) {
+-        uint32_t max_brightness = get(PANEL_MAX_BRIGHTNESS_NODE, MAX_INPUT_BRIGHTNESS);
+-        brightness = brightness * max_brightness / MAX_INPUT_BRIGHTNESS;
++    if (mOutdoor && brightness > 0) {
++        brightness = get(PANEL_MAX_BRIGHTNESS_NODE, MAX_INPUT_BRIGHTNESS);
+     }
+ 
+     set(PANEL_BRIGHTNESS_NODE, brightness);
+-- 
+2.56.0
+

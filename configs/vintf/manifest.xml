@@ -98,4 +98,9 @@
         <transport>hwbinder</transport>
         <fqname>@1.0::IExynosHWCServiceTW/default</fqname>
     </hal>
+    <hal format="aidl">
+        <name>vendor.lineage.livedisplay</name>
+        <version>1</version>
+        <fqname>ISunlightEnhancement/default</fqname>
+    </hal>
 </manifest>

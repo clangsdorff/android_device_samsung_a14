@@ -15,4 +15,7 @@
         <item>restart_fastboot</item>
         <item>restart_download</item>
     </string-array>
+
+    <!-- Ambient lux that turns on outdoor mode, the curve reaches 255 here -->
+    <integer name="config_outdoorAmbientLux">3000</integer>
 </resources>
