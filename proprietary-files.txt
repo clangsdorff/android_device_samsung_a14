@@ -563,9 +563,7 @@ vendor/etc/vintf/manifest/hyper-default-sec.xml
 vendor/etc/vintf/manifest/power-samsung.xml
 vendor/lib64/libSamsngPowerHal.so
 vendor/lib64/libSamsungHyper.so
-vendor/bin/hw/android.hardware.thermal@2.0-service.exynos;MODULE_SUFFIX=_stock
 vendor/bin/hw/vendor.samsung.hardware.thermal-service
-vendor/etc/init/android.hardware.thermal@2.0-service.exynos.rc
 vendor/etc/init/vendor.samsung.hardware.thermal-default.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal-default.xml
 vendor/lib/vendor.samsung.hardware.thermal@1.0.so
