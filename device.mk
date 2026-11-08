@@ -44,8 +44,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
     pm.dexopt.boot-after-mainline-update=verify \
     pm.dexopt.bg-dexopt=speed \
     pm.dexopt.inactive=speed \
-    pm.dexopt.cmdline=speed \
-    pm.dexopt.shared=speed
+    pm.dexopt.cmdline=speed
 
 # Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
