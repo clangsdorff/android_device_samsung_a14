@@ -1,7 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From d5f37eb21df555e1603595c69dca283f373dfb3a Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 25 Oct 2026 04:07:40 +0300
-Subject: [PATCH] contacts: keep a writable account in sync with each sim card
+Subject: [PATCH 2/2] contacts: keep a writable account in sync with each sim
+ card
 
 sim contacts are only reachable through a one-shot import dialog and
 edits never go back to the card. register a writable sim account per
@@ -112,7 +113,7 @@ insertion and removal on carrier config changes.
  create mode 100644 src/com/android/contacts/editor/SimNameLengthFilter.java
 
 diff --git a/AndroidManifest.xml b/AndroidManifest.xml
-index db16cf1..2d4d161 100644
+index db16cf114e62..2d4d161e5bf3 100644
 --- a/AndroidManifest.xml
 +++ b/AndroidManifest.xml
 @@ -47,6 +47,7 @@
@@ -132,7 +133,7 @@ index db16cf1..2d4d161 100644
          </receiver>
  
 diff --git a/res/values-af/strings.xml b/res/values-af/strings.xml
-index b4dc881..336fd2f 100644
+index b4dc881bc3c7..336fd2fd32a1 100644
 --- a/res/values-af/strings.xml
 +++ b/res/values-af/strings.xml
 @@ -494,4 +494,9 @@
@@ -146,7 +147,7 @@ index b4dc881..336fd2f 100644
 +    <string name="sim_contact_save_failed">"Kon nie die kontak op die SIM stoor nie"</string>
  </resources>
 diff --git a/res/values-am/strings.xml b/res/values-am/strings.xml
-index 01a09bd..f9f19df 100644
+index 01a09bd83f1a..f9f19dfc22c1 100644
 --- a/res/values-am/strings.xml
 +++ b/res/values-am/strings.xml
 @@ -494,4 +494,9 @@
@@ -160,7 +161,7 @@ index 01a09bd..f9f19df 100644
 +    <string name="sim_contact_save_failed">"እውቂያውን ወደ ሲም ማስቀመጥ አልተቻለም"</string>
  </resources>
 diff --git a/res/values-ar/strings.xml b/res/values-ar/strings.xml
-index c712ec4..e19ea24 100644
+index c712ec45acd4..e19ea24111f2 100644
 --- a/res/values-ar/strings.xml
 +++ b/res/values-ar/strings.xml
 @@ -494,4 +494,9 @@
@@ -174,7 +175,7 @@ index c712ec4..e19ea24 100644
 +    <string name="sim_contact_save_failed">"تعذّر حفظ جهة الاتصال في شريحة SIM"</string>
  </resources>
 diff --git a/res/values-as/strings.xml b/res/values-as/strings.xml
-index 3256089..1ba7775 100644
+index 3256089f1636..1ba7775db96a 100644
 --- a/res/values-as/strings.xml
 +++ b/res/values-as/strings.xml
 @@ -494,4 +494,9 @@
@@ -188,7 +189,7 @@ index 3256089..1ba7775 100644
 +    <string name="sim_contact_save_failed">"সম্পৰ্কটো ছিমত ছেভ কৰিব পৰা নগ’ল"</string>
  </resources>
 diff --git a/res/values-az/strings.xml b/res/values-az/strings.xml
-index 3f207cf..b2a0808 100644
+index 3f207cfed706..b2a08086e46b 100644
 --- a/res/values-az/strings.xml
 +++ b/res/values-az/strings.xml
 @@ -494,4 +494,9 @@
@@ -202,7 +203,7 @@ index 3f207cf..b2a0808 100644
 +    <string name="sim_contact_save_failed">"Kontaktı SIM-də yadda saxlamaq mümkün olmadı"</string>
  </resources>
 diff --git a/res/values-b+sr+Latn/strings.xml b/res/values-b+sr+Latn/strings.xml
-index 826f7ec..897b62e 100644
+index 826f7ecbb31d..897b62e79fba 100644
 --- a/res/values-b+sr+Latn/strings.xml
 +++ b/res/values-b+sr+Latn/strings.xml
 @@ -494,4 +494,9 @@
@@ -216,7 +217,7 @@ index 826f7ec..897b62e 100644
 +    <string name="sim_contact_save_failed">"Čuvanje kontakta na SIM-u nije uspelo"</string>
  </resources>
 diff --git a/res/values-be/strings.xml b/res/values-be/strings.xml
-index a49f668..b4ba8e5 100644
+index a49f668f7a0a..b4ba8e584787 100644
 --- a/res/values-be/strings.xml
 +++ b/res/values-be/strings.xml
 @@ -494,4 +494,9 @@
@@ -230,7 +231,7 @@ index a49f668..b4ba8e5 100644
 +    <string name="sim_contact_save_failed">"Не ўдалося захаваць кантакт на SIM-карце"</string>
  </resources>
 diff --git a/res/values-bg/strings.xml b/res/values-bg/strings.xml
-index 4eaa6ca..598d5db 100644
+index 4eaa6ca4d976..598d5dbd268e 100644
 --- a/res/values-bg/strings.xml
 +++ b/res/values-bg/strings.xml
 @@ -494,4 +494,9 @@
@@ -244,7 +245,7 @@ index 4eaa6ca..598d5db 100644
 +    <string name="sim_contact_save_failed">"Контактът не можа да бъде запазен в SIM картата"</string>
  </resources>
 diff --git a/res/values-bn/strings.xml b/res/values-bn/strings.xml
-index 625aef5..61a7dd9 100644
+index 625aef561a3c..61a7dd9a4cbc 100644
 --- a/res/values-bn/strings.xml
 +++ b/res/values-bn/strings.xml
 @@ -494,4 +494,9 @@
@@ -258,7 +259,7 @@ index 625aef5..61a7dd9 100644
 +    <string name="sim_contact_save_failed">"পরিচিতি সিমে সেভ করা যায়নি"</string>
  </resources>
 diff --git a/res/values-bs/strings.xml b/res/values-bs/strings.xml
-index a145823..c598317 100644
+index a145823ddf81..c598317bc6d6 100644
 --- a/res/values-bs/strings.xml
 +++ b/res/values-bs/strings.xml
 @@ -494,4 +494,9 @@
@@ -272,7 +273,7 @@ index a145823..c598317 100644
 +    <string name="sim_contact_save_failed">"Spremanje kontakta na SIM nije uspjelo"</string>
  </resources>
 diff --git a/res/values-ca/strings.xml b/res/values-ca/strings.xml
-index 47ed7af..856dd4f 100644
+index 47ed7af07e64..856dd4f15c7a 100644
 --- a/res/values-ca/strings.xml
 +++ b/res/values-ca/strings.xml
 @@ -494,4 +494,9 @@
@@ -286,7 +287,7 @@ index 47ed7af..856dd4f 100644
 +    <string name="sim_contact_save_failed">"No s\'ha pogut desar el contacte a la SIM"</string>
  </resources>
 diff --git a/res/values-cs/strings.xml b/res/values-cs/strings.xml
-index d80a877..e5d9154 100644
+index d80a877f7f72..e5d91544755b 100644
 --- a/res/values-cs/strings.xml
 +++ b/res/values-cs/strings.xml
 @@ -494,4 +494,9 @@
@@ -300,7 +301,7 @@ index d80a877..e5d9154 100644
 +    <string name="sim_contact_save_failed">"Kontakt se nepodařilo uložit na SIM kartu"</string>
  </resources>
 diff --git a/res/values-da/strings.xml b/res/values-da/strings.xml
-index 90d568c..31b2a60 100644
+index 90d568c7e31b..31b2a607e9f6 100644
 --- a/res/values-da/strings.xml
 +++ b/res/values-da/strings.xml
 @@ -494,4 +494,9 @@
@@ -314,7 +315,7 @@ index 90d568c..31b2a60 100644
 +    <string name="sim_contact_save_failed">"Kontakten kunne ikke gemmes på SIM-kortet"</string>
  </resources>
 diff --git a/res/values-de/strings.xml b/res/values-de/strings.xml
-index 5e74ab5..70fa484 100644
+index 5e74ab5c767c..70fa48410c61 100644
 --- a/res/values-de/strings.xml
 +++ b/res/values-de/strings.xml
 @@ -494,4 +494,9 @@
@@ -328,7 +329,7 @@ index 5e74ab5..70fa484 100644
 +    <string name="sim_contact_save_failed">"Kontakt konnte nicht auf der SIM gespeichert werden"</string>
  </resources>
 diff --git a/res/values-el/strings.xml b/res/values-el/strings.xml
-index b79a940..62f11d4 100644
+index b79a940ffb47..62f11d4e8eb5 100644
 --- a/res/values-el/strings.xml
 +++ b/res/values-el/strings.xml
 @@ -494,4 +494,9 @@
@@ -342,7 +343,7 @@ index b79a940..62f11d4 100644
 +    <string name="sim_contact_save_failed">"Δεν ήταν δυνατή η αποθήκευση της επαφής στη SIM"</string>
  </resources>
 diff --git a/res/values-en-rAU/strings.xml b/res/values-en-rAU/strings.xml
-index e4d3500..ff723c0 100644
+index e4d3500f18ec..ff723c028ec8 100644
 --- a/res/values-en-rAU/strings.xml
 +++ b/res/values-en-rAU/strings.xml
 @@ -494,4 +494,9 @@
@@ -356,7 +357,7 @@ index e4d3500..ff723c0 100644
 +    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
  </resources>
 diff --git a/res/values-en-rCA/strings.xml b/res/values-en-rCA/strings.xml
-index ff4bb7b..df8d1aa 100644
+index ff4bb7b9e017..df8d1aaf6537 100644
 --- a/res/values-en-rCA/strings.xml
 +++ b/res/values-en-rCA/strings.xml
 @@ -494,4 +494,9 @@
@@ -370,7 +371,7 @@ index ff4bb7b..df8d1aa 100644
 +    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
  </resources>
 diff --git a/res/values-en-rGB/strings.xml b/res/values-en-rGB/strings.xml
-index e4d3500..ff723c0 100644
+index e4d3500f18ec..ff723c028ec8 100644
 --- a/res/values-en-rGB/strings.xml
 +++ b/res/values-en-rGB/strings.xml
 @@ -494,4 +494,9 @@
@@ -384,7 +385,7 @@ index e4d3500..ff723c0 100644
 +    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
  </resources>
 diff --git a/res/values-en-rIN/strings.xml b/res/values-en-rIN/strings.xml
-index e4d3500..ff723c0 100644
+index e4d3500f18ec..ff723c028ec8 100644
 --- a/res/values-en-rIN/strings.xml
 +++ b/res/values-en-rIN/strings.xml
 @@ -494,4 +494,9 @@
@@ -398,7 +399,7 @@ index e4d3500..ff723c0 100644
 +    <string name="sim_contact_save_failed">"Couldn\'t save the contact to the SIM"</string>
  </resources>
 diff --git a/res/values-es-rUS/strings.xml b/res/values-es-rUS/strings.xml
-index eb4d4ce..40b816b 100644
+index eb4d4ce871f6..40b816ba7964 100644
 --- a/res/values-es-rUS/strings.xml
 +++ b/res/values-es-rUS/strings.xml
 @@ -494,4 +494,9 @@
@@ -412,7 +413,7 @@ index eb4d4ce..40b816b 100644
 +    <string name="sim_contact_save_failed">"No se pudo guardar el contacto en la SIM"</string>
  </resources>
 diff --git a/res/values-es/strings.xml b/res/values-es/strings.xml
-index 727b4d8..251289c 100644
+index 727b4d82681a..251289cf97d2 100644
 --- a/res/values-es/strings.xml
 +++ b/res/values-es/strings.xml
 @@ -494,4 +494,9 @@
@@ -426,7 +427,7 @@ index 727b4d8..251289c 100644
 +    <string name="sim_contact_save_failed">"No se ha podido guardar el contacto en la SIM"</string>
  </resources>
 diff --git a/res/values-et/strings.xml b/res/values-et/strings.xml
-index e49a0fb..d79398e 100644
+index e49a0fbfa696..d79398e1bede 100644
 --- a/res/values-et/strings.xml
 +++ b/res/values-et/strings.xml
 @@ -494,4 +494,9 @@
@@ -440,7 +441,7 @@ index e49a0fb..d79398e 100644
 +    <string name="sim_contact_save_failed">"Kontakti ei saanud SIM-kaardile salvestada"</string>
  </resources>
 diff --git a/res/values-eu/strings.xml b/res/values-eu/strings.xml
-index e0861cd..d14863a 100644
+index e0861cd8194d..d14863aaf3aa 100644
 --- a/res/values-eu/strings.xml
 +++ b/res/values-eu/strings.xml
 @@ -494,4 +494,9 @@
@@ -454,7 +455,7 @@ index e0861cd..d14863a 100644
 +    <string name="sim_contact_save_failed">"Ezin izan da gorde kontaktua SIM txartelean"</string>
  </resources>
 diff --git a/res/values-fa/strings.xml b/res/values-fa/strings.xml
-index 963a9fb..c57595b 100644
+index 963a9fbccd7f..c57595b5cfca 100644
 --- a/res/values-fa/strings.xml
 +++ b/res/values-fa/strings.xml
 @@ -494,4 +494,9 @@
@@ -468,7 +469,7 @@ index 963a9fb..c57595b 100644
 +    <string name="sim_contact_save_failed">"ذخیره مخاطب در سیم‌کارت ممکن نبود"</string>
  </resources>
 diff --git a/res/values-fi/strings.xml b/res/values-fi/strings.xml
-index 4eaccf0..308526a 100644
+index 4eaccf0da5ca..308526aa3ac1 100644
 --- a/res/values-fi/strings.xml
 +++ b/res/values-fi/strings.xml
 @@ -494,4 +494,9 @@
@@ -482,7 +483,7 @@ index 4eaccf0..308526a 100644
 +    <string name="sim_contact_save_failed">"Yhteystiedon tallentaminen SIM-kortille epäonnistui"</string>
  </resources>
 diff --git a/res/values-fr-rCA/strings.xml b/res/values-fr-rCA/strings.xml
-index ad32458..86967bc 100644
+index ad324587e249..86967bc34620 100644
 --- a/res/values-fr-rCA/strings.xml
 +++ b/res/values-fr-rCA/strings.xml
 @@ -494,4 +494,9 @@
@@ -496,7 +497,7 @@ index ad32458..86967bc 100644
 +    <string name="sim_contact_save_failed">"Impossible d\'enregistrer le contact sur la carte SIM"</string>
  </resources>
 diff --git a/res/values-fr/strings.xml b/res/values-fr/strings.xml
-index c2444e0..94d8a14 100644
+index c2444e06d0d1..94d8a1408e1f 100644
 --- a/res/values-fr/strings.xml
 +++ b/res/values-fr/strings.xml
 @@ -494,4 +494,9 @@
@@ -510,7 +511,7 @@ index c2444e0..94d8a14 100644
 +    <string name="sim_contact_save_failed">"Impossible d\'enregistrer le contact sur la SIM"</string>
  </resources>
 diff --git a/res/values-gl/strings.xml b/res/values-gl/strings.xml
-index 4771864..f3f7759 100644
+index 47718645b5bd..f3f7759232fc 100644
 --- a/res/values-gl/strings.xml
 +++ b/res/values-gl/strings.xml
 @@ -494,4 +494,9 @@
@@ -524,7 +525,7 @@ index 4771864..f3f7759 100644
 +    <string name="sim_contact_save_failed">"Non se puido gardar o contacto na SIM"</string>
  </resources>
 diff --git a/res/values-gu/strings.xml b/res/values-gu/strings.xml
-index d2c58cd..03ae4da 100644
+index d2c58cdb15ae..03ae4da75f5c 100644
 --- a/res/values-gu/strings.xml
 +++ b/res/values-gu/strings.xml
 @@ -494,4 +494,9 @@
@@ -538,7 +539,7 @@ index d2c58cd..03ae4da 100644
 +    <string name="sim_contact_save_failed">"સંપર્કને સિમ પર સાચવી શક્યાં નથી"</string>
  </resources>
 diff --git a/res/values-hi/strings.xml b/res/values-hi/strings.xml
-index f59d617..1710eed 100644
+index f59d617fdbda..1710eed87cde 100644
 --- a/res/values-hi/strings.xml
 +++ b/res/values-hi/strings.xml
 @@ -494,4 +494,9 @@
@@ -552,7 +553,7 @@ index f59d617..1710eed 100644
 +    <string name="sim_contact_save_failed">"संपर्क को सिम पर सेव नहीं किया जा सका"</string>
  </resources>
 diff --git a/res/values-hr/strings.xml b/res/values-hr/strings.xml
-index 2244437..ecda261 100644
+index 224443734909..ecda26139fa9 100644
 --- a/res/values-hr/strings.xml
 +++ b/res/values-hr/strings.xml
 @@ -494,4 +494,9 @@
@@ -566,7 +567,7 @@ index 2244437..ecda261 100644
 +    <string name="sim_contact_save_failed">"Spremanje kontakta na SIM nije uspjelo"</string>
  </resources>
 diff --git a/res/values-hu/strings.xml b/res/values-hu/strings.xml
-index 229a390..1e85bdf 100644
+index 229a3902444c..1e85bdfeb07a 100644
 --- a/res/values-hu/strings.xml
 +++ b/res/values-hu/strings.xml
 @@ -494,4 +494,9 @@
@@ -580,7 +581,7 @@ index 229a390..1e85bdf 100644
 +    <string name="sim_contact_save_failed">"Nem sikerült menteni a névjegyet a SIM-kártyára"</string>
  </resources>
 diff --git a/res/values-hy/strings.xml b/res/values-hy/strings.xml
-index 4089d4d..3988138 100644
+index 4089d4de0602..3988138136ea 100644
 --- a/res/values-hy/strings.xml
 +++ b/res/values-hy/strings.xml
 @@ -494,4 +494,9 @@
@@ -594,7 +595,7 @@ index 4089d4d..3988138 100644
 +    <string name="sim_contact_save_failed">"Չհաջողվեց պահել կոնտակտը SIM քարտում"</string>
  </resources>
 diff --git a/res/values-in/strings.xml b/res/values-in/strings.xml
-index 6f2495b..ff190f8 100644
+index 6f2495b44422..ff190f896f51 100644
 --- a/res/values-in/strings.xml
 +++ b/res/values-in/strings.xml
 @@ -494,4 +494,9 @@
@@ -608,7 +609,7 @@ index 6f2495b..ff190f8 100644
 +    <string name="sim_contact_save_failed">"Tidak dapat menyimpan kontak ke SIM"</string>
  </resources>
 diff --git a/res/values-is/strings.xml b/res/values-is/strings.xml
-index aa9809d..a2bc955 100644
+index aa9809d3e9d4..a2bc955c20b9 100644
 --- a/res/values-is/strings.xml
 +++ b/res/values-is/strings.xml
 @@ -494,4 +494,9 @@
@@ -622,7 +623,7 @@ index aa9809d..a2bc955 100644
 +    <string name="sim_contact_save_failed">"Ekki tókst að vista tengiliðinn á SIM-kortinu"</string>
  </resources>
 diff --git a/res/values-it/strings.xml b/res/values-it/strings.xml
-index a17a424..f03c851 100644
+index a17a424a6e7d..f03c851e448f 100644
 --- a/res/values-it/strings.xml
 +++ b/res/values-it/strings.xml
 @@ -494,4 +494,9 @@
@@ -636,7 +637,7 @@ index a17a424..f03c851 100644
 +    <string name="sim_contact_save_failed">"Impossibile salvare il contatto sulla SIM"</string>
  </resources>
 diff --git a/res/values-iw/strings.xml b/res/values-iw/strings.xml
-index 4385857..f70104a 100644
+index 43858570f9f8..f70104a0d551 100644
 --- a/res/values-iw/strings.xml
 +++ b/res/values-iw/strings.xml
 @@ -494,4 +494,9 @@
@@ -650,7 +651,7 @@ index 4385857..f70104a 100644
 +    <string name="sim_contact_save_failed">"לא ניתן לשמור את איש הקשר ב-SIM"</string>
  </resources>
 diff --git a/res/values-ja/strings.xml b/res/values-ja/strings.xml
-index 38889a9..c54d9cc 100644
+index 38889a93d5c2..c54d9ccb40ec 100644
 --- a/res/values-ja/strings.xml
 +++ b/res/values-ja/strings.xml
 @@ -494,4 +494,9 @@
@@ -664,7 +665,7 @@ index 38889a9..c54d9cc 100644
 +    <string name="sim_contact_save_failed">"連絡先を SIM に保存できませんでした"</string>
  </resources>
 diff --git a/res/values-ka/strings.xml b/res/values-ka/strings.xml
-index eb6821c..a20eff5 100644
+index eb6821c44fb1..a20eff532636 100644
 --- a/res/values-ka/strings.xml
 +++ b/res/values-ka/strings.xml
 @@ -494,4 +494,9 @@
@@ -678,7 +679,7 @@ index eb6821c..a20eff5 100644
 +    <string name="sim_contact_save_failed">"კონტაქტის SIM-ზე შენახვა ვერ მოხერხდა"</string>
  </resources>
 diff --git a/res/values-kk/strings.xml b/res/values-kk/strings.xml
-index 143c198..18336ff 100644
+index 143c1987a275..18336ff602b6 100644
 --- a/res/values-kk/strings.xml
 +++ b/res/values-kk/strings.xml
 @@ -494,4 +494,9 @@
@@ -692,7 +693,7 @@ index 143c198..18336ff 100644
 +    <string name="sim_contact_save_failed">"Контактіні SIM картасына сақтау мүмкін болмады"</string>
  </resources>
 diff --git a/res/values-km/strings.xml b/res/values-km/strings.xml
-index d7deb2d..e43b346 100644
+index d7deb2de3897..e43b346beb10 100644
 --- a/res/values-km/strings.xml
 +++ b/res/values-km/strings.xml
 @@ -494,4 +494,9 @@
@@ -706,7 +707,7 @@ index d7deb2d..e43b346 100644
 +    <string name="sim_contact_save_failed">"មិនអាចរក្សាទុកទំនាក់ទំនងទៅស៊ីមបានទេ"</string>
  </resources>
 diff --git a/res/values-kn/strings.xml b/res/values-kn/strings.xml
-index 971948c..69b22f2 100644
+index 971948c5e7fb..69b22f257dac 100644
 --- a/res/values-kn/strings.xml
 +++ b/res/values-kn/strings.xml
 @@ -494,4 +494,9 @@
@@ -720,7 +721,7 @@ index 971948c..69b22f2 100644
 +    <string name="sim_contact_save_failed">"ಸಂಪರ್ಕವನ್ನು ಸಿಮ್‌ಗೆ ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"</string>
  </resources>
 diff --git a/res/values-ko/strings.xml b/res/values-ko/strings.xml
-index 1a5ac8e..c271d01 100644
+index 1a5ac8e50c98..c271d01e2603 100644
 --- a/res/values-ko/strings.xml
 +++ b/res/values-ko/strings.xml
 @@ -494,4 +494,9 @@
@@ -734,7 +735,7 @@ index 1a5ac8e..c271d01 100644
 +    <string name="sim_contact_save_failed">"연락처를 SIM에 저장할 수 없음"</string>
  </resources>
 diff --git a/res/values-ky/strings.xml b/res/values-ky/strings.xml
-index 9343407..fe6676d 100644
+index 934340781603..fe6676d041ed 100644
 --- a/res/values-ky/strings.xml
 +++ b/res/values-ky/strings.xml
 @@ -494,4 +494,9 @@
@@ -748,7 +749,7 @@ index 9343407..fe6676d 100644
 +    <string name="sim_contact_save_failed">"Байланыш SIM картага сакталган жок"</string>
  </resources>
 diff --git a/res/values-lo/strings.xml b/res/values-lo/strings.xml
-index 9cc1b76..5160550 100644
+index 9cc1b76ff6ce..51605508a6e7 100644
 --- a/res/values-lo/strings.xml
 +++ b/res/values-lo/strings.xml
 @@ -494,4 +494,9 @@
@@ -762,7 +763,7 @@ index 9cc1b76..5160550 100644
 +    <string name="sim_contact_save_failed">"ບໍ່ສາມາດບັນທຶກລາຍຊື່ຜູ້ຕິດຕໍ່ໄວ້ໃນ SIM ໄດ້"</string>
  </resources>
 diff --git a/res/values-lt/strings.xml b/res/values-lt/strings.xml
-index ea79f2f..6af7e04 100644
+index ea79f2f62eb1..6af7e040e1ee 100644
 --- a/res/values-lt/strings.xml
 +++ b/res/values-lt/strings.xml
 @@ -494,4 +494,9 @@
@@ -776,7 +777,7 @@ index ea79f2f..6af7e04 100644
 +    <string name="sim_contact_save_failed">"Nepavyko išsaugoti kontakto SIM kortelėje"</string>
  </resources>
 diff --git a/res/values-lv/strings.xml b/res/values-lv/strings.xml
-index 8b807ef..a09e367 100644
+index 8b807ef27390..a09e367fa4b1 100644
 --- a/res/values-lv/strings.xml
 +++ b/res/values-lv/strings.xml
 @@ -494,4 +494,9 @@
@@ -790,7 +791,7 @@ index 8b807ef..a09e367 100644
 +    <string name="sim_contact_save_failed">"Nevarēja saglabāt kontaktpersonu SIM kartē"</string>
  </resources>
 diff --git a/res/values-mk/strings.xml b/res/values-mk/strings.xml
-index 3bf0132..723f928 100644
+index 3bf013237936..723f928c7855 100644
 --- a/res/values-mk/strings.xml
 +++ b/res/values-mk/strings.xml
 @@ -494,4 +494,9 @@
@@ -804,7 +805,7 @@ index 3bf0132..723f928 100644
 +    <string name="sim_contact_save_failed">"Контактот не може да се зачува на SIM"</string>
  </resources>
 diff --git a/res/values-ml/strings.xml b/res/values-ml/strings.xml
-index 371a9f3..ccef263 100644
+index 371a9f39f721..ccef263c199c 100644
 --- a/res/values-ml/strings.xml
 +++ b/res/values-ml/strings.xml
 @@ -494,4 +494,9 @@
@@ -818,7 +819,7 @@ index 371a9f3..ccef263 100644
 +    <string name="sim_contact_save_failed">"കോൺടാക്റ്റ് സിമ്മിൽ സംരക്ഷിക്കാനായില്ല"</string>
  </resources>
 diff --git a/res/values-mn/strings.xml b/res/values-mn/strings.xml
-index eb84601..a701594 100644
+index eb84601a1d27..a70159483164 100644
 --- a/res/values-mn/strings.xml
 +++ b/res/values-mn/strings.xml
 @@ -494,4 +494,9 @@
@@ -832,7 +833,7 @@ index eb84601..a701594 100644
 +    <string name="sim_contact_save_failed">"Харилцагчийг SIM-д хадгалж чадсангүй"</string>
  </resources>
 diff --git a/res/values-mr/strings.xml b/res/values-mr/strings.xml
-index c3fde66..914081a 100644
+index c3fde6682ef4..914081ac5175 100644
 --- a/res/values-mr/strings.xml
 +++ b/res/values-mr/strings.xml
 @@ -494,4 +494,9 @@
@@ -846,7 +847,7 @@ index c3fde66..914081a 100644
 +    <string name="sim_contact_save_failed">"संपर्क सिमवर सेव्ह करता आला नाही"</string>
  </resources>
 diff --git a/res/values-ms/strings.xml b/res/values-ms/strings.xml
-index 81d69de..61f1926 100644
+index 81d69de48cfd..61f19269e9ed 100644
 --- a/res/values-ms/strings.xml
 +++ b/res/values-ms/strings.xml
 @@ -494,4 +494,9 @@
@@ -860,7 +861,7 @@ index 81d69de..61f1926 100644
 +    <string name="sim_contact_save_failed">"Tidak dapat menyimpan kenalan ke SIM"</string>
  </resources>
 diff --git a/res/values-my/strings.xml b/res/values-my/strings.xml
-index eb84c79..b7e37ce 100644
+index eb84c796ffff..b7e37ce73a66 100644
 --- a/res/values-my/strings.xml
 +++ b/res/values-my/strings.xml
 @@ -494,4 +494,9 @@
@@ -874,7 +875,7 @@ index eb84c79..b7e37ce 100644
 +    <string name="sim_contact_save_failed">"အဆက်အသွယ်ကို ဆင်းမ်တွင် သိမ်း၍ မရပါ"</string>
  </resources>
 diff --git a/res/values-nb/strings.xml b/res/values-nb/strings.xml
-index 1e6aba8..8e730af 100644
+index 1e6aba878855..8e730af5241a 100644
 --- a/res/values-nb/strings.xml
 +++ b/res/values-nb/strings.xml
 @@ -494,4 +494,9 @@
@@ -888,7 +889,7 @@ index 1e6aba8..8e730af 100644
 +    <string name="sim_contact_save_failed">"Kunne ikke lagre kontakten på SIM-kortet"</string>
  </resources>
 diff --git a/res/values-ne/strings.xml b/res/values-ne/strings.xml
-index fee0740..4399f95 100644
+index fee074074a3b..4399f95469e9 100644
 --- a/res/values-ne/strings.xml
 +++ b/res/values-ne/strings.xml
 @@ -494,4 +494,9 @@
@@ -902,7 +903,7 @@ index fee0740..4399f95 100644
 +    <string name="sim_contact_save_failed">"सम्पर्क SIM मा सेभ गर्न सकिएन"</string>
  </resources>
 diff --git a/res/values-nl/strings.xml b/res/values-nl/strings.xml
-index a8e0ed8..f70db70 100644
+index a8e0ed8e3d93..f70db70c3dc4 100644
 --- a/res/values-nl/strings.xml
 +++ b/res/values-nl/strings.xml
 @@ -494,4 +494,9 @@
@@ -916,7 +917,7 @@ index a8e0ed8..f70db70 100644
 +    <string name="sim_contact_save_failed">"Kan het contact niet opslaan op de simkaart"</string>
  </resources>
 diff --git a/res/values-or/strings.xml b/res/values-or/strings.xml
-index 966f83b..df18f13 100644
+index 966f83be6530..df18f13059c2 100644
 --- a/res/values-or/strings.xml
 +++ b/res/values-or/strings.xml
 @@ -494,4 +494,9 @@
@@ -930,7 +931,7 @@ index 966f83b..df18f13 100644
 +    <string name="sim_contact_save_failed">"ଯୋଗାଯୋଗକୁ SIMରେ ସେଭ କରାଯାଇପାରିଲା ନାହିଁ"</string>
  </resources>
 diff --git a/res/values-pa/strings.xml b/res/values-pa/strings.xml
-index 0e74029..8620006 100644
+index 0e740294700e..86200062f22c 100644
 --- a/res/values-pa/strings.xml
 +++ b/res/values-pa/strings.xml
 @@ -494,4 +494,9 @@
@@ -944,7 +945,7 @@ index 0e74029..8620006 100644
 +    <string name="sim_contact_save_failed">"ਸੰਪਰਕ ਨੂੰ ਸਿਮ \'ਤੇ ਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"</string>
  </resources>
 diff --git a/res/values-pl/strings.xml b/res/values-pl/strings.xml
-index ca4b3ef..08906f2 100644
+index ca4b3ef90e55..08906f2ce7e9 100644
 --- a/res/values-pl/strings.xml
 +++ b/res/values-pl/strings.xml
 @@ -494,4 +494,9 @@
@@ -958,7 +959,7 @@ index ca4b3ef..08906f2 100644
 +    <string name="sim_contact_save_failed">"Nie udało się zapisać kontaktu na karcie SIM"</string>
  </resources>
 diff --git a/res/values-pt-rBR/strings.xml b/res/values-pt-rBR/strings.xml
-index f63a988..20bd4fb 100644
+index f63a98854fb3..20bd4fb90f38 100644
 --- a/res/values-pt-rBR/strings.xml
 +++ b/res/values-pt-rBR/strings.xml
 @@ -494,4 +494,9 @@
@@ -972,7 +973,7 @@ index f63a988..20bd4fb 100644
 +    <string name="sim_contact_save_failed">"Não foi possível salvar o contato no chip"</string>
  </resources>
 diff --git a/res/values-pt-rPT/strings.xml b/res/values-pt-rPT/strings.xml
-index b966bc9..79f1b15 100644
+index b966bc9b7e74..79f1b15ff124 100644
 --- a/res/values-pt-rPT/strings.xml
 +++ b/res/values-pt-rPT/strings.xml
 @@ -494,4 +494,9 @@
@@ -986,7 +987,7 @@ index b966bc9..79f1b15 100644
 +    <string name="sim_contact_save_failed">"Não foi possível guardar o contacto no SIM"</string>
  </resources>
 diff --git a/res/values-pt/strings.xml b/res/values-pt/strings.xml
-index f63a988..20bd4fb 100644
+index f63a98854fb3..20bd4fb90f38 100644
 --- a/res/values-pt/strings.xml
 +++ b/res/values-pt/strings.xml
 @@ -494,4 +494,9 @@
@@ -1000,7 +1001,7 @@ index f63a988..20bd4fb 100644
 +    <string name="sim_contact_save_failed">"Não foi possível salvar o contato no chip"</string>
  </resources>
 diff --git a/res/values-ro/strings.xml b/res/values-ro/strings.xml
-index e66a87f..fc6ffa1 100644
+index e66a87f6da7f..fc6ffa195880 100644
 --- a/res/values-ro/strings.xml
 +++ b/res/values-ro/strings.xml
 @@ -494,4 +494,9 @@
@@ -1014,7 +1015,7 @@ index e66a87f..fc6ffa1 100644
 +    <string name="sim_contact_save_failed">"Persoana de contact nu a putut fi salvată pe SIM"</string>
  </resources>
 diff --git a/res/values-ru/strings.xml b/res/values-ru/strings.xml
-index aedcf6e..311576f 100644
+index aedcf6e85d90..311576f0802b 100644
 --- a/res/values-ru/strings.xml
 +++ b/res/values-ru/strings.xml
 @@ -494,4 +494,9 @@
@@ -1028,7 +1029,7 @@ index aedcf6e..311576f 100644
 +    <string name="sim_contact_save_failed">"Не удалось сохранить контакт на SIM-карте"</string>
  </resources>
 diff --git a/res/values-si/strings.xml b/res/values-si/strings.xml
-index 9ceb420..8fe305f 100644
+index 9ceb420268a6..8fe305f117d3 100644
 --- a/res/values-si/strings.xml
 +++ b/res/values-si/strings.xml
 @@ -494,4 +494,9 @@
@@ -1042,7 +1043,7 @@ index 9ceb420..8fe305f 100644
 +    <string name="sim_contact_save_failed">"සම්බන්ධතාව SIM වෙත සුරැකිය නොහැකි විය"</string>
  </resources>
 diff --git a/res/values-sk/strings.xml b/res/values-sk/strings.xml
-index d9823b9..82b38f4 100644
+index d9823b91274f..82b38f4ff679 100644
 --- a/res/values-sk/strings.xml
 +++ b/res/values-sk/strings.xml
 @@ -494,4 +494,9 @@
@@ -1056,7 +1057,7 @@ index d9823b9..82b38f4 100644
 +    <string name="sim_contact_save_failed">"Kontakt sa nepodarilo uložiť na SIM kartu"</string>
  </resources>
 diff --git a/res/values-sl/strings.xml b/res/values-sl/strings.xml
-index 0257ed3..c52948a 100644
+index 0257ed3a6870..c52948a46d61 100644
 --- a/res/values-sl/strings.xml
 +++ b/res/values-sl/strings.xml
 @@ -494,4 +494,9 @@
@@ -1070,7 +1071,7 @@ index 0257ed3..c52948a 100644
 +    <string name="sim_contact_save_failed">"Stika ni bilo mogoče shraniti na SIM"</string>
  </resources>
 diff --git a/res/values-sq/strings.xml b/res/values-sq/strings.xml
-index 7885026..3fa5ca0 100644
+index 7885026ba3e5..3fa5ca0fd89e 100644
 --- a/res/values-sq/strings.xml
 +++ b/res/values-sq/strings.xml
 @@ -494,4 +494,9 @@
@@ -1084,7 +1085,7 @@ index 7885026..3fa5ca0 100644
 +    <string name="sim_contact_save_failed">"Kontakti nuk mund të ruhej në kartën SIM"</string>
  </resources>
 diff --git a/res/values-sr/strings.xml b/res/values-sr/strings.xml
-index a6e1bd8..6a687e6 100644
+index a6e1bd8a9240..6a687e62130f 100644
 --- a/res/values-sr/strings.xml
 +++ b/res/values-sr/strings.xml
 @@ -494,4 +494,9 @@
@@ -1098,7 +1099,7 @@ index a6e1bd8..6a687e6 100644
 +    <string name="sim_contact_save_failed">"Чување контакта на SIM-у није успело"</string>
  </resources>
 diff --git a/res/values-sv/strings.xml b/res/values-sv/strings.xml
-index 91ab328..8b04812 100644
+index 91ab32859ce1..8b04812abd89 100644
 --- a/res/values-sv/strings.xml
 +++ b/res/values-sv/strings.xml
 @@ -494,4 +494,9 @@
@@ -1112,7 +1113,7 @@ index 91ab328..8b04812 100644
 +    <string name="sim_contact_save_failed">"Det gick inte att spara kontakten på SIM-kortet"</string>
  </resources>
 diff --git a/res/values-ta/strings.xml b/res/values-ta/strings.xml
-index 491f246..085d6a2 100644
+index 491f246a1270..085d6a2608ee 100644
 --- a/res/values-ta/strings.xml
 +++ b/res/values-ta/strings.xml
 @@ -494,4 +494,9 @@
@@ -1126,7 +1127,7 @@ index 491f246..085d6a2 100644
 +    <string name="sim_contact_save_failed">"தொடர்பைச் சிம்மில் சேமிக்க முடியவில்லை"</string>
  </resources>
 diff --git a/res/values-te/strings.xml b/res/values-te/strings.xml
-index e05cf34..40b199d 100644
+index e05cf34976ed..40b199dc9de7 100644
 --- a/res/values-te/strings.xml
 +++ b/res/values-te/strings.xml
 @@ -494,4 +494,9 @@
@@ -1140,7 +1141,7 @@ index e05cf34..40b199d 100644
 +    <string name="sim_contact_save_failed">"కాంటాక్ట్‌ను SIMలో సేవ్ చేయడం సాధ్యపడలేదు"</string>
  </resources>
 diff --git a/res/values-th/strings.xml b/res/values-th/strings.xml
-index e03577c..6d5a4d1 100644
+index e03577ca8bd4..6d5a4d137e3c 100644
 --- a/res/values-th/strings.xml
 +++ b/res/values-th/strings.xml
 @@ -494,4 +494,9 @@
@@ -1154,7 +1155,7 @@ index e03577c..6d5a4d1 100644
 +    <string name="sim_contact_save_failed">"บันทึกรายชื่อติดต่อลงในซิมไม่ได้"</string>
  </resources>
 diff --git a/res/values-tl/strings.xml b/res/values-tl/strings.xml
-index e7a0a05..10e4ff2 100644
+index e7a0a055450b..10e4ff24ba7e 100644
 --- a/res/values-tl/strings.xml
 +++ b/res/values-tl/strings.xml
 @@ -494,4 +494,9 @@
@@ -1168,7 +1169,7 @@ index e7a0a05..10e4ff2 100644
 +    <string name="sim_contact_save_failed">"Hindi ma-save ang contact sa SIM"</string>
  </resources>
 diff --git a/res/values-tr/strings.xml b/res/values-tr/strings.xml
-index 3ef7c85..ecc7592 100644
+index 3ef7c8559875..ecc7592a6508 100644
 --- a/res/values-tr/strings.xml
 +++ b/res/values-tr/strings.xml
 @@ -75,6 +75,7 @@
@@ -1180,7 +1181,7 @@ index 3ef7c85..ecc7592 100644
      <string name="menu_unredirect_calls_to_vm" msgid="2294919685954790892">"Yönlendirmeyi iptal et"</string>
      <string name="readOnlyContactWarning" msgid="4158660823025751201">"Bu kişi salt okunur. Kişi silinemez ancak gizlenebilir."</string>
 diff --git a/res/values-uk/strings.xml b/res/values-uk/strings.xml
-index 1b3173a..4bed90f 100644
+index 1b3173a3ba31..4bed90fcdbce 100644
 --- a/res/values-uk/strings.xml
 +++ b/res/values-uk/strings.xml
 @@ -494,4 +494,9 @@
@@ -1194,7 +1195,7 @@ index 1b3173a..4bed90f 100644
 +    <string name="sim_contact_save_failed">"Не вдалося зберегти контакт на SIM-карті"</string>
  </resources>
 diff --git a/res/values-ur/strings.xml b/res/values-ur/strings.xml
-index 5617e22..1c9a666 100644
+index 5617e225e6f4..1c9a6668f3f9 100644
 --- a/res/values-ur/strings.xml
 +++ b/res/values-ur/strings.xml
 @@ -494,4 +494,9 @@
@@ -1208,7 +1209,7 @@ index 5617e22..1c9a666 100644
 +    <string name="sim_contact_save_failed">"رابطہ SIM میں محفوظ نہیں کیا جا سکا"</string>
  </resources>
 diff --git a/res/values-uz/strings.xml b/res/values-uz/strings.xml
-index 80b2dc7..a190ffb 100644
+index 80b2dc754655..a190ffb607ce 100644
 --- a/res/values-uz/strings.xml
 +++ b/res/values-uz/strings.xml
 @@ -494,4 +494,9 @@
@@ -1222,7 +1223,7 @@ index 80b2dc7..a190ffb 100644
 +    <string name="sim_contact_save_failed">"Kontakt SIM kartaga saqlanmadi"</string>
  </resources>
 diff --git a/res/values-vi/strings.xml b/res/values-vi/strings.xml
-index d6a3783..dba3213 100644
+index d6a3783826df..dba32137c0e3 100644
 --- a/res/values-vi/strings.xml
 +++ b/res/values-vi/strings.xml
 @@ -494,4 +494,9 @@
@@ -1236,7 +1237,7 @@ index d6a3783..dba3213 100644
 +    <string name="sim_contact_save_failed">"Không thể lưu người liên hệ vào SIM"</string>
  </resources>
 diff --git a/res/values-zh-rCN/strings.xml b/res/values-zh-rCN/strings.xml
-index 7b75542..db90350 100644
+index 7b75542ae2f4..db9035024c9f 100644
 --- a/res/values-zh-rCN/strings.xml
 +++ b/res/values-zh-rCN/strings.xml
 @@ -494,4 +494,9 @@
@@ -1250,7 +1251,7 @@ index 7b75542..db90350 100644
 +    <string name="sim_contact_save_failed">"无法将联系人保存到 SIM 卡"</string>
  </resources>
 diff --git a/res/values-zh-rHK/strings.xml b/res/values-zh-rHK/strings.xml
-index 14bceb9..8025d0f 100644
+index 14bceb984fa6..8025d0f5d0ee 100644
 --- a/res/values-zh-rHK/strings.xml
 +++ b/res/values-zh-rHK/strings.xml
 @@ -494,4 +494,9 @@
@@ -1264,7 +1265,7 @@ index 14bceb9..8025d0f 100644
 +    <string name="sim_contact_save_failed">"無法將聯絡人儲存至 SIM 卡"</string>
  </resources>
 diff --git a/res/values-zh-rTW/strings.xml b/res/values-zh-rTW/strings.xml
-index 4a6e213..32de5dc 100644
+index 4a6e213c825d..32de5dc37e16 100644
 --- a/res/values-zh-rTW/strings.xml
 +++ b/res/values-zh-rTW/strings.xml
 @@ -494,4 +494,9 @@
@@ -1278,7 +1279,7 @@ index 4a6e213..32de5dc 100644
 +    <string name="sim_contact_save_failed">"無法將聯絡人儲存到 SIM 卡"</string>
  </resources>
 diff --git a/res/values-zu/strings.xml b/res/values-zu/strings.xml
-index d5432a1..8f2efec 100644
+index d5432a1eb78e..8f2efec1c6ed 100644
 --- a/res/values-zu/strings.xml
 +++ b/res/values-zu/strings.xml
 @@ -494,4 +494,9 @@
@@ -1292,7 +1293,7 @@ index d5432a1..8f2efec 100644
 +    <string name="sim_contact_save_failed">"Akukwazanga ukulondoloza oxhumana naye ku-SIM"</string>
  </resources>
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 7d45ed3..2d89b3b 100644
+index 7d45ed3742b9..2d89b3b81504 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
 @@ -207,6 +207,9 @@
@@ -1306,7 +1307,7 @@ index 7d45ed3..2d89b3b 100644
      <string name="menu_redirect_calls_to_vm">Route to voicemail</string>
  
 diff --git a/src/com/android/contacts/ContactSaveService.java b/src/com/android/contacts/ContactSaveService.java
-index 30e4f82..61e5917 100644
+index 30e4f820dffd..61e591714f82 100644
 --- a/src/com/android/contacts/ContactSaveService.java
 +++ b/src/com/android/contacts/ContactSaveService.java
 @@ -59,6 +59,7 @@ import com.android.contacts.compat.CompatUtils;
@@ -1345,7 +1346,7 @@ index 30e4f82..61e5917 100644
                  ContactSaveService.EXTRA_DISPLAY_NAME_ARRAY);
          final String deleteToastMessage;
 diff --git a/src/com/android/contacts/activities/PeopleActivity.java b/src/com/android/contacts/activities/PeopleActivity.java
-index 62dc48e..242963d 100644
+index 62dc48ef447a..242963d31d54 100644
 --- a/src/com/android/contacts/activities/PeopleActivity.java
 +++ b/src/com/android/contacts/activities/PeopleActivity.java
 @@ -62,6 +62,7 @@ import com.android.contacts.AppCompatContactsActivity;
@@ -1370,7 +1371,7 @@ index 62dc48e..242963d 100644
  
          // Set up the action bar.
 diff --git a/src/com/android/contacts/database/SimContactDaoImpl.java b/src/com/android/contacts/database/SimContactDaoImpl.java
-index 2c01a2e..6f56a5d 100644
+index 2c01a2ee82fc..6f56a5d3fea2 100644
 --- a/src/com/android/contacts/database/SimContactDaoImpl.java
 +++ b/src/com/android/contacts/database/SimContactDaoImpl.java
 @@ -19,6 +19,7 @@ import android.annotation.TargetApi;
@@ -1483,7 +1484,7 @@ index 2c01a2e..6f56a5d 100644
                  new String[]{ElementaryFiles.NAME_MAX_LENGTH}, null, null);
 diff --git a/src/com/android/contacts/database/SimContactSync.java b/src/com/android/contacts/database/SimContactSync.java
 new file mode 100644
-index 0000000..d662899
+index 000000000000..d662899ac759
 --- /dev/null
 +++ b/src/com/android/contacts/database/SimContactSync.java
 @@ -0,0 +1,447 @@
@@ -1936,7 +1937,7 @@ index 0000000..d662899
 +}
 diff --git a/src/com/android/contacts/editor/SimNameLengthFilter.java b/src/com/android/contacts/editor/SimNameLengthFilter.java
 new file mode 100644
-index 0000000..65ee1e6
+index 000000000000..65ee1e66cf34
 --- /dev/null
 +++ b/src/com/android/contacts/editor/SimNameLengthFilter.java
 @@ -0,0 +1,116 @@
@@ -2057,7 +2058,7 @@ index 0000000..65ee1e6
 +    }
 +}
 diff --git a/src/com/android/contacts/editor/TextFieldsEditorView.java b/src/com/android/contacts/editor/TextFieldsEditorView.java
-index d7f9545..2c0faa7 100644
+index d7f9545bfecc..2c0faa712e4e 100644
 --- a/src/com/android/contacts/editor/TextFieldsEditorView.java
 +++ b/src/com/android/contacts/editor/TextFieldsEditorView.java
 @@ -46,6 +46,7 @@ import android.widget.LinearLayout;
@@ -2082,7 +2083,7 @@ index d7f9545..2c0faa7 100644
              // When hiding fields, place expandable
              setupExpansionView(hidePossible, mHideOptional);
 diff --git a/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java b/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java
-index 5c55f20..f918442 100644
+index 5c55f2083c86..f918442a58b2 100644
 --- a/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java
 +++ b/src/com/android/contacts/interactions/OnBootOrUpgradeReceiver.java
 @@ -19,7 +19,9 @@ package com.android.contacts.interactions;
@@ -2115,7 +2116,7 @@ index 5c55f20..f918442 100644
      }
  }
 diff --git a/src/com/android/contacts/model/account/SimAccountType.java b/src/com/android/contacts/model/account/SimAccountType.java
-index 19332e6..531f001 100644
+index 19332e60f305..531f00108f06 100644
 --- a/src/com/android/contacts/model/account/SimAccountType.java
 +++ b/src/com/android/contacts/model/account/SimAccountType.java
 @@ -60,7 +60,7 @@ public class SimAccountType extends BaseAccountType {
@@ -2128,7 +2129,7 @@ index 19332e6..531f001 100644
  
      @Override
 diff --git a/src/com/android/contacts/quickcontact/QuickContactActivity.java b/src/com/android/contacts/quickcontact/QuickContactActivity.java
-index fd9dd0a..a1c093f 100644
+index fd9dd0adb633..a1c093f8ae0a 100644
 --- a/src/com/android/contacts/quickcontact/QuickContactActivity.java
 +++ b/src/com/android/contacts/quickcontact/QuickContactActivity.java
 @@ -121,6 +121,7 @@ import com.android.contacts.compat.MultiWindowCompat;

@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 1f639a8d81043dd849db153c4c730b125a7102b5 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 3 Oct 2026 04:34:13 +0300
-Subject: [PATCH] Aperture: fall back to the closest lower video frame rate
+Subject: [PATCH 4/6] Aperture: fall back to the closest lower video frame rate
 
 when the saved or active frame rate is unavailable for a video quality,
 firstOrNull() picked the lowest entry in the set instead of the nearest
@@ -12,7 +12,7 @@ lower rate. pick the highest supported rate below the requested one.
  2 files changed, 17 insertions(+), 7 deletions(-)
 
 diff --git a/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt b/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt
-index 86d85c8..acd852e 100644
+index 86d85c86383f..acd852e99a22 100644
 --- a/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt
 +++ b/app/src/main/java/org/lineageos/aperture/models/VideoQualityInfo.kt
 @@ -17,4 +17,14 @@ data class VideoQualityInfo(
@@ -32,7 +32,7 @@ index 86d85c8..acd852e 100644
 +    }
 +}
 diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
-index b9c57c1..ea2e86d 100644
+index b9c57c15354b..ea2e86dda947 100644
 --- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 +++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 @@ -1495,9 +1495,9 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)

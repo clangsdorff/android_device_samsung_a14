@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From da18d7a69192bbb0bc3b719de185e49ef06e8e16 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 4 Oct 2026 23:18:26 +0300
-Subject: [PATCH] Aperture: keep the video preview in 16:9
+Subject: [PATCH 5/6] Aperture: keep the video preview in 16:9
 
 camerax defaults the preview stream to 4:3 even in video mode. samsung
 hals only have 60fps sensor modes in 16:9 and fail or cap to 30fps when
@@ -12,7 +12,7 @@ request a 16:9 preview resolution in video mode.
  1 file changed, 10 insertions(+)
 
 diff --git a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
-index 1c343ab..bc17c13 100644
+index 1c343ab81401..bc17c1381df6 100644
 --- a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
 +++ b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
 @@ -1536,6 +1536,8 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {

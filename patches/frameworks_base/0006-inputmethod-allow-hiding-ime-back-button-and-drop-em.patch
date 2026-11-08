@@ -1,8 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 8e872d7527f789eb6e4723f4f00a3e1b3a4657a6 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 3 Oct 2026 01:22:57 +0300
-Subject: [PATCH] inputmethod: allow hiding ime back button and drop empty ime
- nav bar
+Subject: [PATCH 06/10] inputmethod: allow hiding ime back button and drop
+ empty ime nav bar
 
 add a secure setting to hide the ime back (dismiss) button in the ime
 navigation bar. when the back button is hidden and no other buttons
@@ -20,7 +20,7 @@ navigation bar and adjust the caption bar insets accordingly.
  8 files changed, 53 insertions(+), 6 deletions(-)
 
 diff --git a/core/java/android/inputmethodservice/NavigationBarController.java b/core/java/android/inputmethodservice/NavigationBarController.java
-index caf8ca9..c49b65e 100644
+index caf8ca94fc5f..c49b65e1edaa 100644
 --- a/core/java/android/inputmethodservice/NavigationBarController.java
 +++ b/core/java/android/inputmethodservice/NavigationBarController.java
 @@ -86,6 +86,9 @@ final class NavigationBarController implements Window.DecorCallback,
@@ -75,7 +75,7 @@ index caf8ca9..c49b65e 100644
                      // TODO(b/213337792): Set NAVBAR_IME_VISIBLE only when necessary.
                      final int flags = NAVBAR_BACK_DISMISS_IME | NAVBAR_IME_VISIBLE | (
 diff --git a/core/java/android/inputmethodservice/navigationbar/NavigationBarView.java b/core/java/android/inputmethodservice/navigationbar/NavigationBarView.java
-index 32b9dc2..f268f7b 100644
+index 32b9dc2f85f5..f268f7bb9c26 100644
 --- a/core/java/android/inputmethodservice/navigationbar/NavigationBarView.java
 +++ b/core/java/android/inputmethodservice/navigationbar/NavigationBarView.java
 @@ -67,6 +67,7 @@ public final class NavigationBarView extends FrameLayout {
@@ -111,7 +111,7 @@ index 32b9dc2..f268f7b 100644
  
          // We used to be reporting the touch regions via notifyActiveTouchRegions() here.
 diff --git a/core/java/android/provider/Settings.java b/core/java/android/provider/Settings.java
-index 090c41d..6a656c2 100644
+index 090c41d92bc7..6a656c2fb963 100644
 --- a/core/java/android/provider/Settings.java
 +++ b/core/java/android/provider/Settings.java
 @@ -8399,6 +8399,15 @@ public final class Settings {
@@ -131,7 +131,7 @@ index 090c41d..6a656c2 100644
           * Default value for {@link #STYLUS_HANDWRITING_ENABLED}.
           *
 diff --git a/core/java/com/android/internal/inputmethod/InputMethodNavButtonFlags.java b/core/java/com/android/internal/inputmethod/InputMethodNavButtonFlags.java
-index f32c135..fe1ed2a 100644
+index f32c135a4a47..fe1ed2aef15a 100644
 --- a/core/java/com/android/internal/inputmethod/InputMethodNavButtonFlags.java
 +++ b/core/java/com/android/internal/inputmethod/InputMethodNavButtonFlags.java
 @@ -32,6 +32,7 @@ import java.lang.annotation.Retention;
@@ -153,7 +153,7 @@ index f32c135..fe1ed2a 100644
 +    int IME_BACK_BUTTON_HIDDEN = 1 << 3;
  }
 diff --git a/packages/SettingsProvider/src/android/provider/settings/backup/SecureSettings.java b/packages/SettingsProvider/src/android/provider/settings/backup/SecureSettings.java
-index edc32ed..5c6a49d 100644
+index edc32ed2b23d..5c6a49d98ace 100644
 --- a/packages/SettingsProvider/src/android/provider/settings/backup/SecureSettings.java
 +++ b/packages/SettingsProvider/src/android/provider/settings/backup/SecureSettings.java
 @@ -348,6 +348,7 @@ public class SecureSettings {
@@ -165,7 +165,7 @@ index edc32ed..5c6a49d 100644
      };
  }
 diff --git a/packages/SettingsProvider/src/android/provider/settings/validators/SecureSettingsValidators.java b/packages/SettingsProvider/src/android/provider/settings/validators/SecureSettingsValidators.java
-index e31847d..19b5fb4 100644
+index e31847d7717f..19b5fb47bd70 100644
 --- a/packages/SettingsProvider/src/android/provider/settings/validators/SecureSettingsValidators.java
 +++ b/packages/SettingsProvider/src/android/provider/settings/validators/SecureSettingsValidators.java
 @@ -551,6 +551,7 @@ public class SecureSettingsValidators {
@@ -177,7 +177,7 @@ index e31847d..19b5fb4 100644
                  COLON_SEPARATED_COMPONENT_LIST_VALIDATOR);
      }
 diff --git a/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java b/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java
-index c7ba665..baeecab 100644
+index c7ba6657a93d..baeecab0adb2 100644
 --- a/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java
 +++ b/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java
 @@ -881,7 +881,8 @@ public final class InputMethodManagerService implements IInputMethodManagerImpl.
@@ -217,7 +217,7 @@ index c7ba665..baeecab 100644
  
      /**
 diff --git a/services/core/java/com/android/server/inputmethod/InputMethodSettings.java b/services/core/java/com/android/server/inputmethod/InputMethodSettings.java
-index 339645d..13bcdbb 100644
+index 339645d692f4..13bcdbbabd96 100644
 --- a/services/core/java/com/android/server/inputmethod/InputMethodSettings.java
 +++ b/services/core/java/com/android/server/inputmethod/InputMethodSettings.java
 @@ -664,6 +664,10 @@ final class InputMethodSettings {

@@ -1,4 +1,4 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From f86edb0763c2c8e857921ff30d7220d837cd7765 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Fri, 23 Oct 2026 00:41:49 +0300
 Subject: [PATCH 1/2] gestures: offer fingerprint swipe when the sensor reports
@@ -10,96 +10,96 @@ match, so also show it when the framework sets sys.fp_nav_keys.
 
 Change-Id: I88e3f7a6dbaf4a470b8e955546cd4d727096dceb
 ---
- res-product/values-af/strings.xml             |  8 +++----
- res-product/values-am/strings.xml             |  8 +++----
- res-product/values-ar/strings.xml             |  8 +++----
- res-product/values-as/strings.xml             |  8 +++----
- res-product/values-az/strings.xml             |  8 +++----
- res-product/values-b+sr+Latn/strings.xml      |  8 +++----
- res-product/values-be/strings.xml             |  8 +++----
- res-product/values-bg/strings.xml             |  8 +++----
- res-product/values-bn/strings.xml             |  8 +++----
- res-product/values-bs/strings.xml             |  8 +++----
- res-product/values-ca/strings.xml             |  8 +++----
- res-product/values-cs/strings.xml             |  8 +++----
- res-product/values-da/strings.xml             |  8 +++----
- res-product/values-de/strings.xml             |  8 +++----
- res-product/values-el/strings.xml             |  8 +++----
- res-product/values-en-rAU/strings.xml         |  8 +++----
- res-product/values-en-rCA/strings.xml         |  8 +++----
- res-product/values-en-rGB/strings.xml         |  8 +++----
- res-product/values-en-rIN/strings.xml         |  8 +++----
- res-product/values-es-rUS/strings.xml         |  8 +++----
- res-product/values-es/strings.xml             |  8 +++----
- res-product/values-et/strings.xml             |  8 +++----
- res-product/values-eu/strings.xml             |  8 +++----
- res-product/values-fa/strings.xml             |  8 +++----
- res-product/values-fi/strings.xml             |  8 +++----
- res-product/values-fr-rCA/strings.xml         |  8 +++----
- res-product/values-fr/strings.xml             |  8 +++----
- res-product/values-gl/strings.xml             |  8 +++----
- res-product/values-gu/strings.xml             |  8 +++----
- res-product/values-hi/strings.xml             |  8 +++----
- res-product/values-hr/strings.xml             |  8 +++----
- res-product/values-hu/strings.xml             |  8 +++----
- res-product/values-hy/strings.xml             |  8 +++----
- res-product/values-in/strings.xml             |  8 +++----
- res-product/values-is/strings.xml             |  8 +++----
- res-product/values-it/strings.xml             |  8 +++----
- res-product/values-iw/strings.xml             |  8 +++----
- res-product/values-ja/strings.xml             |  8 +++----
- res-product/values-ka/strings.xml             |  8 +++----
- res-product/values-kk/strings.xml             |  8 +++----
- res-product/values-km/strings.xml             |  8 +++----
- res-product/values-kn/strings.xml             |  8 +++----
- res-product/values-ko/strings.xml             |  8 +++----
- res-product/values-ky/strings.xml             |  8 +++----
- res-product/values-lo/strings.xml             |  8 +++----
- res-product/values-lt/strings.xml             |  8 +++----
- res-product/values-lv/strings.xml             |  8 +++----
- res-product/values-mk/strings.xml             |  8 +++----
- res-product/values-ml/strings.xml             |  8 +++----
- res-product/values-mn/strings.xml             |  8 +++----
- res-product/values-mr/strings.xml             |  8 +++----
- res-product/values-ms/strings.xml             |  8 +++----
- res-product/values-my/strings.xml             |  8 +++----
- res-product/values-nb/strings.xml             |  8 +++----
- res-product/values-ne/strings.xml             |  8 +++----
- res-product/values-nl/strings.xml             |  8 +++----
- res-product/values-or/strings.xml             |  8 +++----
- res-product/values-pa/strings.xml             |  8 +++----
- res-product/values-pl/strings.xml             |  8 +++----
- res-product/values-pt-rBR/strings.xml         |  8 +++----
- res-product/values-pt-rPT/strings.xml         |  8 +++----
- res-product/values-pt/strings.xml             |  8 +++----
- res-product/values-ro/strings.xml             |  8 +++----
- res-product/values-ru/strings.xml             |  8 +++----
- res-product/values-si/strings.xml             |  8 +++----
- res-product/values-sk/strings.xml             |  8 +++----
- res-product/values-sl/strings.xml             |  8 +++----
- res-product/values-sq/strings.xml             |  8 +++----
- res-product/values-sr/strings.xml             |  8 +++----
- res-product/values-sv/strings.xml             |  8 +++----
- res-product/values-sw/strings.xml             |  8 +++----
- res-product/values-ta/strings.xml             |  8 +++----
- res-product/values-te/strings.xml             |  8 +++----
- res-product/values-th/strings.xml             |  8 +++----
- res-product/values-tl/strings.xml             |  8 +++----
- res-product/values-tr/strings.xml             |  8 +++----
- res-product/values-uk/strings.xml             |  8 +++----
- res-product/values-ur/strings.xml             |  8 +++----
- res-product/values-uz/strings.xml             |  8 +++----
- res-product/values-vi/strings.xml             |  8 +++----
- res-product/values-zh-rCN/strings.xml         |  8 +++----
- res-product/values-zh-rHK/strings.xml         |  8 +++----
- res-product/values-zh-rTW/strings.xml         |  8 +++----
- res-product/values-zu/strings.xml             |  8 +++----
- res-product/values/strings.xml                |  8 +++----
- ...ipeToNotificationPreferenceController.java | 25 ++++++++++++++++++---
+ res-product/values-af/strings.xml             |  8 +++---
+ res-product/values-am/strings.xml             |  8 +++---
+ res-product/values-ar/strings.xml             |  8 +++---
+ res-product/values-as/strings.xml             |  8 +++---
+ res-product/values-az/strings.xml             |  8 +++---
+ res-product/values-b+sr+Latn/strings.xml      |  8 +++---
+ res-product/values-be/strings.xml             |  8 +++---
+ res-product/values-bg/strings.xml             |  8 +++---
+ res-product/values-bn/strings.xml             |  8 +++---
+ res-product/values-bs/strings.xml             |  8 +++---
+ res-product/values-ca/strings.xml             |  8 +++---
+ res-product/values-cs/strings.xml             |  8 +++---
+ res-product/values-da/strings.xml             |  8 +++---
+ res-product/values-de/strings.xml             |  8 +++---
+ res-product/values-el/strings.xml             |  8 +++---
+ res-product/values-en-rAU/strings.xml         |  8 +++---
+ res-product/values-en-rCA/strings.xml         |  8 +++---
+ res-product/values-en-rGB/strings.xml         |  8 +++---
+ res-product/values-en-rIN/strings.xml         |  8 +++---
+ res-product/values-es-rUS/strings.xml         |  8 +++---
+ res-product/values-es/strings.xml             |  8 +++---
+ res-product/values-et/strings.xml             |  8 +++---
+ res-product/values-eu/strings.xml             |  8 +++---
+ res-product/values-fa/strings.xml             |  8 +++---
+ res-product/values-fi/strings.xml             |  8 +++---
+ res-product/values-fr-rCA/strings.xml         |  8 +++---
+ res-product/values-fr/strings.xml             |  8 +++---
+ res-product/values-gl/strings.xml             |  8 +++---
+ res-product/values-gu/strings.xml             |  8 +++---
+ res-product/values-hi/strings.xml             |  8 +++---
+ res-product/values-hr/strings.xml             |  8 +++---
+ res-product/values-hu/strings.xml             |  8 +++---
+ res-product/values-hy/strings.xml             |  8 +++---
+ res-product/values-in/strings.xml             |  8 +++---
+ res-product/values-is/strings.xml             |  8 +++---
+ res-product/values-it/strings.xml             |  8 +++---
+ res-product/values-iw/strings.xml             |  8 +++---
+ res-product/values-ja/strings.xml             |  8 +++---
+ res-product/values-ka/strings.xml             |  8 +++---
+ res-product/values-kk/strings.xml             |  8 +++---
+ res-product/values-km/strings.xml             |  8 +++---
+ res-product/values-kn/strings.xml             |  8 +++---
+ res-product/values-ko/strings.xml             |  8 +++---
+ res-product/values-ky/strings.xml             |  8 +++---
+ res-product/values-lo/strings.xml             |  8 +++---
+ res-product/values-lt/strings.xml             |  8 +++---
+ res-product/values-lv/strings.xml             |  8 +++---
+ res-product/values-mk/strings.xml             |  8 +++---
+ res-product/values-ml/strings.xml             |  8 +++---
+ res-product/values-mn/strings.xml             |  8 +++---
+ res-product/values-mr/strings.xml             |  8 +++---
+ res-product/values-ms/strings.xml             |  8 +++---
+ res-product/values-my/strings.xml             |  8 +++---
+ res-product/values-nb/strings.xml             |  8 +++---
+ res-product/values-ne/strings.xml             |  8 +++---
+ res-product/values-nl/strings.xml             |  8 +++---
+ res-product/values-or/strings.xml             |  8 +++---
+ res-product/values-pa/strings.xml             |  8 +++---
+ res-product/values-pl/strings.xml             |  8 +++---
+ res-product/values-pt-rBR/strings.xml         |  8 +++---
+ res-product/values-pt-rPT/strings.xml         |  8 +++---
+ res-product/values-pt/strings.xml             |  8 +++---
+ res-product/values-ro/strings.xml             |  8 +++---
+ res-product/values-ru/strings.xml             |  8 +++---
+ res-product/values-si/strings.xml             |  8 +++---
+ res-product/values-sk/strings.xml             |  8 +++---
+ res-product/values-sl/strings.xml             |  8 +++---
+ res-product/values-sq/strings.xml             |  8 +++---
+ res-product/values-sr/strings.xml             |  8 +++---
+ res-product/values-sv/strings.xml             |  8 +++---
+ res-product/values-sw/strings.xml             |  8 +++---
+ res-product/values-ta/strings.xml             |  8 +++---
+ res-product/values-te/strings.xml             |  8 +++---
+ res-product/values-th/strings.xml             |  8 +++---
+ res-product/values-tl/strings.xml             |  8 +++---
+ res-product/values-tr/strings.xml             |  8 +++---
+ res-product/values-uk/strings.xml             |  8 +++---
+ res-product/values-ur/strings.xml             |  8 +++---
+ res-product/values-uz/strings.xml             |  8 +++---
+ res-product/values-vi/strings.xml             |  8 +++---
+ res-product/values-zh-rCN/strings.xml         |  8 +++---
+ res-product/values-zh-rHK/strings.xml         |  8 +++---
+ res-product/values-zh-rTW/strings.xml         |  8 +++---
+ res-product/values-zu/strings.xml             |  8 +++---
+ res-product/values/strings.xml                |  8 +++---
+ ...ipeToNotificationPreferenceController.java | 25 ++++++++++++++++---
  86 files changed, 362 insertions(+), 343 deletions(-)
 
 diff --git a/res-product/values-af/strings.xml b/res-product/values-af/strings.xml
-index d9bef634bb8..79a0ac7e0db 100644
+index d9bef634bb8e..79a0ac7e0db5 100644
 --- a/res-product/values-af/strings.xml
 +++ b/res-product/values-af/strings.xml
 @@ -573,10 +573,10 @@
@@ -118,7 +118,7 @@ index d9bef634bb8..79a0ac7e0db 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Hierdie tablet sal tot 4G beperk word wanneer dit 2 SIM-kaarte gebruik. "<annotation id="url">"Kom meer te wete"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Hierdie toestel sal tot 4G beperk word wanneer dit 2 SIM-kaarte gebruik. "<annotation id="url">"Kom meer te wete"</annotation></string>
 diff --git a/res-product/values-am/strings.xml b/res-product/values-am/strings.xml
-index 8115d5094bb..42fc9c35f4d 100644
+index 8115d5094bbf..42fc9c35f4dc 100644
 --- a/res-product/values-am/strings.xml
 +++ b/res-product/values-am/strings.xml
 @@ -573,10 +573,10 @@
@@ -137,7 +137,7 @@ index 8115d5094bb..42fc9c35f4d 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 ሲሞችን በሚጠቀሙበት ጊዜ ይህ ጡባዊ በ4ጂ ይገደባል። "<annotation id="url">"የበለጠ ለመረዳት"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 ሲሞችን በሚጠቀሙበት ጊዜ ይህ መሣሪያ በ4ጂ ይገደባል። "<annotation id="url">"የበለጠ ለመረዳት"</annotation></string>
 diff --git a/res-product/values-ar/strings.xml b/res-product/values-ar/strings.xml
-index b3a9667f755..5a2d3b405d5 100644
+index b3a9667f7559..5a2d3b405d57 100644
 --- a/res-product/values-ar/strings.xml
 +++ b/res-product/values-ar/strings.xml
 @@ -573,10 +573,10 @@
@@ -156,7 +156,7 @@ index b3a9667f755..5a2d3b405d5 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"‏عندما تستخدم شريحتَي SIM، سيقتصر عمل هذا الجهاز اللوحي على الجيل الرابع. "<annotation id="url">"مزيد من المعلومات"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"‏عندما تستخدم شريحتَي SIM، سيقتصر عمل هذا الجهاز على الجيل الرابع. "<annotation id="url">"مزيد من المعلومات"</annotation></string>
 diff --git a/res-product/values-as/strings.xml b/res-product/values-as/strings.xml
-index 97e62b19320..e914c52c2c2 100644
+index 97e62b19320d..e914c52c2c26 100644
 --- a/res-product/values-as/strings.xml
 +++ b/res-product/values-as/strings.xml
 @@ -573,10 +573,10 @@
@@ -175,7 +175,7 @@ index 97e62b19320..e914c52c2c2 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"২ খন ছিম ব্যৱহাৰ কৰাৰ সময়ত এই টেবলেটটোৰ ব্যৱহাৰ 4Gত সীমিত হৈ পৰিব। "<annotation id="url">"অধিক জানক"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"২ খন ছিম ব্যৱহাৰ কৰাৰ সময়ত এই ডিভাইচটোৰ ব্যৱহাৰ 4Gত সীমিত হৈ পৰিব। "<annotation id="url">"অধিক জানক"</annotation></string>
 diff --git a/res-product/values-az/strings.xml b/res-product/values-az/strings.xml
-index 6d15f3abf94..a6af1c32437 100644
+index 6d15f3abf940..a6af1c324377 100644
 --- a/res-product/values-az/strings.xml
 +++ b/res-product/values-az/strings.xml
 @@ -573,10 +573,10 @@
@@ -194,7 +194,7 @@ index 6d15f3abf94..a6af1c32437 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 SIM kart istifadə edərkən bu planşet 4G ilə məhdud olacaq. "<annotation id="url">"Ətraflı məlumat"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 SIM kart istifadə edərkən bu cihaz 4G ilə məhdud olacaq. "<annotation id="url">"Ətraflı məlumat"</annotation></string>
 diff --git a/res-product/values-b+sr+Latn/strings.xml b/res-product/values-b+sr+Latn/strings.xml
-index a6b9f7dffae..8dd5b2d8776 100644
+index a6b9f7dffaec..8dd5b2d87760 100644
 --- a/res-product/values-b+sr+Latn/strings.xml
 +++ b/res-product/values-b+sr+Latn/strings.xml
 @@ -573,10 +573,10 @@
@@ -213,7 +213,7 @@ index a6b9f7dffae..8dd5b2d8776 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Ovaj tablet je ograničen na 4G kada koristite 2 SIM kartice. "<annotation id="url">"Saznajte više"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Ovaj uređaj je ograničen na 4G kada koristite 2 SIM kartice. "<annotation id="url">"Saznajte više"</annotation></string>
 diff --git a/res-product/values-be/strings.xml b/res-product/values-be/strings.xml
-index 3821e7ebe0b..fbc0d30813a 100644
+index 3821e7ebe0b1..fbc0d30813a0 100644
 --- a/res-product/values-be/strings.xml
 +++ b/res-product/values-be/strings.xml
 @@ -573,10 +573,10 @@
@@ -232,7 +232,7 @@ index 3821e7ebe0b..fbc0d30813a 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Пры выкарыстанні 2 SIM-карт гэты планшэт можа падключыцца толькі да сеткі 4G. "<annotation id="url">"Даведацца больш"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Пры выкарыстанні 2 SIM-карт гэта прылада можа падключыцца толькі да сеткі 4G. "<annotation id="url">"Даведацца больш"</annotation></string>
 diff --git a/res-product/values-bg/strings.xml b/res-product/values-bg/strings.xml
-index 1a9e458cd89..05617a2e5f4 100644
+index 1a9e458cd894..05617a2e5f46 100644
 --- a/res-product/values-bg/strings.xml
 +++ b/res-product/values-bg/strings.xml
 @@ -573,10 +573,10 @@
@@ -251,7 +251,7 @@ index 1a9e458cd89..05617a2e5f4 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Когато използвате 2 SIM карти, този таблет ще бъде ограничен до 4G. "<annotation id="url">"Научете повече"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Когато използвате 2 SIM карти, това устройство ще бъде ограничено до 4G. "<annotation id="url">"Научете повече"</annotation></string>
 diff --git a/res-product/values-bn/strings.xml b/res-product/values-bn/strings.xml
-index 3fc51739c23..14a4fda144a 100644
+index 3fc51739c23a..14a4fda144a8 100644
 --- a/res-product/values-bn/strings.xml
 +++ b/res-product/values-bn/strings.xml
 @@ -573,10 +573,10 @@
@@ -270,7 +270,7 @@ index 3fc51739c23..14a4fda144a 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"২টি সিম ব্যবহার করলে, এই ট্যাবলেটে নেটওয়ার্কের স্পিড 4G অবধি সীমিত থাকবে। "<annotation id="url">"আরও জানুন"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"২টি সিম ব্যবহার করলে, এই ডিভাইসে নেটওয়ার্কের স্পিড 4G অবধি সীমিত থাকবে। "<annotation id="url">"আরও জানুন"</annotation></string>
 diff --git a/res-product/values-bs/strings.xml b/res-product/values-bs/strings.xml
-index eba6f639dc4..42d10b42ee6 100644
+index eba6f639dc40..42d10b42ee6b 100644
 --- a/res-product/values-bs/strings.xml
 +++ b/res-product/values-bs/strings.xml
 @@ -573,10 +573,10 @@
@@ -289,7 +289,7 @@ index eba6f639dc4..42d10b42ee6 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Kada koristite 2 SIM-a, ovaj tablet će biti ograničen na 4G. "<annotation id="url">"Saznajte više"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Kada koristite 2 SIM-a, ovaj uređaj će biti ograničen na 4G. "<annotation id="url">"Saznajte više"</annotation></string>
 diff --git a/res-product/values-ca/strings.xml b/res-product/values-ca/strings.xml
-index 41b59486c63..dd2509dd1a5 100644
+index 41b59486c632..dd2509dd1a5f 100644
 --- a/res-product/values-ca/strings.xml
 +++ b/res-product/values-ca/strings.xml
 @@ -573,10 +573,10 @@
@@ -308,7 +308,7 @@ index 41b59486c63..dd2509dd1a5 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Quan s\'utilitzen 2 SIM, la connexió de la tauleta es limita a 4G. "<annotation id="url">"Més informació"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Quan s\'utilitzen 2 SIM, la connexió del dispositiu es limita a 4G. "<annotation id="url">"Més informació"</annotation></string>
 diff --git a/res-product/values-cs/strings.xml b/res-product/values-cs/strings.xml
-index 70c403f3f9e..10634ce4018 100644
+index 70c403f3f9eb..10634ce4018d 100644
 --- a/res-product/values-cs/strings.xml
 +++ b/res-product/values-cs/strings.xml
 @@ -573,10 +573,10 @@
@@ -327,7 +327,7 @@ index 70c403f3f9e..10634ce4018 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Při používání dvou SIM karet bude tablet omezen na 4G. "<annotation id="url">"Další informace"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Při používání dvou SIM karet bude zařízení omezeno na 4G. "<annotation id="url">"Další informace"</annotation></string>
 diff --git a/res-product/values-da/strings.xml b/res-product/values-da/strings.xml
-index df1678cf0e7..8a0ab8b6c45 100644
+index df1678cf0e75..8a0ab8b6c45f 100644
 --- a/res-product/values-da/strings.xml
 +++ b/res-product/values-da/strings.xml
 @@ -573,10 +573,10 @@
@@ -346,7 +346,7 @@ index df1678cf0e7..8a0ab8b6c45 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Når du bruger to SIM-kort, begrænses denne tablet til 4G. "<annotation id="url">"Få flere oplysninger"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Når du bruger to SIM-kort, begrænses denne enhed til 4G. "<annotation id="url">"Få flere oplysninger"</annotation></string>
 diff --git a/res-product/values-de/strings.xml b/res-product/values-de/strings.xml
-index d0f2e56bf2e..bdb6fbbff30 100644
+index d0f2e56bf2e9..bdb6fbbff30b 100644
 --- a/res-product/values-de/strings.xml
 +++ b/res-product/values-de/strings.xml
 @@ -573,10 +573,10 @@
@@ -365,7 +365,7 @@ index d0f2e56bf2e..bdb6fbbff30 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Wenn du zwei SIMs verwendest, kann dieses Tablet sich nur mit 4G verbinden. "<annotation id="url">"Weitere Informationen"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Wenn du zwei SIMs verwendest, kann dieses Gerät sich nur mit 4G verbinden. "<annotation id="url">"Weitere Informationen"</annotation></string>
 diff --git a/res-product/values-el/strings.xml b/res-product/values-el/strings.xml
-index 2bf856d4ae7..440cb8d5ce3 100644
+index 2bf856d4ae7a..440cb8d5ce39 100644
 --- a/res-product/values-el/strings.xml
 +++ b/res-product/values-el/strings.xml
 @@ -573,10 +573,10 @@
@@ -384,7 +384,7 @@ index 2bf856d4ae7..440cb8d5ce3 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Κατά τη χρήση 2 SIM, αυτό το tablet θα περιορίζεται στη χρήση 4G. "<annotation id="url">"Μάθετε περισσότερα"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Κατά τη χρήση 2 SIM, αυτή η συσκευή θα περιορίζεται στη χρήση 4G. "<annotation id="url">"Μάθετε περισσότερα"</annotation></string>
 diff --git a/res-product/values-en-rAU/strings.xml b/res-product/values-en-rAU/strings.xml
-index 1fe6bbb853a..c3cbf9c9763 100644
+index 1fe6bbb853aa..c3cbf9c9763e 100644
 --- a/res-product/values-en-rAU/strings.xml
 +++ b/res-product/values-en-rAU/strings.xml
 @@ -573,10 +573,10 @@
@@ -403,7 +403,7 @@ index 1fe6bbb853a..c3cbf9c9763 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"When using two SIMs, this tablet will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"When using two SIMs, this device will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
 diff --git a/res-product/values-en-rCA/strings.xml b/res-product/values-en-rCA/strings.xml
-index 6ae1b9df8c3..49b7308ce04 100644
+index 6ae1b9df8c35..49b7308ce04f 100644
 --- a/res-product/values-en-rCA/strings.xml
 +++ b/res-product/values-en-rCA/strings.xml
 @@ -573,10 +573,10 @@
@@ -422,7 +422,7 @@ index 6ae1b9df8c3..49b7308ce04 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"When using 2 SIMs, this tablet will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"When using 2 SIMs, this device will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
 diff --git a/res-product/values-en-rGB/strings.xml b/res-product/values-en-rGB/strings.xml
-index 18e6f75dc13..f6ea49b4314 100644
+index 18e6f75dc138..f6ea49b43141 100644
 --- a/res-product/values-en-rGB/strings.xml
 +++ b/res-product/values-en-rGB/strings.xml
 @@ -573,10 +573,10 @@
@@ -441,7 +441,7 @@ index 18e6f75dc13..f6ea49b4314 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"When using two SIMs, this tablet will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"When using two SIMs, this device will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
 diff --git a/res-product/values-en-rIN/strings.xml b/res-product/values-en-rIN/strings.xml
-index 18e6f75dc13..f6ea49b4314 100644
+index 18e6f75dc138..f6ea49b43141 100644
 --- a/res-product/values-en-rIN/strings.xml
 +++ b/res-product/values-en-rIN/strings.xml
 @@ -573,10 +573,10 @@
@@ -460,7 +460,7 @@ index 18e6f75dc13..f6ea49b4314 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"When using two SIMs, this tablet will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"When using two SIMs, this device will be limited to 4G. "<annotation id="url">"Learn more"</annotation></string>
 diff --git a/res-product/values-es-rUS/strings.xml b/res-product/values-es-rUS/strings.xml
-index d9644aa53db..493d79bd359 100644
+index d9644aa53db2..493d79bd3590 100644
 --- a/res-product/values-es-rUS/strings.xml
 +++ b/res-product/values-es-rUS/strings.xml
 @@ -573,10 +573,10 @@
@@ -479,7 +479,7 @@ index d9644aa53db..493d79bd359 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Esta tablet se limitará a 4G cuando se usen 2 tarjetas SIM. "<annotation id="url">"Más información"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Este dispositivo se limitará a 4G cuando se usen 2 tarjetas SIM. "<annotation id="url">"Más información"</annotation></string>
 diff --git a/res-product/values-es/strings.xml b/res-product/values-es/strings.xml
-index 3540b515394..369d9b36de9 100644
+index 3540b5153941..369d9b36de9d 100644
 --- a/res-product/values-es/strings.xml
 +++ b/res-product/values-es/strings.xml
 @@ -573,10 +573,10 @@
@@ -498,7 +498,7 @@ index 3540b515394..369d9b36de9 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Cuando esta tablet tenga dos tarjetas SIM, solo podrá utilizar 4G. "<annotation id="url">"Más información"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Cuando este dispositivo tenga dos tarjetas SIM, solo podrá utilizar 4G. "<annotation id="url">"Más información"</annotation></string>
 diff --git a/res-product/values-et/strings.xml b/res-product/values-et/strings.xml
-index c8cf8df3a89..4d5bf13e1cd 100644
+index c8cf8df3a894..4d5bf13e1cdc 100644
 --- a/res-product/values-et/strings.xml
 +++ b/res-product/values-et/strings.xml
 @@ -573,10 +573,10 @@
@@ -517,7 +517,7 @@ index c8cf8df3a89..4d5bf13e1cd 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Kui kasutate kaht SIM-kaarti, saab see tahvelarvuti kasutada ainult 4G-võrku. "<annotation id="url">"Lisateave"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Kui kasutate kaht SIM-kaarti, saab see seade kasutada ainult 4G-võrku. "<annotation id="url">"Lisateave"</annotation></string>
 diff --git a/res-product/values-eu/strings.xml b/res-product/values-eu/strings.xml
-index 296453b5b31..56265b56e25 100644
+index 296453b5b316..56265b56e25e 100644
 --- a/res-product/values-eu/strings.xml
 +++ b/res-product/values-eu/strings.xml
 @@ -573,10 +573,10 @@
@@ -536,7 +536,7 @@ index 296453b5b31..56265b56e25 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Bi SIM txartel darabiltzanean, tabletak 4G sarea erabili ahal izango du, gehienez. "<annotation id="url">"Lortu informazio gehiago"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Bi SIM txartel darabiltzanean, gailuak 4G sarea erabili ahal izango du, gehienez. "<annotation id="url">"Lortu informazio gehiago"</annotation></string>
 diff --git a/res-product/values-fa/strings.xml b/res-product/values-fa/strings.xml
-index 1d10f255486..451633590bc 100644
+index 1d10f2554862..451633590bcc 100644
 --- a/res-product/values-fa/strings.xml
 +++ b/res-product/values-fa/strings.xml
 @@ -573,10 +573,10 @@
@@ -555,7 +555,7 @@ index 1d10f255486..451633590bc 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"‏وقتی از ۲ سیم‌کارت استفاده می‌کنید، این رایانه لوحی به 4G محدود می‌شود. "<annotation id="url">"بیشتر بدانید"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"‏وقتی از ۲ سیم‌کارت استفاده می‌کنید، این دستگاه به 4G محدود می‌شود. "<annotation id="url">"بیشتر بدانید"</annotation></string>
 diff --git a/res-product/values-fi/strings.xml b/res-product/values-fi/strings.xml
-index 9d67d275e23..eef01101923 100644
+index 9d67d275e23d..eef01101923d 100644
 --- a/res-product/values-fi/strings.xml
 +++ b/res-product/values-fi/strings.xml
 @@ -573,10 +573,10 @@
@@ -574,7 +574,7 @@ index 9d67d275e23..eef01101923 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Jos käytät kahta SIM-korttia, tämä tabletti voi muodostaa yhteyden vain 4G-verkkoon. "<annotation id="url">"Lue lisää"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Jos käytät kahta SIM-korttia, tämä laite voi muodostaa yhteyden vain 4G-verkkoon. "<annotation id="url">"Lue lisää"</annotation></string>
 diff --git a/res-product/values-fr-rCA/strings.xml b/res-product/values-fr-rCA/strings.xml
-index c95742ffd45..ea31a0c54b9 100644
+index c95742ffd45d..ea31a0c54b98 100644
 --- a/res-product/values-fr-rCA/strings.xml
 +++ b/res-product/values-fr-rCA/strings.xml
 @@ -573,10 +573,10 @@
@@ -593,7 +593,7 @@ index c95742ffd45..ea31a0c54b9 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Lorsque vous utilisez deux modules SIM, cette tablette est limitée aux réseaux 4G. "<annotation id="url">"En savoir plus"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Lorsque vous utilisez deux modules SIM, cet appareil est limité aux réseaux 4G. "<annotation id="url">"En savoir plus"</annotation></string>
 diff --git a/res-product/values-fr/strings.xml b/res-product/values-fr/strings.xml
-index 3cd1514be8a..5b88dcbe5d4 100644
+index 3cd1514be8a5..5b88dcbe5d49 100644
 --- a/res-product/values-fr/strings.xml
 +++ b/res-product/values-fr/strings.xml
 @@ -573,10 +573,10 @@
@@ -612,7 +612,7 @@ index 3cd1514be8a..5b88dcbe5d4 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Lorsque vous utilisez deux profils SIM, cette tablette est limitée à la 4G. "<annotation id="url">"En savoir plus"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Lorsque vous utilisez deux profils SIM, cet appareil est limité à la 4G. "<annotation id="url">"En savoir plus"</annotation></string>
 diff --git a/res-product/values-gl/strings.xml b/res-product/values-gl/strings.xml
-index df95780fd17..8e4b56f773d 100644
+index df95780fd174..8e4b56f773de 100644
 --- a/res-product/values-gl/strings.xml
 +++ b/res-product/values-gl/strings.xml
 @@ -573,10 +573,10 @@
@@ -631,7 +631,7 @@ index df95780fd17..8e4b56f773d 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Cando se utilicen dúas SIM, esta tableta limitarase á rede 4G. "<annotation id="url">"Máis información"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Cando se utilicen dúas SIM, este dispositivo limitarase á rede 4G. "<annotation id="url">"Máis información"</annotation></string>
 diff --git a/res-product/values-gu/strings.xml b/res-product/values-gu/strings.xml
-index a01a73d46bc..2f0a8ea29f4 100644
+index a01a73d46bc6..2f0a8ea29f4f 100644
 --- a/res-product/values-gu/strings.xml
 +++ b/res-product/values-gu/strings.xml
 @@ -573,10 +573,10 @@
@@ -650,7 +650,7 @@ index a01a73d46bc..2f0a8ea29f4 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 સિમનો ઉપયોગ કરવાથી આ ટૅબ્લેટની મર્યાદા 4G થઈ જશે. "<annotation id="url">"વધુ જાણો"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 સિમનો ઉપયોગ કરવાથી આ ડિવાઇસની મર્યાદા 4G થઈ જશે. "<annotation id="url">"વધુ જાણો"</annotation></string>
 diff --git a/res-product/values-hi/strings.xml b/res-product/values-hi/strings.xml
-index fac9168ac18..a75b25a26f6 100644
+index fac9168ac18a..a75b25a26f6a 100644
 --- a/res-product/values-hi/strings.xml
 +++ b/res-product/values-hi/strings.xml
 @@ -573,10 +573,10 @@
@@ -669,7 +669,7 @@ index fac9168ac18..a75b25a26f6 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"इस टैबलेट में अगर दो सिम इस्तेमाल किए जाते हैं, तो 5G नेटवर्क की सुविधा काम नहीं करेगी. हालांकि, आप 4G तक के नेटवर्क इस्तेमाल कर सकते हैं. "<annotation id="url">"ज़्यादा जानें"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"इस डिवाइस में अगर दो सिम इस्तेमाल किए जाते हैं, तो 5G नेटवर्क की सुविधा काम नहीं करेगी. हालांकि, आप 4G तक के नेटवर्क इस्तेमाल कर सकते हैं. "<annotation id="url">"ज़्यादा जानें"</annotation></string>
 diff --git a/res-product/values-hr/strings.xml b/res-product/values-hr/strings.xml
-index b23f255dd33..4669e7b291d 100644
+index b23f255dd337..4669e7b291dd 100644
 --- a/res-product/values-hr/strings.xml
 +++ b/res-product/values-hr/strings.xml
 @@ -573,10 +573,10 @@
@@ -688,7 +688,7 @@ index b23f255dd33..4669e7b291d 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Kad se koriste dva SIM-a, tablet će biti ograničen na 4G. "<annotation id="url">"Saznajte više"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Kad se koriste dva SIM-a, uređaj će biti ograničen na 4G. "<annotation id="url">"Saznajte više"</annotation></string>
 diff --git a/res-product/values-hu/strings.xml b/res-product/values-hu/strings.xml
-index 41338f1054a..8ab758d847a 100644
+index 41338f1054a1..8ab758d847a3 100644
 --- a/res-product/values-hu/strings.xml
 +++ b/res-product/values-hu/strings.xml
 @@ -573,10 +573,10 @@
@@ -707,7 +707,7 @@ index 41338f1054a..8ab758d847a 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Két SIM használata esetén ez a táblagép csak 4G hálózatra tud csatlakozni. "<annotation id="url">"További információ"</annotation>"."</string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Két SIM használata esetén ez az eszköz csak 4G hálózatra tud csatlakozni. "<annotation id="url">"További információ"</annotation>"."</string>
 diff --git a/res-product/values-hy/strings.xml b/res-product/values-hy/strings.xml
-index f878ae759db..0aa0f7a4a18 100644
+index f878ae759db9..0aa0f7a4a189 100644
 --- a/res-product/values-hy/strings.xml
 +++ b/res-product/values-hy/strings.xml
 @@ -573,10 +573,10 @@
@@ -726,7 +726,7 @@ index f878ae759db..0aa0f7a4a18 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Երկու SIM քարտ օգտագործելու դեպքում այս պլանշետը կսահմանափակվի 4G ցանցով։ "<annotation id="url">"Իմանալ ավելին"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Երկու SIM քարտ օգտագործելու դեպքում այս սարքը կսահմանափակվի 4G ցանցով։ "<annotation id="url">"Իմանալ ավելին"</annotation></string>
 diff --git a/res-product/values-in/strings.xml b/res-product/values-in/strings.xml
-index fb34c4d95d4..3a02271b3ba 100644
+index fb34c4d95d47..3a02271b3bab 100644
 --- a/res-product/values-in/strings.xml
 +++ b/res-product/values-in/strings.xml
 @@ -573,10 +573,10 @@
@@ -745,7 +745,7 @@ index fb34c4d95d4..3a02271b3ba 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Saat menggunakan 2 SIM, tablet ini akan dibatasi ke 4G. "<annotation id="url">"Pelajari lebih lanjut"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Saat menggunakan 2 SIM, perangkat ini akan dibatasi ke 4G. "<annotation id="url">"Pelajari lebih lanjut"</annotation></string>
 diff --git a/res-product/values-is/strings.xml b/res-product/values-is/strings.xml
-index 7c503ef2b43..ad058ec3f67 100644
+index 7c503ef2b43b..ad058ec3f67d 100644
 --- a/res-product/values-is/strings.xml
 +++ b/res-product/values-is/strings.xml
 @@ -573,10 +573,10 @@
@@ -764,7 +764,7 @@ index 7c503ef2b43..ad058ec3f67 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Þegar tvö SIM-kort eru notuð takmarkast þessi spjaldtölva við notkun á 4G. "<annotation id="url">"Frekari upplýsingar"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Þegar tvö SIM-kort eru notuð takmarkast þetta tæki við notkun á 4G. "<annotation id="url">"Frekari upplýsingar"</annotation></string>
 diff --git a/res-product/values-it/strings.xml b/res-product/values-it/strings.xml
-index 320a6393245..d014c3b38f9 100644
+index 320a63932455..d014c3b38f99 100644
 --- a/res-product/values-it/strings.xml
 +++ b/res-product/values-it/strings.xml
 @@ -573,10 +573,10 @@
@@ -783,7 +783,7 @@ index 320a6393245..d014c3b38f9 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Se vengono usate due SIM, questo tablet può usare soltanto la rete 4G. "<annotation id="url">"Ulteriori informazioni"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Se vengono usate due SIM, questo dispositivo può usare soltanto la rete 4G. "<annotation id="url">"Ulteriori informazioni"</annotation></string>
 diff --git a/res-product/values-iw/strings.xml b/res-product/values-iw/strings.xml
-index aeeaf2d5eef..e44d5d0403b 100644
+index aeeaf2d5eef2..e44d5d0403bf 100644
 --- a/res-product/values-iw/strings.xml
 +++ b/res-product/values-iw/strings.xml
 @@ -573,10 +573,10 @@
@@ -802,7 +802,7 @@ index aeeaf2d5eef..e44d5d0403b 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"‏כשהטאבלט מצויד בשני כרטיסי SIM, ניתן להשתמש בו רק ברשתות דור רביעי. "<annotation id="url">"מידע נוסף"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"‏כשהמכשיר מצויד בשני כרטיסי SIM, ניתן להשתמש בו רק ברשתות דור רביעי. "<annotation id="url">"מידע נוסף"</annotation></string>
 diff --git a/res-product/values-ja/strings.xml b/res-product/values-ja/strings.xml
-index 90a2f57a11c..b71aa3788ef 100644
+index 90a2f57a11cc..b71aa3788ef8 100644
 --- a/res-product/values-ja/strings.xml
 +++ b/res-product/values-ja/strings.xml
 @@ -573,10 +573,10 @@
@@ -821,7 +821,7 @@ index 90a2f57a11c..b71aa3788ef 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"SIM を 2 つ使用している場合、このタブレットの接続は 4G に制限されます。"<annotation id="url">"詳細"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"SIM を 2 つ使用している場合、このデバイスの接続は 4G に制限されます。"<annotation id="url">"詳細"</annotation></string>
 diff --git a/res-product/values-ka/strings.xml b/res-product/values-ka/strings.xml
-index 540e4ab6002..de0533ad91b 100644
+index 540e4ab6002e..de0533ad91b9 100644
 --- a/res-product/values-ka/strings.xml
 +++ b/res-product/values-ka/strings.xml
 @@ -573,10 +573,10 @@
@@ -840,7 +840,7 @@ index 540e4ab6002..de0533ad91b 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"ორი SIM-ბარათის გამოყენებისას ეს ტაბლეტი 4G-ზე მაღალ ქსელს ვერ დაუკავშირდება. "<annotation id="url">"შეიტყვეთ მეტი"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"ორი SIM-ბარათის გამოყენებისას ეს მოწყობილობა 4G-ზე მაღალ ქსელს ვერ დაუკავშირდება. "<annotation id="url">"შეიტყვეთ მეტი"</annotation></string>
 diff --git a/res-product/values-kk/strings.xml b/res-product/values-kk/strings.xml
-index 8525518b2e9..52649ba740c 100644
+index 8525518b2e9f..52649ba740c3 100644
 --- a/res-product/values-kk/strings.xml
 +++ b/res-product/values-kk/strings.xml
 @@ -573,10 +573,10 @@
@@ -859,7 +859,7 @@ index 8525518b2e9..52649ba740c 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 SIM картасын пайдаланған кезде, бұл планшет 4G желісін ғана қолдана алады. "<annotation id="url">"Толығырақ"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 SIM картасын пайдаланған кезде, бұл құрылғы 4G желісін ғана қолдана алады. "<annotation id="url">"Толығырақ"</annotation></string>
 diff --git a/res-product/values-km/strings.xml b/res-product/values-km/strings.xml
-index 798484b938c..bc228c2da2b 100644
+index 798484b938cb..bc228c2da2b5 100644
 --- a/res-product/values-km/strings.xml
 +++ b/res-product/values-km/strings.xml
 @@ -573,10 +573,10 @@
@@ -878,7 +878,7 @@ index 798484b938c..bc228c2da2b 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"នៅពេល​ប្រើស៊ីម 2 ថេប្លេតនេះនឹងត្រូវបានកំណត់ឱ្យប្រើ 4G។ "<annotation id="url">"ស្វែងយល់បន្ថែម"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"នៅពេល​ប្រើស៊ីម 2 ឧបករណ៍នេះនឹងត្រូវបានកំណត់ឱ្យប្រើ 4G។ "<annotation id="url">"ស្វែងយល់បន្ថែម"</annotation></string>
 diff --git a/res-product/values-kn/strings.xml b/res-product/values-kn/strings.xml
-index b40cb2b2267..ee6970d7543 100644
+index b40cb2b22674..ee6970d7543f 100644
 --- a/res-product/values-kn/strings.xml
 +++ b/res-product/values-kn/strings.xml
 @@ -573,10 +573,10 @@
@@ -897,7 +897,7 @@ index b40cb2b2267..ee6970d7543 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 ಸಿಮ್‌ಗಳನ್ನು ಬಳಸುವಾಗ, ಈ ಟ್ಯಾಬ್ಲೆಟ್‌‌ 4G ಗೆ ಸೀಮಿತವಾಗಿರುತ್ತದೆ. "<annotation id="url">"ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 ಸಿಮ್‌ಗಳನ್ನು ಬಳಸುವಾಗ, ಈ ಸಾಧನವು 4G ಗೆ ಸೀಮಿತವಾಗಿರುತ್ತದೆ. "<annotation id="url">"ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ"</annotation></string>
 diff --git a/res-product/values-ko/strings.xml b/res-product/values-ko/strings.xml
-index 4a73cb1ca6b..fe678c90a14 100644
+index 4a73cb1ca6bf..fe678c90a145 100644
 --- a/res-product/values-ko/strings.xml
 +++ b/res-product/values-ko/strings.xml
 @@ -573,10 +573,10 @@
@@ -916,7 +916,7 @@ index 4a73cb1ca6b..fe678c90a14 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"SIM 2개를 사용하는 경우 이 태블릿은 4G로 제한됩니다. "<annotation id="url">"자세히 알아보기"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"SIM 2개를 사용하는 경우 이 기기는 4G로 제한됩니다. "<annotation id="url">"자세히 알아보기"</annotation></string>
 diff --git a/res-product/values-ky/strings.xml b/res-product/values-ky/strings.xml
-index 5b07fb46a71..95d54c75672 100644
+index 5b07fb46a71a..95d54c756728 100644
 --- a/res-product/values-ky/strings.xml
 +++ b/res-product/values-ky/strings.xml
 @@ -573,10 +573,10 @@
@@ -935,7 +935,7 @@ index 5b07fb46a71..95d54c75672 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 SIM-карта колдонулганда бул планшет 4G тармагына гана туташа алат. "<annotation id="url">"Кеңири маалымат"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 SIM-карта колдонулганда бул түзмөк 4G тармагына гана туташа алат. "<annotation id="url">"Кеңири маалымат"</annotation></string>
 diff --git a/res-product/values-lo/strings.xml b/res-product/values-lo/strings.xml
-index 6b076b8ee3e..e68102667c8 100644
+index 6b076b8ee3e3..e68102667c8a 100644
 --- a/res-product/values-lo/strings.xml
 +++ b/res-product/values-lo/strings.xml
 @@ -573,10 +573,10 @@
@@ -954,7 +954,7 @@ index 6b076b8ee3e..e68102667c8 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"ເມື່ອໃຊ້ 2 ຊິມແລ້ວ, ແທັບເລັດນີ້ຈະຖືກຈຳກັດໃຫ້ໃຊ້ໄດ້ສະເພາະ 4G. "<annotation id="url">"ສຶກສາເພີ່ມເຕີມ"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"ເມື່ອໃຊ້ 2 ຊິມແລ້ວ, ອຸປະກອນນີ້ຈະຖືກຈຳກັດໃຫ້ໃຊ້ໄດ້ສະເພາະ 4G. "<annotation id="url">"ສຶກສາເພີ່ມເຕີມ"</annotation></string>
 diff --git a/res-product/values-lt/strings.xml b/res-product/values-lt/strings.xml
-index 0ea8f29a2bb..9c1fa2b36c7 100644
+index 0ea8f29a2bb8..9c1fa2b36c77 100644
 --- a/res-product/values-lt/strings.xml
 +++ b/res-product/values-lt/strings.xml
 @@ -573,10 +573,10 @@
@@ -973,7 +973,7 @@ index 0ea8f29a2bb..9c1fa2b36c7 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Naudojant dvi SIM korteles, šiame planšetiniame kompiuteryje bus galima naudoti tik 4G. "<annotation id="url">"Sužinokite daugiau"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Naudojant dvi SIM korteles, šiame įrenginyje bus galima naudoti tik 4G. "<annotation id="url">"Sužinokite daugiau"</annotation></string>
 diff --git a/res-product/values-lv/strings.xml b/res-product/values-lv/strings.xml
-index 070ea7fc100..ab9554fa8f5 100644
+index 070ea7fc100f..ab9554fa8f51 100644
 --- a/res-product/values-lv/strings.xml
 +++ b/res-product/values-lv/strings.xml
 @@ -573,10 +573,10 @@
@@ -992,7 +992,7 @@ index 070ea7fc100..ab9554fa8f5 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Ja izmantojat 2 SIM kartes, šajā planšetdatorā varēs izveidot savienojumu tikai ar 4G. "<annotation id="url">"Uzziniet vairāk"</annotation>"."</string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Ja izmantojat 2 SIM kartes, šajā ierīcē varēs izveidot savienojumu tikai ar 4G. "<annotation id="url">"Uzziniet vairāk"</annotation>"."</string>
 diff --git a/res-product/values-mk/strings.xml b/res-product/values-mk/strings.xml
-index 1f021f913fc..559f5a15e73 100644
+index 1f021f913fc0..559f5a15e731 100644
 --- a/res-product/values-mk/strings.xml
 +++ b/res-product/values-mk/strings.xml
 @@ -573,10 +573,10 @@
@@ -1011,7 +1011,7 @@ index 1f021f913fc..559f5a15e73 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Ако користите две SIM-картички, таблетов ќе биде ограничен на 4G. "<annotation id="url">"Дознајте повеќе"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Ако користите две SIM-картички, уредов ќе биде ограничен на 4G. "<annotation id="url">"Дознајте повеќе"</annotation></string>
 diff --git a/res-product/values-ml/strings.xml b/res-product/values-ml/strings.xml
-index cff231d0356..0a5eb6dfa0e 100644
+index cff231d0356a..0a5eb6dfa0e3 100644
 --- a/res-product/values-ml/strings.xml
 +++ b/res-product/values-ml/strings.xml
 @@ -573,10 +573,10 @@
@@ -1030,7 +1030,7 @@ index cff231d0356..0a5eb6dfa0e 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 സിമ്മുകൾ ഉപയോഗിക്കുമ്പോൾ ഈ ടാബ്‌ലെറ്റിൽ 4G മാത്രമേ ലഭിക്കൂ. "<annotation id="url">"കൂടുതലറിയുക"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 സിമ്മുകൾ ഉപയോഗിക്കുമ്പോൾ ഈ ഉപകരണത്തിൽ 4G മാത്രമേ ലഭിക്കൂ. "<annotation id="url">"കൂടുതലറിയുക"</annotation></string>
 diff --git a/res-product/values-mn/strings.xml b/res-product/values-mn/strings.xml
-index 5d1cfda4e99..9fa4cb7d2b3 100644
+index 5d1cfda4e994..9fa4cb7d2b32 100644
 --- a/res-product/values-mn/strings.xml
 +++ b/res-product/values-mn/strings.xml
 @@ -573,10 +573,10 @@
@@ -1049,7 +1049,7 @@ index 5d1cfda4e99..9fa4cb7d2b3 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Энэ таблетад 2 SIM ашиглах үед сүлжээг 4G-р хязгаарлана. "<annotation id="url">"Нэмэлт мэдээлэл авах"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Энэ төхөөрөмжид 2 SIM ашиглах үед сүлжээг 4G-р хязгаарлана. "<annotation id="url">"Нэмэлт мэдээлэл авах"</annotation></string>
 diff --git a/res-product/values-mr/strings.xml b/res-product/values-mr/strings.xml
-index 88e4cdded59..60f6b8bee84 100644
+index 88e4cdded59b..60f6b8bee844 100644
 --- a/res-product/values-mr/strings.xml
 +++ b/res-product/values-mr/strings.xml
 @@ -573,10 +573,10 @@
@@ -1068,7 +1068,7 @@ index 88e4cdded59..60f6b8bee84 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"दोन सिम वापरताना या टॅबलेटचे नेट 4G पुरते मर्यादित असेल. "<annotation id="url">"अधिक जाणून घ्या"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"दोन सिम वापरताना या डिव्हाइसचे नेट 4G पुरते मर्यादित असेल. "<annotation id="url">"अधिक जाणून घ्या"</annotation></string>
 diff --git a/res-product/values-ms/strings.xml b/res-product/values-ms/strings.xml
-index 3f794e50548..026ad8edf6c 100644
+index 3f794e505485..026ad8edf6c7 100644
 --- a/res-product/values-ms/strings.xml
 +++ b/res-product/values-ms/strings.xml
 @@ -573,10 +573,10 @@
@@ -1087,7 +1087,7 @@ index 3f794e50548..026ad8edf6c 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Apabila menggunakan 2 SIM, tablet ini akan dihadkan kepada 4G. "<annotation id="url">"Ketahui lebih lanjut"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Apabila menggunakan 2 SIM, peranti ini akan dihadkan kepada 4G. "<annotation id="url">"Ketahui lebih lanjut"</annotation></string>
 diff --git a/res-product/values-my/strings.xml b/res-product/values-my/strings.xml
-index d5caf46fef2..e70782ad1cd 100644
+index d5caf46fef2b..e70782ad1cd8 100644
 --- a/res-product/values-my/strings.xml
 +++ b/res-product/values-my/strings.xml
 @@ -573,10 +573,10 @@
@@ -1106,7 +1106,7 @@ index d5caf46fef2..e70782ad1cd 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"ဆင်းမ်ကတ် ၂ ခုအသုံးပြုနေစဉ် ဤတက်ဘလက်ကို 4G အဖြစ် ကန့်သတ်ထားပါမည်။ "<annotation id="url">"ပိုမိုလေ့လာရန်"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"ဆင်းမ်ကတ် ၂ ခုအသုံးပြုနေစဉ် ဤစက်ကို 4G အဖြစ် ကန့်သတ်ထားပါမည်။ "<annotation id="url">"ပိုမိုလေ့လာရန်"</annotation></string>
 diff --git a/res-product/values-nb/strings.xml b/res-product/values-nb/strings.xml
-index f3f84130726..3c3cb579b94 100644
+index f3f841307268..3c3cb579b941 100644
 --- a/res-product/values-nb/strings.xml
 +++ b/res-product/values-nb/strings.xml
 @@ -573,10 +573,10 @@
@@ -1125,7 +1125,7 @@ index f3f84130726..3c3cb579b94 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Nettbrettet er begrenset til 4G når du bruker to SIM-kort. "<annotation id="url">"Finn ut mer"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Enheten er begrenset til 4G når du bruker to SIM-kort. "<annotation id="url">"Finn ut mer"</annotation></string>
 diff --git a/res-product/values-ne/strings.xml b/res-product/values-ne/strings.xml
-index 9e320ec0863..14820774bd8 100644
+index 9e320ec08633..14820774bd8b 100644
 --- a/res-product/values-ne/strings.xml
 +++ b/res-product/values-ne/strings.xml
 @@ -573,10 +573,10 @@
@@ -1144,7 +1144,7 @@ index 9e320ec0863..14820774bd8 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"२ वटा SIM प्रयोग गर्दा यो ट्याब्लेटमा 4G मात्र चलाउन मिल्छ। "<annotation id="url">"थप जान्नुहोस्"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"२ वटा SIM प्रयोग गर्दा यो डिभाइसमा 4G मात्र चलाउन मिल्छ। "<annotation id="url">"थप जान्नुहोस्"</annotation></string>
 diff --git a/res-product/values-nl/strings.xml b/res-product/values-nl/strings.xml
-index 2eeb72603d0..03a42276be8 100644
+index 2eeb72603d08..03a42276be82 100644
 --- a/res-product/values-nl/strings.xml
 +++ b/res-product/values-nl/strings.xml
 @@ -573,10 +573,10 @@
@@ -1163,7 +1163,7 @@ index 2eeb72603d0..03a42276be8 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Als je twee simkaarten gebruikt, is deze tablet beperkt tot 4G. "<annotation id="url">"Meer informatie"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Als je twee simkaarten gebruikt, is dit apparaat beperkt tot 4G. "<annotation id="url">"Meer informatie"</annotation></string>
 diff --git a/res-product/values-or/strings.xml b/res-product/values-or/strings.xml
-index 0743297f125..2e5708de092 100644
+index 0743297f125f..2e5708de0926 100644
 --- a/res-product/values-or/strings.xml
 +++ b/res-product/values-or/strings.xml
 @@ -573,10 +573,10 @@
@@ -1182,7 +1182,7 @@ index 0743297f125..2e5708de092 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2ଟି ସିମ୍ ବ୍ୟବହାର କରାଯାଉଥିବା ସମୟରେ, ଏହି ଟାବଲେଟ୍ 4Gରେ ସୀମିତ ରହିବ। "<annotation id="url">"ଅଧିକ ଜାଣନ୍ତୁ"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2ଟି ସିମ୍ ବ୍ୟବହାର କରାଯାଉଥିବା ସମୟରେ, ଏହି ଡିଭାଇସ୍ 4Gରେ ସୀମିତ ରହିବ। "<annotation id="url">"ଅଧିକ ଜାଣନ୍ତୁ"</annotation></string>
 diff --git a/res-product/values-pa/strings.xml b/res-product/values-pa/strings.xml
-index 2830ce47957..4b6e94fbd47 100644
+index 2830ce479578..4b6e94fbd47e 100644
 --- a/res-product/values-pa/strings.xml
 +++ b/res-product/values-pa/strings.xml
 @@ -573,10 +573,10 @@
@@ -1201,7 +1201,7 @@ index 2830ce47957..4b6e94fbd47 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 ਸਿਮ ਵਰਤਣ ਵੇਲੇ, ਇਹ ਟੈਬਲੈੱਟ 4G ਤੱਕ ਸੀਮਤ ਰਹੇਗਾ। "<annotation id="url">"ਹੋਰ ਜਾਣੋ"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 ਸਿਮ ਵਰਤਣ ਵੇਲੇ, ਇਹ ਡੀਵਾਈਸ 4G ਤੱਕ ਸੀਮਤ ਰਹੇਗਾ। "<annotation id="url">"ਹੋਰ ਜਾਣੋ"</annotation></string>
 diff --git a/res-product/values-pl/strings.xml b/res-product/values-pl/strings.xml
-index 2e8774a6a68..2bf0a4ed013 100644
+index 2e8774a6a689..2bf0a4ed0130 100644
 --- a/res-product/values-pl/strings.xml
 +++ b/res-product/values-pl/strings.xml
 @@ -573,10 +573,10 @@
@@ -1220,7 +1220,7 @@ index 2e8774a6a68..2bf0a4ed013 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Gdy używasz 2 kart SIM, tablet jest ograniczony do transmisji 4G. "<annotation id="url">"Więcej informacji"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Gdy używasz 2 kart SIM, urządzenie jest ograniczone do transmisji 4G. "<annotation id="url">"Więcej informacji"</annotation></string>
 diff --git a/res-product/values-pt-rBR/strings.xml b/res-product/values-pt-rBR/strings.xml
-index ae768428c9e..8e256aed256 100644
+index ae768428c9e1..8e256aed2561 100644
 --- a/res-product/values-pt-rBR/strings.xml
 +++ b/res-product/values-pt-rBR/strings.xml
 @@ -573,10 +573,10 @@
@@ -1239,7 +1239,7 @@ index ae768428c9e..8e256aed256 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Ao usar dois chips, este tablet será limitado ao 4G. "<annotation id="url">"Saiba mais"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Ao usar dois chips, este dispositivo será limitado ao 4G. "<annotation id="url">"Saiba mais"</annotation></string>
 diff --git a/res-product/values-pt-rPT/strings.xml b/res-product/values-pt-rPT/strings.xml
-index ff849668c21..c1f4e65f81a 100644
+index ff849668c211..c1f4e65f81a8 100644
 --- a/res-product/values-pt-rPT/strings.xml
 +++ b/res-product/values-pt-rPT/strings.xml
 @@ -573,10 +573,10 @@
@@ -1258,7 +1258,7 @@ index ff849668c21..c1f4e65f81a 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Quando utiliza 2 SIMs, este tablet fica limitado ao 4G. "<annotation id="url">"Saiba mais"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Quando utiliza 2 SIMs, este dispositivo fica limitado ao 4G. "<annotation id="url">"Saiba mais"</annotation></string>
 diff --git a/res-product/values-pt/strings.xml b/res-product/values-pt/strings.xml
-index ae768428c9e..8e256aed256 100644
+index ae768428c9e1..8e256aed2561 100644
 --- a/res-product/values-pt/strings.xml
 +++ b/res-product/values-pt/strings.xml
 @@ -573,10 +573,10 @@
@@ -1277,7 +1277,7 @@ index ae768428c9e..8e256aed256 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Ao usar dois chips, este tablet será limitado ao 4G. "<annotation id="url">"Saiba mais"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Ao usar dois chips, este dispositivo será limitado ao 4G. "<annotation id="url">"Saiba mais"</annotation></string>
 diff --git a/res-product/values-ro/strings.xml b/res-product/values-ro/strings.xml
-index e06cd58f659..c41d88ac5a7 100644
+index e06cd58f659c..c41d88ac5a7b 100644
 --- a/res-product/values-ro/strings.xml
 +++ b/res-product/values-ro/strings.xml
 @@ -573,10 +573,10 @@
@@ -1296,7 +1296,7 @@ index e06cd58f659..c41d88ac5a7 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Când folosești două carduri SIM, tableta va fi limitată la 4G. "<annotation id="url">"Află mai multe"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Când folosești două carduri SIM, dispozitivul va fi limitat la 4G. "<annotation id="url">"Află mai multe"</annotation></string>
 diff --git a/res-product/values-ru/strings.xml b/res-product/values-ru/strings.xml
-index cfb7dcbca4f..8a38e9ae9f5 100644
+index cfb7dcbca4fe..8a38e9ae9f5e 100644
 --- a/res-product/values-ru/strings.xml
 +++ b/res-product/values-ru/strings.xml
 @@ -573,10 +573,10 @@
@@ -1315,7 +1315,7 @@ index cfb7dcbca4f..8a38e9ae9f5 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"При одновременном использовании двух SIM-карт подключение на этом планшете будет ограничено сетями 4G. "<annotation id="url">"Подробнее…"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"При одновременном использовании двух SIM-карт подключение на этом устройстве будет ограничено сетями 4G. "<annotation id="url">"Подробнее…"</annotation></string>
 diff --git a/res-product/values-si/strings.xml b/res-product/values-si/strings.xml
-index c0898ccac6f..3bb1401a6b3 100644
+index c0898ccac6f6..3bb1401a6b31 100644
 --- a/res-product/values-si/strings.xml
 +++ b/res-product/values-si/strings.xml
 @@ -573,10 +573,10 @@
@@ -1334,7 +1334,7 @@ index c0898ccac6f..3bb1401a6b3 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 SIMs භාවිත කරන විට, මෙම ටැබ්ලට් පරිගණකය 4Gට සීමා වනු ඇත. "<annotation id="url">"තව දැන ගන්න"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 SIMs භාවිත කරන විට, මෙම උපාංගය 4Gට සීමා වනු ඇත. "<annotation id="url">"තව දැන ගන්න"</annotation></string>
 diff --git a/res-product/values-sk/strings.xml b/res-product/values-sk/strings.xml
-index bdda27c81a7..304c2719c7e 100644
+index bdda27c81a72..304c2719c7e6 100644
 --- a/res-product/values-sk/strings.xml
 +++ b/res-product/values-sk/strings.xml
 @@ -573,10 +573,10 @@
@@ -1353,7 +1353,7 @@ index bdda27c81a7..304c2719c7e 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Keď použijete dve SIM karty, tento tablet bude obmedzený na 4G. "<annotation id="url">"Ďalšie informácie"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Keď použijete dve SIM karty, toto zariadenie bude obmedzené na 4G. "<annotation id="url">"Ďalšie informácie"</annotation></string>
 diff --git a/res-product/values-sl/strings.xml b/res-product/values-sl/strings.xml
-index 9ee40f790b6..8e826594a4c 100644
+index 9ee40f790b60..8e826594a4ca 100644
 --- a/res-product/values-sl/strings.xml
 +++ b/res-product/values-sl/strings.xml
 @@ -573,10 +573,10 @@
@@ -1372,7 +1372,7 @@ index 9ee40f790b6..8e826594a4c 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Ko uporabljate dve kartici SIM, lahko ta tablični računalnik vzpostavi povezavo samo z omrežjem 4G. "<annotation id="url">"Več o tem"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Ko uporabljate dve kartici SIM, lahko ta naprava vzpostavi povezavo samo z omrežjem 4G. "<annotation id="url">"Več o tem"</annotation></string>
 diff --git a/res-product/values-sq/strings.xml b/res-product/values-sq/strings.xml
-index a0b89d65e3c..c488012a477 100644
+index a0b89d65e3c1..c488012a4773 100644
 --- a/res-product/values-sq/strings.xml
 +++ b/res-product/values-sq/strings.xml
 @@ -573,10 +573,10 @@
@@ -1391,7 +1391,7 @@ index a0b89d65e3c..c488012a477 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Kur përdor 2 karta SIM, ky tablet do të kufizohet në 4G. "<annotation id="url">"Mëso më shumë"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Kur përdor 2 karta SIM, kjo pajisje do të kufizohet në 4G. "<annotation id="url">"Mëso më shumë"</annotation></string>
 diff --git a/res-product/values-sr/strings.xml b/res-product/values-sr/strings.xml
-index b00ffbf9ba1..eaa12665d3c 100644
+index b00ffbf9ba10..eaa12665d3cc 100644
 --- a/res-product/values-sr/strings.xml
 +++ b/res-product/values-sr/strings.xml
 @@ -573,10 +573,10 @@
@@ -1410,7 +1410,7 @@ index b00ffbf9ba1..eaa12665d3c 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Овај таблет је ограничен на 4G када користите 2 SIM картице. "<annotation id="url">"Сазнајте више"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Овај уређај је ограничен на 4G када користите 2 SIM картице. "<annotation id="url">"Сазнајте више"</annotation></string>
 diff --git a/res-product/values-sv/strings.xml b/res-product/values-sv/strings.xml
-index 8c910c2a6a5..c8e0b6e1fea 100644
+index 8c910c2a6a55..c8e0b6e1feaf 100644
 --- a/res-product/values-sv/strings.xml
 +++ b/res-product/values-sv/strings.xml
 @@ -573,10 +573,10 @@
@@ -1429,7 +1429,7 @@ index 8c910c2a6a5..c8e0b6e1fea 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Om du använder två SIM-kort kan du bara använda 4G på surfplattan. "<annotation id="url">"Läs mer"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Om du använder två SIM-kort kan du bara använda 4G på enheten. "<annotation id="url">"Läs mer"</annotation></string>
 diff --git a/res-product/values-sw/strings.xml b/res-product/values-sw/strings.xml
-index a67763bd7e5..52b3696a600 100644
+index a67763bd7e5f..52b3696a600e 100644
 --- a/res-product/values-sw/strings.xml
 +++ b/res-product/values-sw/strings.xml
 @@ -573,10 +573,10 @@
@@ -1448,7 +1448,7 @@ index a67763bd7e5..52b3696a600 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Unapotumia SIM mbili, kompyuta hii kibao itatumia 4G pekee. "<annotation id="url">"Pata maelezo zaidi"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Unapotumia SIM mbili, kifaa hiki kitatumia 4G pekee. "<annotation id="url">"Pata maelezo zaidi"</annotation></string>
 diff --git a/res-product/values-ta/strings.xml b/res-product/values-ta/strings.xml
-index ad730017f55..faa62f1e7e3 100644
+index ad730017f551..faa62f1e7e3a 100644
 --- a/res-product/values-ta/strings.xml
 +++ b/res-product/values-ta/strings.xml
 @@ -573,10 +573,10 @@
@@ -1467,7 +1467,7 @@ index ad730017f55..faa62f1e7e3 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 சிம்களைப் பயன்படுத்தும்போது இந்த டேப்லெட்டை 4Gயுடன் மட்டுமே இணைக்க முடியும். "<annotation id="url">"மேலும் அறிக"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 சிம்களைப் பயன்படுத்தும்போது இந்தச் சாதனத்தை 4Gயுடன் மட்டுமே இணைக்க முடியும். "<annotation id="url">"மேலும் அறிக"</annotation></string>
 diff --git a/res-product/values-te/strings.xml b/res-product/values-te/strings.xml
-index 7471cab7f22..29c15319f4a 100644
+index 7471cab7f22d..29c15319f4a5 100644
 --- a/res-product/values-te/strings.xml
 +++ b/res-product/values-te/strings.xml
 @@ -573,10 +573,10 @@
@@ -1486,7 +1486,7 @@ index 7471cab7f22..29c15319f4a 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 SIMలను ఉపయోగిస్తున్నప్పుడు, ఈ టాబ్లెట్ 4Gకి పరిమితం చేయబడుతుంది. "<annotation id="url">"మరింత తెలుసుకోండి"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 SIMలను ఉపయోగిస్తున్నప్పుడు, ఈ పరికరం 4Gకి పరిమితం చేయబడుతుంది. "<annotation id="url">"మరింత తెలుసుకోండి"</annotation></string>
 diff --git a/res-product/values-th/strings.xml b/res-product/values-th/strings.xml
-index a17a87b8cc0..a87c28af332 100644
+index a17a87b8cc09..a87c28af3326 100644
 --- a/res-product/values-th/strings.xml
 +++ b/res-product/values-th/strings.xml
 @@ -573,10 +573,10 @@
@@ -1505,7 +1505,7 @@ index a17a87b8cc0..a87c28af332 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"เมื่อใช้ 2 ซิม แท็บเล็ตนี้จะจำกัดการใช้งานอยู่ที่ 4G "<annotation id="url">"ดูข้อมูลเพิ่มเติม"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"เมื่อใช้ 2 ซิม อุปกรณ์นี้จะจำกัดการใช้งานอยู่ที่ 4G "<annotation id="url">"ดูข้อมูลเพิ่มเติม"</annotation></string>
 diff --git a/res-product/values-tl/strings.xml b/res-product/values-tl/strings.xml
-index 3fea72d5539..5c6f24bcc75 100644
+index 3fea72d5539a..5c6f24bcc756 100644
 --- a/res-product/values-tl/strings.xml
 +++ b/res-product/values-tl/strings.xml
 @@ -573,10 +573,10 @@
@@ -1524,7 +1524,7 @@ index 3fea72d5539..5c6f24bcc75 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Kapag gumagamit ng 2 SIM, magiging limitado sa 4G ang tablet na ito. "<annotation id="url">"Matuto pa"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Kapag gumagamit ng 2 SIM, magiging limitado sa 4G ang device na ito. "<annotation id="url">"Matuto pa"</annotation></string>
 diff --git a/res-product/values-tr/strings.xml b/res-product/values-tr/strings.xml
-index 450f7b8f987..2f2a00ee320 100644
+index 450f7b8f987e..2f2a00ee3204 100644
 --- a/res-product/values-tr/strings.xml
 +++ b/res-product/values-tr/strings.xml
 @@ -573,10 +573,10 @@
@@ -1543,7 +1543,7 @@ index 450f7b8f987..2f2a00ee320 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 SIM kullanırken bu tablet 4G ile sınırlı olur. "<annotation id="url">"Daha fazla bilgi"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 SIM kullanırken bu cihaz 4G ile sınırlı olur. "<annotation id="url">"Daha fazla bilgi"</annotation></string>
 diff --git a/res-product/values-uk/strings.xml b/res-product/values-uk/strings.xml
-index 3d8134bf30c..577d2128d0e 100644
+index 3d8134bf30c5..577d2128d0e5 100644
 --- a/res-product/values-uk/strings.xml
 +++ b/res-product/values-uk/strings.xml
 @@ -573,10 +573,10 @@
@@ -1562,7 +1562,7 @@ index 3d8134bf30c..577d2128d0e 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Якщо ви використовуєте 2 SIM-карти, то не зможете підключити планшет до мережі 5G. "<annotation id="url">"Докладніше"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Якщо ви використовуєте 2 SIM-карти, то не зможете підключити пристрій до мережі 5G. "<annotation id="url">"Докладніше"</annotation></string>
 diff --git a/res-product/values-ur/strings.xml b/res-product/values-ur/strings.xml
-index 5836f2f2032..ad3061d339f 100644
+index 5836f2f20320..ad3061d339fc 100644
 --- a/res-product/values-ur/strings.xml
 +++ b/res-product/values-ur/strings.xml
 @@ -573,10 +573,10 @@
@@ -1581,7 +1581,7 @@ index 5836f2f2032..ad3061d339f 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"‏2 SIMs کا استعمال کرتے وقت، یہ ٹیبلیٹ 4G تک محدود ہوگا۔ "<annotation id="url">"مزید جانیں"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"‏2 SIMs کا استعمال کرتے وقت، یہ آلہ 4G تک محدود ہوگا۔ "<annotation id="url">"مزید جانیں"</annotation></string>
 diff --git a/res-product/values-uz/strings.xml b/res-product/values-uz/strings.xml
-index 398f89b226e..99e7e35de4d 100644
+index 398f89b226e1..99e7e35de4d5 100644
 --- a/res-product/values-uz/strings.xml
 +++ b/res-product/values-uz/strings.xml
 @@ -573,10 +573,10 @@
@@ -1600,7 +1600,7 @@ index 398f89b226e..99e7e35de4d 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"2 ta SIM kartadan foydalansangiz, bu planshetda 4G aloqasi cheklanadi. "<annotation id="url">"Batafsil"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"2 ta SIM kartadan foydalansangiz, bu qurilmada 4G aloqasi cheklanadi. "<annotation id="url">"Batafsil"</annotation></string>
 diff --git a/res-product/values-vi/strings.xml b/res-product/values-vi/strings.xml
-index e9b3ada8fce..a60317bdbb9 100644
+index e9b3ada8fcee..a60317bdbb9f 100644
 --- a/res-product/values-vi/strings.xml
 +++ b/res-product/values-vi/strings.xml
 @@ -573,10 +573,10 @@
@@ -1619,7 +1619,7 @@ index e9b3ada8fce..a60317bdbb9 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Khi dùng 2 SIM, máy tính bảng này chỉ dùng mạng 4G. "<annotation id="url">"Tìm hiểu thêm"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Khi dùng 2 SIM, thiết bị này chỉ dùng mạng 4G. "<annotation id="url">"Tìm hiểu thêm"</annotation></string>
 diff --git a/res-product/values-zh-rCN/strings.xml b/res-product/values-zh-rCN/strings.xml
-index f1bdcc07f96..749f40c8357 100644
+index f1bdcc07f96f..749f40c83579 100644
 --- a/res-product/values-zh-rCN/strings.xml
 +++ b/res-product/values-zh-rCN/strings.xml
 @@ -573,10 +573,10 @@
@@ -1638,7 +1638,7 @@ index f1bdcc07f96..749f40c8357 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"使用 2 个 SIM 卡时，此平板电脑将仅限使用 4G 网络。"<annotation id="url">"了解详情"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"使用 2 个 SIM 卡时，此设备将仅限使用 4G 网络。"<annotation id="url">"了解详情"</annotation></string>
 diff --git a/res-product/values-zh-rHK/strings.xml b/res-product/values-zh-rHK/strings.xml
-index 59e3ef1b21e..aa0e4b59ace 100644
+index 59e3ef1b21ef..aa0e4b59ace8 100644
 --- a/res-product/values-zh-rHK/strings.xml
 +++ b/res-product/values-zh-rHK/strings.xml
 @@ -573,10 +573,10 @@
@@ -1657,7 +1657,7 @@ index 59e3ef1b21e..aa0e4b59ace 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"使用 2 張 SIM 卡時，此平板電腦將只能使用 4G。"<annotation id="url">"瞭解詳情"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"使用 2 張 SIM 卡時，此裝置將只能使用 4G。"<annotation id="url">"瞭解詳情"</annotation></string>
 diff --git a/res-product/values-zh-rTW/strings.xml b/res-product/values-zh-rTW/strings.xml
-index fffad1973e0..f43048fdec8 100644
+index fffad1973e0e..f43048fdec82 100644
 --- a/res-product/values-zh-rTW/strings.xml
 +++ b/res-product/values-zh-rTW/strings.xml
 @@ -573,10 +573,10 @@
@@ -1676,7 +1676,7 @@ index fffad1973e0..f43048fdec8 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"使用 2 張 SIM 卡時，這台平板電腦只能連線到 4G 網路。"<annotation id="url">"瞭解詳情"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"使用 2 張 SIM 卡時，這部裝置只能連線到 4G 網路。"<annotation id="url">"瞭解詳情"</annotation></string>
 diff --git a/res-product/values-zu/strings.xml b/res-product/values-zu/strings.xml
-index ea0e7be4a70..bb281c5f501 100644
+index ea0e7be4a70c..bb281c5f5011 100644
 --- a/res-product/values-zu/strings.xml
 +++ b/res-product/values-zu/strings.xml
 @@ -573,10 +573,10 @@
@@ -1695,7 +1695,7 @@ index ea0e7be4a70..bb281c5f501 100644
      <string name="no_5g_in_dsds_text" product="tablet" msgid="9078652902370178468">"Uma usebenzisa ama-SIM angu-2, le thebulethi izophelela ku-4G. "<annotation id="url">"Funda kabanzi"</annotation></string>
      <string name="no_5g_in_dsds_text" product="device" msgid="2081735896122371350">"Uma usebenzisa ama-SIM angu-2, le divayisi izophelela ku-4G. "<annotation id="url">"Funda kabanzi"</annotation></string>
 diff --git a/res-product/values/strings.xml b/res-product/values/strings.xml
-index 0f8861c15e9..4120da442c9 100644
+index 0f8861c15e91..4120da442c95 100644
 --- a/res-product/values/strings.xml
 +++ b/res-product/values/strings.xml
 @@ -1072,13 +1072,13 @@
@@ -1717,7 +1717,7 @@ index 0f8861c15e9..4120da442c9 100644
      <string name="no_5g_in_dsds_text" product="default">When using 2 SIMs, this phone will be limited to 4G. <annotation id="url">Learn more</annotation></string>
      <!-- Footer to show current limitation of 5G on DSDS mode for tablets. [CHAR LIMIT=NONE] -->
 diff --git a/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java b/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java
-index af541ff..1e496e0 100644
+index af541ff161a7..1e496e0523ea 100644
 --- a/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java
 +++ b/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java
 @@ -20,8 +20,12 @@ import static android.provider.Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED;
@@ -1743,7 +1743,7 @@ index af541ff..1e496e0 100644
 +                .getBoolean(com.android.internal.R.bool.config_supportSystemNavigationKeys)
 +                || SystemProperties.getBoolean("sys.fp_nav_keys", false)
 +                || hasSystemNavigationKeys(context));
-     }
++    }
 +
 +    // A GSI can't know the vendor's fingerprint keylayout, so look for a device that maps it.
 +    private static boolean hasSystemNavigationKeys(Context context) {
@@ -1756,7 +1756,7 @@ index af541ff..1e496e0 100644
 +            }
 +        }
 +        return false;
-+    }
+     }
  
      @Override
 @@ -82,7 +101,7 @@ public class SwipeToNotificationPreferenceController extends GesturePreferenceCo
@@ -1769,4 +1769,5 @@ index af541ff..1e496e0 100644
  
      public static boolean setSwipeToNotification(Context context, boolean isEnabled) {
 -- 
-2.43.0
+2.56.0
+

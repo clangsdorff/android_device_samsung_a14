@@ -1,7 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From d4e4b25e461854c27bd6e2e580ccf721bd11ba2d Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 8 Nov 2026 10:50:01 +0300
-Subject: [PATCH] dexopt: compile apps right after the first boot of a build
+Subject: [PATCH 09/10] dexopt: compile apps right after the first boot of a
+ build
 
 first boot only verifies apps so it stays short, and the scheduled
 background dexopt job waits for the device to be idle and charging,
@@ -17,7 +18,7 @@ ongoing notification until it is done.
  5 files changed, 73 insertions(+)
 
 diff --git a/core/res/res/values-tr/strings.xml b/core/res/res/values-tr/strings.xml
-index 83d41a3..8def30c 100644
+index 83d41a3703ba..8def30c9fdbe 100644
 --- a/core/res/res/values-tr/strings.xml
 +++ b/core/res/res/values-tr/strings.xml
 @@ -2718,4 +2718,6 @@
@@ -28,7 +29,7 @@ index 83d41a3..8def30c 100644
 +    <string name="boot_dexopt_notification_text">Bu işlem birkaç dakika sürebilir</string>
  </resources>
 diff --git a/core/res/res/values/strings.xml b/core/res/res/values/strings.xml
-index 4d98c8b..4222b53 100644
+index 4d98c8b87e07..4222b539d419 100644
 --- a/core/res/res/values/strings.xml
 +++ b/core/res/res/values/strings.xml
 @@ -7320,4 +7320,9 @@
@@ -42,7 +43,7 @@ index 4d98c8b..4222b53 100644
 +    <string name="boot_dexopt_notification_text">This may take a few minutes</string>
  </resources>
 diff --git a/core/res/res/values/symbols.xml b/core/res/res/values/symbols.xml
-index f20a2b6..84bd8ef 100644
+index f20a2b6a0e74..84bd8ef6d2b5 100644
 --- a/core/res/res/values/symbols.xml
 +++ b/core/res/res/values/symbols.xml
 @@ -6626,4 +6626,7 @@
@@ -54,7 +55,7 @@ index f20a2b6..84bd8ef 100644
 +  <java-symbol type="string" name="boot_dexopt_notification_text" />
    </resources>
 diff --git a/proto/src/system_messages.proto b/proto/src/system_messages.proto
-index 1a8ae67..ba156ca 100644
+index 1a8ae674b897..ba156ca4a04a 100644
 --- a/proto/src/system_messages.proto
 +++ b/proto/src/system_messages.proto
 @@ -438,5 +438,9 @@ message SystemMessage {
@@ -68,7 +69,7 @@ index 1a8ae67..ba156ca 100644
    }
  }
 diff --git a/services/core/java/com/android/server/pm/DexOptHelper.java b/services/core/java/com/android/server/pm/DexOptHelper.java
-index 3e0f541..997bd34 100644
+index 3e0f5416eeec..997bd34f6fdd 100644
 --- a/services/core/java/com/android/server/pm/DexOptHelper.java
 +++ b/services/core/java/com/android/server/pm/DexOptHelper.java
 @@ -30,6 +30,8 @@ import static com.android.server.pm.PackageManagerServiceUtils.getPackageManager

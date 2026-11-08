@@ -1,8 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 5b9cf737bda938e985a7b97cd34f45ace9219046 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 16:26:02 +0000
-Subject: [PATCH] Aperture: add a high resolution photo toggle that locks zoom
- to 1x
+Subject: [PATCH 1/6] Aperture: add a high resolution photo toggle that locks
+ zoom to 1x
 
 tetra sensors only expose their full resolution size as a high
 resolution size, which aperture never picks. add a top bar toggle that
@@ -23,7 +23,7 @@ Change-Id: If20d1e635a68014f3b3023f0a439b5f2127cc615
  create mode 100644 app/src/main/res/drawable/ic_high_res.xml
 
 diff --git a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
-index 9d51ad1..1c343ab 100644
+index 9d51ad19e01f..1c343ab81401 100644
 --- a/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
 +++ b/app/src/main/java/org/lineageos/aperture/CameraActivity.kt
 @@ -151,6 +151,7 @@ open class CameraActivity : AppCompatActivity(R.layout.activity_camera) {
@@ -146,7 +146,7 @@ index 9d51ad1..1c343ab 100644
  
                  CameraController.IMAGE_CAPTURE
 diff --git a/app/src/main/java/org/lineageos/aperture/models/Camera.kt b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
-index 0847e6f..960affe 100644
+index 0847e6fd0c32..960affe3f5be 100644
 --- a/app/src/main/java/org/lineageos/aperture/models/Camera.kt
 +++ b/app/src/main/java/org/lineageos/aperture/models/Camera.kt
 @@ -5,9 +5,11 @@
@@ -209,7 +209,7 @@ index 0847e6f..960affe 100644
  
      fun supportsExtensionMode(extensionMode: Int): Boolean {
 diff --git a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
-index 0d249b8..b1413f0 100644
+index 0d249b89aaf4..b1413f083c10 100644
 --- a/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
 +++ b/app/src/main/java/org/lineageos/aperture/repositories/PreferencesRepository.kt
 @@ -266,6 +266,14 @@ class PreferencesRepository(
@@ -228,7 +228,7 @@ index 0d249b8..b1413f0 100644
       * Whether bright screen should be enabled.
       */
 diff --git a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
-index 2fc11c2..5553bbe 100644
+index 2fc11c2d11fd..5553bbe88076 100644
 --- a/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 +++ b/app/src/main/java/org/lineageos/aperture/viewmodels/CameraViewModel.kt
 @@ -644,6 +644,39 @@ class CameraViewModel(application: Application) : ApertureViewModel(application)
@@ -359,7 +359,7 @@ index 2fc11c2..5553bbe 100644
          camera: Camera,
 diff --git a/app/src/main/res/drawable/ic_high_res.xml b/app/src/main/res/drawable/ic_high_res.xml
 new file mode 100644
-index 0000000..e723a44
+index 000000000000..e723a44e705d
 --- /dev/null
 +++ b/app/src/main/res/drawable/ic_high_res.xml
 @@ -0,0 +1,15 @@
@@ -379,7 +379,7 @@ index 0000000..e723a44
 +        android:pathData="M180,740L240,740L240,660L264,660L300,740L360,740L324,656Q339,647 349.5,632.5Q360,618 360,600L360,560Q360,535 342.5,517.5Q325,500 300,500L180,500L180,740ZM400,740L560,740L560,680L460,680L460,650L540,650L540,590L460,590L460,560L560,560L560,500L400,500L400,740ZM600,740L740,740Q757,740 768.5,728.5Q780,717 780,700L780,640Q780,623 768.5,611.5Q757,600 740,600L660,600L660,560L780,560L780,500L640,500Q623,500 611.5,511.5Q600,523 600,540L600,600Q600,617 611.5,628.5Q623,640 640,640L720,640L720,680L600,680L600,740ZM240,600L240,560L300,560Q300,560 300,560Q300,560 300,560L300,600Q300,600 300,600Q300,600 300,600L240,600ZM300,460L360,460L360,370L420,370L420,460L480,460L480,220L420,220L420,310L360,310L360,220L300,220L300,460ZM580,460L640,460L640,220L580,220L580,460ZM120,840Q87,840 63.5,816.5Q40,793 40,760L40,200Q40,167 63.5,143.5Q87,120 120,120L840,120Q873,120 896.5,143.5Q920,167 920,200L920,760Q920,793 896.5,816.5Q873,840 840,840L120,840ZM120,760L840,760Q840,760 840,760Q840,760 840,760L840,200Q840,200 840,200Q840,200 840,200L120,200Q120,200 120,200Q120,200 120,200L120,760Q120,760 120,760Q120,760 120,760ZM120,760Q120,760 120,760Q120,760 120,760L120,200Q120,200 120,200Q120,200 120,200L120,200Q120,200 120,200Q120,200 120,200L120,760Q120,760 120,760Q120,760 120,760L120,760Z" />
 +</vector>
 diff --git a/app/src/main/res/layout/activity_camera.xml b/app/src/main/res/layout/activity_camera.xml
-index d5f291f..e07c1cb 100644
+index d5f291f57e51..e07c1cb1c1e4 100644
 --- a/app/src/main/res/layout/activity_camera.xml
 +++ b/app/src/main/res/layout/activity_camera.xml
 @@ -148,6 +148,12 @@
@@ -396,7 +396,7 @@ index d5f291f..e07c1cb 100644
                  android:id="@+id/effectButton"
                  style="@style/Theme.Aperture.Camera.SecondaryTopBarButton"
 diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
-index b4997eb..c1e62c8 100644
+index b4997ebeedef..c1e62c89ef70 100644
 --- a/app/src/main/res/values/strings.xml
 +++ b/app/src/main/res/values/strings.xml
 @@ -27,6 +27,7 @@
@@ -408,5 +408,5 @@ index b4997eb..c1e62c8 100644
      <string name="video_quality_sd" translatable="false">480p</string>
      <string name="video_quality_hd" translatable="false">720p</string>
 -- 
-2.43.0
+2.56.0
 

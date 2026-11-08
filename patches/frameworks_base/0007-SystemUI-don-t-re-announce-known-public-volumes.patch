@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From bf6a3764524337fa5bfb0fc0baa1fd6b2d337e9d Mon Sep 17 00:00:00 2001
 From: Chara <bionichuman07@gmail.com>
 Date: Fri, 23 Oct 2026 15:44:38 -0700
-Subject: [PATCH] SystemUI: don't re-announce known public volumes
+Subject: [PATCH 07/10] SystemUI: don't re-announce known public volumes
 
 use persisted VolumeRecord creation times instead of shutdown
 preferences and a boot timeout. only records predating this boot
@@ -15,7 +15,7 @@ Signed-off-by: Chara <bionichuman07@gmail.com>
  1 file changed, 62 insertions(+)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/usb/StorageNotification.java b/packages/SystemUI/src/com/android/systemui/usb/StorageNotification.java
-index fd5621e..383ad02 100644
+index fd5621e83c0a..383ad0261f22 100644
 --- a/packages/SystemUI/src/com/android/systemui/usb/StorageNotification.java
 +++ b/packages/SystemUI/src/com/android/systemui/usb/StorageNotification.java
 @@ -30,6 +30,7 @@ import android.content.pm.PackageManager.MoveCallback;

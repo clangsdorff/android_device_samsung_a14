@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 1126c60a001c49ef7d5a0d445765ccbbe6841fe7 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 17:22:46 +0000
-Subject: [PATCH] fingerprint: add the samsung seh fingerprint aidl
+Subject: [PATCH 05/10] fingerprint: add the samsung seh fingerprint aidl
 
 the samsung fingerprint navigation backend imports ISehFingerprint
 and SehResult, but the framework has no java library for them, so
@@ -83,5 +83,5 @@ index 000000000000..a9fa1b4a5ad5
 +    byte[] data;
 +}
 -- 
-2.43.0
+2.56.0
 

@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From af6f33e741b172efbb51f701d0447ec48c2e76dd Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 10 Oct 2026 14:24:23 +0300
-Subject: [PATCH] keyboard: add a toggle to hide the ime back button in the
+Subject: [PATCH 2/2] keyboard: add a toggle to hide the ime back button in the
  navigation bar
 
 wire a switch on the keyboard settings page to
@@ -185,7 +185,7 @@ so the user can hide the dismiss button under the keyboard.
 
 diff --git a/res/values-af/ime_back_button_strings.xml b/res/values-af/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..bff8d26
+index 000000000000..bff8d260c44f
 --- /dev/null
 +++ b/res/values-af/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -196,7 +196,7 @@ index 0000000..bff8d26
 +</resources>
 diff --git a/res/values-am/ime_back_button_strings.xml b/res/values-am/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..e1cbe46
+index 000000000000..e1cbe46930a8
 --- /dev/null
 +++ b/res/values-am/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -207,7 +207,7 @@ index 0000000..e1cbe46
 +</resources>
 diff --git a/res/values-ar/ime_back_button_strings.xml b/res/values-ar/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..b1e6618
+index 000000000000..b1e66184ac40
 --- /dev/null
 +++ b/res/values-ar/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -218,7 +218,7 @@ index 0000000..b1e6618
 +</resources>
 diff --git a/res/values-as/ime_back_button_strings.xml b/res/values-as/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..aa31e1f
+index 000000000000..aa31e1fc51ce
 --- /dev/null
 +++ b/res/values-as/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -229,7 +229,7 @@ index 0000000..aa31e1f
 +</resources>
 diff --git a/res/values-az/ime_back_button_strings.xml b/res/values-az/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..bb91170
+index 000000000000..bb911707ddc9
 --- /dev/null
 +++ b/res/values-az/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -240,7 +240,7 @@ index 0000000..bb91170
 +</resources>
 diff --git a/res/values-b+sr+Latn/ime_back_button_strings.xml b/res/values-b+sr+Latn/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..20bcc16
+index 000000000000..20bcc16e180b
 --- /dev/null
 +++ b/res/values-b+sr+Latn/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -251,7 +251,7 @@ index 0000000..20bcc16
 +</resources>
 diff --git a/res/values-be/ime_back_button_strings.xml b/res/values-be/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..2f81f95
+index 000000000000..2f81f955f91c
 --- /dev/null
 +++ b/res/values-be/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -262,7 +262,7 @@ index 0000000..2f81f95
 +</resources>
 diff --git a/res/values-bg/ime_back_button_strings.xml b/res/values-bg/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..1452f2d
+index 000000000000..1452f2d92173
 --- /dev/null
 +++ b/res/values-bg/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -273,7 +273,7 @@ index 0000000..1452f2d
 +</resources>
 diff --git a/res/values-bn/ime_back_button_strings.xml b/res/values-bn/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..11b5343
+index 000000000000..11b5343e50a7
 --- /dev/null
 +++ b/res/values-bn/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -284,7 +284,7 @@ index 0000000..11b5343
 +</resources>
 diff --git a/res/values-bs/ime_back_button_strings.xml b/res/values-bs/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..ecd3373
+index 000000000000..ecd3373db912
 --- /dev/null
 +++ b/res/values-bs/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -295,7 +295,7 @@ index 0000000..ecd3373
 +</resources>
 diff --git a/res/values-ca/ime_back_button_strings.xml b/res/values-ca/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..bb20aad
+index 000000000000..bb20aadd1f80
 --- /dev/null
 +++ b/res/values-ca/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -306,7 +306,7 @@ index 0000000..bb20aad
 +</resources>
 diff --git a/res/values-cs/ime_back_button_strings.xml b/res/values-cs/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..ff25895
+index 000000000000..ff2589524066
 --- /dev/null
 +++ b/res/values-cs/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -317,7 +317,7 @@ index 0000000..ff25895
 +</resources>
 diff --git a/res/values-da/ime_back_button_strings.xml b/res/values-da/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..6851903
+index 000000000000..6851903208e1
 --- /dev/null
 +++ b/res/values-da/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -328,7 +328,7 @@ index 0000000..6851903
 +</resources>
 diff --git a/res/values-de/ime_back_button_strings.xml b/res/values-de/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..de275c6
+index 000000000000..de275c616f7d
 --- /dev/null
 +++ b/res/values-de/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -339,7 +339,7 @@ index 0000000..de275c6
 +</resources>
 diff --git a/res/values-el/ime_back_button_strings.xml b/res/values-el/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..19b1fe1
+index 000000000000..19b1fe1ef2ab
 --- /dev/null
 +++ b/res/values-el/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -350,7 +350,7 @@ index 0000000..19b1fe1
 +</resources>
 diff --git a/res/values-en-rAU/ime_back_button_strings.xml b/res/values-en-rAU/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..87b00f3
+index 000000000000..87b00f3ba67a
 --- /dev/null
 +++ b/res/values-en-rAU/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -361,7 +361,7 @@ index 0000000..87b00f3
 +</resources>
 diff --git a/res/values-en-rCA/ime_back_button_strings.xml b/res/values-en-rCA/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..87b00f3
+index 000000000000..87b00f3ba67a
 --- /dev/null
 +++ b/res/values-en-rCA/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -372,7 +372,7 @@ index 0000000..87b00f3
 +</resources>
 diff --git a/res/values-en-rGB/ime_back_button_strings.xml b/res/values-en-rGB/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..87b00f3
+index 000000000000..87b00f3ba67a
 --- /dev/null
 +++ b/res/values-en-rGB/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -383,7 +383,7 @@ index 0000000..87b00f3
 +</resources>
 diff --git a/res/values-en-rIN/ime_back_button_strings.xml b/res/values-en-rIN/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..87b00f3
+index 000000000000..87b00f3ba67a
 --- /dev/null
 +++ b/res/values-en-rIN/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -394,7 +394,7 @@ index 0000000..87b00f3
 +</resources>
 diff --git a/res/values-es-rUS/ime_back_button_strings.xml b/res/values-es-rUS/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..d880752
+index 000000000000..d8807528ea2c
 --- /dev/null
 +++ b/res/values-es-rUS/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -405,7 +405,7 @@ index 0000000..d880752
 +</resources>
 diff --git a/res/values-es/ime_back_button_strings.xml b/res/values-es/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..63c5bc9
+index 000000000000..63c5bc95d80a
 --- /dev/null
 +++ b/res/values-es/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -416,7 +416,7 @@ index 0000000..63c5bc9
 +</resources>
 diff --git a/res/values-et/ime_back_button_strings.xml b/res/values-et/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..47978ba
+index 000000000000..47978ba41f6a
 --- /dev/null
 +++ b/res/values-et/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -427,7 +427,7 @@ index 0000000..47978ba
 +</resources>
 diff --git a/res/values-eu/ime_back_button_strings.xml b/res/values-eu/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..785a677
+index 000000000000..785a677f67c7
 --- /dev/null
 +++ b/res/values-eu/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -438,7 +438,7 @@ index 0000000..785a677
 +</resources>
 diff --git a/res/values-fa/ime_back_button_strings.xml b/res/values-fa/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..5d05668
+index 000000000000..5d0566838304
 --- /dev/null
 +++ b/res/values-fa/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -449,7 +449,7 @@ index 0000000..5d05668
 +</resources>
 diff --git a/res/values-fi/ime_back_button_strings.xml b/res/values-fi/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..86e91d8
+index 000000000000..86e91d854c48
 --- /dev/null
 +++ b/res/values-fi/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -460,7 +460,7 @@ index 0000000..86e91d8
 +</resources>
 diff --git a/res/values-fr-rCA/ime_back_button_strings.xml b/res/values-fr-rCA/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..2f584a1
+index 000000000000..2f584a1cd823
 --- /dev/null
 +++ b/res/values-fr-rCA/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -471,7 +471,7 @@ index 0000000..2f584a1
 +</resources>
 diff --git a/res/values-fr/ime_back_button_strings.xml b/res/values-fr/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..c9ebcd0
+index 000000000000..c9ebcd02109a
 --- /dev/null
 +++ b/res/values-fr/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -482,7 +482,7 @@ index 0000000..c9ebcd0
 +</resources>
 diff --git a/res/values-gl/ime_back_button_strings.xml b/res/values-gl/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..a110942
+index 000000000000..a11094225833
 --- /dev/null
 +++ b/res/values-gl/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -493,7 +493,7 @@ index 0000000..a110942
 +</resources>
 diff --git a/res/values-gu/ime_back_button_strings.xml b/res/values-gu/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..402f5f3
+index 000000000000..402f5f300159
 --- /dev/null
 +++ b/res/values-gu/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -504,7 +504,7 @@ index 0000000..402f5f3
 +</resources>
 diff --git a/res/values-hi/ime_back_button_strings.xml b/res/values-hi/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..f3970c8
+index 000000000000..f3970c869ad5
 --- /dev/null
 +++ b/res/values-hi/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -515,7 +515,7 @@ index 0000000..f3970c8
 +</resources>
 diff --git a/res/values-hr/ime_back_button_strings.xml b/res/values-hr/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..264e4b3
+index 000000000000..264e4b3d88d6
 --- /dev/null
 +++ b/res/values-hr/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -526,7 +526,7 @@ index 0000000..264e4b3
 +</resources>
 diff --git a/res/values-hu/ime_back_button_strings.xml b/res/values-hu/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..6bc0e16
+index 000000000000..6bc0e169f044
 --- /dev/null
 +++ b/res/values-hu/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -537,7 +537,7 @@ index 0000000..6bc0e16
 +</resources>
 diff --git a/res/values-hy/ime_back_button_strings.xml b/res/values-hy/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..0b2322a
+index 000000000000..0b2322aea127
 --- /dev/null
 +++ b/res/values-hy/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -548,7 +548,7 @@ index 0000000..0b2322a
 +</resources>
 diff --git a/res/values-in/ime_back_button_strings.xml b/res/values-in/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..bd1e22a
+index 000000000000..bd1e22a243e7
 --- /dev/null
 +++ b/res/values-in/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -559,7 +559,7 @@ index 0000000..bd1e22a
 +</resources>
 diff --git a/res/values-is/ime_back_button_strings.xml b/res/values-is/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..66a713c
+index 000000000000..66a713c858c5
 --- /dev/null
 +++ b/res/values-is/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -570,7 +570,7 @@ index 0000000..66a713c
 +</resources>
 diff --git a/res/values-it/ime_back_button_strings.xml b/res/values-it/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..3eb09f6
+index 000000000000..3eb09f60f6e1
 --- /dev/null
 +++ b/res/values-it/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -581,7 +581,7 @@ index 0000000..3eb09f6
 +</resources>
 diff --git a/res/values-iw/ime_back_button_strings.xml b/res/values-iw/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..9ab2ed1
+index 000000000000..9ab2ed17a180
 --- /dev/null
 +++ b/res/values-iw/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -592,7 +592,7 @@ index 0000000..9ab2ed1
 +</resources>
 diff --git a/res/values-ja/ime_back_button_strings.xml b/res/values-ja/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..d308b7b
+index 000000000000..d308b7b22794
 --- /dev/null
 +++ b/res/values-ja/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -603,7 +603,7 @@ index 0000000..d308b7b
 +</resources>
 diff --git a/res/values-ka/ime_back_button_strings.xml b/res/values-ka/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..00c86b1
+index 000000000000..00c86b12fff5
 --- /dev/null
 +++ b/res/values-ka/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -614,7 +614,7 @@ index 0000000..00c86b1
 +</resources>
 diff --git a/res/values-kk/ime_back_button_strings.xml b/res/values-kk/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..1247e40
+index 000000000000..1247e40ec138
 --- /dev/null
 +++ b/res/values-kk/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -625,7 +625,7 @@ index 0000000..1247e40
 +</resources>
 diff --git a/res/values-km/ime_back_button_strings.xml b/res/values-km/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..4f8820a
+index 000000000000..4f8820ab4bab
 --- /dev/null
 +++ b/res/values-km/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -636,7 +636,7 @@ index 0000000..4f8820a
 +</resources>
 diff --git a/res/values-kn/ime_back_button_strings.xml b/res/values-kn/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..1818fc9
+index 000000000000..1818fc9ba43a
 --- /dev/null
 +++ b/res/values-kn/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -647,7 +647,7 @@ index 0000000..1818fc9
 +</resources>
 diff --git a/res/values-ko/ime_back_button_strings.xml b/res/values-ko/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..0ef22bb
+index 000000000000..0ef22bbc6677
 --- /dev/null
 +++ b/res/values-ko/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -658,7 +658,7 @@ index 0000000..0ef22bb
 +</resources>
 diff --git a/res/values-ky/ime_back_button_strings.xml b/res/values-ky/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..1c058e7
+index 000000000000..1c058e716cb4
 --- /dev/null
 +++ b/res/values-ky/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -669,7 +669,7 @@ index 0000000..1c058e7
 +</resources>
 diff --git a/res/values-lo/ime_back_button_strings.xml b/res/values-lo/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..309991e
+index 000000000000..309991e1f450
 --- /dev/null
 +++ b/res/values-lo/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -680,7 +680,7 @@ index 0000000..309991e
 +</resources>
 diff --git a/res/values-lt/ime_back_button_strings.xml b/res/values-lt/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..8e253c3
+index 000000000000..8e253c309d47
 --- /dev/null
 +++ b/res/values-lt/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -691,7 +691,7 @@ index 0000000..8e253c3
 +</resources>
 diff --git a/res/values-lv/ime_back_button_strings.xml b/res/values-lv/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..a7e2e5e
+index 000000000000..a7e2e5e05741
 --- /dev/null
 +++ b/res/values-lv/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -702,7 +702,7 @@ index 0000000..a7e2e5e
 +</resources>
 diff --git a/res/values-mk/ime_back_button_strings.xml b/res/values-mk/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..653bf2f
+index 000000000000..653bf2f8b7d3
 --- /dev/null
 +++ b/res/values-mk/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -713,7 +713,7 @@ index 0000000..653bf2f
 +</resources>
 diff --git a/res/values-ml/ime_back_button_strings.xml b/res/values-ml/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..d6ee52b
+index 000000000000..d6ee52bebdb0
 --- /dev/null
 +++ b/res/values-ml/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -724,7 +724,7 @@ index 0000000..d6ee52b
 +</resources>
 diff --git a/res/values-mn/ime_back_button_strings.xml b/res/values-mn/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..381fe9a
+index 000000000000..381fe9a9fbc9
 --- /dev/null
 +++ b/res/values-mn/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -735,7 +735,7 @@ index 0000000..381fe9a
 +</resources>
 diff --git a/res/values-mr/ime_back_button_strings.xml b/res/values-mr/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..73fdcf3
+index 000000000000..73fdcf345ac0
 --- /dev/null
 +++ b/res/values-mr/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -746,7 +746,7 @@ index 0000000..73fdcf3
 +</resources>
 diff --git a/res/values-ms/ime_back_button_strings.xml b/res/values-ms/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..bf79555
+index 000000000000..bf795551626a
 --- /dev/null
 +++ b/res/values-ms/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -757,7 +757,7 @@ index 0000000..bf79555
 +</resources>
 diff --git a/res/values-my/ime_back_button_strings.xml b/res/values-my/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..6c6a55d
+index 000000000000..6c6a55de5bfa
 --- /dev/null
 +++ b/res/values-my/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -768,7 +768,7 @@ index 0000000..6c6a55d
 +</resources>
 diff --git a/res/values-nb/ime_back_button_strings.xml b/res/values-nb/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..4810a56
+index 000000000000..4810a562328d
 --- /dev/null
 +++ b/res/values-nb/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -779,7 +779,7 @@ index 0000000..4810a56
 +</resources>
 diff --git a/res/values-ne/ime_back_button_strings.xml b/res/values-ne/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..c87462d
+index 000000000000..c87462d938ff
 --- /dev/null
 +++ b/res/values-ne/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -790,7 +790,7 @@ index 0000000..c87462d
 +</resources>
 diff --git a/res/values-nl/ime_back_button_strings.xml b/res/values-nl/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..3ec65ec
+index 000000000000..3ec65ecdfa5e
 --- /dev/null
 +++ b/res/values-nl/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -801,7 +801,7 @@ index 0000000..3ec65ec
 +</resources>
 diff --git a/res/values-or/ime_back_button_strings.xml b/res/values-or/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..7ab278b
+index 000000000000..7ab278b8848b
 --- /dev/null
 +++ b/res/values-or/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -812,7 +812,7 @@ index 0000000..7ab278b
 +</resources>
 diff --git a/res/values-pa/ime_back_button_strings.xml b/res/values-pa/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..f77f39a
+index 000000000000..f77f39a787f1
 --- /dev/null
 +++ b/res/values-pa/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -823,7 +823,7 @@ index 0000000..f77f39a
 +</resources>
 diff --git a/res/values-pl/ime_back_button_strings.xml b/res/values-pl/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..38b6bdb
+index 000000000000..38b6bdb86000
 --- /dev/null
 +++ b/res/values-pl/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -834,7 +834,7 @@ index 0000000..38b6bdb
 +</resources>
 diff --git a/res/values-pt-rBR/ime_back_button_strings.xml b/res/values-pt-rBR/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..91b780e
+index 000000000000..91b780e4c486
 --- /dev/null
 +++ b/res/values-pt-rBR/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -845,7 +845,7 @@ index 0000000..91b780e
 +</resources>
 diff --git a/res/values-pt-rPT/ime_back_button_strings.xml b/res/values-pt-rPT/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..42d3c45
+index 000000000000..42d3c450ad43
 --- /dev/null
 +++ b/res/values-pt-rPT/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -856,7 +856,7 @@ index 0000000..42d3c45
 +</resources>
 diff --git a/res/values-pt/ime_back_button_strings.xml b/res/values-pt/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..91b780e
+index 000000000000..91b780e4c486
 --- /dev/null
 +++ b/res/values-pt/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -867,7 +867,7 @@ index 0000000..91b780e
 +</resources>
 diff --git a/res/values-ro/ime_back_button_strings.xml b/res/values-ro/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..4b6ec72
+index 000000000000..4b6ec725e73c
 --- /dev/null
 +++ b/res/values-ro/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -878,7 +878,7 @@ index 0000000..4b6ec72
 +</resources>
 diff --git a/res/values-ru/ime_back_button_strings.xml b/res/values-ru/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..1d53924
+index 000000000000..1d539248ff9b
 --- /dev/null
 +++ b/res/values-ru/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -889,7 +889,7 @@ index 0000000..1d53924
 +</resources>
 diff --git a/res/values-si/ime_back_button_strings.xml b/res/values-si/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..7121d9e
+index 000000000000..7121d9e60641
 --- /dev/null
 +++ b/res/values-si/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -900,7 +900,7 @@ index 0000000..7121d9e
 +</resources>
 diff --git a/res/values-sk/ime_back_button_strings.xml b/res/values-sk/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..9f817dc
+index 000000000000..9f817dc4f3bf
 --- /dev/null
 +++ b/res/values-sk/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -911,7 +911,7 @@ index 0000000..9f817dc
 +</resources>
 diff --git a/res/values-sl/ime_back_button_strings.xml b/res/values-sl/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..732f84f
+index 000000000000..732f84f2082a
 --- /dev/null
 +++ b/res/values-sl/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -922,7 +922,7 @@ index 0000000..732f84f
 +</resources>
 diff --git a/res/values-sq/ime_back_button_strings.xml b/res/values-sq/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..7444b68
+index 000000000000..7444b68811e6
 --- /dev/null
 +++ b/res/values-sq/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -933,7 +933,7 @@ index 0000000..7444b68
 +</resources>
 diff --git a/res/values-sr/ime_back_button_strings.xml b/res/values-sr/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..67adc20
+index 000000000000..67adc20e5a09
 --- /dev/null
 +++ b/res/values-sr/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -944,7 +944,7 @@ index 0000000..67adc20
 +</resources>
 diff --git a/res/values-sv/ime_back_button_strings.xml b/res/values-sv/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..9fc3391
+index 000000000000..9fc3391da3bd
 --- /dev/null
 +++ b/res/values-sv/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -955,7 +955,7 @@ index 0000000..9fc3391
 +</resources>
 diff --git a/res/values-sw/ime_back_button_strings.xml b/res/values-sw/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..7972da1
+index 000000000000..7972da14850a
 --- /dev/null
 +++ b/res/values-sw/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -966,7 +966,7 @@ index 0000000..7972da1
 +</resources>
 diff --git a/res/values-ta/ime_back_button_strings.xml b/res/values-ta/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..ac63341
+index 000000000000..ac63341b2b10
 --- /dev/null
 +++ b/res/values-ta/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -977,7 +977,7 @@ index 0000000..ac63341
 +</resources>
 diff --git a/res/values-te/ime_back_button_strings.xml b/res/values-te/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..a39cf79
+index 000000000000..a39cf79ee5d3
 --- /dev/null
 +++ b/res/values-te/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -988,7 +988,7 @@ index 0000000..a39cf79
 +</resources>
 diff --git a/res/values-th/ime_back_button_strings.xml b/res/values-th/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..52341aa
+index 000000000000..52341aa27453
 --- /dev/null
 +++ b/res/values-th/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -999,7 +999,7 @@ index 0000000..52341aa
 +</resources>
 diff --git a/res/values-tl/ime_back_button_strings.xml b/res/values-tl/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..b0a6d63
+index 000000000000..b0a6d63e2243
 --- /dev/null
 +++ b/res/values-tl/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1010,7 +1010,7 @@ index 0000000..b0a6d63
 +</resources>
 diff --git a/res/values-tr/ime_back_button_strings.xml b/res/values-tr/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..5c79406
+index 000000000000..5c79406ff012
 --- /dev/null
 +++ b/res/values-tr/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1021,7 +1021,7 @@ index 0000000..5c79406
 +</resources>
 diff --git a/res/values-uk/ime_back_button_strings.xml b/res/values-uk/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..695e7f4
+index 000000000000..695e7f43d756
 --- /dev/null
 +++ b/res/values-uk/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1032,7 +1032,7 @@ index 0000000..695e7f4
 +</resources>
 diff --git a/res/values-ur/ime_back_button_strings.xml b/res/values-ur/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..5b56803
+index 000000000000..5b568037e756
 --- /dev/null
 +++ b/res/values-ur/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1043,7 +1043,7 @@ index 0000000..5b56803
 +</resources>
 diff --git a/res/values-uz/ime_back_button_strings.xml b/res/values-uz/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..b818500
+index 000000000000..b8185006ecf2
 --- /dev/null
 +++ b/res/values-uz/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1054,7 +1054,7 @@ index 0000000..b818500
 +</resources>
 diff --git a/res/values-vi/ime_back_button_strings.xml b/res/values-vi/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..109b565
+index 000000000000..109b5651c83e
 --- /dev/null
 +++ b/res/values-vi/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1065,7 +1065,7 @@ index 0000000..109b565
 +</resources>
 diff --git a/res/values-zh-rCN/ime_back_button_strings.xml b/res/values-zh-rCN/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..3006be5
+index 000000000000..3006be545c44
 --- /dev/null
 +++ b/res/values-zh-rCN/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1076,7 +1076,7 @@ index 0000000..3006be5
 +</resources>
 diff --git a/res/values-zh-rHK/ime_back_button_strings.xml b/res/values-zh-rHK/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..3290614
+index 000000000000..3290614df5e0
 --- /dev/null
 +++ b/res/values-zh-rHK/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1087,7 +1087,7 @@ index 0000000..3290614
 +</resources>
 diff --git a/res/values-zh-rTW/ime_back_button_strings.xml b/res/values-zh-rTW/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..5f2b04b
+index 000000000000..5f2b04bb45ac
 --- /dev/null
 +++ b/res/values-zh-rTW/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1098,7 +1098,7 @@ index 0000000..5f2b04b
 +</resources>
 diff --git a/res/values-zu/ime_back_button_strings.xml b/res/values-zu/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..4738b04
+index 000000000000..4738b0461df7
 --- /dev/null
 +++ b/res/values-zu/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1109,7 +1109,7 @@ index 0000000..4738b04
 +</resources>
 diff --git a/res/values/ime_back_button_strings.xml b/res/values/ime_back_button_strings.xml
 new file mode 100644
-index 0000000..a74e0fa
+index 000000000000..a74e0fa589bc
 --- /dev/null
 +++ b/res/values/ime_back_button_strings.xml
 @@ -0,0 +1,5 @@
@@ -1119,7 +1119,7 @@ index 0000000..a74e0fa
 +    <string name="ime_back_button_in_navbar_summary">Show the button that hides the keyboard in the navigation bar, when an input field is selected</string>
 +</resources>
 diff --git a/res/xml/keyboard_settings.xml b/res/xml/keyboard_settings.xml
-index 1060026..ae79c69 100644
+index 106002680e96..ae79c6974060 100644
 --- a/res/xml/keyboard_settings.xml
 +++ b/res/xml/keyboard_settings.xml
 @@ -37,6 +37,12 @@
@@ -1137,7 +1137,7 @@ index 1060026..ae79c69 100644
      <PreferenceCategory
 diff --git a/src/com/android/settings/inputmethod/ImeBackButtonInNavBarPreferenceController.kt b/src/com/android/settings/inputmethod/ImeBackButtonInNavBarPreferenceController.kt
 new file mode 100644
-index 0000000..be936aa
+index 000000000000..be936aab3c29
 --- /dev/null
 +++ b/src/com/android/settings/inputmethod/ImeBackButtonInNavBarPreferenceController.kt
 @@ -0,0 +1,45 @@

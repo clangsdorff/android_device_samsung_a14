@@ -1,8 +1,8 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 567967a0075f67b9ad9abc59c544ef6c1c0f23ef Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 24 Oct 2026 23:57:57 +0300
-Subject: [PATCH] quickcontact: add a menu item to copy the contact to the sim
- card
+Subject: [PATCH 1/2] quickcontact: add a menu item to copy the contact to the
+ sim card
 
 contacts can import from the sim card through SimPhonebookContract, but
 there is no way to write an existing contact back to it. add a copy to
@@ -17,7 +17,7 @@ user pick a card on dual-sim devices, and writes the primary number.
  5 files changed, 134 insertions(+)
 
 diff --git a/res/menu/quickcontact.xml b/res/menu/quickcontact.xml
-index 7d87708..603fb52 100644
+index 7d87708b4bd0..603fb5256619 100644
 --- a/res/menu/quickcontact.xml
 +++ b/res/menu/quickcontact.xml
 @@ -46,6 +46,10 @@
@@ -32,7 +32,7 @@ index 7d87708..603fb52 100644
          android:id="@+id/menu_set_ringtone"
          android:title="@string/menu_set_ring_tone" />
 diff --git a/res/values-tr/strings.xml b/res/values-tr/strings.xml
-index 826c024..3ef7c85 100644
+index 826c0242f0d0..3ef7c8559875 100644
 --- a/res/values-tr/strings.xml
 +++ b/res/values-tr/strings.xml
 @@ -71,6 +71,10 @@
@@ -47,7 +47,7 @@ index 826c024..3ef7c85 100644
      <string name="menu_unredirect_calls_to_vm" msgid="2294919685954790892">"Yönlendirmeyi iptal et"</string>
      <string name="readOnlyContactWarning" msgid="4158660823025751201">"Bu kişi salt okunur. Kişi silinemez ancak gizlenebilir."</string>
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index fc24b10..7d45ed3 100644
+index fc24b1089e2c..7d45ed3742b9 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
 @@ -195,6 +195,18 @@
@@ -70,7 +70,7 @@ index fc24b10..7d45ed3 100644
      <string name="menu_redirect_calls_to_vm">Route to voicemail</string>
  
 diff --git a/src/com/android/contacts/database/SimContactDaoImpl.java b/src/com/android/contacts/database/SimContactDaoImpl.java
-index 54106f0..2c01a2e 100644
+index 54106f041930..2c01a2ee82fc 100644
 --- a/src/com/android/contacts/database/SimContactDaoImpl.java
 +++ b/src/com/android/contacts/database/SimContactDaoImpl.java
 @@ -19,6 +19,7 @@ import android.annotation.TargetApi;
@@ -144,7 +144,7 @@ index 54106f0..2c01a2e 100644
          SharedPreferenceUtil.persistSimStates(mContext, Collections.singletonList(sim));
      }
 diff --git a/src/com/android/contacts/quickcontact/QuickContactActivity.java b/src/com/android/contacts/quickcontact/QuickContactActivity.java
-index eeaf115..fd9dd0a 100644
+index eeaf1154ba19..fd9dd0adb633 100644
 --- a/src/com/android/contacts/quickcontact/QuickContactActivity.java
 +++ b/src/com/android/contacts/quickcontact/QuickContactActivity.java
 @@ -21,6 +21,7 @@ import android.accounts.Account;
