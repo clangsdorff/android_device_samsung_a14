@@ -50,3 +50,5 @@ genfscon sysfs /devices/virtual/sec/sec-ap-thermistor             u:object_r:sys
 genfscon sysfs /devices/virtual/sec/sec-lp-thermistor             u:object_r:sysfs_thermal:s0
 genfscon sysfs /devices/virtual/sec/sec-pa-thermistor             u:object_r:sysfs_thermal:s0
 genfscon sysfs /devices/virtual/sec/exynos_tmu                    u:object_r:sysfs_thermal:s0
+genfscon sysfs /devices/platform/13060000.decon_f u:object_r:sysfs_vendor_display:s0
+genfscon sysfs /devices/platform/panel_drv@0/backlight/panel u:object_r:sysfs_vendor_display:s0
