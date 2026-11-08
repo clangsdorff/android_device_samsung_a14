@@ -1,8 +1,6 @@
 # LineageOS 24 device tree for Samsung Galaxy A14 4G (SM-A145F)
 
 **Status**
-- Bring-up, not booting yet.
-- SELinux is permissive (`a14noavbp_defconfig`) until the vendor sepolicy is written.
 - HALs are the stock A145FXXSEDZF2 blobs.
 
 # Building
