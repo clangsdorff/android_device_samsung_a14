@@ -1,0 +1,72 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 8 Nov 2026 11:04:51 +0300
+Subject: [PATCH] power: send double tap to wake to the samsung sysinput hal
+
+the stock samsung power hal does nothing for the double tap mode, so
+the setting never reaches the touch ic. stock sends aot_enable to the
+sysinput hal as a tsp command. do the same whenever the setting
+changes, on a background thread since the hal may not be up yet.
+---
+ .../server/power/PowerManagerService.java     | 30 +++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/services/core/java/com/android/server/power/PowerManagerService.java b/services/core/java/com/android/server/power/PowerManagerService.java
+index 02ad3cd..9a320ae 100644
+--- a/services/core/java/com/android/server/power/PowerManagerService.java
++++ b/services/core/java/com/android/server/power/PowerManagerService.java
+@@ -102,7 +102,9 @@ import android.os.PowerManager.WakeReason;
+ import android.os.PowerManagerInternal;
+ import android.os.PowerSaveState;
+ import android.os.Process;
++import android.os.Parcel;
+ import android.os.RemoteException;
++import android.os.ServiceManager;
+ import android.os.ResultReceiver;
+ import android.os.ShellCallback;
+ import android.os.SystemClock;
+@@ -1766,6 +1768,33 @@ public final class PowerManagerService extends SystemService
+     }
+ 
+     @GuardedBy("mLock")
++    // the stock samsung power hal ignores the double tap mode, the touch ic takes it from the
++    // sysinput hal as a tsp command
++    private void setSamsungDoubleTapWake(boolean enabled) {
++        BackgroundThread.getHandler().post(() -> {
++            final String descriptor = "vendor.samsung.hardware.sysinput.ISehSysInputDev";
++            final String fqName = descriptor + "/default";
++            if (!ServiceManager.isDeclared(fqName)) return;
++            final Parcel data = Parcel.obtain();
++            final Parcel reply = Parcel.obtain();
++            try {
++                final IBinder sysinput =
++                        Binder.allowBlocking(ServiceManager.waitForDeclaredService(fqName));
++                data.writeInterfaceToken(descriptor);
++                data.writeInt(1);
++                data.writeInt(18);
++                data.writeString("aot_enable," + (enabled ? 1 : 0));
++                sysinput.transact(IBinder.FIRST_CALL_TRANSACTION + 6, data, reply, 0);
++                reply.readException();
++            } catch (RemoteException | RuntimeException e) {
++                Slog.w(TAG, "samsung sysinput double tap failed", e);
++            } finally {
++                data.recycle();
++                reply.recycle();
++            }
++        });
++    }
++
+     private void updateSettingsLocked() {
+         final ContentResolver resolver = mContext.getContentResolver();
+ 
+@@ -1806,6 +1835,7 @@ public final class PowerManagerService extends SystemService
+             if (doubleTapWakeEnabled != mDoubleTapWakeEnabled) {
+                 mDoubleTapWakeEnabled = doubleTapWakeEnabled;
+                 mNativeWrapper.nativeSetPowerMode(Mode.DOUBLE_TAP_TO_WAKE, mDoubleTapWakeEnabled);
++                setSamsungDoubleTapWake(mDoubleTapWakeEnabled);
+             }
+         }
+ 
+-- 
+2.56.0
+
