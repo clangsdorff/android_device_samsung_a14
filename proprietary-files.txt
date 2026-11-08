@@ -406,8 +406,6 @@ vendor/lib64/libstagefright_foundation_vendor.so
 # Misc
 vendor/bin/cld
 vendor/bin/hcgcd
-vendor/bin/hw/android.hardware.dumpstate-service;MODULE_SUFFIX=_stock
-vendor/etc/init/dumpstate-default.rc:vendor/etc/init/dumpstate-default.samsung.rc
 vendor/bin/hw/vendor.samsung.hardware.sysinput-service
 vendor/bin/init.insmod.sh
 vendor/bin/iod
