@@ -148,3 +148,8 @@ bluetooth.profile.pbap.server.enabled=true
 bluetooth.profile.sap.server.enabled=true
 bluetooth.profile.ccp.server.enabled=false
 bluetooth.profile.vcp.controller.enabled=false
+
+# Vibrator
+ro.vendor.vibrator_hal.click_duration=20
+ro.vendor.vibrator_hal.tick_duration=10
+ro.vendor.vibrator_hal.texture_tick_duration=10
