@@ -1,0 +1,182 @@
+From 9be0734d9c7aae6f006eccb6ef2cfb4405990e97 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 9 Nov 2026 01:14:22 +0300
+Subject: [PATCH 11/11] display: port the stock auto brightness filtering
+
+without a display device config the debounces are never loaded and
+stay at -1, so every lux change moves the screen at once. the ambient
+horizons are hardcoded and the percentage hysteresis wakes up on any
+small change in the dark.
+
+load the debounces from config.xml, make the horizons configurable
+and add the absolute lux hysteresis tables that stock uses.
+---
+ core/res/res/values/config.xml                | 17 ++++++++
+ core/res/res/values/symbols.xml               |  6 +++
+ .../server/display/DisplayDeviceConfig.java   |  9 ++++
+ .../display/config/HysteresisLevels.java      | 42 ++++++++++++++++++-
+ 4 files changed, 73 insertions(+), 1 deletion(-)
+
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index a19202f..29cc462 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -1663,6 +1663,11 @@
+     <!-- Light sensor event rate in milliseconds for automatic brightness control. -->
+     <integer name="config_autoBrightnessLightSensorRate">250</integer>
+ 
++    <!-- Long and short ambient light horizons in milliseconds, used when there is no display
++         device config. -->
++    <integer name="config_autoBrightnessAmbientLightHorizonLong">10000</integer>
++    <integer name="config_autoBrightnessAmbientLightHorizonShort">2000</integer>
++
+     <!-- The maximum range of gamma adjustment possible using the screen
+          auto-brightness adjustment setting. -->
+     <fraction name="config_autoBrightnessAdjustmentMaxGamma">300%</fraction>
+@@ -1945,6 +1950,18 @@
+         <item>200</item>
+     </integer-array>
+ 
++    <!-- Absolute ambient hysteresis, maps the current lux to the lux that triggers a change.
++         When set these replace the percentage thresholds above. Input and output must have the
++         same length, input must be strictly increasing. -->
++    <integer-array name="config_HysteresisBrightInputLux">
++    </integer-array>
++    <integer-array name="config_HysteresisBrightOutputLux">
++    </integer-array>
++    <integer-array name="config_HysteresisDarkInputLux">
++    </integer-array>
++    <integer-array name="config_HysteresisDarkOutputLux">
++    </integer-array>
++
+     <!-- Array of screen brightness threshold values. This is used for determining hysteresis
+          constraint values by calculating the index to use for lookup and then setting the
+          constraint value to the corresponding value of the array. The new brightening hysteresis
+diff --git a/core/res/res/values/symbols.xml b/core/res/res/values/symbols.xml
+index f20a2b6..d41add6 100644
+--- a/core/res/res/values/symbols.xml
++++ b/core/res/res/values/symbols.xml
+@@ -2099,6 +2099,12 @@
+   <java-symbol type="array" name="config_ambientThresholdLevels" />
+   <java-symbol type="array" name="config_ambientBrighteningThresholds" />
+   <java-symbol type="array" name="config_ambientDarkeningThresholds" />
++  <java-symbol type="array" name="config_HysteresisBrightInputLux" />
++  <java-symbol type="array" name="config_HysteresisBrightOutputLux" />
++  <java-symbol type="array" name="config_HysteresisDarkInputLux" />
++  <java-symbol type="array" name="config_HysteresisDarkOutputLux" />
++  <java-symbol type="integer" name="config_autoBrightnessAmbientLightHorizonLong" />
++  <java-symbol type="integer" name="config_autoBrightnessAmbientLightHorizonShort" />
+   <java-symbol type="array" name="config_screenThresholdLevels" />
+   <java-symbol type="array" name="config_screenBrighteningThresholds" />
+   <java-symbol type="array" name="config_screenDarkeningThresholds" />
+diff --git a/services/core/java/com/android/server/display/DisplayDeviceConfig.java b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
+index f25b593..c0c9dfa 100644
+--- a/services/core/java/com/android/server/display/DisplayDeviceConfig.java
++++ b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
+@@ -2888,6 +2888,15 @@ public class DisplayDeviceConfig {
+     private void loadAutoBrightnessConfigsFromConfigXml() {
+         mDisplayBrightnessMapping = new DisplayBrightnessMappingConfig(mContext, mFlags,
+                 /* autoBrightnessConfig= */ null, getBacklightToBrightnessSpline());
++        // Idle must be loaded after interactive, it falls back to it.
++        loadAutoBrightnessBrighteningLightDebounce(/* autoBrightnessConfig= */ null);
++        loadAutoBrightnessDarkeningLightDebounce(/* autoBrightnessConfig= */ null);
++        loadAutoBrightnessBrighteningLightDebounceIdle(/* autoBrightnessConfig= */ null);
++        loadAutoBrightnessDarkeningLightDebounceIdle(/* autoBrightnessConfig= */ null);
++        mAmbientHorizonLong = mContext.getResources().getInteger(
++                com.android.internal.R.integer.config_autoBrightnessAmbientLightHorizonLong);
++        mAmbientHorizonShort = mContext.getResources().getInteger(
++                com.android.internal.R.integer.config_autoBrightnessAmbientLightHorizonShort);
+     }
+ 
+     private void loadBrightnessChangeThresholdsFromXml() {
+diff --git a/services/core/java/com/android/server/display/config/HysteresisLevels.java b/services/core/java/com/android/server/display/config/HysteresisLevels.java
+index e659d88..6987b68 100644
+--- a/services/core/java/com/android/server/display/config/HysteresisLevels.java
++++ b/services/core/java/com/android/server/display/config/HysteresisLevels.java
+@@ -21,6 +21,7 @@ import android.annotation.Nullable;
+ import android.content.res.Resources;
+ import android.util.Pair;
+ import android.util.Slog;
++import android.util.Spline;
+ 
+ import com.android.internal.annotations.VisibleForTesting;
+ import com.android.server.display.utils.DebugUtils;
+@@ -95,6 +96,10 @@ public class HysteresisLevels {
+      */
+     private final float mMinBrightening;
+ 
++    // Absolute lux thresholds, these replace the percentages when set.
++    @Nullable private Spline mBrighteningLuxSpline;
++    @Nullable private Spline mDarkeningLuxSpline;
++
+     /**
+      * Creates a {@code HysteresisLevels} object with the given equal-length
+      * float arrays.
+@@ -132,6 +137,10 @@ public class HysteresisLevels {
+      * Return the brightening hysteresis threshold for the given value level.
+      */
+     public float getBrighteningThreshold(float value) {
++        if (mBrighteningLuxSpline != null) {
++            return Math.round(mBrighteningLuxSpline.interpolate(value));
++        }
++
+         final float brightConstant = getReferenceLevel(value,
+                 mBrighteningThresholdLevels, mBrighteningThresholdsPercentages);
+ 
+@@ -149,6 +158,10 @@ public class HysteresisLevels {
+      * Return the darkening hysteresis threshold for the given value level.
+      */
+     public float getDarkeningThreshold(float value) {
++        if (mDarkeningLuxSpline != null) {
++            return Math.max(Math.round(mDarkeningLuxSpline.interpolate(value)), -1);
++        }
++
+         final float darkConstant = getReferenceLevel(value,
+                 mDarkeningThresholdLevels, mDarkeningThresholdsPercentages);
+         float darkThreshold = value * (1.0f - darkConstant);
+@@ -242,7 +255,7 @@ public class HysteresisLevels {
+      */
+     public static HysteresisLevels loadAmbientBrightnessConfig(
+             @Nullable DisplayConfiguration config, @Nullable Resources resources) {
+-        return createHysteresisLevels(
++        final HysteresisLevels levels = createHysteresisLevels(
+                 config == null ? null : config.getAmbientBrightnessChangeThresholds(),
+                 com.android.internal.R.array.config_ambientThresholdLevels,
+                 com.android.internal.R.array.config_ambientBrighteningThresholds,
+@@ -251,6 +264,33 @@ public class HysteresisLevels {
+                 DEFAULT_AMBIENT_BRIGHTENING_THRESHOLDS,
+                 DEFAULT_AMBIENT_DARKENING_THRESHOLDS,
+                 resources, /* potentialOldBrightnessScale= */ false);
++        if (config == null && resources != null) {
++            levels.mBrighteningLuxSpline = createLuxSpline(resources,
++                    com.android.internal.R.array.config_HysteresisBrightInputLux,
++                    com.android.internal.R.array.config_HysteresisBrightOutputLux);
++            levels.mDarkeningLuxSpline = createLuxSpline(resources,
++                    com.android.internal.R.array.config_HysteresisDarkInputLux,
++                    com.android.internal.R.array.config_HysteresisDarkOutputLux);
++        }
++        return levels;
++    }
++
++    @Nullable
++    private static Spline createLuxSpline(Resources resources, @ArrayRes int inputLux,
++            @ArrayRes int outputLux) {
++        final int[] input = resources.getIntArray(inputLux);
++        final int[] output = resources.getIntArray(outputLux);
++        if (input == null || output == null || input.length == 0
++                || input.length != output.length) {
++            return null;
++        }
++        final float[] x = new float[input.length];
++        final float[] y = new float[output.length];
++        for (int i = 0; i < input.length; i++) {
++            x[i] = input[i];
++            y[i] = output[i];
++        }
++        return Spline.createSpline(x, y);
+     }
+ 
+     /**
+-- 
+2.56.0
+
