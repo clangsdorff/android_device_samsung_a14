@@ -21,3 +21,5 @@ allow hal_camera_default efs_file:dir search;
 vndbinder_use(hal_camera_default)
 
 get_prop(hal_camera_default, vendor_samsung_build_prop)
+allow hal_camera_default app_efs_file:dir search;
+allow hal_camera_default app_efs_file:file r_file_perms;
