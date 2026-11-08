@@ -79,4 +79,7 @@
     <bool name="config_useDevInputEventForAudioJack">true</bool>
     <integer name="config_num_physical_slots">2</integer>
     <string name="config_deviceConfiguratorPackageName" translatable="false">com.google.android.gms</string>
+
+    <!-- HWC can't place a scaled wallpaper layer and falls back to GPU composition -->
+    <item name="config_wallpaperMaxScale" format="float" type="dimen">1</item>
 </resources>
