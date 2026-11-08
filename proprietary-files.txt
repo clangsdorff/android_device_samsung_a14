@@ -48,7 +48,6 @@ vendor/firmware/SoundBoosterParam.bin
 vendor/firmware/txse1.bin
 vendor/firmware/txse2.bin
 vendor/lib/hw/android.hardware.soundtrigger@2.0-impl.so
-vendor/lib/hw/audio.bluetooth.default.so:vendor/lib/hw/audio.bluetooth.erd3830.so;FIX_SONAME
 vendor/lib/hw/audio.primary.default.so
 vendor/lib/hw/audio.primary.s5e3830.so
 vendor/lib/lib_SoundAlive_3DPosition_ver202.so
@@ -75,7 +74,6 @@ vendor/lib/soundfx/libswdap.so
 vendor/lib/soundfx/libswspatializer.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
 vendor/lib/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
-vendor/lib64/hw/audio.bluetooth.default.so:vendor/lib64/hw/audio.bluetooth.erd3830.so;FIX_SONAME
 vendor/lib64/hw/audio.primary.default.so
 vendor/lib64/hw/libsecaudiohal_aidl.so
 vendor/lib64/lib_SoundAlive_3DPosition_ver202.so
