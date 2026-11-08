@@ -287,10 +287,6 @@ vendor/lib64/libOpenCL.so;MODULE_SUFFIX=_stock
 vendor/lib64/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0.so
 
 # Health / Charger
-vendor/bin/hw/vendor.samsung.hardware.health-service
-vendor/etc/init/vendor.samsung.hardware.health-service.rc
-vendor/etc/vintf/manifest/vendor.samsung.hardware.health-service.xml
-vendor/lib64/vendor.samsung.hardware.health-V1-ndk.so
 
 # Keymint / Gatekeeper / TEE
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service

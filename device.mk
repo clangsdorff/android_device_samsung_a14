@@ -125,6 +125,11 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.usb.default
 
+# Health
+PRODUCT_PACKAGES += \
+    android.hardware.health-service.samsung \
+    android.hardware.health-service.samsung-recovery
+
 # NFC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf \
