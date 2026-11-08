@@ -11,3 +11,7 @@ set_prop(vendor_init, system_prop)
 dontaudit vendor_init system_data_file:dir create_dir_perms;
 allow vendor_init proc:file w_file_perms;
 allow vendor_init proc_hung_task:file w_file_perms;
+
+allow vendor_init taas_efs_file:dir { r_dir_perms setattr };
+allow vendor_init taas_efs_file:file { getattr setattr };
+allow vendor_init carrier_efs_file:dir { r_dir_perms setattr };

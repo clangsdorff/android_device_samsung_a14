@@ -20,3 +20,5 @@ allow hal_sysinput_default mnt_vendor_file:dir search;
 
 allow hal_sysinput_default efs_file:dir search;
 allow hal_sysinput_default input_device:dir r_dir_perms;
+allow hal_sysinput_default taas_efs_file:dir search;
+allow hal_sysinput_default taas_efs_file:file rw_file_perms;
