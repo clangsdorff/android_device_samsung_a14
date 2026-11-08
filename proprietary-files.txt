@@ -335,11 +335,8 @@ vendor/tee/driver/00000000-0000-0000-0000-494363447256
 vendor/tee/driver/00000000-0000-0000-0000-564c544b4456
 
 # Lights / Vibrator
-vendor/bin/hw/android.hardware.lights-service.samsung;MODULE_SUFFIX=_stock
 vendor/bin/hw/vendor.samsung.hardware.vibrator-service
-vendor/etc/init/lights-sec.rc
 vendor/etc/init/vendor.samsung.hardware.vibrator-default.rc
-vendor/etc/vintf/manifest/lights-sec.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.vibrator-default.xml
 vendor/lib64/vendor.samsung.hardware.vibrator-V5-ndk.so
 
