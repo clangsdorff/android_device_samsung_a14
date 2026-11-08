@@ -1,8 +1,8 @@
-From 5b78146073b8c64a1e832cfeeb75ffc5716cb801 Mon Sep 17 00:00:00 2001
+From 648907d78449f15ada20a31be6db7ca22a5ca20b Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Fri, 23 Oct 2026 00:41:48 +0300
-Subject: [PATCH 02/10] fingerprint: turn vendor reported sensor swipes into
- system navigation keys
+Subject: [PATCH 02/10] fingerprint: turn vendor reported sensor swipes into system
+ navigation keys
 
 samsung's fingerprint hal reports sensor swipes as vendor acquired
 codes instead of input events, so the swipe gesture never fires. arm
@@ -15,8 +15,8 @@ Change-Id: I642c73bd86e5484bb5a766653902c8a7ed9a9531
  .../fingerprint/aidl/AidlResponseHandler.java |   7 +-
  .../aidl/FingerprintNavigation.java           | 193 ++++++++++++++++++
  .../fingerprint/aidl/FingerprintProvider.java |   6 +
- .../aidl/SamsungFingerprintNavigation.java    |  68 ++++++
- 4 files changed, 272 insertions(+), 2 deletions(-)
+ .../aidl/SamsungFingerprintNavigation.java    |  65 ++++++
+ 4 files changed, 269 insertions(+), 2 deletions(-)
  create mode 100644 services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/FingerprintNavigation.java
  create mode 100644 services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/SamsungFingerprintNavigation.java
 
@@ -256,21 +256,19 @@ index bc8d477e49cd..246721882bff 100644
              processFingerprintForProfiles(sensorId);
 diff --git a/services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/SamsungFingerprintNavigation.java b/services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/SamsungFingerprintNavigation.java
 new file mode 100644
-index 000000000000..e7a6a7d293ee
+index 000000000000..69f869ec73f8
 --- /dev/null
 +++ b/services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/SamsungFingerprintNavigation.java
-@@ -0,0 +1,68 @@
+@@ -0,0 +1,65 @@
 +package com.android.server.biometrics.sensors.fingerprint.aidl;
 +
 +import android.annotation.NonNull;
 +import android.annotation.Nullable;
 +import android.os.IBinder;
 +import android.os.RemoteException;
-+import android.util.Slog;
 +import android.view.KeyEvent;
 +
 +import vendor.samsung.hardware.biometrics.fingerprint.ISehFingerprint;
-+import vendor.samsung.hardware.biometrics.fingerprint.SehResult;
 +
 +/** Samsung capacitive sensors, driven the way One UI's SemFpGestureManager does. */
 +final class SamsungFingerprintNavigation implements FingerprintNavigation.Backend {
@@ -324,10 +322,9 @@ index 000000000000..e7a6a7d293ee
 +    }
 +
 +    private void request(int command, int param) throws RemoteException {
-+        final SehResult result = mSeh.sehRequest(mSensorId, command, param, new byte[0]);
-+        Slog.d(TAG, "sehRequest(" + command + ", " + param + "): " + result.retValue);
++        mSeh.sehRequest(mSensorId, command, param, new byte[0]);
 +    }
 +}
 -- 
-2.56.0
+2.43.0
 
