@@ -1,0 +1,1 @@
+get_prop(secril_config_svc, vendor_samsung_build_prop)
