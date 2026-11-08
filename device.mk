@@ -117,9 +117,13 @@ $(call soong_config_set,samsungUsbGadgetVars,gadget_name,13600000.dwc3)
 
 # Audio
 PRODUCT_PACKAGES += \
+    android.hardware.audio.effect@6.0-impl \
     android.hardware.audio.service \
+    android.hardware.audio@6.0-impl \
     android.hardware.bluetooth.audio-impl \
-    audio.bluetooth.default
+    audio.bluetooth.default \
+    audio.r_submix.default \
+    audio.usb.default
 
 # NFC
 PRODUCT_COPY_FILES += \
