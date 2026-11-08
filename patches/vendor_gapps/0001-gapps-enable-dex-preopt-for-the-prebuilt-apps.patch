@@ -1,0 +1,169 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 8 Nov 2026 10:46:19 +0300
+Subject: [PATCH] gapps: enable dex preopt for the prebuilt apps
+
+the generated android_app_import modules set dex_preopt enabled to
+false, so none of the gapps apks get an odex at build time and they
+stay at verify after the first boot. turn preopt on so they are
+compiled with the device speed filter during the build.
+---
+ arm64/Android.bp  | 14 +++++++-------
+ common/Android.bp | 18 +++++++++---------
+ 2 files changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/arm64/Android.bp b/arm64/Android.bp
+index c800163..c739abc 100644
+--- a/arm64/Android.bp
++++ b/arm64/Android.bp
+@@ -11,7 +11,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     product_specific: true,
+ }
+@@ -23,7 +23,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     product_specific: true,
+@@ -37,7 +37,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     system_ext_specific: true,
+@@ -50,7 +50,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     product_specific: true,
+ }
+@@ -62,7 +62,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     product_specific: true,
+@@ -76,7 +76,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     product_specific: true,
+@@ -89,7 +89,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     product_specific: true,
+ }
+diff --git a/common/Android.bp b/common/Android.bp
+index f84d5a2..4ed4591 100644
+--- a/common/Android.bp
++++ b/common/Android.bp
+@@ -10,7 +10,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     product_specific: true,
+@@ -23,7 +23,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     product_specific: true,
+ }
+@@ -35,7 +35,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     product_specific: true,
+ }
+@@ -47,7 +47,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     system_ext_specific: true,
+@@ -60,7 +60,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     product_specific: true,
+@@ -73,7 +73,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     product_specific: true,
+@@ -86,7 +86,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     system_ext_specific: true,
+@@ -99,7 +99,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     product_specific: true,
+ }
+@@ -111,7 +111,7 @@ android_app_import {
+     preprocessed: true,
+     presigned: true,
+     dex_preopt: {
+-        enabled: false,
++        enabled: true,
+     },
+     privileged: true,
+     product_specific: true,
+-- 
+2.56.0
+
