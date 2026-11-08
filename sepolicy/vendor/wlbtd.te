@@ -15,3 +15,5 @@ allow wlbtd sysfs_wifi:dir r_dir_perms;
 allow wlbtd sysfs_wifi:file r_file_perms;
 
 set_prop(wlbtd, vendor_wlbtd_prop)
+
+allow wlbtd sysfs_wifi_writable:file getattr;
