@@ -3,5 +3,4 @@ allow hal_audio_default hal_system_suspend_service:service_manager find;
 
 # RIL multiclient socket (abstract: VND_Multiclient) and radio props
 allow hal_audio_default rild:unix_stream_socket connectto;
-get_prop(hal_audio_default, radio_prop)
 get_prop(hal_audio_default, vendor_radio_prop)
