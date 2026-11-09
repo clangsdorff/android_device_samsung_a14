@@ -1,0 +1,56 @@
+From f947c7b638f768bd28e8b2c98aa6ff27f98ce4fa Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 9 Nov 2026 22:47:47 +0300
+Subject: [PATCH] surfaceflinger: drop backpressure and latch all buffers
+ unsignaled
+
+when the previous frame's present fence has not fired yet,
+surfaceflinger drops the commit and retries on the next vsync, so one
+late present turns into a run of skipped frames. it also only latches
+a buffer whose acquire fence has not fired when a single layer updates,
+every other buffer slips a vsync while the gpu finishes. both are easy
+to hit on the exynos 850.
+
+never skip a commit for a pending frame and always latch unsignaled
+buffers, like the restlessos gsi does with all of its surfaceflinger
+toggles enabled.
+---
+ services/surfaceflinger/SurfaceFlinger.cpp | 15 +--------------
+ 1 file changed, 1 insertion(+), 14 deletions(-)
+
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 9128394..884255d 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -604,11 +604,7 @@ SurfaceFlinger::SurfaceFlinger(Factory& factory) : SurfaceFlinger(factory, SkipI
+ }
+ 
+ LatchUnsignaledConfig SurfaceFlinger::getLatchUnsignaledConfig() {
+-    if (base::GetBoolProperty("debug.sf.auto_latch_unsignaled"s, true)) {
+-        return LatchUnsignaledConfig::AutoSingleLayer;
+-    }
+-
+-    return LatchUnsignaledConfig::Disabled;
++    return LatchUnsignaledConfig::Always;
+ }
+ 
+ SurfaceFlinger::~SurfaceFlinger() = default;
+@@ -3066,15 +3062,6 @@ bool SurfaceFlinger::commit(PhysicalDisplayId pacesetterId,
+         }
+     }
+ 
+-    if (pacesetterFrameTargetPtr->wouldBackpressureHwc()) {
+-        if (mBackpressureGpuComposition || pacesetterFrameTargetPtr->didMissHwcFrame()) {
+-            mScheduler->getVsyncSchedule()->getTracker().onFrameMissed(
+-                    pacesetterFrameTargetPtr->expectedPresentTime());
+-            const Duration slack = TimePoint::now() - pacesetterFrameTargetPtr->frameBeginTime();
+-            scheduleCommit(FrameHint::kNone, slack);
+-            return false;
+-        }
+-    }
+     SFTRACE_NAME_FOR_TRACK(WorkloadTracer::TRACK_NAME, "Commit");
+     const Period vsyncPeriod = mScheduler->getVsyncSchedule()->period();
+ 
+-- 
+2.56.0
+

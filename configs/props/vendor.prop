@@ -79,7 +79,6 @@ ro.surface_flinger.has_wide_color_display=false
 ro.surface_flinger.has_HDR_display=false
 debug.sf.luma_sampling=0
 debug.sf.enable_gl_backpressure=false
-debug.sf.auto_latch_unsignaled=1
 debug.slsi_platform=1
 debug.hwc.winupdate=1
 ro.crypto.volume.filenames_mode=aes-256-cts
