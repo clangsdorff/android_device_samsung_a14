@@ -3,21 +3,21 @@
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-system  /system	 ext4   ro      wait,logical,first_stage_mount
-system  /system	 erofs  ro      wait,logical,first_stage_mount
-system  /system	 f2fs   ro      wait,logical,first_stage_mount
+system  /system	 ext4   ro      wait,logical,first_stage_mount,avb=vbmeta
+system  /system	 erofs  ro      wait,logical,first_stage_mount,avb=vbmeta
+system  /system	 f2fs   ro      wait,logical,first_stage_mount,avb=vbmeta
 
-vendor  /vendor	 ext4   ro      wait,logical,first_stage_mount
-vendor  /vendor  erofs  ro      wait,logical,first_stage_mount
-vendor  /vendor  f2fs   ro      wait,logical,first_stage_mount
+vendor  /vendor	 ext4   ro      wait,logical,first_stage_mount,avb
+vendor  /vendor  erofs  ro      wait,logical,first_stage_mount,avb
+vendor  /vendor  f2fs   ro      wait,logical,first_stage_mount,avb
 
-product /product         ext4   ro      wait,logical,first_stage_mount
-product /product         erofs  ro      wait,logical,first_stage_mount
-product /product         f2fs   ro      wait,logical,first_stage_mount
+product /product         ext4   ro      wait,logical,first_stage_mount,avb
+product /product         erofs  ro      wait,logical,first_stage_mount,avb
+product /product         f2fs   ro      wait,logical,first_stage_mount,avb
 
-odm     /odm     ext4   ro      wait,logical,first_stage_mount
-odm     /odm     erofs  ro      wait,logical,first_stage_mount
-odm     /odm     f2fs   ro      wait,logical,first_stage_mount
+odm     /odm     ext4   ro      wait,logical,first_stage_mount,avb
+odm     /odm     erofs  ro      wait,logical,first_stage_mount,avb
+odm     /odm     f2fs   ro      wait,logical,first_stage_mount,avb
 
 /dev/block/by-name/boot	/boot	emmc	defaults	first_stage_mount,formattable
 /dev/block/by-name/dtbo	/dtbo	emmc	defaults	first_stage_mount,formattable
