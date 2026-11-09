@@ -556,14 +556,12 @@ vendor/etc/sensors/hals.conf
 vendor/lib/libqfp_sensortest.so
 vendor/lib/libSamsungPostProcessConvertor.so
 vendor/lib/libsensorlistener.so
-vendor/lib/libsfp_sensor.so
 vendor/lib/libsynaFpSensorTestNwd.so;DISABLE_CHECKELF
 vendor/lib/sensors.grip.so
 vendor/lib/sensors.inputvirtual.so
 vendor/lib/sensors.sensorhub.so
 vendor/lib64/libqfp_sensortest.so
 vendor/lib64/libsensorlistener.so
-vendor/lib64/libsfp_sensor.so
 vendor/lib64/libsynaFpSensorTestNwd.so
 vendor/lib64/sensors.grip.so
 vendor/lib64/sensors.inputvirtual.so
@@ -665,6 +663,7 @@ vendor/etc/vintf/manifest/nfc-service-nxp.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.biometrics.fingerprint@3.0-service.xml
 vendor/lib/hw/fingerprint.default.so
 vendor/lib/libbauthserver.so
+vendor/lib/libbauthtzcommon.so
 vendor/lib/nfc_nci_nxpsn.so
 vendor/lib/vendor.samsung.hardware.biometrics.fingerprint@3.0.so
 vendor/lib/vendor.samsung.hardware.nfc_aidl-V1-ndk.so
