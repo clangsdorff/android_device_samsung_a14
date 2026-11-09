@@ -5,20 +5,6 @@
 //
 
 prebuilt_etc {
-    name: "fstab.s5e3830",
-    src: "fstab.s5e3830",
-    vendor: true,
-}
-
-prebuilt_root {
-    name: "fstab.s5e3830.vendor_ramdisk",
-    src: "fstab.s5e3830",
-    filename_from_src: true,
-    vendor_ramdisk: true,
-    install_in_root: true,
-}
-
-prebuilt_etc {
     name: "init.a14.rc",
     src: "init.a14.rc",
     sub_dir: "init",
