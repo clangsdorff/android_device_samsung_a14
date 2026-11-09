@@ -152,10 +152,34 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator-service.samsung
 
 # NFC
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)/nfc
+
+ifneq ($(TARGET_IS_A13),true)
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.vendor.nfc.feature.chipname=SLSI
+
+PRODUCT_PACKAGES += \
+    sec.android.hardware.nfc-service
+
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)/nfc/sec
+
+else
+PRODUCT_PACKAGES += \
+    android.hardware.nfc-service.nxp-samsung
+
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)/nfc/nxp
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/nfc/com.nxp.mifare.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/com.nxp.mifare.xml
+endif
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/nfc/libnfc-nci.conf:$(TARGET_COPY_OUT_PRODUCT)/etc/libnfc-nci.conf \
-    $(LOCAL_PATH)/sku/permissions/unavail.android.hardware.nfc.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_disabled/unavail.hardware.samsung.nfc.xml \
-    $(foreach f,android.hardware.nfc.xml android.hardware.nfc.hce.xml android.hardware.nfc.hcef.xml android.hardware.nfc.uicc.xml com.nxp.mifare.xml,\
+    $(LOCAL_PATH)/sku/permissions/unavail.android.hardware.nfc.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/sku_disabled/unavail.android.hardware.nfc.xml \
+    $(foreach f,android.hardware.nfc.xml android.hardware.nfc.hce.xml android.hardware.nfc.hcef.xml android.hardware.nfc.uicc.xml,\
         $(LOCAL_PATH)/configs/nfc/$(f):$(TARGET_COPY_OUT_ODM)/etc/permissions/$(f))
 
 # Overlays

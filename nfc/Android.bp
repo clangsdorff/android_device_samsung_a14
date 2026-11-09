@@ -1,0 +1,6 @@
+soong_namespace {}
+
+filegroup {
+    name: "android.hardware.nfc-service.xml",
+    srcs: ["android.hardware.nfc-service.xml"],
+}

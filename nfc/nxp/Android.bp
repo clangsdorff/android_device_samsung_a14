@@ -1,0 +1,31 @@
+soong_namespace {
+    imports: [
+        "device/samsung/a14/nfc",
+        "vendor/samsung/a13",
+    ],
+}
+
+cc_binary {
+    name: "android.hardware.nfc-service.nxp-samsung",
+    relative_install_path: "hw",
+    init_rc: ["nfc-service-nxp-samsung.rc"],
+    vintf_fragments: [":android.hardware.nfc-service.xml"],
+    vendor: true,
+    compile_multilib: "32",
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder_ndk",
+        "android.hardware.nfc-V1-ndk",
+        "nfc_nci_nxpsn",
+    ],
+    srcs: [
+        "nxp_nfc_service.cpp",
+    ],
+}
