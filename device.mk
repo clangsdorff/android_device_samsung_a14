@@ -59,15 +59,22 @@ TARGET_REQUIRES_HIDL_CAS_HAL := false
 TARGET_SCREEN_HEIGHT := 2408
 TARGET_SCREEN_WIDTH := 1080
 
+PRODUCT_PRODUCT_PROPERTIES += \
+    sys.brightness.disable_gamma_conversion=true
+
 # Attention
 PRODUCT_PACKAGES += \
     ScreenAttention
 
 # Init
 PRODUCT_PACKAGES += \
-    fstab.s5e3830 \
-    fstab.s5e3830.vendor_ramdisk \
     init.a14.rc
+
+ifneq ($(TARGET_IS_A13),true)
+PRODUCT_PACKAGES += \
+    fstab.s5e3830 \
+    fstab.s5e3830.vendor_ramdisk
+endif
 
 # Stock HAL dependencies
 PRODUCT_PACKAGES += \
@@ -171,9 +178,11 @@ PRODUCT_ENABLE_UFFD_GC := true
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 
 # Touchscreen firmware, requested before /vendor is mounted
+ifneq ($(TARGET_IS_A13),true)
 PRODUCT_COPY_FILES += \
     $(foreach f,ft8720_a14.bin ft8720_a14_ramtest.bin ili7807_a14.hex nt36672_a14_csot.bin nt36672_a14_csot_mp.bin nt36672_a14_tianma.bin nt36672_a14_tianma_mp.bin,\
         vendor/samsung/a14/proprietary/vendor/firmware/$(f):$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/$(f))
+endif
 
 # OTA
 AB_OTA_UPDATER := false
@@ -191,4 +200,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/samsung
 
 # Call the proprietary setup
+ifneq ($(TARGET_IS_A13),true)
 $(call inherit-product, vendor/samsung/a14/a14-vendor.mk)
+endif

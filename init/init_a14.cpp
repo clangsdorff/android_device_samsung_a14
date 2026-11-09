@@ -50,6 +50,15 @@ void set_ro_build_prop(const string &prop, const string &value, bool product = t
 void vendor_load_properties() {
     string model;
 
+    // The A13 port keeps the A14 identity
+    if (GetProperty("ro.boot.bootloader", "").rfind("A135F", 0) == 0) {
+        set_ro_build_prop("model", "SM-A145F");
+        set_ro_build_prop("device", "a14");
+        set_ro_build_prop("name", "a14nsxx");
+        property_override("ro.build.product", "a14");
+        return;
+    }
+
     model = GetProperty("ro.boot.product.model", "");
     if (model.empty()) {
         model = GetProperty("ro.boot.em.model", "");
