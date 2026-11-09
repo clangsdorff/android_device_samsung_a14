@@ -10,4 +10,3 @@ allow gpsd sysfs_soc:file r_file_perms;
 allow gpsd gpsd_exec:file { rx_file_perms execute_no_trans };
 
 allow gpsd system_data_file:dir search;
-dontaudit gpsd system_data_file:dir search;

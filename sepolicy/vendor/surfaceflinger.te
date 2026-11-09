@@ -10,3 +10,4 @@ get_prop(surfaceflinger, vendor_graphics_prop)
 get_prop(surfaceflinger, vendor_hwc_prop)
 
 dontaudit surfaceflinger shell_data_file:dir r_dir_perms;
+dontaudit surfaceflinger unlabeled:filesystem getattr;
