@@ -23,6 +23,7 @@
 
   <!-- Kernel -->
   <project name="langsdorffkernel" path="kernel/samsung/a14" remote="langsdorff" revision="main" clone-depth="1" />
+  <project name="langsdorffkernel-a13" path="kernel/samsung/a13" remote="langsdorff" revision="a13-port" clone-depth="1" />
 
   <!-- Kernel toolchain, same clang as the kernel CI -->
   <project name="clang-r450784d" path="prebuilts/clang/kernel/linux-x86/clang-r450784d" remote="gitlab-tejas101k" revision="master" clone-depth="1" />
