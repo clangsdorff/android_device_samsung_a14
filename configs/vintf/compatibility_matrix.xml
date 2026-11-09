@@ -80,5 +80,6 @@
     </hal>
     <system-sdk>
         <version>35</version>
+        <version>37</version>
     </system-sdk>
 </compatibility-matrix>
