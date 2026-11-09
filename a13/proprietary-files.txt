@@ -652,14 +652,14 @@ vendor/lib64/vendor.samsung.hardware.wifi.nan-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.wifi.supplicant-V1-ndk.so
 
 # A13
-vendor/bin/hw/android.hardware.nfc-service.nxp
+vendor/bin/hw/android.hardware.nfc-service.nxp:vendor/bin/hw/android.hardware.nfc-service.nxp-samsung
 vendor/bin/hw/vendor.samsung.hardware.biometrics.fingerprint@3.0-service
 vendor/etc/init/init.nfc.samsung.rc
-vendor/etc/init/nfc-service-nxp.rc
+vendor/etc/init/nfc-service-nxp.rc:vendor/etc/init/nfc-service-nxp-samsung.rc
 vendor/etc/init/vendor.samsung.hardware.biometrics.fingerprint@3.0-service.rc
 vendor/etc/libnfc-nxp.conf
 vendor/etc/nfc/libnfc-nxp_RF.conf
-vendor/etc/vintf/manifest/nfc-service-nxp.xml
+vendor/etc/vintf/manifest/nfc-service-nxp.xml:vendor/etc/vintf/manifest/nfc-service-nxp-samsung.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.biometrics.fingerprint@3.0-service.xml
 vendor/lib/hw/fingerprint.default.so
 vendor/lib/libbauthserver.so
