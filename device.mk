@@ -71,6 +71,9 @@ ifneq ($(TARGET_IS_A13),true)
 PRODUCT_PACKAGES += \
     fstab.s5e3830 \
     fstab.s5e3830.vendor_ramdisk
+
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)/configs/init/fstab
 endif
 
 # Stock HAL dependencies
