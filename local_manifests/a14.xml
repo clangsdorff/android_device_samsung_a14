@@ -19,6 +19,7 @@
 
   <!-- Vendor -->
   <project name="proprietary_vendor_samsung_a14" path="vendor/samsung/a14" remote="langsdorff" revision="dev" clone-depth="1" />
+  <project name="proprietary_vendor_samsung_a13" path="vendor/samsung/a13" remote="langsdorff" revision="dev" clone-depth="1" />
 
   <!-- Kernel -->
   <project name="langsdorffkernel" path="kernel/samsung/a14" remote="langsdorff" revision="main" clone-depth="1" />
