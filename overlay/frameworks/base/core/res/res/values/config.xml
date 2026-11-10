@@ -42,8 +42,8 @@
     <integer name="config_autoBrightnessDarkeningLightDebounce">2000</integer>
     <integer name="config_autoBrightnessAmbientLightHorizonLong">2500</integer>
     <integer name="config_autoBrightnessAmbientLightHorizonShort">600</integer>
-    <!-- minDelay of the light sensor -->
-    <integer name="config_autoBrightnessLightSensorRate">200</integer>
+    <integer name="config_autoBrightnessInitialLightSensorRate">50</integer>
+    <integer name="config_autoBrightnessLightSensorRate">250</integer>
     <integer name="config_autoBrightnessShortTermModelTimeout">600000</integer>
     <integer-array name="config_HysteresisBrightInputLux">
         <item>0</item>
