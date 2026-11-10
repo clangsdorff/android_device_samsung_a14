@@ -59,6 +59,9 @@ TARGET_REQUIRES_HIDL_CAS_HAL := false
 TARGET_SCREEN_HEIGHT := 2408
 TARGET_SCREEN_WIDTH := 1080
 
+PRODUCT_PRODUCT_PROPERTIES += \
+    sys.brightness.disable_gamma_conversion=true
+
 # Attention
 PRODUCT_PACKAGES += \
     ScreenAttention
