@@ -1,0 +1,79 @@
+From a18786c363f5ceab385776f0685a9421332e3062 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 10 Nov 2026 15:42:03 +0000
+Subject: [PATCH] virt: drop the bootclasspath fragment from the apex
+
+framework-virtualization is no longer declared as an apex boot jar, so
+soong rejects the fragment that still lists it as its contents. the
+apex is not installed on the device, so drop the fragment and its
+reference from the apex defaults.
+
+Change-Id: Ib2a096261650830f2acb42f813e74ffebb2934a4
+---
+ build/apex/Android.bp | 43 -------------------------------------------
+ 1 file changed, 43 deletions(-)
+
+diff --git a/build/apex/Android.bp b/build/apex/Android.bp
+index f24eb8000..412e8a24f 100644
+--- a/build/apex/Android.bp
++++ b/build/apex/Android.bp
+@@ -49,9 +49,6 @@ apex_defaults {
+ 
+     file_contexts: ":com.android.virt-file_contexts",
+ 
+-    bootclasspath_fragments: [
+-        "com.android.virt-bootclasspath-fragment",
+-    ],
+     jni_libs: [
+         "libvirtualizationservice_jni",
+         "libvirtualmachine_jni",
+@@ -342,46 +339,6 @@ python_binary_host {
+     ],
+ }
+ 
+-// Encapsulate the contributions made by the com.android.virt to the bootclasspath.
+-bootclasspath_fragment {
+-    name: "com.android.virt-bootclasspath-fragment",
+-    contents: ["framework-virtualization"],
+-    apex_available: ["com.android.virt"],
+-
+-    // The bootclasspath_fragments that provide APIs on which this depends.
+-    fragments: [
+-        {
+-            apex: "com.android.art",
+-            module: "art-bootclasspath-fragment",
+-        },
+-    ],
+-
+-    // Additional stubs libraries that this fragment's contents use which are
+-    // not provided by another bootclasspath_fragment.
+-    additional_stubs: [
+-        "android-non-updatable",
+-    ],
+-
+-    hidden_api: {
+-
+-        // This module does not contain any split packages.
+-        split_packages: [],
+-
+-        // The following packages and all their subpackages currently only
+-        // contain classes from this bootclasspath_fragment. Listing a package
+-        // here won't prevent other bootclasspath modules from adding classes in
+-        // any of those packages but it will prevent them from adding those
+-        // classes into an API surface, e.g. public, system, etc.. Doing so will
+-        // result in a build failure due to inconsistent flags.
+-        package_prefixes: [
+-            "android.system.virtualmachine",
+-            "android.system.virtualizationservice",
+-            // android.sysprop.*, renamed by jarjar
+-            "com.android.system.virtualmachine.sysprop",
+-        ],
+-    },
+-}
+-
+ systemserverclasspath_fragment {
+     name: "com.android.virt-systemserver-fragment",
+     contents: [
+-- 
+2.43.0
+

@@ -1,7 +1,7 @@
-From bcdf443e278032d92c9ff498e0805a0f1b443f14 Mon Sep 17 00:00:00 2001
+From e0973c1b1e96c73c518b0060c5240a4d0bc691f9 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 9 Nov 2026 01:19:10 +0300
-Subject: [PATCH 3/3] display: add an outdoor mode toggle under brightness
+Subject: [PATCH 3/5] display: add an outdoor mode toggle under brightness
 
 outdoor mode only lives in the livedisplay page, which has no entry
 in settings, so there is no way to reach it.
@@ -176,7 +176,7 @@ mode to outdoor or off.
  create mode 100644 src/com/android/settings/display/OutdoorModePreferenceController.java
 
 diff --git a/AndroidManifest.xml b/AndroidManifest.xml
-index e45bc1b..cf28704 100644
+index e45bc1b23bf..cf28704e093 100644
 --- a/AndroidManifest.xml
 +++ b/AndroidManifest.xml
 @@ -17,6 +17,7 @@
@@ -189,7 +189,7 @@ index e45bc1b..cf28704 100644
      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 diff --git a/res/values-ar/outdoor_mode_strings.xml b/res/values-ar/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..129be6d
+index 00000000000..129be6d6b06
 --- /dev/null
 +++ b/res/values-ar/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -204,7 +204,7 @@ index 0000000..129be6d
 +</resources>
 diff --git a/res/values-as/outdoor_mode_strings.xml b/res/values-as/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..b998d6c
+index 00000000000..b998d6c98fd
 --- /dev/null
 +++ b/res/values-as/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -219,7 +219,7 @@ index 0000000..b998d6c
 +</resources>
 diff --git a/res/values-az/outdoor_mode_strings.xml b/res/values-az/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..b7ab3a2
+index 00000000000..b7ab3a220f0
 --- /dev/null
 +++ b/res/values-az/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -234,7 +234,7 @@ index 0000000..b7ab3a2
 +</resources>
 diff --git a/res/values-b+sr+Latn/outdoor_mode_strings.xml b/res/values-b+sr+Latn/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..e84bce4
+index 00000000000..e84bce4c150
 --- /dev/null
 +++ b/res/values-b+sr+Latn/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -249,7 +249,7 @@ index 0000000..e84bce4
 +</resources>
 diff --git a/res/values-be/outdoor_mode_strings.xml b/res/values-be/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..d2f184d
+index 00000000000..d2f184d8c03
 --- /dev/null
 +++ b/res/values-be/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -264,7 +264,7 @@ index 0000000..d2f184d
 +</resources>
 diff --git a/res/values-bg/outdoor_mode_strings.xml b/res/values-bg/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..6ca9ad6
+index 00000000000..6ca9ad6e969
 --- /dev/null
 +++ b/res/values-bg/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -279,7 +279,7 @@ index 0000000..6ca9ad6
 +</resources>
 diff --git a/res/values-bn/outdoor_mode_strings.xml b/res/values-bn/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..b085b2a
+index 00000000000..b085b2a1a51
 --- /dev/null
 +++ b/res/values-bn/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -294,7 +294,7 @@ index 0000000..b085b2a
 +</resources>
 diff --git a/res/values-bs/outdoor_mode_strings.xml b/res/values-bs/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..d9fbb63
+index 00000000000..d9fbb632935
 --- /dev/null
 +++ b/res/values-bs/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -309,7 +309,7 @@ index 0000000..d9fbb63
 +</resources>
 diff --git a/res/values-ca/outdoor_mode_strings.xml b/res/values-ca/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..08ce7e3
+index 00000000000..08ce7e3bf96
 --- /dev/null
 +++ b/res/values-ca/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -324,7 +324,7 @@ index 0000000..08ce7e3
 +</resources>
 diff --git a/res/values-cs/outdoor_mode_strings.xml b/res/values-cs/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..b35d2b3
+index 00000000000..b35d2b37492
 --- /dev/null
 +++ b/res/values-cs/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -339,7 +339,7 @@ index 0000000..b35d2b3
 +</resources>
 diff --git a/res/values-da/outdoor_mode_strings.xml b/res/values-da/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..ed2c0fa
+index 00000000000..ed2c0faa3dc
 --- /dev/null
 +++ b/res/values-da/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -354,7 +354,7 @@ index 0000000..ed2c0fa
 +</resources>
 diff --git a/res/values-de/outdoor_mode_strings.xml b/res/values-de/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..799d24a
+index 00000000000..799d24ac8ab
 --- /dev/null
 +++ b/res/values-de/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -369,7 +369,7 @@ index 0000000..799d24a
 +</resources>
 diff --git a/res/values-el/outdoor_mode_strings.xml b/res/values-el/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..2ec5ede
+index 00000000000..2ec5ede9371
 --- /dev/null
 +++ b/res/values-el/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -384,7 +384,7 @@ index 0000000..2ec5ede
 +</resources>
 diff --git a/res/values-es-rUS/outdoor_mode_strings.xml b/res/values-es-rUS/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..0a8c027
+index 00000000000..0a8c0276f68
 --- /dev/null
 +++ b/res/values-es-rUS/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -399,7 +399,7 @@ index 0000000..0a8c027
 +</resources>
 diff --git a/res/values-es/outdoor_mode_strings.xml b/res/values-es/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..110088b
+index 00000000000..110088b114e
 --- /dev/null
 +++ b/res/values-es/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -414,7 +414,7 @@ index 0000000..110088b
 +</resources>
 diff --git a/res/values-et/outdoor_mode_strings.xml b/res/values-et/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..32bbf0e
+index 00000000000..32bbf0e0c05
 --- /dev/null
 +++ b/res/values-et/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -429,7 +429,7 @@ index 0000000..32bbf0e
 +</resources>
 diff --git a/res/values-eu/outdoor_mode_strings.xml b/res/values-eu/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..89e4a9b
+index 00000000000..89e4a9b7c71
 --- /dev/null
 +++ b/res/values-eu/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -444,7 +444,7 @@ index 0000000..89e4a9b
 +</resources>
 diff --git a/res/values-fa/outdoor_mode_strings.xml b/res/values-fa/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..14e78f0
+index 00000000000..14e78f057dd
 --- /dev/null
 +++ b/res/values-fa/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -459,7 +459,7 @@ index 0000000..14e78f0
 +</resources>
 diff --git a/res/values-fi/outdoor_mode_strings.xml b/res/values-fi/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..672410d
+index 00000000000..672410d7a9b
 --- /dev/null
 +++ b/res/values-fi/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -474,7 +474,7 @@ index 0000000..672410d
 +</resources>
 diff --git a/res/values-fr-rCA/outdoor_mode_strings.xml b/res/values-fr-rCA/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..4312929
+index 00000000000..43129292b7e
 --- /dev/null
 +++ b/res/values-fr-rCA/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -489,7 +489,7 @@ index 0000000..4312929
 +</resources>
 diff --git a/res/values-fr/outdoor_mode_strings.xml b/res/values-fr/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..4312929
+index 00000000000..43129292b7e
 --- /dev/null
 +++ b/res/values-fr/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -504,7 +504,7 @@ index 0000000..4312929
 +</resources>
 diff --git a/res/values-ga/outdoor_mode_strings.xml b/res/values-ga/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..01fb825
+index 00000000000..01fb825f5bf
 --- /dev/null
 +++ b/res/values-ga/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -519,7 +519,7 @@ index 0000000..01fb825
 +</resources>
 diff --git a/res/values-gl/outdoor_mode_strings.xml b/res/values-gl/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..2fe57f8
+index 00000000000..2fe57f8f09f
 --- /dev/null
 +++ b/res/values-gl/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -534,7 +534,7 @@ index 0000000..2fe57f8
 +</resources>
 diff --git a/res/values-gu/outdoor_mode_strings.xml b/res/values-gu/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..d957e6c
+index 00000000000..d957e6cd669
 --- /dev/null
 +++ b/res/values-gu/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -549,7 +549,7 @@ index 0000000..d957e6c
 +</resources>
 diff --git a/res/values-hi/outdoor_mode_strings.xml b/res/values-hi/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..47d2f44
+index 00000000000..47d2f442801
 --- /dev/null
 +++ b/res/values-hi/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -564,7 +564,7 @@ index 0000000..47d2f44
 +</resources>
 diff --git a/res/values-hr/outdoor_mode_strings.xml b/res/values-hr/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..5a6d29d
+index 00000000000..5a6d29d6743
 --- /dev/null
 +++ b/res/values-hr/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -579,7 +579,7 @@ index 0000000..5a6d29d
 +</resources>
 diff --git a/res/values-hu/outdoor_mode_strings.xml b/res/values-hu/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..c2cf382
+index 00000000000..c2cf382f4bf
 --- /dev/null
 +++ b/res/values-hu/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -594,7 +594,7 @@ index 0000000..c2cf382
 +</resources>
 diff --git a/res/values-hy/outdoor_mode_strings.xml b/res/values-hy/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..0f5afe8
+index 00000000000..0f5afe82cff
 --- /dev/null
 +++ b/res/values-hy/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -609,7 +609,7 @@ index 0000000..0f5afe8
 +</resources>
 diff --git a/res/values-in/outdoor_mode_strings.xml b/res/values-in/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..2e29ad5
+index 00000000000..2e29ad5be81
 --- /dev/null
 +++ b/res/values-in/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -624,7 +624,7 @@ index 0000000..2e29ad5
 +</resources>
 diff --git a/res/values-is/outdoor_mode_strings.xml b/res/values-is/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..3c5c307
+index 00000000000..3c5c307f841
 --- /dev/null
 +++ b/res/values-is/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -639,7 +639,7 @@ index 0000000..3c5c307
 +</resources>
 diff --git a/res/values-it/outdoor_mode_strings.xml b/res/values-it/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..f699f39
+index 00000000000..f699f39bb13
 --- /dev/null
 +++ b/res/values-it/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -654,7 +654,7 @@ index 0000000..f699f39
 +</resources>
 diff --git a/res/values-iw/outdoor_mode_strings.xml b/res/values-iw/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..9dbb247
+index 00000000000..9dbb24783cd
 --- /dev/null
 +++ b/res/values-iw/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -669,7 +669,7 @@ index 0000000..9dbb247
 +</resources>
 diff --git a/res/values-ja/outdoor_mode_strings.xml b/res/values-ja/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..a412b63
+index 00000000000..a412b63cc56
 --- /dev/null
 +++ b/res/values-ja/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -684,7 +684,7 @@ index 0000000..a412b63
 +</resources>
 diff --git a/res/values-ka/outdoor_mode_strings.xml b/res/values-ka/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..58cfb20
+index 00000000000..58cfb20cd78
 --- /dev/null
 +++ b/res/values-ka/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -699,7 +699,7 @@ index 0000000..58cfb20
 +</resources>
 diff --git a/res/values-kk/outdoor_mode_strings.xml b/res/values-kk/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..88e7b00
+index 00000000000..88e7b0084e3
 --- /dev/null
 +++ b/res/values-kk/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -714,7 +714,7 @@ index 0000000..88e7b00
 +</resources>
 diff --git a/res/values-km/outdoor_mode_strings.xml b/res/values-km/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..2daaf5e
+index 00000000000..2daaf5e758f
 --- /dev/null
 +++ b/res/values-km/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -729,7 +729,7 @@ index 0000000..2daaf5e
 +</resources>
 diff --git a/res/values-kn/outdoor_mode_strings.xml b/res/values-kn/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..163fa99
+index 00000000000..163fa99cb13
 --- /dev/null
 +++ b/res/values-kn/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -744,7 +744,7 @@ index 0000000..163fa99
 +</resources>
 diff --git a/res/values-ko/outdoor_mode_strings.xml b/res/values-ko/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..d7c1eaf
+index 00000000000..d7c1eaf5e9f
 --- /dev/null
 +++ b/res/values-ko/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -759,7 +759,7 @@ index 0000000..d7c1eaf
 +</resources>
 diff --git a/res/values-ky/outdoor_mode_strings.xml b/res/values-ky/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..a33c75a
+index 00000000000..a33c75a27e8
 --- /dev/null
 +++ b/res/values-ky/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -774,7 +774,7 @@ index 0000000..a33c75a
 +</resources>
 diff --git a/res/values-lo/outdoor_mode_strings.xml b/res/values-lo/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..34702a6
+index 00000000000..34702a69b59
 --- /dev/null
 +++ b/res/values-lo/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -789,7 +789,7 @@ index 0000000..34702a6
 +</resources>
 diff --git a/res/values-lt/outdoor_mode_strings.xml b/res/values-lt/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..ef67bd8
+index 00000000000..ef67bd8ca19
 --- /dev/null
 +++ b/res/values-lt/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -804,7 +804,7 @@ index 0000000..ef67bd8
 +</resources>
 diff --git a/res/values-lv/outdoor_mode_strings.xml b/res/values-lv/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..cdd3caa
+index 00000000000..cdd3caa452d
 --- /dev/null
 +++ b/res/values-lv/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -819,7 +819,7 @@ index 0000000..cdd3caa
 +</resources>
 diff --git a/res/values-mk/outdoor_mode_strings.xml b/res/values-mk/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..89342ad
+index 00000000000..89342ad2732
 --- /dev/null
 +++ b/res/values-mk/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -834,7 +834,7 @@ index 0000000..89342ad
 +</resources>
 diff --git a/res/values-ml/outdoor_mode_strings.xml b/res/values-ml/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..4990df8
+index 00000000000..4990df8babe
 --- /dev/null
 +++ b/res/values-ml/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -849,7 +849,7 @@ index 0000000..4990df8
 +</resources>
 diff --git a/res/values-mn/outdoor_mode_strings.xml b/res/values-mn/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..ad5b002
+index 00000000000..ad5b00200a7
 --- /dev/null
 +++ b/res/values-mn/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -864,7 +864,7 @@ index 0000000..ad5b002
 +</resources>
 diff --git a/res/values-mr/outdoor_mode_strings.xml b/res/values-mr/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..c3d97b2
+index 00000000000..c3d97b256d9
 --- /dev/null
 +++ b/res/values-mr/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -879,7 +879,7 @@ index 0000000..c3d97b2
 +</resources>
 diff --git a/res/values-ms/outdoor_mode_strings.xml b/res/values-ms/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..a4659f2
+index 00000000000..a4659f2b288
 --- /dev/null
 +++ b/res/values-ms/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -894,7 +894,7 @@ index 0000000..a4659f2
 +</resources>
 diff --git a/res/values-my/outdoor_mode_strings.xml b/res/values-my/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..f99f1c0
+index 00000000000..f99f1c032fd
 --- /dev/null
 +++ b/res/values-my/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -909,7 +909,7 @@ index 0000000..f99f1c0
 +</resources>
 diff --git a/res/values-nb/outdoor_mode_strings.xml b/res/values-nb/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..b01b12d
+index 00000000000..b01b12d6300
 --- /dev/null
 +++ b/res/values-nb/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -924,7 +924,7 @@ index 0000000..b01b12d
 +</resources>
 diff --git a/res/values-ne/outdoor_mode_strings.xml b/res/values-ne/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..fdc67f8
+index 00000000000..fdc67f8ad7d
 --- /dev/null
 +++ b/res/values-ne/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -939,7 +939,7 @@ index 0000000..fdc67f8
 +</resources>
 diff --git a/res/values-nl/outdoor_mode_strings.xml b/res/values-nl/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..6ea2bcf
+index 00000000000..6ea2bcf77db
 --- /dev/null
 +++ b/res/values-nl/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -954,7 +954,7 @@ index 0000000..6ea2bcf
 +</resources>
 diff --git a/res/values-or/outdoor_mode_strings.xml b/res/values-or/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..e1823d6
+index 00000000000..e1823d6ac8e
 --- /dev/null
 +++ b/res/values-or/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -969,7 +969,7 @@ index 0000000..e1823d6
 +</resources>
 diff --git a/res/values-pa/outdoor_mode_strings.xml b/res/values-pa/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..e17f4e0
+index 00000000000..e17f4e0b26f
 --- /dev/null
 +++ b/res/values-pa/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -984,7 +984,7 @@ index 0000000..e17f4e0
 +</resources>
 diff --git a/res/values-pl/outdoor_mode_strings.xml b/res/values-pl/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..10bee31
+index 00000000000..10bee31f0fa
 --- /dev/null
 +++ b/res/values-pl/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -999,7 +999,7 @@ index 0000000..10bee31
 +</resources>
 diff --git a/res/values-pt-rBR/outdoor_mode_strings.xml b/res/values-pt-rBR/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..c9d9e3a
+index 00000000000..c9d9e3a6661
 --- /dev/null
 +++ b/res/values-pt-rBR/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1014,7 +1014,7 @@ index 0000000..c9d9e3a
 +</resources>
 diff --git a/res/values-pt-rPT/outdoor_mode_strings.xml b/res/values-pt-rPT/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..1730da4
+index 00000000000..1730da45646
 --- /dev/null
 +++ b/res/values-pt-rPT/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1029,7 +1029,7 @@ index 0000000..1730da4
 +</resources>
 diff --git a/res/values-pt/outdoor_mode_strings.xml b/res/values-pt/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..c9d9e3a
+index 00000000000..c9d9e3a6661
 --- /dev/null
 +++ b/res/values-pt/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1044,7 +1044,7 @@ index 0000000..c9d9e3a
 +</resources>
 diff --git a/res/values-ro/outdoor_mode_strings.xml b/res/values-ro/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..4e66d29
+index 00000000000..4e66d29d7c2
 --- /dev/null
 +++ b/res/values-ro/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1059,7 +1059,7 @@ index 0000000..4e66d29
 +</resources>
 diff --git a/res/values-ru/outdoor_mode_strings.xml b/res/values-ru/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..f8aa228
+index 00000000000..f8aa2284eaa
 --- /dev/null
 +++ b/res/values-ru/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1074,7 +1074,7 @@ index 0000000..f8aa228
 +</resources>
 diff --git a/res/values-si/outdoor_mode_strings.xml b/res/values-si/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..4a13ee5
+index 00000000000..4a13ee56085
 --- /dev/null
 +++ b/res/values-si/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1089,7 +1089,7 @@ index 0000000..4a13ee5
 +</resources>
 diff --git a/res/values-sk/outdoor_mode_strings.xml b/res/values-sk/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..5c9c11a
+index 00000000000..5c9c11a678c
 --- /dev/null
 +++ b/res/values-sk/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1104,7 +1104,7 @@ index 0000000..5c9c11a
 +</resources>
 diff --git a/res/values-sl/outdoor_mode_strings.xml b/res/values-sl/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..3ee5ba9
+index 00000000000..3ee5ba970ff
 --- /dev/null
 +++ b/res/values-sl/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1119,7 +1119,7 @@ index 0000000..3ee5ba9
 +</resources>
 diff --git a/res/values-sq/outdoor_mode_strings.xml b/res/values-sq/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..c9d361a
+index 00000000000..c9d361ab072
 --- /dev/null
 +++ b/res/values-sq/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1134,7 +1134,7 @@ index 0000000..c9d361a
 +</resources>
 diff --git a/res/values-sr/outdoor_mode_strings.xml b/res/values-sr/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..5148b99
+index 00000000000..5148b993fe4
 --- /dev/null
 +++ b/res/values-sr/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1149,7 +1149,7 @@ index 0000000..5148b99
 +</resources>
 diff --git a/res/values-sv/outdoor_mode_strings.xml b/res/values-sv/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..f5e4a78
+index 00000000000..f5e4a78a5d4
 --- /dev/null
 +++ b/res/values-sv/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1164,7 +1164,7 @@ index 0000000..f5e4a78
 +</resources>
 diff --git a/res/values-ta/outdoor_mode_strings.xml b/res/values-ta/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..7456deb
+index 00000000000..7456deb4312
 --- /dev/null
 +++ b/res/values-ta/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1179,7 +1179,7 @@ index 0000000..7456deb
 +</resources>
 diff --git a/res/values-te/outdoor_mode_strings.xml b/res/values-te/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..edd8e97
+index 00000000000..edd8e976816
 --- /dev/null
 +++ b/res/values-te/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1194,7 +1194,7 @@ index 0000000..edd8e97
 +</resources>
 diff --git a/res/values-tg/outdoor_mode_strings.xml b/res/values-tg/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..6dfd27d
+index 00000000000..6dfd27dc3f9
 --- /dev/null
 +++ b/res/values-tg/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1209,7 +1209,7 @@ index 0000000..6dfd27d
 +</resources>
 diff --git a/res/values-th/outdoor_mode_strings.xml b/res/values-th/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..afabf31
+index 00000000000..afabf319860
 --- /dev/null
 +++ b/res/values-th/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1224,7 +1224,7 @@ index 0000000..afabf31
 +</resources>
 diff --git a/res/values-tk/outdoor_mode_strings.xml b/res/values-tk/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..af3c561
+index 00000000000..af3c561f4d8
 --- /dev/null
 +++ b/res/values-tk/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1239,7 +1239,7 @@ index 0000000..af3c561
 +</resources>
 diff --git a/res/values-tl/outdoor_mode_strings.xml b/res/values-tl/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..f24e5cc
+index 00000000000..f24e5cc9d22
 --- /dev/null
 +++ b/res/values-tl/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1254,7 +1254,7 @@ index 0000000..f24e5cc
 +</resources>
 diff --git a/res/values-tr/outdoor_mode_strings.xml b/res/values-tr/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..5179457
+index 00000000000..5179457a9e4
 --- /dev/null
 +++ b/res/values-tr/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1269,7 +1269,7 @@ index 0000000..5179457
 +</resources>
 diff --git a/res/values-uk/outdoor_mode_strings.xml b/res/values-uk/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..7d0a8a5
+index 00000000000..7d0a8a562a9
 --- /dev/null
 +++ b/res/values-uk/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1284,7 +1284,7 @@ index 0000000..7d0a8a5
 +</resources>
 diff --git a/res/values-ur/outdoor_mode_strings.xml b/res/values-ur/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..43d9ddf
+index 00000000000..43d9ddf31f2
 --- /dev/null
 +++ b/res/values-ur/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1299,7 +1299,7 @@ index 0000000..43d9ddf
 +</resources>
 diff --git a/res/values-uz/outdoor_mode_strings.xml b/res/values-uz/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..9af4091
+index 00000000000..9af4091d52a
 --- /dev/null
 +++ b/res/values-uz/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1314,7 +1314,7 @@ index 0000000..9af4091
 +</resources>
 diff --git a/res/values-vi/outdoor_mode_strings.xml b/res/values-vi/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..e0de664
+index 00000000000..e0de6641d5a
 --- /dev/null
 +++ b/res/values-vi/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1329,7 +1329,7 @@ index 0000000..e0de664
 +</resources>
 diff --git a/res/values-zh-rCN/outdoor_mode_strings.xml b/res/values-zh-rCN/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..6699d8f
+index 00000000000..6699d8f9c96
 --- /dev/null
 +++ b/res/values-zh-rCN/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1344,7 +1344,7 @@ index 0000000..6699d8f
 +</resources>
 diff --git a/res/values-zh-rHK/outdoor_mode_strings.xml b/res/values-zh-rHK/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..c86bb76
+index 00000000000..c86bb76df58
 --- /dev/null
 +++ b/res/values-zh-rHK/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1359,7 +1359,7 @@ index 0000000..c86bb76
 +</resources>
 diff --git a/res/values-zh-rTW/outdoor_mode_strings.xml b/res/values-zh-rTW/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..fe941d1
+index 00000000000..fe941d14da6
 --- /dev/null
 +++ b/res/values-zh-rTW/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1374,7 +1374,7 @@ index 0000000..fe941d1
 +</resources>
 diff --git a/res/values/outdoor_mode_strings.xml b/res/values/outdoor_mode_strings.xml
 new file mode 100644
-index 0000000..adf11aa
+index 00000000000..adf11aa0a6e
 --- /dev/null
 +++ b/res/values/outdoor_mode_strings.xml
 @@ -0,0 +1,9 @@
@@ -1388,7 +1388,7 @@ index 0000000..adf11aa
 +    <string name="outdoor_mode_summary">Make the screen brighter for outdoor viewing.</string>
 +</resources>
 diff --git a/res/xml/display_settings.xml b/res/xml/display_settings.xml
-index 65fddf3..3ff5799 100644
+index 65fddf3ae9f..3ff57996e84 100644
 --- a/res/xml/display_settings.xml
 +++ b/res/xml/display_settings.xml
 @@ -42,6 +42,13 @@
@@ -1407,7 +1407,7 @@ index 65fddf3..3ff5799 100644
              android:key="hdr_preference"
 diff --git a/src/com/android/settings/display/OutdoorModePreferenceController.java b/src/com/android/settings/display/OutdoorModePreferenceController.java
 new file mode 100644
-index 0000000..43b94f3
+index 00000000000..43b94f33927
 --- /dev/null
 +++ b/src/com/android/settings/display/OutdoorModePreferenceController.java
 @@ -0,0 +1,47 @@
@@ -1459,5 +1459,5 @@ index 0000000..43b94f3
 +    }
 +}
 -- 
-2.56.0
+2.43.0
 

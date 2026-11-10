@@ -1,7 +1,7 @@
-From d803441d0ec4a51044288006c6d1157f64b4ac2e Mon Sep 17 00:00:00 2001
+From f6a476c2af8b13b6e67d4851e631d3d88666720e Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 28 Oct 2026 23:02:29 +0300
-Subject: [PATCH 03/10] SystemUI: add a media chip to the status bar
+Subject: [PATCH 03/13] SystemUI: add a media chip to the status bar
 
 show the active media session as an ongoing activity chip, after the
 call, screen record and notification chips. the chip uses the app's
@@ -1174,5 +1174,5 @@ index 1f6d9549f7cf..0e234fc75dd0 100644
      }
  
 -- 
-2.56.0
+2.43.0
 

@@ -1,0 +1,66 @@
+From bdfbd71eb31cd209708b31ee35ece8a26a262dbf Mon Sep 17 00:00:00 2001
+From: "Christopher A. Williamson" <contact@chrisaw.io>
+Date: Tue, 10 Nov 2026 15:30:01 +0000
+Subject: [PATCH 2/2] release: disable the aiseal, npumanager and avf vm
+ features
+
+the exynos 850 has no npu the npumanager module can drive and no pkvm
+for the aiseal host service, the early boot vm or the llpvm system
+server jar, so they only add an apex, classpath jars and boot time
+work. turn their cp2a release flags off; the product and classpath
+wiring is gated on them.
+
+Change-Id: I17e42ac477467ae7d0e5c3ac33656732d8381cb1
+Co-authored-by: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+---
+ flag_values/cp2a/RELEASE_AISEAL_FRAMEWORK.textproto         | 2 +-
+ flag_values/cp2a/RELEASE_AVF_ENABLE_EARLY_VM.textproto      | 4 ++++
+ flag_values/cp2a/RELEASE_AVF_ENABLE_LLPVM_CHANGES.textproto | 4 ++++
+ flag_values/cp2a/RELEASE_NPUMANAGER_MODULE.textproto        | 2 +-
+ 4 files changed, 10 insertions(+), 2 deletions(-)
+ create mode 100644 flag_values/cp2a/RELEASE_AVF_ENABLE_EARLY_VM.textproto
+ create mode 100644 flag_values/cp2a/RELEASE_AVF_ENABLE_LLPVM_CHANGES.textproto
+
+diff --git a/flag_values/cp2a/RELEASE_AISEAL_FRAMEWORK.textproto b/flag_values/cp2a/RELEASE_AISEAL_FRAMEWORK.textproto
+index 5a8ac64fd..636f8c9f5 100644
+--- a/flag_values/cp2a/RELEASE_AISEAL_FRAMEWORK.textproto
++++ b/flag_values/cp2a/RELEASE_AISEAL_FRAMEWORK.textproto
+@@ -1,4 +1,4 @@
+ name: "RELEASE_AISEAL_FRAMEWORK"
+ value {
+-  bool_value: true
++  bool_value: false
+ }
+diff --git a/flag_values/cp2a/RELEASE_AVF_ENABLE_EARLY_VM.textproto b/flag_values/cp2a/RELEASE_AVF_ENABLE_EARLY_VM.textproto
+new file mode 100644
+index 000000000..be4e2095f
+--- /dev/null
++++ b/flag_values/cp2a/RELEASE_AVF_ENABLE_EARLY_VM.textproto
+@@ -0,0 +1,4 @@
++name: "RELEASE_AVF_ENABLE_EARLY_VM"
++value {
++  bool_value: false
++}
+diff --git a/flag_values/cp2a/RELEASE_AVF_ENABLE_LLPVM_CHANGES.textproto b/flag_values/cp2a/RELEASE_AVF_ENABLE_LLPVM_CHANGES.textproto
+new file mode 100644
+index 000000000..9242c5b23
+--- /dev/null
++++ b/flag_values/cp2a/RELEASE_AVF_ENABLE_LLPVM_CHANGES.textproto
+@@ -0,0 +1,4 @@
++name: "RELEASE_AVF_ENABLE_LLPVM_CHANGES"
++value {
++  bool_value: false
++}
+diff --git a/flag_values/cp2a/RELEASE_NPUMANAGER_MODULE.textproto b/flag_values/cp2a/RELEASE_NPUMANAGER_MODULE.textproto
+index 1b9f83809..faa845245 100644
+--- a/flag_values/cp2a/RELEASE_NPUMANAGER_MODULE.textproto
++++ b/flag_values/cp2a/RELEASE_NPUMANAGER_MODULE.textproto
+@@ -1,4 +1,4 @@
+ name: "RELEASE_NPUMANAGER_MODULE"
+ value {
+-  bool_value: true
++  bool_value: false
+ }
+-- 
+2.43.0
+

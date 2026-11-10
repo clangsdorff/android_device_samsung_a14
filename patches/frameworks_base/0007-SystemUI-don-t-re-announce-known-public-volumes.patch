@@ -1,7 +1,7 @@
-From bf6a3764524337fa5bfb0fc0baa1fd6b2d337e9d Mon Sep 17 00:00:00 2001
+From aac2a5acb009d7244a5608c100159e708d41b3c6 Mon Sep 17 00:00:00 2001
 From: Chara <bionichuman07@gmail.com>
 Date: Fri, 23 Oct 2026 15:44:38 -0700
-Subject: [PATCH 07/10] SystemUI: don't re-announce known public volumes
+Subject: [PATCH 07/13] SystemUI: don't re-announce known public volumes
 
 use persisted VolumeRecord creation times instead of shutdown
 preferences and a boot timeout. only records predating this boot
@@ -131,5 +131,5 @@ index fd5621e83c0a..383ad0261f22 100644
              && rec.getType() != VolumeInfo.TYPE_PRIVATE) {
              final CharSequence title = disk.getDescription();
 -- 
-2.56.0
+2.43.0
 

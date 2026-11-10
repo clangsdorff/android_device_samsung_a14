@@ -1,7 +1,7 @@
-From 8b06f0c52492b9acb8a04a17de2135c0658fd833 Mon Sep 17 00:00:00 2001
+From 95d7c98003b0d0177a4cab4edeab46d6bbb3f45a Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 7 Nov 2026 19:37:17 +0300
-Subject: [PATCH 08/10] settingsprovider: default screen attention and
+Subject: [PATCH 08/13] settingsprovider: default screen attention and
  fingerprint swipe on
 
 screen attention and the fingerprint swipe navigation gesture should be
@@ -12,10 +12,10 @@ settings database is initialized.
  1 file changed, 2 insertions(+)
 
 diff --git a/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java b/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
-index e057682d6d95..5e66edcbeadb 100644
+index dc2285f3eaee..3ebae08f676c 100644
 --- a/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
 +++ b/packages/SettingsProvider/src/com/android/providers/settings/DatabaseHelper.java
-@@ -2182,6 +2182,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
+@@ -2187,6 +2187,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                      "1".equals(SystemProperties.get("ro.allow.mock.location")) ? 1 : 0);
  
              loadSecure35Settings(stmt);
@@ -25,5 +25,5 @@ index e057682d6d95..5e66edcbeadb 100644
              loadBooleanSetting(stmt, Settings.Secure.MOUNT_PLAY_NOTIFICATION_SND,
                      R.bool.def_mount_play_notification_snd);
 -- 
-2.56.0
+2.43.0
 

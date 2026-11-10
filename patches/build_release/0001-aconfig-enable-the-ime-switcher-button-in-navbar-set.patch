@@ -1,7 +1,7 @@
-From 023f98b852c3664c80623ad3bdd45b152a6e266c Mon Sep 17 00:00:00 2001
+From 61de32c2b4ef2a401a0a45181bd6f965254cf72f Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Fri, 2 Oct 2026 21:17:53 +0300
-Subject: [PATCH] aconfig: enable the ime switcher button in navbar setting
+Subject: [PATCH 1/2] aconfig: enable the ime switcher button in navbar setting
 
 the keyboard settings switch that hides the ime language switcher button
 is already in settings and inputmethodmanagerservice, gated on
@@ -14,7 +14,7 @@ toggle is offered.
 
 diff --git a/aconfig/cp2a/android.view.inputmethod/ime_switcher_button_in_navbar_setting_flag_values.textproto b/aconfig/cp2a/android.view.inputmethod/ime_switcher_button_in_navbar_setting_flag_values.textproto
 new file mode 100644
-index 000000000000..266e8bd850fe
+index 000000000..266e8bd85
 --- /dev/null
 +++ b/aconfig/cp2a/android.view.inputmethod/ime_switcher_button_in_navbar_setting_flag_values.textproto
 @@ -0,0 +1,6 @@
@@ -25,5 +25,5 @@ index 000000000000..266e8bd850fe
 +  permission: READ_ONLY
 +}
 -- 
-2.56.0
+2.43.0
 
