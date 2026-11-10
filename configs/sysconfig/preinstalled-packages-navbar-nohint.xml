@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: 2026 Langsdorff
+    SPDX-License-Identifier: Apache-2.0
+-->
+<config>
+    <install-in-user-type package="com.android.internal.systemui.navbar.nohint">
+        <install-in user-type="FULL" />
+    </install-in-user-type>
+</config>

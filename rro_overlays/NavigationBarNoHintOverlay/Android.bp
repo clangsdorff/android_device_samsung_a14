@@ -1,0 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+
+runtime_resource_overlay {
+    name: "NavigationBarNoHintOverlay",
+    product_specific: true,
+}

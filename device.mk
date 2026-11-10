@@ -161,7 +161,11 @@ PRODUCT_ENFORCE_RRO_TARGETS += *
 
 PRODUCT_PACKAGES += \
     CarrierSettingsOverlay \
+    NavigationBarNoHintOverlay \
     WifiOverlay
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sysconfig/preinstalled-packages-navbar-nohint.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/preinstalled-packages-navbar-nohint.xml
 
 # Permissions
 PRODUCT_COPY_FILES += \

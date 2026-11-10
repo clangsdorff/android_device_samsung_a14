@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: 2026 Langsdorff
+    SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Also remove the space in apps that read the legacy navigation dimensions. -->
+    <dimen name="navigation_bar_height">0dp</dimen>
+    <dimen name="navigation_bar_height_landscape">0dp</dimen>
+</resources>
