@@ -93,7 +93,6 @@ DONT_DEXPREOPT_PREBUILTS := false
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_KERNEL_CONFIG := a14noavb_defconfig
-TARGET_KERNEL_CONFIG_EXT := $(DEVICE_PATH)/configs/kernel/lineage.config
 TARGET_KERNEL_CLANG_PATH := $(abspath prebuilts/clang/kernel/linux-x86/clang-r450784d)
 TARGET_KERNEL_SOURCE := kernel/samsung/a14
 
