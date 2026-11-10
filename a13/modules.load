@@ -25,7 +25,6 @@ sec_debug_mode.ko
 ems.ko
 zsmalloc.ko
 blk-sec-stats.ko
-ssg-iosched.ko
 phy-exynos-mipi-dsim.ko
 phy-exynos-mipi.ko
 phy-exynos-usbdrd-super.ko
