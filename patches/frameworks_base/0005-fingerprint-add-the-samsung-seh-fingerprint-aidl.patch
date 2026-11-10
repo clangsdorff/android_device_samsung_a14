@@ -1,7 +1,7 @@
 From bf776b4547b61a249fedae363d4f90561e15dd01 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 17:22:46 +0000
-Subject: [PATCH 05/13] fingerprint: add the samsung seh fingerprint aidl
+Subject: [PATCH 05/14] fingerprint: add the samsung seh fingerprint aidl
 
 the samsung fingerprint navigation backend imports ISehFingerprint
 and SehResult, but the framework has no java library for them, so
