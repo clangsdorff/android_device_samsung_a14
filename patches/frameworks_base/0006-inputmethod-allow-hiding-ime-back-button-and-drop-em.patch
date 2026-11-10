@@ -1,7 +1,7 @@
-From 8e872d7527f789eb6e4723f4f00a3e1b3a4657a6 Mon Sep 17 00:00:00 2001
+From 8e14b2189dfdfedcfa08d759074b45971753f0b0 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 3 Oct 2026 01:22:57 +0300
-Subject: [PATCH 06/10] inputmethod: allow hiding ime back button and drop
+Subject: [PATCH 06/13] inputmethod: allow hiding ime back button and drop
  empty ime nav bar
 
 add a secure setting to hide the ime back (dismiss) button in the ime
@@ -232,5 +232,5 @@ index 339645d692f4..13bcdbbabd96 100644
          pw.println(prefix + "mUserId=" + mUserId);
      }
 -- 
-2.56.0
+2.43.0
 

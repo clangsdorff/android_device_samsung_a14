@@ -1,0 +1,44 @@
+From 070cd1f6484ca67c230b48075f11e0e821bd10be Mon Sep 17 00:00:00 2001
+From: "Christopher A. Williamson" <contact@chrisaw.io>
+Date: Tue, 10 Nov 2026 15:25:40 +0000
+Subject: [PATCH] build: drop the virtualization apex from the system image
+
+the exynos 850 kernel has no pkvm, so com.android.virt only starts
+virtualizationservice and keeps a boot jar on the classpath for
+nothing. drop the apex from the base system packages along with its
+framework-virtualization boot jar.
+
+Change-Id: I1a32a6af8c655a6f267dd571179bc80b3f1efed7
+Co-authored-by: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+---
+ target/product/base_system.mk        | 1 -
+ target/product/default_art_config.mk | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/target/product/base_system.mk b/target/product/base_system.mk
+index 88aed43f03..b124055ad5 100644
+--- a/target/product/base_system.mk
++++ b/target/product/base_system.mk
+@@ -86,7 +86,6 @@ PRODUCT_PACKAGES += \
+     $(RELEASE_PACKAGE_TZDATA_MODULE) \
+     com.android.uprobestats \
+     com.android.uwb \
+-    com.android.virt \
+     com.android.wifi \
+     ContactsProvider \
+     content \
+diff --git a/target/product/default_art_config.mk b/target/product/default_art_config.mk
+index f5d5be30ef..fdefc31c8a 100644
+--- a/target/product/default_art_config.mk
++++ b/target/product/default_art_config.mk
+@@ -89,7 +89,6 @@ PRODUCT_APEX_BOOT_JARS := \
+     com.android.tethering:framework-connectivity-b \
+     com.android.tethering:framework-tethering \
+     com.android.uwb:framework-uwb \
+-    com.android.virt:framework-virtualization \
+     com.android.wifi:framework-wifi \
+ 
+ # When we release ondeviceintelligence in NeuralNetworks module
+-- 
+2.43.0
+

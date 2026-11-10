@@ -1,7 +1,7 @@
-From f947c7b638f768bd28e8b2c98aa6ff27f98ce4fa Mon Sep 17 00:00:00 2001
+From 0055e84f9ce128d8b7f073146ebab170275c5567 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 9 Nov 2026 22:47:47 +0300
-Subject: [PATCH] surfaceflinger: drop backpressure and latch all buffers
+Subject: [PATCH 1/2] surfaceflinger: drop backpressure and latch all buffers
  unsignaled
 
 when the previous frame's present fence has not fired yet,
@@ -19,7 +19,7 @@ toggles enabled.
  1 file changed, 1 insertion(+), 14 deletions(-)
 
 diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
-index 9128394..884255d 100644
+index 9128394aa1..884255da89 100644
 --- a/services/surfaceflinger/SurfaceFlinger.cpp
 +++ b/services/surfaceflinger/SurfaceFlinger.cpp
 @@ -604,11 +604,7 @@ SurfaceFlinger::SurfaceFlinger(Factory& factory) : SurfaceFlinger(factory, SkipI
@@ -52,5 +52,5 @@ index 9128394..884255d 100644
      const Period vsyncPeriod = mScheduler->getVsyncSchedule()->period();
  
 -- 
-2.56.0
+2.43.0
 

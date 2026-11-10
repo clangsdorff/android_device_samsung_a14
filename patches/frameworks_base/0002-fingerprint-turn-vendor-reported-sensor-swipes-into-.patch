@@ -1,8 +1,8 @@
-From 648907d78449f15ada20a31be6db7ca22a5ca20b Mon Sep 17 00:00:00 2001
+From 95c54b459854b775f9083006a080578c745373f4 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Fri, 23 Oct 2026 00:41:48 +0300
-Subject: [PATCH 02/10] fingerprint: turn vendor reported sensor swipes into system
- navigation keys
+Subject: [PATCH 02/13] fingerprint: turn vendor reported sensor swipes into
+ system navigation keys
 
 samsung's fingerprint hal reports sensor swipes as vendor acquired
 codes instead of input events, so the swipe gesture never fires. arm

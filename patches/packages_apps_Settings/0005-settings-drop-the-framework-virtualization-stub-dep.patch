@@ -1,0 +1,26 @@
+From b11151d8fea478d8bcccc0c6c740795f80e84ee2 Mon Sep 17 00:00:00 2001
+From: "Christopher A. Williamson" <contact@chrisaw.io>
+Date: Mon, 28 Sep 2026 16:59:35 +0100
+Subject: [PATCH 5/5] settings: drop the framework-virtualization stub dep
+
+the virtualization sources are removed from the gsi manifest sync;
+nothing in settings references the stubs any more.
+---
+ Android.bp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Android.bp b/Android.bp
+index 7f51f2e7c61..26db6981eea 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -148,7 +148,6 @@ android_library {
+     },
+ 
+     libs: [
+-        "framework-virtualization.stubs.system",
+         "telephony-common",
+         "ims-common",
+     ],
+-- 
+2.43.0
+
