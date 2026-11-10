@@ -1,7 +1,7 @@
 From 7e2565799165dee097dff7f68faea7c5d97fe201 Mon Sep 17 00:00:00 2001
 From: "Christopher A. Williamson" <contact@chrisaw.io>
 Date: Tue, 29 Sep 2026 12:44:36 +0100
-Subject: [PATCH 13/13] remove the aiseal and npu framework clients
+Subject: [PATCH 13/14] remove the aiseal and npu framework clients
 
 neither the aiseal host service nor the npu manager service exists on
 the gsi: both mainline modules are flag-disabled and their system

@@ -1,7 +1,7 @@
 From fab5ef5d1a7b44988111cf2720af8664bb336555 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 8 Nov 2026 11:04:51 +0300
-Subject: [PATCH 10/13] power: send double tap to wake to the samsung sysinput
+Subject: [PATCH 10/14] power: send double tap to wake to the samsung sysinput
  hal
 
 the stock samsung power hal does nothing for the double tap mode, so

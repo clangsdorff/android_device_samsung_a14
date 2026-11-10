@@ -1,7 +1,7 @@
 From 514a2302a3bff123d7ce35c6ad1a615176765609 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 16:34:34 +0000
-Subject: [PATCH 04/13] power: treat screen attention as user activity
+Subject: [PATCH 04/14] power: treat screen attention as user activity
 
 the attention check only ran 2 seconds before the screen dims and every
 extension counted towards the maximum extension, so the screen still

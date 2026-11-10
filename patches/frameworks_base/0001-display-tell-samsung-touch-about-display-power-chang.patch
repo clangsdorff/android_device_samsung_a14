@@ -1,7 +1,7 @@
 From 9475105f5b4688b307b27865cc4987206939b2fd Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 16:25:53 +0000
-Subject: [PATCH 01/13] display: tell samsung touch about display power changes
+Subject: [PATCH 01/14] display: tell samsung touch about display power changes
 
 in-cell samsung panels skip the backlight ic init while the touch ic
 holds the lcd rails, which leaves the screen black after a double tap
