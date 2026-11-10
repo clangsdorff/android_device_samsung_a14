@@ -5,6 +5,8 @@
 
 TARGET_IS_A13 := true
 
+DEVICE_PACKAGE_OVERLAYS += device/samsung/a14/a13/overlay
+
 $(call inherit-product, device/samsung/a14/device.mk)
 
 PRODUCT_COPY_FILES += \
