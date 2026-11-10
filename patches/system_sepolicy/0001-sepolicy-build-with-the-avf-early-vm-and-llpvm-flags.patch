@@ -1,0 +1,132 @@
+From 4c44f62fc7df5045f079d1edcdd9ec84090a8d56 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 10 Nov 2026 16:40:45 +0000
+Subject: [PATCH 1/1] sepolicy: build with the avf early vm and llpvm flags off
+
+the early_virtmgr and virtualization_maintenance_service types are
+declared behind RELEASE_AVF_ENABLE_EARLY_VM and
+RELEASE_AVF_ENABLE_LLPVM_CHANGES, but private policy, the neverallow
+exceptions and the compat mappings use them unconditionally, so
+turning the flags off breaks checkpolicy, the freeze test and the
+compat tests. declare the types and keep the neverallow exceptions
+unconditionally, also in the 202504 and 202604 prebuilts.
+
+Change-Id: I1100bbc7b12a61e8ddf6116802fb8b6d28f1e4e1
+---
+ prebuilts/api/202504/public/early_virtmgr.te | 12 +++++-------
+ prebuilts/api/202604/public/early_virtmgr.te | 12 +++++-------
+ private/crosvm.te                            |  2 +-
+ private/service.te                           |  4 +---
+ private/virtualizationmanager.te             |  4 ++--
+ public/early_virtmgr.te                      | 10 ++++------
+ 6 files changed, 18 insertions(+), 26 deletions(-)
+
+diff --git a/prebuilts/api/202504/public/early_virtmgr.te b/prebuilts/api/202504/public/early_virtmgr.te
+index 6caac1879..2d522bc2b 100644
+--- a/prebuilts/api/202504/public/early_virtmgr.te
++++ b/prebuilts/api/202504/public/early_virtmgr.te
+@@ -1,10 +1,8 @@
+-is_flag_enabled(RELEASE_AVF_ENABLE_EARLY_VM, `
+-    # Domain for a child process that manages early VMs available before /data mount, on behalf of
+-    # its parent.
+-    starting_at_board_api(202504, `
+-        type early_virtmgr, domain, coredomain;
+-        type early_virtmgr_exec, system_file_type, exec_type, file_type;
+-    ')
++# Domain for a child process that manages early VMs available before /data mount, on behalf of
++# its parent.
++starting_at_board_api(202504, `
++    type early_virtmgr, domain, coredomain;
++    type early_virtmgr_exec, system_file_type, exec_type, file_type;
+ ')
+ 
+ # system/sepolicy/public is for vendor-facing type and attribute definitions.
+diff --git a/prebuilts/api/202604/public/early_virtmgr.te b/prebuilts/api/202604/public/early_virtmgr.te
+index b2c2c17c8..d6a24ecbc 100644
+--- a/prebuilts/api/202604/public/early_virtmgr.te
++++ b/prebuilts/api/202604/public/early_virtmgr.te
+@@ -1,10 +1,8 @@
+-is_flag_enabled(RELEASE_AVF_ENABLE_EARLY_VM, `
+-    # Domain for a child process that manages early VMs available before /data mount, on behalf of
+-    # its parent.
+-    until_board_api(202604, `type early_virtmgr, domain, coredomain;')
+-    starting_at_board_api(202604, `type early_virtmgr_vendor, domain, coredomain, early_virtmgr_domain;')
+-    type early_virtmgr_exec, system_file_type, exec_type, file_type;
+-')
++# Domain for a child process that manages early VMs available before /data mount, on behalf of
++# its parent.
++until_board_api(202604, `type early_virtmgr, domain, coredomain;')
++starting_at_board_api(202604, `type early_virtmgr_vendor, domain, coredomain, early_virtmgr_domain;')
++type early_virtmgr_exec, system_file_type, exec_type, file_type;
+ 
+ # system/sepolicy/public is for vendor-facing type and attribute definitions.
+ # DO NOT ADD allow, neverallow, or dontaudit statements here.
+diff --git a/private/crosvm.te b/private/crosvm.te
+index 7e8006850..31d53888c 100644
+--- a/private/crosvm.te
++++ b/private/crosvm.te
+@@ -244,5 +244,5 @@ neverallow {
+   -vmlauncher_app
+   userdebug_or_eng(`-overlay_remounter')
+ 
+-  is_flag_enabled(RELEASE_AVF_ENABLE_EARLY_VM, `-early_virtmgr_domain')
++  -early_virtmgr_domain
+ } crosvm_exec:file no_x_file_perms;
+diff --git a/private/service.te b/private/service.te
+index 7e738f82c..a80df4f95 100644
+--- a/private/service.te
++++ b/private/service.te
+@@ -64,9 +64,7 @@ type accessor_trusty_keymint_secureclock_service, service_manager_type;
+ is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+     type vfio_handler_service,          service_manager_type;
+ ')
+-is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
+-    type virtualization_maintenance_service, service_manager_type;
+-')
++type virtualization_maintenance_service, service_manager_type;
+ is_flag_enabled(RELEASE_AVF_ENABLE_NETWORK, `
+     type vm_tethering_service, system_server_service, service_manager_type;
+     type vmnic_service,        service_manager_type;
+diff --git a/private/virtualizationmanager.te b/private/virtualizationmanager.te
+index 19baa3733..ccb59f1c1 100644
+--- a/private/virtualizationmanager.te
++++ b/private/virtualizationmanager.te
+@@ -106,7 +106,7 @@ neverallow {
+   -init
+   -dumpstate
+   userdebug_or_eng(`-virtualizationmanager_domain')
+-  is_flag_enabled(RELEASE_AVF_ENABLE_EARLY_VM, -early_virtmgr_domain)
++  -early_virtmgr_domain
+ } hypervisor_pvmfw_prop:file no_rw_file_perms;
+ 
+ # Allow virtualizationmanager_domain to be read custom virtualizationmanager_domain configuration
+@@ -117,7 +117,7 @@ neverallow {
+   -init
+   -dumpstate
+   userdebug_or_eng(`-virtualizationmanager_domain')
+-  is_flag_enabled(RELEASE_AVF_ENABLE_EARLY_VM, -early_virtmgr_domain)
++  -early_virtmgr_domain
+ } hypervisor_virtualizationmanager_prop:file no_rw_file_perms;
+ 
+ # Allow virtualizationmanager_domain service to talk to tombstoned to push guest ramdumps
+diff --git a/public/early_virtmgr.te b/public/early_virtmgr.te
+index 328069281..97996aae8 100644
+--- a/public/early_virtmgr.te
++++ b/public/early_virtmgr.te
+@@ -1,9 +1,7 @@
+-is_flag_enabled(RELEASE_AVF_ENABLE_EARLY_VM, `
+-    # Domain for a child process that manages early VMs available before /data mount, on behalf of
+-    # its parent.
+-    type early_virtmgr_vendor, domain, coredomain, early_virtmgr_domain;
+-    type early_virtmgr_exec, system_file_type, exec_type, file_type;
+-')
++# Domain for a child process that manages early VMs available before /data mount, on behalf of
++# its parent.
++type early_virtmgr_vendor, domain, coredomain, early_virtmgr_domain;
++type early_virtmgr_exec, system_file_type, exec_type, file_type;
+ 
+ # system/sepolicy/public is for vendor-facing type and attribute definitions.
+ # DO NOT ADD allow, neverallow, or dontaudit statements here.
+-- 
+2.43.0
+
