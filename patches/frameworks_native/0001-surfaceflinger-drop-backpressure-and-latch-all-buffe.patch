@@ -1,56 +1,46 @@
 From 0055e84f9ce128d8b7f073146ebab170275c5567 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 9 Nov 2026 22:47:47 +0300
-Subject: [PATCH 1/2] surfaceflinger: drop backpressure and latch all buffers
- unsignaled
+Subject: [PATCH 1/2] surfaceflinger: guard hwc backpressure and gate unsignaled
+ latching
 
 when the previous frame's present fence has not fired yet,
 surfaceflinger drops the commit and retries on the next vsync, so one
-late present turns into a run of skipped frames. it also only latches
-a buffer whose acquire fence has not fired when a single layer updates,
-every other buffer slips a vsync while the gpu finishes. both are easy
-to hit on the exynos 850.
+late present turns into a run of skipped frames. conversely, forcing
+unsignaled latching on multi-layer scenes floods the hwc with unrendered
+buffers, leading to present fence slippage and massive frame misses.
 
-never skip a commit for a pending frame and always latch unsignaled
-buffers, like the restlessos gsi does with all of its surfaceflinger
-toggles enabled.
+guard hwc backpressure behind debug.sf.enable_hwc_backpressure so commits
+are not dropped on transient present delays, and respect
+debug.sf.latch_unsignaled while defaulting to AutoSingleLayer.
 ---
- services/surfaceflinger/SurfaceFlinger.cpp | 15 +--------------
- 1 file changed, 1 insertion(+), 14 deletions(-)
+ services/surfaceflinger/SurfaceFlinger.cpp | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
 index 9128394aa1..884255da89 100644
 --- a/services/surfaceflinger/SurfaceFlinger.cpp
 +++ b/services/surfaceflinger/SurfaceFlinger.cpp
-@@ -604,11 +604,7 @@ SurfaceFlinger::SurfaceFlinger(Factory& factory) : SurfaceFlinger(factory, SkipI
+@@ -604,6 +604,10 @@ SurfaceFlinger::SurfaceFlinger(Factory& factory) : SurfaceFlinger(factory, SkipI
  }
  
  LatchUnsignaledConfig SurfaceFlinger::getLatchUnsignaledConfig() {
--    if (base::GetBoolProperty("debug.sf.auto_latch_unsignaled"s, true)) {
--        return LatchUnsignaledConfig::AutoSingleLayer;
--    }
--
--    return LatchUnsignaledConfig::Disabled;
-+    return LatchUnsignaledConfig::Always;
- }
- 
- SurfaceFlinger::~SurfaceFlinger() = default;
-@@ -3066,15 +3062,6 @@ bool SurfaceFlinger::commit(PhysicalDisplayId pacesetterId,
++    if (base::GetBoolProperty("debug.sf.latch_unsignaled"s, false)) {
++        return LatchUnsignaledConfig::Always;
++    }
++
+     if (base::GetBoolProperty("debug.sf.auto_latch_unsignaled"s, true)) {
+         return LatchUnsignaledConfig::AutoSingleLayer;
+     }
+@@ -3066,7 +3070,8 @@ bool SurfaceFlinger::commit(PhysicalDisplayId pacesetterId,
          }
      }
  
 -    if (pacesetterFrameTargetPtr->wouldBackpressureHwc()) {
--        if (mBackpressureGpuComposition || pacesetterFrameTargetPtr->didMissHwcFrame()) {
--            mScheduler->getVsyncSchedule()->getTracker().onFrameMissed(
--                    pacesetterFrameTargetPtr->expectedPresentTime());
--            const Duration slack = TimePoint::now() - pacesetterFrameTargetPtr->frameBeginTime();
--            scheduleCommit(FrameHint::kNone, slack);
--            return false;
--        }
--    }
-     SFTRACE_NAME_FOR_TRACK(WorkloadTracer::TRACK_NAME, "Commit");
-     const Period vsyncPeriod = mScheduler->getVsyncSchedule()->period();
- 
++    if (pacesetterFrameTargetPtr->wouldBackpressureHwc() &&
++            base::GetBoolProperty("debug.sf.enable_hwc_backpressure"s, false)) {
+         if (mBackpressureGpuComposition || pacesetterFrameTargetPtr->didMissHwcFrame()) {
+             mScheduler->getVsyncSchedule()->getTracker().onFrameMissed(
+                     pacesetterFrameTargetPtr->expectedPresentTime());
 -- 
 2.43.0
-
