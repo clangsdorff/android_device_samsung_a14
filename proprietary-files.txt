@@ -205,7 +205,6 @@ vendor/etc/gnss/deleteLogCommands
 vendor/etc/gnss/gps.cfg
 vendor/etc/gnss/gps.debug.cfg
 vendor/etc/gps_debug.conf
-vendor/etc/init/init.gps.rc
 vendor/lib/libwrappergps.so
 vendor/lib64/hw/android.hardware.gnss@2.1-impl.so;MODULE_SUFFIX=_stock;FIX_SONAME
 vendor/lib64/libwrappergps.so
@@ -301,11 +300,6 @@ vendor/tee/driver/00000000-0000-0000-0000-564c544b4456
 # Media / Codec2
 vendor/bin/hw/samsung.hardware.media.c2@1.2-service
 vendor/etc/init/samsung.hardware.media.c2@1.2-service.rc
-vendor/etc/media_codecs.xml
-vendor/etc/media_codecs_c2.xml
-vendor/etc/media_codecs_performance.xml
-vendor/etc/media_codecs_performance_c2.xml
-vendor/etc/media_profiles_V1_0.xml
 vendor/etc/seccomp_policy/codec2.vendor.base.policy
 vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 vendor/etc/seccomp_policy/mediaextractor_sec.policy
@@ -349,11 +343,7 @@ vendor/bin/init.insmod.sh
 vendor/bin/iod
 vendor/etc/dpolicy
 vendor/etc/floating_feature.xml
-vendor/etc/fstab.ramplus
 vendor/etc/init.insmod.s5e3830.cfg
-vendor/etc/init/init.baseband.rc
-vendor/etc/init/init.ramplus.rc
-vendor/etc/init/init.recovery.s5e3830.rc
 vendor/etc/init/init.s5e3830.rc
 vendor/etc/init/init.vendor.onebinary.rc
 vendor/etc/init/init.vendor.sysfw.rc
@@ -361,7 +351,6 @@ vendor/etc/init/vendor.samsung.hardware.sysinput-default.rc
 vendor/etc/mercury.json
 vendor/etc/permissions/vendor.samsung.hardware.telephony.cdma_excluded.xml
 vendor/etc/permissions/vendor.samsung.hardware.telephony.gsm.xml
-vendor/etc/public.libraries.txt
 vendor/etc/str/str_preference_data.dat
 vendor/etc/sysconfig/vendor-apex-allowlist.xml
 vendor/etc/ueventd.rc
@@ -501,7 +490,6 @@ vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 
 # RIL
 vendor/bin/hw/rild
-vendor/etc/init/init.vendor.rilcommon.rc
 vendor/etc/init/vendor.samsung.rilchip.slsi.rc
 vendor/etc/init/vendor.samsung.rild.rc
 vendor/etc/locale/plmn_delta_eng.bin
