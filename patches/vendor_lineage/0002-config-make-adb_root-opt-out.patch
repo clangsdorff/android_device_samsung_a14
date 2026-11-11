@@ -1,0 +1,29 @@
+From 346ff680e35e510161b3fb4db8004f9f15c37300 Mon Sep 17 00:00:00 2001
+From: fukiame <fukiame@proton.me>
+Date: Wed, 11 Nov 2026 22:26:14 +0300
+Subject: [PATCH 2/3] config: make adb_root opt-out
+
+Signed-off-by: fukiame <fukiame@proton.me>
+---
+ config/common.mk | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/config/common.mk b/config/common.mk
+index 6a273ad..9c26242 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -243,9 +243,11 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+     system/bin/procmem
+ endif
+ 
++ifneq ($(TARGET_EXCLUDE_ADB_ROOT),true)
+ # Root
+ PRODUCT_PACKAGES += \
+     adb_root
++endif
+ ifneq ($(TARGET_BUILD_VARIANT),user)
+ ifeq ($(WITH_SU),true)
+ PRODUCT_PACKAGES += \
+-- 
+2.56.0
+

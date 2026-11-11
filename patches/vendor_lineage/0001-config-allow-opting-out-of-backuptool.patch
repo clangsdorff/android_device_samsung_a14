@@ -1,0 +1,50 @@
+From 61852c17e5d232e6474bf43e39342c81b4e19e69 Mon Sep 17 00:00:00 2001
+From: fukiame <fukiame@proton.me>
+Date: Wed, 11 Nov 2026 22:26:14 +0300
+Subject: [PATCH 1/3] config: allow opting out of backuptool
+
+- as it currently is, backuptool is only used for /etc/hosts backups
+- nowadays, most users prefers systemless methods of modifying hosts,
+  such as Magisk systemless hosts
+- allow maintainers to opt out if they want to
+
+Change-Id: I808a7fabf896eeafd2ec83a2a3d23a557499783f
+Signed-off-by: fukiame <fukiame@proton.me>
+---
+ config/common.mk | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/config/common.mk b/config/common.mk
+index c3a9eed..6a273ad 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -48,6 +48,7 @@ PRODUCT_PRODUCT_PROPERTIES += persist.sys.strictmode.disable=true
+ endif
+ 
+ # Backup Tool
++ifneq ($(TARGET_SKIP_BACKUPTOOL),true)
+ PRODUCT_COPY_FILES += \
+     vendor/lineage/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+     vendor/lineage/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions
+@@ -57,8 +58,10 @@ PRODUCT_PACKAGES += \
+ 
+ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+     system/addon.d/50-lineage.sh
++endif
+ 
+ ifneq ($(strip $(AB_OTA_PARTITIONS) $(AB_OTA_POSTINSTALL_CONFIG)),)
++ifneq ($(TARGET_SKIP_BACKUPTOOL),true)
+ PRODUCT_COPY_FILES += \
+     vendor/lineage/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
+     vendor/lineage/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
+@@ -68,6 +71,7 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+     system/bin/backuptool_ab.sh \
+     system/bin/backuptool_ab.functions \
+     system/bin/backuptool_postinstall.sh
++endif
+ 
+ ifneq ($(TARGET_BUILD_VARIANT),user)
+ PRODUCT_PRODUCT_PROPERTIES += \
+-- 
+2.56.0
+
