@@ -1,0 +1,78 @@
+From 48ba2d16bf80c930b7f553e432d8c69954e36999 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Wed, 11 Nov 2026 22:46:22 +0300
+Subject: [PATCH] releasetools: build the non-ab ota package without a recovery
+
+the a13 keeps the stock recovery and sets TARGET_NO_RECOVERY, so the
+build drops the ota package and non_ab_ota refuses no_recovery
+targets. keep the package when recovery is disabled on purpose and
+skip the recovery image and recovery patch checks in the full ota.
+---
+ core/Makefile                    |  8 +++++---
+ tools/releasetools/non_ab_ota.py | 17 +++++++----------
+ 2 files changed, 12 insertions(+), 13 deletions(-)
+
+diff --git a/core/Makefile b/core/Makefile
+index 65c45cb..8848091 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -5889,9 +5889,11 @@ else
+         build_ota_package := false
+       endif
+     endif # INSTALLED_BOOTIMAGE_TARGET == ""
+-    ifeq ($(recovery_fstab),)
+-      ifeq ($(filter $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.fstab,$(INTERNAL_RECOVERYIMAGE_FILES)),)
+-        build_ota_package := false
++    ifneq ($(TARGET_NO_RECOVERY),true)
++      ifeq ($(recovery_fstab),)
++        ifeq ($(filter $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.fstab,$(INTERNAL_RECOVERYIMAGE_FILES)),)
++          build_ota_package := false
++        endif
+       endif
+     endif
+   endif # PRODUCT_BUILD_GENERIC_OTA_PACKAGE
+diff --git a/tools/releasetools/non_ab_ota.py b/tools/releasetools/non_ab_ota.py
+index 2d1075e..998b734 100644
+--- a/tools/releasetools/non_ab_ota.py
++++ b/tools/releasetools/non_ab_ota.py
+@@ -149,7 +149,8 @@ def WriteFullOTAPackage(input_zip, output_file):
+       metadata=metadata,
+       info_dict=OPTIONS.info_dict)
+ 
+-  assert HasRecoveryPatch(input_zip, info_dict=OPTIONS.info_dict)
++  no_recovery = OPTIONS.info_dict.get("no_recovery") == "true"
++  assert no_recovery or HasRecoveryPatch(input_zip, info_dict=OPTIONS.info_dict)
+ 
+   # Assertions (e.g. downgrade check, device properties check).
+   #ts = target_info.GetBuildProp("ro.build.date.utc")
+@@ -184,10 +185,11 @@ def WriteFullOTAPackage(input_zip, output_file):
+   #    complete script normally
+   #    (allow recovery to mark itself finished and reboot)
+ 
+-  recovery_img = common.GetBootableImage("recovery.img", "recovery.img",
+-                                         OPTIONS.input_tmp, "RECOVERY")
+-  common.CheckSize(recovery_img.data, "recovery.img", target_info)
+-  common.ZipWriteStr(output_zip, "recovery.img", recovery_img.data)
++  if not no_recovery:
++    recovery_img = common.GetBootableImage("recovery.img", "recovery.img",
++                                           OPTIONS.input_tmp, "RECOVERY")
++    common.CheckSize(recovery_img.data, "recovery.img", target_info)
++    common.ZipWriteStr(output_zip, "recovery.img", recovery_img.data)
+   if OPTIONS.two_step:
+     if not target_info.get("multistage_support"):
+       assert False, "two-step packages not supported by this build"
+@@ -573,11 +575,6 @@ endif;
+ 
+ def GenerateNonAbOtaPackage(target_file, output_file, source_file=None):
+   """Generates a non-A/B OTA package."""
+-  # Check the loaded info dicts first.
+-  if OPTIONS.info_dict.get("no_recovery") == "true":
+-    raise common.ExternalError(
+-        "--- target build has specified no recovery ---")
+-
+   # Non-A/B OTAs rely on /cache partition to store temporary files.
+   cache_size = OPTIONS.info_dict.get("cache_size")
+   if cache_size is None:
+-- 
+2.56.0
+
