@@ -78,6 +78,7 @@ ro.surface_flinger.use_color_management=false
 ro.surface_flinger.has_wide_color_display=false
 ro.surface_flinger.has_HDR_display=false
 debug.sf.enable_gl_backpressure=false
+debug.renderengine.vulkan=true
 debug.sf.use_phase_offsets_as_durations=1
 debug.sf.late.sf.duration=10500000
 debug.sf.late.app.duration=16600000
