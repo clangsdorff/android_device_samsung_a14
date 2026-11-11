@@ -68,7 +68,10 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_PACKAGES += \
-    init.a14.rc
+    init.a14.rc \
+    init.langsdorff.rc \
+    langsdorff-boot.sh \
+    resetprop
 
 ifneq ($(TARGET_IS_A13),true)
 PRODUCT_PACKAGES += \

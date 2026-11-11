@@ -1,0 +1,20 @@
+//
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_prebuilt_binary {
+    name: "resetprop",
+    srcs: ["resetprop"],
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+sh_binary {
+    name: "langsdorff-boot.sh",
+    src: "langsdorff-boot.sh",
+    vendor: true,
+}

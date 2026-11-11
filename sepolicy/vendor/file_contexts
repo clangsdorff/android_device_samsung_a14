@@ -75,3 +75,8 @@
 /efs/DAK/prov_data(/.*)?    u:object_r:keymaster_efs_file:s0
 /efs/taas(/.*)?             u:object_r:taas_efs_file:s0
 /efs/carrier(/.*)?          u:object_r:carrier_efs_file:s0
+
+# Langsdorff boot props
+/(vendor|system/vendor)/bin/resetprop                                                                u:object_r:vendor_toolbox_exec:s0
+/(vendor|system/vendor)/bin/langsdorff-boot\.sh                                                      u:object_r:vendor_file:s0
+/(vendor|system/vendor)/etc/init/init\.langsdorff\.rc                                                u:object_r:vendor_configs_file:s0
