@@ -22,8 +22,8 @@
   <project name="proprietary_vendor_samsung_a13" path="vendor/samsung/a13" remote="langsdorff" revision="dev" clone-depth="1" />
 
   <!-- Kernel -->
-  <project name="langsdorffkernel" path="kernel/samsung/a14" remote="langsdorff" revision="main" clone-depth="1" />
-  <project name="langsdorffkernel-a13" path="kernel/samsung/a13" remote="langsdorff" revision="a13-port" clone-depth="1" />
+  <project name="langsdorffkernel" path="kernel/samsung/a14" remote="langsdorff" revision="no-oc-root" clone-depth="1" />
+  <project name="langsdorffkernel-a13" path="kernel/samsung/a13" remote="langsdorff" revision="no-oc-root" clone-depth="1" />
 
   <!-- Kernel toolchain, same clang as the kernel CI -->
   <project name="clang-r450784d" path="prebuilts/clang/kernel/linux-x86/clang-r450784d" remote="gitlab-tejas101k" revision="master" clone-depth="1" />
@@ -34,5 +34,25 @@
 
   <!-- GApps -->
   <project name="vendor_gapps" path="vendor/gapps" remote="gitlab-mindthegapps" revision="cinnamonbun" clone-depth="1" />
+
+  <!-- Unused AOSP kernel/qemu prebuilts (6.6, 6.12, trusty/6.12 kept for Virtualization/trusty Android.bp) -->
+  <remove-project name="kernel/prebuilts/6.1/arm64" />
+  <remove-project name="kernel/prebuilts/6.1/x86-64" />
+  <remove-project name="kernel/prebuilts/6.18/arm64" />
+  <remove-project name="kernel/prebuilts/6.18/x86-64" />
+  <remove-project name="kernel/prebuilts/mainline/arm64" />
+  <remove-project name="kernel/prebuilts/mainline/x86-64" />
+  <remove-project name="kernel/prebuilts/common-modules/trusty/6.6/arm64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.1/arm64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.1/x86-64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.6/arm64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.6/x86-64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.12/arm64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.12/x86-64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.18/arm64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/6.18/x86-64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/mainline/arm64" />
+  <remove-project name="kernel/prebuilts/common-modules/virtual-device/mainline/x86-64" />
+  <remove-project name="platform/prebuilts/qemu-kernel" />
 
 </manifest>
