@@ -1,4 +1,4 @@
-From 138c5567c9cbc33ef83ad8ffbea3d808731aac9a Mon Sep 17 00:00:00 2001
+From 2e1d62b1affd1986fd554229edd38bb8547fd8e8 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 11 Nov 2026 22:46:22 +0300
 Subject: [PATCH 2/2] releasetools: build the non-ab ota package without a
@@ -10,12 +10,14 @@ targets. keep the package when recovery is disabled on purpose and
 skip the recovery image and recovery patch checks in the full ota.
 without a recovery ramdisk there is no fstab either and the script
 silently skips writing boot.img, so ship TARGET_RECOVERY_FSTAB in
-META and load it from there.
+META and load it from there. also honor the --backup value, since
+--backup=false still enabled backuptool.
 ---
- core/Makefile                    | 13 ++++++++++---
- tools/releasetools/common.py     |  5 +++++
- tools/releasetools/non_ab_ota.py | 17 +++++++----------
- 3 files changed, 22 insertions(+), 13 deletions(-)
+ core/Makefile                               | 13 ++++++++++---
+ tools/releasetools/common.py                |  5 +++++
+ tools/releasetools/non_ab_ota.py            | 17 +++++++----------
+ tools/releasetools/ota_from_target_files.py |  2 +-
+ 4 files changed, 23 insertions(+), 14 deletions(-)
 
 diff --git a/core/Makefile b/core/Makefile
 index 65c45cb835..86d9dee3cb 100644
@@ -106,6 +108,19 @@ index 2d1075eb81..998b734ce8 100644
    # Non-A/B OTAs rely on /cache partition to store temporary files.
    cache_size = OPTIONS.info_dict.get("cache_size")
    if cache_size is None:
+diff --git a/tools/releasetools/ota_from_target_files.py b/tools/releasetools/ota_from_target_files.py
+index aaace2b638..f83772786e 100755
+--- a/tools/releasetools/ota_from_target_files.py
++++ b/tools/releasetools/ota_from_target_files.py
+@@ -1230,7 +1230,7 @@ def main(argv):
+     elif o in ("-2", "--two_step"):
+       OPTIONS.two_step = True
+     elif o == "--backup":
+-      OPTIONS.backuptool = True
++      OPTIONS.backuptool = a.lower() == "true"
+     elif o == "--include_secondary":
+       OPTIONS.include_secondary = True
+     elif o == "--no_signing":
 -- 
 2.56.0
 
