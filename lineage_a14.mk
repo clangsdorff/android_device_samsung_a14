@@ -6,6 +6,10 @@
 # Inherit from device
 $(call inherit-product, device/samsung/a14/device.mk)
 
+TARGET_EXCLUDE_ADB_ROOT := true
+TARGET_EXCLUDE_LOS_EXTRA_CLI_UTILS := true
+TARGET_SKIP_BACKUPTOOL := true
+
 # Inherit some common Lineage stuff
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
