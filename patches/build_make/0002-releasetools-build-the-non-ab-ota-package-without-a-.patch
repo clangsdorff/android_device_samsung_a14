@@ -1,19 +1,24 @@
-From 48ba2d16bf80c930b7f553e432d8c69954e36999 Mon Sep 17 00:00:00 2001
+From 138c5567c9cbc33ef83ad8ffbea3d808731aac9a Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 11 Nov 2026 22:46:22 +0300
-Subject: [PATCH] releasetools: build the non-ab ota package without a recovery
+Subject: [PATCH 2/2] releasetools: build the non-ab ota package without a
+ recovery
 
 the a13 keeps the stock recovery and sets TARGET_NO_RECOVERY, so the
 build drops the ota package and non_ab_ota refuses no_recovery
 targets. keep the package when recovery is disabled on purpose and
 skip the recovery image and recovery patch checks in the full ota.
+without a recovery ramdisk there is no fstab either and the script
+silently skips writing boot.img, so ship TARGET_RECOVERY_FSTAB in
+META and load it from there.
 ---
- core/Makefile                    |  8 +++++---
+ core/Makefile                    | 13 ++++++++++---
+ tools/releasetools/common.py     |  5 +++++
  tools/releasetools/non_ab_ota.py | 17 +++++++----------
- 2 files changed, 12 insertions(+), 13 deletions(-)
+ 3 files changed, 22 insertions(+), 13 deletions(-)
 
 diff --git a/core/Makefile b/core/Makefile
-index 65c45cb..8848091 100644
+index 65c45cb835..86d9dee3cb 100644
 --- a/core/Makefile
 +++ b/core/Makefile
 @@ -5889,9 +5889,11 @@ else
@@ -31,8 +36,36 @@ index 65c45cb..8848091 100644
        endif
      endif
    endif # PRODUCT_BUILD_GENERIC_OTA_PACKAGE
+@@ -6975,6 +6977,11 @@ endif
+ 	$(hide) echo "$(PRODUCT_OTA_PUBLIC_KEYS)" > $(zip_root)/META/otakeys.txt
+ 	$(hide) cp $(SELINUX_FC) $(zip_root)/META/file_contexts.bin
+ 	$(hide) cp $(INSTALLED_MISC_INFO_TARGET) $(zip_root)/META/misc_info.txt
++ifeq ($(TARGET_NO_RECOVERY),true)
++ifneq ($(TARGET_RECOVERY_FSTAB),)
++	$(hide) cp $(TARGET_RECOVERY_FSTAB) $(zip_root)/META/recovery.fstab
++endif
++endif
+ ifneq ($(INSTALLED_FASTBOOT_INFO_TARGET),)
+ 	$(hide) cp $(INSTALLED_FASTBOOT_INFO_TARGET) $(zip_root)/META/fastboot-info.txt
+ endif
+diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
+index fef646f3ae..0c6058d0f4 100644
+--- a/tools/releasetools/common.py
++++ b/tools/releasetools/common.py
+@@ -1292,6 +1292,11 @@ def _FindAndLoadRecoveryFstab(info_dict, input_file, read_helper):
+     return LoadRecoveryFSTab(
+         read_helper, info_dict['fstab_version'], recovery_fstab_path)
+ 
++  if info_dict.get('no_recovery') == 'true' and \
++     DoesInputFileContain(input_file, 'META/recovery.fstab'):
++    return LoadRecoveryFSTab(
++        read_helper, info_dict['fstab_version'], 'META/recovery.fstab')
++
+   return None
+ 
+ 
 diff --git a/tools/releasetools/non_ab_ota.py b/tools/releasetools/non_ab_ota.py
-index 2d1075e..998b734 100644
+index 2d1075eb81..998b734ce8 100644
 --- a/tools/releasetools/non_ab_ota.py
 +++ b/tools/releasetools/non_ab_ota.py
 @@ -149,7 +149,8 @@ def WriteFullOTAPackage(input_zip, output_file):

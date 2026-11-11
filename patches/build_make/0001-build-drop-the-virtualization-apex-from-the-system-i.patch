@@ -1,7 +1,7 @@
-From 070cd1f6484ca67c230b48075f11e0e821bd10be Mon Sep 17 00:00:00 2001
+From e96b892c7f60b539b31e003062462c3a9ebe7456 Mon Sep 17 00:00:00 2001
 From: "Christopher A. Williamson" <contact@chrisaw.io>
 Date: Tue, 10 Nov 2026 15:25:40 +0000
-Subject: [PATCH] build: drop the virtualization apex from the system image
+Subject: [PATCH 1/2] build: drop the virtualization apex from the system image
 
 the exynos 850 kernel has no pkvm, so com.android.virt only starts
 virtualizationservice and keeps a boot jar on the classpath for
@@ -40,5 +40,5 @@ index f5d5be30ef..fdefc31c8a 100644
  
  # When we release ondeviceintelligence in NeuralNetworks module
 -- 
-2.43.0
+2.56.0
 
