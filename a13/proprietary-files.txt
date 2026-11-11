@@ -20,7 +20,6 @@ vendor/etc/init/secaudiohalaidl.rc
 vendor/etc/media_codecs_dolby_audio.xml
 vendor/etc/mixer_gains.xml
 vendor/etc/mixer_paths.xml
-vendor/etc/permissions/android.hardware.audio.low_latency.xml
 vendor/etc/r_submix_audio_policy_configuration.xml
 vendor/etc/sec_audio_volume_curve.xml
 vendor/etc/situation_audio_policy_volumes_sec.xml
@@ -87,8 +86,6 @@ vendor/bin/hw/android.hardware.bluetooth@1.0-service
 vendor/etc/init/android.hardware.bluetooth@1.0-service.rc:vendor/etc/init/android.hardware.bluetooth@1.0-service.samsung.rc
 vendor/etc/bluetooth/bt_did.conf
 vendor/etc/btcon.json
-vendor/etc/permissions/android.hardware.bluetooth.xml
-vendor/etc/permissions/android.hardware.bluetooth_le.xml
 vendor/lib/libbt-vendor.so;MODULE_SUFFIX=_stock
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl.so
 vendor/lib64/libbt-vendor.so;MODULE_SUFFIX=_stock
@@ -100,10 +97,6 @@ vendor/bin/hw/vendor.samsung.hardware.camera.provider-service_64
 vendor/etc/beauty/settings.dat
 vendor/etc/init/camera.unihal.rc
 vendor/etc/init/vendor.samsung.hardware.camera.provider-service_64.rc
-vendor/etc/permissions/android.hardware.camera.autofocus.xml
-vendor/etc/permissions/android.hardware.camera.flash-autofocus.xml
-vendor/etc/permissions/android.hardware.camera.front.xml
-vendor/etc/permissions/android.hardware.camera.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.camera.provider-service.xml
 vendor/firmware/dual_cal_wide_swide.bin
 vendor/firmware/is_lib.bin
@@ -209,7 +202,6 @@ vendor/etc/gnss/gps.debug.cfg
 vendor/etc/gps_debug.conf
 vendor/etc/init/init.gps.rc
 vendor/etc/init/vendor.samsung.hardware.gnss@2.1-service.rc
-vendor/etc/permissions/android.hardware.location.gps.xml
 vendor/lib/libwrappergps.so
 vendor/lib64/hw/android.hardware.gnss@2.1-impl.so;MODULE_SUFFIX=_stock;FIX_SONAME
 vendor/lib64/hw/vendor.samsung.hardware.gnss@2.1-impl.so;FIX_SONAME
@@ -226,12 +218,6 @@ vendor/etc/init/memtrack.rc:vendor/etc/init/memtrack.samsung.rc
 vendor/bin/hw/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service
 vendor/etc/init/android.hardware.graphics.allocator@4.0-service.rc
 vendor/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc
-vendor/etc/permissions/android.hardware.opengles.aep.xml
-vendor/etc/permissions/android.hardware.vulkan.compute.xml
-vendor/etc/permissions/android.hardware.vulkan.level.xml
-vendor/etc/permissions/android.hardware.vulkan.version.xml
-vendor/etc/permissions/android.software.opengles.deqp.level.xml
-vendor/etc/permissions/android.software.vulkan.deqp.level.xml
 vendor/lib/android.hardware.graphics.extension.composer3-V2-ndk.so
 vendor/lib/egl/libGLES_mali.so
 vendor/lib/hw/android.hardware.graphics.allocator@4.0-impl.so;MODULE_SUFFIX=_stock
@@ -276,7 +262,6 @@ vendor/bin/vendor.samsung.hardware.security.fkeymaster-service
 vendor/etc/init/pa_daemon_teegris.rc
 vendor/etc/init/teegris.rc
 vendor/etc/init/vendor.samsung.hardware.security.fkeymaster-service.rc
-vendor/etc/permissions/android.hardware.keystore.app_attest_key.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.security.fkeymaster-service.xml
 vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib/hw/gatekeeper.s5e3830.so
@@ -372,13 +357,6 @@ vendor/etc/init/init.vendor.onebinary.rc
 vendor/etc/init/init.vendor.sysfw.rc
 vendor/etc/init/vendor.samsung.hardware.sysinput-default.rc
 vendor/etc/mercury.json
-vendor/etc/permissions/android.hardware.telephony.satellite.xml
-vendor/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml
-vendor/etc/permissions/android.software.device_id_attestation.xml
-vendor/etc/permissions/android.software.ipsec_tunnels.xml
-vendor/etc/permissions/android.software.midi.xml
-vendor/etc/permissions/android.software.verified_boot.xml
-vendor/etc/permissions/handheld_core_hardware.xml
 vendor/etc/permissions/vendor.samsung.hardware.telephony.cdma_excluded.xml
 vendor/etc/permissions/vendor.samsung.hardware.telephony.gsm.xml
 vendor/etc/public.libraries.txt
@@ -546,12 +524,6 @@ vendor/lib64/vendor.samsung.hardware.radio.sim-V1-ndk.so
 # Sensors
 vendor/bin/hw/android.hardware.sensors-service.multihal:vendor/bin/hw/android.hardware.sensors-service.multihal.samsung
 vendor/etc/init/init.sensorhub.rc
-vendor/etc/permissions/android.hardware.sensor.accelerometer.xml
-vendor/etc/permissions/android.hardware.sensor.compass.xml
-vendor/etc/permissions/android.hardware.sensor.light.xml
-vendor/etc/permissions/android.hardware.sensor.proximity.xml
-vendor/etc/permissions/android.hardware.sensor.stepcounter.xml
-vendor/etc/permissions/android.hardware.sensor.stepdetector.xml
 vendor/etc/sensors/hals.conf
 vendor/lib/libqfp_sensortest.so
 vendor/lib/libSamsungPostProcessConvertor.so
@@ -577,8 +549,6 @@ vendor/firmware/nt36672_a14_tianma.bin
 vendor/firmware/nt36672_a14_tianma_mp.bin
 
 # USB
-vendor/etc/permissions/android.hardware.usb.accessory.xml
-vendor/etc/permissions/android.hardware.usb.host.xml
 
 # Wi-Fi
 vendor/bin/hw/android.hardware.wifi-service:vendor/bin/hw/android.hardware.wifi-service.samsung
@@ -600,9 +570,6 @@ vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml:vendor/etc/vintf/man
 vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml:vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.samsung.xml
 vendor/etc/init/wifi.rc
 vendor/etc/init/wifi_slsi_850.rc
-vendor/etc/permissions/android.hardware.wifi.direct.xml
-vendor/etc/permissions/android.hardware.wifi.passpoint.xml
-vendor/etc/permissions/android.hardware.wifi.xml
 vendor/etc/wifi/indoorchannel.info
 vendor/etc/wifi/p2p_supplicant_overlay.conf
 vendor/etc/wifi/wpa_supplicant.conf
