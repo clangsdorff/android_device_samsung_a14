@@ -135,6 +135,10 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.usb.default
 
+# GNSS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@2.1-service.samsung
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.samsung \

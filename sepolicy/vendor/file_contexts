@@ -23,6 +23,7 @@
 /sys/class/fingerprint(/.*)?                                                                        u:object_r:sysfs_fingerprint:s0
 
 # GNSS
+/(vendor|system/vendor)/bin/hw/android\.hardware\.gnss@2\.1-service\.samsung                          u:object_r:hal_gnss_default_exec:s0
 /(vendor|system/vendor)/bin/hw/gps\.sh                                                              u:object_r:gpsd_exec:s0
 /dev/gnss_ipc                                                                                       u:object_r:gnss_device:s0
 
