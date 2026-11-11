@@ -31,6 +31,11 @@
   <!-- Samsung -->
   <project name="android_device_samsung_slsi_sepolicy" path="device/samsung_slsi/sepolicy" remote="lineage-a14" />
   <project name="android_hardware_samsung" path="hardware/samsung" remote="lineage-a14" />
+  <project name="android_hardware_samsung_slsi-linaro_exynos" path="hardware/samsung_slsi-linaro/exynos" remote="lineage-a14" />
+  <project name="android_hardware_samsung_slsi-linaro_exynos5" path="hardware/samsung_slsi-linaro/exynos5" remote="lineage-a14" />
+  <project name="android_hardware_samsung_slsi-linaro_graphics" path="hardware/samsung_slsi-linaro/graphics" remote="lineage-a14" />
+  <project name="android_hardware_samsung_slsi-linaro_interfaces" path="hardware/samsung_slsi-linaro/interfaces" remote="lineage-a14" />
+  <project name="android_hardware_samsung_slsi-linaro_openmax" path="hardware/samsung_slsi-linaro/openmax" remote="lineage-a14" />
 
   <!-- GApps -->
   <project name="vendor_gapps" path="vendor/gapps" remote="gitlab-mindthegapps" revision="cinnamonbun" clone-depth="1" />

@@ -1,0 +1,53 @@
+From 7909515fbb6a6b2ec73be9e7fd514d3d78b36889 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Thu, 12 Nov 2026 01:06:06 +0300
+Subject: [PATCH] cpboot: never create or remove the nv files
+
+a missing nv file made cbd write a blank one into efs and remove it
+again on failure. the efs holds the modem calibration and identity, so
+keep cbd read only there and fail the boot stage instead.
+---
+ cpboot_v3/Util.cpp | 20 ++------------------
+ 1 file changed, 2 insertions(+), 18 deletions(-)
+
+diff --git a/cpboot_v3/Util.cpp b/cpboot_v3/Util.cpp
+index 115eb4e..edfe301 100644
+--- a/cpboot_v3/Util.cpp
++++ b/cpboot_v3/Util.cpp
+@@ -212,7 +212,6 @@ exit:
+ bool Util::getNvFd(enum cp_boot_mode mode, char *nv_path, int nv_size, int *nv_fd)
+ {
+ 	int fd = -1;
+-	int ret;
+ 
+ 	if (mode == CP_BOOT_MODE_NORMAL && nv_path[0]) {
+ 		fd = open(nv_path, O_RDONLY);
+@@ -222,23 +221,8 @@ bool Util::getNvFd(enum cp_boot_mode mode, char *nv_path, int nv_size, int *nv_f
+ 				return false;
+ 			}
+ 
+-			cbd_info("No NV(%s) file\n", nv_path);
+-
+-			if (Util::create_empty_nv(nv_path, nv_size) < 0) {
+-				cbd_info("ERR! create_empty_nv(%s, %d) fail\n", nv_path, nv_size);
+-
+-				ret = remove(nv_path);
+-				if (ret)
+-					cbd_err("ERR! NV(%s) remove fail\n", nv_path);
+-
+-				return false;
+-			}
+-
+-			fd = open(nv_path, O_RDONLY);
+-			if (fd < 0) {
+-				cbd_err("ERR! NV(%s) open fail\n", nv_path);
+-				return false;
+-			}
++			cbd_err("ERR! No NV(%s) file\n", nv_path);
++			return false;
+ 		}
+ 
+ 		cbd_info("NV(%s) opened (fd %d)\n", nv_path, fd);
+-- 
+2.56.0
+

@@ -152,6 +152,7 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    cbd \
     secril_config_svc
 
 # Sensors
@@ -246,7 +247,8 @@ PRODUCT_SHIPPING_API_LEVEL := $(BOARD_SHIPPING_API_LEVEL)
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/samsung
+    hardware/samsung \
+    hardware/samsung_slsi-linaro/exynos/cpboot_v3
 
 # Call the proprietary setup
 ifneq ($(TARGET_IS_A13),true)

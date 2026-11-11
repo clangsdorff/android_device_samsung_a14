@@ -4,7 +4,7 @@ set -e
 top=$(cd "$(dirname "$0")/../../../.." && pwd)
 dir=$(cd "$(dirname "$0")" && pwd)
 for p in "$dir"/*/; do
-    proj=$(basename "$p" | tr _ /)
+    proj=$(basename "$p" | tr _ / | sed 's|samsung/slsi|samsung_slsi|')
     for f in "$p"*.patch; do
         if git -C "$top/$proj" log -100 --format=%s | grep -qxF -- "$(git mailinfo /dev/null /dev/null < "$f" | sed -n 's/^Subject: //p')"; then
             echo "skip $proj $(basename "$f")"
