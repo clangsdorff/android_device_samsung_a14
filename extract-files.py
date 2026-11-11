@@ -59,8 +59,6 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('(?m)^ +interface vendor\\.samsung\\.hardware\\.bluetooth@2\\.0::ISehBluetooth default\\n', ''),
     'vendor/etc/init/android.hardware.security.keymint-service.samsung.rc': blob_fixup()
         .regex_replace('(?m)keymint-service$', 'keymint-service.samsung'),
-    'vendor/etc/init/android.hardware.sensors-service-multihal.samsung.rc': blob_fixup()
-        .regex_replace('(?m)multihal$', 'multihal.samsung'),
     'vendor/etc/init/android.hardware.wifi-service.samsung.rc': blob_fixup()
         .regex_replace('(?m)wifi-service$', 'wifi-service.samsung'),
     'vendor/etc/init/android.hardware.wifi.supplicant-service.samsung.rc': blob_fixup()

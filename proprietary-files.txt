@@ -540,7 +540,6 @@ vendor/lib64/vendor.samsung.hardware.radio.messaging-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.radio.sim-V1-ndk.so
 
 # Sensors
-vendor/bin/hw/android.hardware.sensors-service.multihal:vendor/bin/hw/android.hardware.sensors-service.multihal.samsung
 vendor/etc/init/init.sensorhub.rc
 vendor/etc/sensors/hals.conf
 vendor/lib/libqfp_sensortest.so
@@ -579,10 +578,8 @@ vendor/bin/slsi_wlan_udi_log_decode
 vendor/bin/wlbtd
 vendor/etc/init/android.hardware.wifi.supplicant-service.rc:vendor/etc/init/android.hardware.wifi.supplicant-service.samsung.rc
 vendor/etc/init/android.hardware.security.keymint-service.rc:vendor/etc/init/android.hardware.security.keymint-service.samsung.rc
-vendor/etc/init/android.hardware.sensors-service-multihal.rc:vendor/etc/init/android.hardware.sensors-service-multihal.samsung.rc
 vendor/etc/init/android.hardware.wifi-service.rc:vendor/etc/init/android.hardware.wifi-service.samsung.rc
 vendor/etc/init/hostapd.android.rc:vendor/etc/init/hostapd.android.samsung.rc
-vendor/etc/vintf/manifest/android.hardware.sensors-multihal.xml:vendor/etc/vintf/manifest/android.hardware.sensors-multihal.samsung.xml
 vendor/etc/vintf/manifest/android.hardware.wifi-service.xml:vendor/etc/vintf/manifest/android.hardware.wifi-service.samsung.xml
 vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml:vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.samsung.xml
 vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml:vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.samsung.xml

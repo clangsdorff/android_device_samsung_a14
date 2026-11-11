@@ -150,6 +150,10 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 PRODUCT_PACKAGES += \
     android.hardware.light-service.samsung
 
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors-service.samsung-multihal
+
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator-service.samsung
