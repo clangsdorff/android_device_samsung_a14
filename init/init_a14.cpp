@@ -47,8 +47,29 @@ void set_ro_build_prop(const string &prop, const string &value, bool product = t
     }
 }
 
+void spoof_boot_state() {
+    property_override("ro.boot.verifiedbootstate", "green");
+    property_override("vendor.boot.verifiedbootstate", "green");
+    property_override("ro.boot.vbmeta.device_state", "locked");
+    property_override("vendor.boot.vbmeta.device_state", "locked");
+    property_override("ro.boot.flash.locked", "1");
+    property_override("ro.boot.veritymode", "enforcing");
+    property_override("ro.boot.warranty_bit", "0");
+    property_override("ro.vendor.warranty_bit", "0");
+    property_override("ro.warranty_bit", "0");
+    property_override("sys.oem_unlock_allowed", "0");
+
+    string vendor_fp = GetProperty("ro.vendor.build.fingerprint", "");
+    if (!vendor_fp.empty()) {
+        property_override("ro.system.build.fingerprint", vendor_fp);
+        property_override("ro.bootimage.build.fingerprint", vendor_fp);
+    }
+}
+
 void vendor_load_properties() {
     string model;
+
+    spoof_boot_state();
 
     // The A13 port keeps the A14 identity
     if (GetProperty("ro.boot.bootloader", "").rfind("A135F", 0) == 0) {
