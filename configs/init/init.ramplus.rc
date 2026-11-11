@@ -1,0 +1,3 @@
+# RAM Plus
+on property:sys.boot_completed=1
+    swapon_all /vendor/etc/fstab.ramplus

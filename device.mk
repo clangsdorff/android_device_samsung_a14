@@ -70,6 +70,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.a14.rc
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init/fstab.ramplus:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.ramplus \
+    $(foreach f,init.baseband.rc init.gps.rc init.ramplus.rc init.recovery.s5e3830.rc init.vendor.rilcommon.rc,\
+        $(LOCAL_PATH)/configs/init/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/$(f))
+
+# Linker
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/linker/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+
+# Media
+PRODUCT_COPY_FILES += \
+    $(foreach f,media_codecs.xml media_codecs_c2.xml media_codecs_performance.xml media_codecs_performance_c2.xml media_profiles_V1_0.xml,\
+        $(LOCAL_PATH)/configs/media/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/$(f))
+
 ifneq ($(TARGET_IS_A13),true)
 PRODUCT_PACKAGES += \
     fstab.s5e3830 \
