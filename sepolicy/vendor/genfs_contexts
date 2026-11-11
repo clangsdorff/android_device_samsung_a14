@@ -53,7 +53,7 @@ genfscon sysfs /devices/virtual/sec/sec-pa-thermistor             u:object_r:sys
 genfscon sysfs /devices/virtual/sec/exynos_tmu                    u:object_r:sysfs_thermal:s0
 genfscon sysfs /devices/platform/13060000.decon_f u:object_r:sysfs_vendor_display:s0
 genfscon sysfs /devices/platform/panel_drv@0/backlight/panel u:object_r:sysfs_vendor_display:s0
-genfscon sysfs /devices/platform/14a50000.abox/service u:object_r:sysfs_abox_writable:s0
+genfscon sysfs /devices/platform/14a50000.abox                     u:object_r:sysfs_abox_writable:s0
 genfscon sysfs /devices/platform/14430000.exynos_is/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003c/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003d/wakeup u:object_r:sysfs_wakeup:s0
