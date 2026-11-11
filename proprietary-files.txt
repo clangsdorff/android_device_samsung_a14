@@ -508,7 +508,6 @@ vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 # RIL
 vendor/bin/cbd
 vendor/bin/hw/rild
-vendor/bin/secril_config_svc
 vendor/etc/init/init.vendor.rilcommon.rc
 vendor/etc/init/vendor.samsung.rilchip.slsi.rc
 vendor/etc/init/vendor.samsung.rild.rc
