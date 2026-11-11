@@ -341,7 +341,6 @@ vendor/lib64/libsomxcmn.so
 vendor/lib64/libstagefright_foundation_vendor.so
 
 # Misc
-vendor/bin/cld
 vendor/bin/hcgcd
 vendor/bin/hw/vendor.samsung.hardware.sysinput-service
 vendor/bin/init.insmod.sh
@@ -488,7 +487,6 @@ vendor/lib64/vendor.samsung.hardware.thermal-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 
 # RIL
-vendor/bin/cbd
 vendor/bin/hw/rild
 vendor/etc/init/init.vendor.rilcommon.rc
 vendor/etc/init/vendor.samsung.rilchip.slsi.rc

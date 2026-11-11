@@ -128,6 +128,9 @@ TARGET_NO_RADIOIMAGE := true
 # Init
 $(call soong_config_set,libinit,vendor_init_lib,//$(DEVICE_PATH):libinit_a14)
 
+# RIL
+$(call soong_config_set,cbd,protocol,sipc)
+
 # Properties
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/configs/props/vendor.prop
 
