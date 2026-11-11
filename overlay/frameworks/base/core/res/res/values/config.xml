@@ -44,6 +44,8 @@
     <integer name="config_autoBrightnessAmbientLightHorizonShort">600</integer>
     <!-- minDelay of the light sensor -->
     <integer name="config_autoBrightnessLightSensorRate">200</integer>
+    <!-- stock listens to the continuous cct sensor instead of the on-change light sensor -->
+    <string name="config_displayLightSensorType" translatable="false">com.samsung.sensor.light_cct</string>
     <integer name="config_autoBrightnessShortTermModelTimeout">600000</integer>
     <integer-array name="config_HysteresisBrightInputLux">
         <item>0</item>
