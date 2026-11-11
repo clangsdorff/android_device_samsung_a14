@@ -138,7 +138,13 @@ PRODUCT_PACKAGES += \
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-service.samsung \
-    android.hardware.health-service.samsung-recovery
+    android.hardware.health-service.samsung-recovery \
+    vendor.lineage.health-service.default
+
+$(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/batt_slate_mode)
+$(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
+$(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
 
 # Light
 PRODUCT_PACKAGES += \
