@@ -15,3 +15,4 @@ type sysfs_ksm, sysfs_type, fs_type;
 type keymaster_efs_file, file_type;
 type taas_efs_file, file_type;
 type carrier_efs_file, file_type;
+type sysfs_batt_slate, sysfs_type, rw_fs_type, fs_type;

@@ -32,6 +32,7 @@ genfscon sysfs /devices/platform/17000050.devfreq_aud                u:object_r:
 # PMIC / Battery
 genfscon sysfs /devices/platform/13830000.i2c                     u:object_r:sysfs_battery:s0
 genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003c/typec  u:object_r:sysfs_typec:s0
+genfscon sysfs /devices/platform/samsung_mobile_device/samsung_mobile_device:battery/power_supply/battery/batt_slate_mode u:object_r:sysfs_batt_slate:s0
 
 # Suspend / Wakeup
 genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003c/power_supply/usbpd-manager/wakeup u:object_r:sysfs_wakeup:s0
