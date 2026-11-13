@@ -112,7 +112,6 @@ ro.hardware.keystore_desede=true
 ro.security.keystore.keytype=gak,rkp
 ro.config.vc_call_vol_steps=8
 ro.config.systemaudiodebug=abox
-ro.vendor.nfc.feature.chipname=SLSI
 ro.vendor.nfc.support.advancedsetting=false
 ro.vendor.nfc.support.autoselect=true
 ro.vendor.nfc.support.defaultaid=true
