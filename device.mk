@@ -167,6 +167,10 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 PRODUCT_PACKAGES += \
     android.hardware.light-service.samsung
 
+# Memtrack
+PRODUCT_PACKAGES += \
+    android.hardware.memtrack-service.exynos
+
 # RIL
 PRODUCT_PACKAGES += \
     cbd \
