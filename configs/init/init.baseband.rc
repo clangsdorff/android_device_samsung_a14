@@ -8,10 +8,6 @@ on post-fs-data
     chmod 0660 /sys/devices/virtual/misc/umts_dm0/dm_state
     chown radio system /sys/devices/virtual/misc/umts_dm0/dm_state
 
-    # /mnt/vendor/efs/factory.prop for Dual / Single SIM settings
-    chown radio radio /mnt/vendor/efs/factory.prop
-    chmod 0600 /mnt/vendor/efs/factory.prop
-
 service cpboot-daemon /vendor/bin/cbd -d -tss310 -bm -mm -P by-name/radio
     class main
     user root
