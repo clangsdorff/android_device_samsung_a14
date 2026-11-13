@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S PYTHONPATH=../../../../tools/extract-utils python3
 #
 # SPDX-FileCopyrightText: 2026 Langsdorff
 # SPDX-License-Identifier: Apache-2.0
@@ -7,6 +7,7 @@
 import importlib.util
 import os
 import shutil
+import sys
 
 from extract_utils.fixups_blob import blob_fixup
 from extract_utils.main import (
@@ -45,12 +46,13 @@ A14_FILES = (
 
 if __name__ == '__main__':
     utils = ExtractUtils.device(module)
-    try:
-        utils.run()
-    finally:
+    utils.run()
+    if not any(a in sys.argv for a in ('--regenerate_makefiles', '-r')):
         root = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..'))
         for f in A14_FILES:
-            shutil.copy2(
-                os.path.join(root, 'vendor/samsung/a14/proprietary', f),
-                os.path.join(root, 'vendor/samsung/a13/proprietary', f),
-            )
+            src = os.path.join(root, 'vendor/samsung/a14/proprietary', f)
+            if os.path.isfile(src):
+                shutil.copy2(
+                    src,
+                    os.path.join(root, 'vendor/samsung/a13/proprietary', f),
+                )
