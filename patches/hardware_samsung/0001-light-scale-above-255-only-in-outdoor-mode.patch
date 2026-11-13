@@ -1,7 +1,7 @@
 From bf2c04898a46e177f16fd78f68dac7776cfc6c78 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 8 Nov 2026 20:47:11 +0300
-Subject: [PATCH] light: scale above 255 only in outdoor mode
+Subject: [PATCH 1/2] light: scale above 255 only in outdoor mode
 
 the panel takes up to 306 but 256-306 is the hbm range. scaling every
 value by max_brightness keeps the panel 1.2 times too bright and puts
