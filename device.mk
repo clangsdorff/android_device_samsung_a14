@@ -71,8 +71,7 @@ PRODUCT_PACKAGES += \
     init.a14.rc
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/init/fstab.ramplus:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.ramplus \
-    $(foreach f,init.baseband.rc init.gps.rc init.ramplus.rc init.recovery.s5e3830.rc init.vendor.rilcommon.rc,\
+    $(foreach f,init.baseband.rc init.gps.rc init.recovery.s5e3830.rc init.vendor.rilcommon.rc,\
         $(LOCAL_PATH)/configs/init/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/$(f))
 
 # Linker
