@@ -13,7 +13,11 @@ repo init -u https://github.com/LineageOS/android.git -b lineage-24.0 --git-lfs
 ```
 repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 ```
-3. Build:
+3. Apply the tree patches:
+```
+./device/samsung/a14/patches/apply.sh
+```
+4. Build:
 ```
 source build/envsetup.sh
 breakfast a14
