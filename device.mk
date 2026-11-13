@@ -106,8 +106,6 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@2.0.vendor \
     android.hardware.sensors@2.0-ScopedWakelock.vendor \
     android.hardware.sensors@2.1.vendor \
-    android.hardware.wifi-V2-ndk.vendor \
-    android.hardware.wifi.supplicant-V3-ndk.vendor \
     android.system.keystore2-V1-ndk.vendor \
     libaudioutils.vendor \
     libcamera_metadata.vendor \
@@ -115,14 +113,12 @@ PRODUCT_PACKAGES += \
     libfmq.vendor \
     libhardware.vendor \
     libkeymaster_portable.vendor \
-    libkeystore-engine-wifi-hidl \
     libmediandk.vendor \
     libnativewindow.vendor \
     libnl.vendor \
     libpower.vendor \
     libpuresoftkeymasterdevice.vendor \
     libstagefright_foundation.vendor \
-    libwifi-system-iface.vendor \
     libxml2.vendor
 
 # vndbinder context manager, only pulled in below shipping api level 30
@@ -183,6 +179,12 @@ PRODUCT_PACKAGES += \
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator-service.samsung
+
+# Wi-Fi
+PRODUCT_PACKAGES += \
+    android.hardware.wifi-service \
+    hostapd \
+    wpa_supplicant
 
 # NFC
 ifneq ($(TARGET_IS_A13),true)

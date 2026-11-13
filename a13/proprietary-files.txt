@@ -528,21 +528,12 @@ vendor/firmware/nt36672_a14_tianma_mp.bin
 # USB
 
 # Wi-Fi
-vendor/bin/hw/android.hardware.wifi-service:vendor/bin/hw/android.hardware.wifi-service.samsung
-vendor/bin/hw/hostapd;MODULE_SUFFIX=_stock
 vendor/bin/hw/macloader
 vendor/bin/hw/mfgloader
-vendor/bin/hw/wpa_supplicant:vendor/bin/hw/wpa_supplicant.samsung
 vendor/bin/slsi_wlan_udi_log
 vendor/bin/slsi_wlan_udi_log_decode
 vendor/bin/wlbtd
-vendor/etc/init/android.hardware.wifi.supplicant-service.rc:vendor/etc/init/android.hardware.wifi.supplicant-service.samsung.rc
 vendor/etc/init/android.hardware.security.keymint-service.rc:vendor/etc/init/android.hardware.security.keymint-service.samsung.rc
-vendor/etc/init/android.hardware.wifi-service.rc:vendor/etc/init/android.hardware.wifi-service.samsung.rc
-vendor/etc/init/hostapd.android.rc:vendor/etc/init/hostapd.android.samsung.rc
-vendor/etc/vintf/manifest/android.hardware.wifi-service.xml:vendor/etc/vintf/manifest/android.hardware.wifi-service.samsung.xml
-vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml:vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.samsung.xml
-vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml:vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.samsung.xml
 vendor/etc/init/wifi.rc
 vendor/etc/init/wifi_slsi_850.rc
 vendor/etc/wifi/indoorchannel.info
@@ -586,12 +577,7 @@ vendor/etc/wifi/mx140_wlan_t.hcf:vendor/firmware/wifi/mx140_wlan_t.hcf
 vendor/etc/wifi/mx140_wlan_t_sw.hcf:vendor/firmware/wifi/mx140_wlan_t_sw.hcf
 vendor/etc/wifi/platform.txt:vendor/firmware/wifi/platform.txt
 vendor/etc/wifi/slsi_reg_database.bin:vendor/firmware/wifi/slsi_reg_database.bin
-vendor/lib/libwpa_client.so
 vendor/lib64/libwifi-hal.so
-vendor/lib64/libwpa_client.so
-vendor/lib64/vendor.samsung.hardware.wifi.hostapd-V1-ndk.so
-vendor/lib64/vendor.samsung.hardware.wifi.nan-V1-ndk.so
-vendor/lib64/vendor.samsung.hardware.wifi.supplicant-V1-ndk.so
 
 # A13
 vendor/bin/hw/android.hardware.nfc-service.nxp:vendor/bin/hw/android.hardware.nfc-service.nxp-samsung

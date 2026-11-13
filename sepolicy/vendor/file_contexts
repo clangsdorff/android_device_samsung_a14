@@ -57,8 +57,6 @@
 # Wi-Fi
 /(vendor|system/vendor)/bin/hw/mfgloader                                                            u:object_r:mfgloader_exec:s0
 /(vendor|system/vendor)/bin/wlbtd                                                                   u:object_r:wlbtd_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.wifi-service\.samsung                  u:object_r:hal_wifi_default_exec:s0
-/(vendor|system/vendor)/bin/hw/wpa_supplicant\.samsung                                   u:object_r:hal_wifi_supplicant_default_exec:s0
 
 # Devices
 /dev/mali0                                                                                       u:object_r:gpu_device:s0
