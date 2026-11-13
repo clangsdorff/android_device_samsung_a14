@@ -213,8 +213,6 @@ vendor/lib64/libwrappergps.so
 vendor/bin/hw/android.hardware.graphics.allocator@4.0-service;MODULE_SUFFIX=_stock
 vendor/bin/hw/android.hardware.graphics.composer@2.2-service
 vendor/etc/init/android.hardware.graphics.composer@2.2-service.rc:vendor/etc/init/android.hardware.graphics.composer@2.2-service.samsung.rc
-vendor/bin/hw/android.hardware.memtrack-service.exynos;MODULE_SUFFIX=_stock
-vendor/etc/init/memtrack.rc:vendor/etc/init/memtrack.samsung.rc
 vendor/bin/hw/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service
 vendor/etc/init/android.hardware.graphics.allocator@4.0-service.rc
 vendor/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc
