@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S PYTHONPATH=../../../../tools/extract-utils python3
 #
 # SPDX-FileCopyrightText: 2026 Langsdorff
 # SPDX-License-Identifier: Apache-2.0
@@ -7,8 +7,8 @@
 import importlib.util
 import os
 import shutil
+import sys
 
-from extract_utils.fixups_blob import blob_fixup
 from extract_utils.main import (
     ExtractUtils,
     ExtractUtilsModule,
@@ -27,30 +27,25 @@ module = ExtractUtilsModule(
     device_rel_path='device/samsung/a14/a13',
     namespace_imports=a14.namespace_imports,
     lib_fixups=a14.lib_fixups,
-    blob_fixups={
-        **a14.blob_fixups,
-        'vendor/etc/init/nfc-service-nxp-samsung.rc': blob_fixup().regex_replace(
-            r'android\.hardware\.nfc-service\.nxp\n', 'android.hardware.nfc-service.nxp-samsung\n'
-        ),
-    },
+    blob_fixups=a14.blob_fixups,
 )
 
 # Hand fixed or known good in the A14 vendor tree, the extraction source has the stock copies
 A14_FILES = (
     'vendor/etc/audio_policy_configuration.xml',
-    'vendor/etc/init/android.hardware.wifi.supplicant-service.samsung.rc',
     'vendor/lib/libsensorndkbridge_sec.so',
     'vendor/lib64/libsensorndkbridge_sec.so',
 )
 
 if __name__ == '__main__':
     utils = ExtractUtils.device(module)
-    try:
-        utils.run()
-    finally:
+    utils.run()
+    if not any(a in sys.argv for a in ('--regenerate_makefiles', '-r')):
         root = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '..'))
         for f in A14_FILES:
-            shutil.copy2(
-                os.path.join(root, 'vendor/samsung/a14/proprietary', f),
-                os.path.join(root, 'vendor/samsung/a13/proprietary', f),
-            )
+            src = os.path.join(root, 'vendor/samsung/a14/proprietary', f)
+            if os.path.isfile(src):
+                shutil.copy2(
+                    src,
+                    os.path.join(root, 'vendor/samsung/a13/proprietary', f),
+                )

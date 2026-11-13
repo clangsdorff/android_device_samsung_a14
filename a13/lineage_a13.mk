@@ -4,6 +4,11 @@
 #
 
 $(call inherit-product, device/samsung/a14/a13/device.mk)
+
+TARGET_EXCLUDE_ADB_ROOT := true
+TARGET_EXCLUDE_LOS_EXTRA_CLI_UTILS := true
+TARGET_SKIP_BACKUPTOOL := true
+
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 $(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
 

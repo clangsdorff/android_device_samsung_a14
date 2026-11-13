@@ -179,8 +179,6 @@ vendor/lib/libdrmresource.so
 vendor/lib64/libdrmresource.so
 vendor/lib64/vendor.samsung.hardware.security.widevine.keyprov-V1-ndk.so
 
-# Face
-
 # Fingerprint
 vendor/app/mcRegistry/00060308060501020000000000000000.tabin
 vendor/app/mcRegistry/07061000000000000000000000000000.tlbin
@@ -199,7 +197,6 @@ vendor/etc/gnss/deleteLogCommands
 vendor/etc/gnss/gps.cfg
 vendor/etc/gnss/gps.debug.cfg
 vendor/etc/gps_debug.conf
-vendor/lib/libwrappergps.so
 vendor/lib64/hw/android.hardware.gnss@2.1-impl.so;MODULE_SUFFIX=_stock;FIX_SONAME
 vendor/lib64/libwrappergps.so
 
@@ -243,8 +240,6 @@ vendor/lib64/libgpudataproducer.so
 vendor/lib64/libion_exynos.so
 vendor/lib64/libOpenCL.so;MODULE_SUFFIX=_stock
 vendor/lib64/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0.so
-
-# Health / Charger
 
 # Keymint / Gatekeeper / TEE
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service
@@ -348,7 +343,6 @@ vendor/etc/sysconfig/vendor-apex-allowlist.xml
 vendor/etc/ueventd.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.sysinput-default.xml
 vendor/etc/vramdiskd.xml
-vendor/firmware/abov/a96t396_a14_main.bin
 vendor/firmware/MCD_NACHO_slog.bin
 vendor/firmware/os.checked.bin
 vendor/lib/arm.graphics-V1-ndk.so
@@ -517,17 +511,6 @@ vendor/lib64/libsynaFpSensorTestNwd.so
 vendor/lib64/sensors.grip.so
 vendor/lib64/sensors.inputvirtual.so
 vendor/lib64/sensors.sensorhub.so
-
-# Touchscreen firmware
-vendor/firmware/ft8720_a14.bin
-vendor/firmware/ft8720_a14_ramtest.bin
-vendor/firmware/ili7807_a14.hex
-vendor/firmware/nt36672_a14_csot.bin
-vendor/firmware/nt36672_a14_csot_mp.bin
-vendor/firmware/nt36672_a14_tianma.bin
-vendor/firmware/nt36672_a14_tianma_mp.bin
-
-# USB
 
 # Wi-Fi
 vendor/bin/hw/android.hardware.wifi-service:vendor/bin/hw/android.hardware.wifi-service.samsung
