@@ -1,0 +1,25 @@
+From a7f569e029755c0e74dc146c3c783f5823b1cda7 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 14 Nov 2026 21:40:32 +0300
+Subject: [PATCH] gralloc4: drop allocator-impl required
+
+the stock vendor already provides android.hardware.graphics.allocator@4.0-impl_stock.
+drop the required module to avoid pulling the oss impl that conflicts with it.
+---
+ gralloc/gralloc4/service/4.x/Android.bp | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/gralloc/gralloc4/service/4.x/Android.bp b/gralloc/gralloc4/service/4.x/Android.bp
+index aced151..013ed23 100644
+--- a/gralloc/gralloc4/service/4.x/Android.bp
++++ b/gralloc/gralloc4/service/4.x/Android.bp
+@@ -31,7 +31,4 @@ cc_binary {
+         "liblog",
+         "libutils",
+     ],
+-    required: [
+-        "android.hardware.graphics.allocator@4.0-impl",
+-    ],
+ }
+-- 
+2.56.0
