@@ -82,14 +82,10 @@ vendor/lib64/vendor.samsung.hardware.bluetooth.audio-impl.so
 vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 
 # Bluetooth
-vendor/bin/hw/android.hardware.bluetooth@1.0-service
-vendor/etc/init/android.hardware.bluetooth@1.0-service.rc:vendor/etc/init/android.hardware.bluetooth@1.0-service.samsung.rc
 vendor/etc/bluetooth/bt_did.conf
 vendor/etc/btcon.json
 vendor/lib/libbt-vendor.so;MODULE_SUFFIX=_stock
-vendor/lib64/hw/android.hardware.bluetooth@1.0-impl.so
 vendor/lib64/libbt-vendor.so;MODULE_SUFFIX=_stock
-vendor/lib64/vendor.samsung.hardware.bluetooth@2.0.so
 
 # Camera
 vendor/apex/com.samsung.android.camera.unihal.signed.apex
