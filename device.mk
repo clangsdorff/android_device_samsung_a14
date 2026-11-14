@@ -142,7 +142,8 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio-impl \
     audio.bluetooth.default \
     audio.r_submix.default \
-    audio.usb.default
+    audio.usb.default \
+    main_abox
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -306,6 +307,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/pixel/power-libperfmgr \
     hardware/google/pixel/thermal \
     hardware/samsung \
+    hardware/samsung_slsi-linaro/exynos \
     hardware/samsung_slsi-linaro/exynos/cpboot_v3
 
 # Call the proprietary setup
