@@ -205,9 +205,7 @@ vendor/lib64/hw/android.hardware.gnss@2.1-impl.so;MODULE_SUFFIX=_stock;FIX_SONAM
 vendor/lib64/libwrappergps.so
 
 # Graphics / Mali
-vendor/bin/hw/android.hardware.graphics.allocator@4.0-service;MODULE_SUFFIX=_stock
 vendor/bin/hw/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service
-vendor/etc/init/android.hardware.graphics.allocator@4.0-service.rc
 vendor/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc
 vendor/lib/android.hardware.graphics.extension.composer3-V2-ndk.so
 vendor/lib/egl/libGLES_mali.so
