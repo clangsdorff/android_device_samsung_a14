@@ -2,7 +2,6 @@
 
 # ADSP / Audio
 vendor/bin/hw/secaudiohalaidl
-vendor/bin/main_abox
 vendor/etc/a2dpsink_audio_policy_configuration.xml
 vendor/etc/aidl/le_audio/aidl_audio_set_configurations.json
 vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.json

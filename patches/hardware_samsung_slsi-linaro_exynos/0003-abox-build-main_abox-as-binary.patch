@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 14 Nov 2026 21:40:00 +0300
+Subject: [PATCH] abox: build main_abox as binary
+
+build the abox daemon as an executable binary instead of a shared
+library so that it is installed as /vendor/bin/main_abox.
+---
+ abox/Android.bp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/abox/Android.bp b/abox/Android.bp
+index 64d4f15..a4f86e5 100644
+--- a/abox/Android.bp
++++ b/abox/Android.bp
+@@ -1,4 +1,4 @@
+-cc_library {
++cc_binary {
+     name: "main_abox",
+     proprietary: true,
+     srcs: ["main_abox.cpp"],
+-- 
+2.56.0
