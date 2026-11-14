@@ -17,7 +17,7 @@ Change-Id: I7d507e640ff5488752f360964c9a64be2839b8e8
  services/core/seh/Android.bp                    | 17 +++++++++++++++++
  .../biometrics/fingerprint/ISehFingerprint.aidl |  7 +++++++
  .../biometrics/fingerprint/SehResult.aidl       |  6 ++++++
- 4 files changed, 31 insertions(+)
+ 4 files changed, 32 insertions(+)
  create mode 100644 services/core/seh/Android.bp
  create mode 100644 services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/ISehFingerprint.aidl
  create mode 100644 services/core/seh/vendor/samsung/hardware/biometrics/fingerprint/SehResult.aidl
@@ -39,9 +39,10 @@ new file mode 100644
 index 000000000000..d68bc260635f
 --- /dev/null
 +++ b/services/core/seh/Android.bp
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,18 @@
 +aidl_interface {
 +    name: "vendor.samsung.hardware.biometrics.fingerprint",
++    vendor_available: true,
 +    srcs: ["vendor/samsung/hardware/biometrics/fingerprint/*.aidl"],
 +    unstable: true,
 +    backend: {
@@ -53,7 +54,7 @@ index 000000000000..d68bc260635f
 +            enabled: false,
 +        },
 +        ndk: {
-+            enabled: false,
++            enabled: true,
 +        },
 +    },
 +}

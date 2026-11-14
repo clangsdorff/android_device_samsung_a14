@@ -155,6 +155,14 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@4.0-service \
     android.hardware.graphics.composer@2.2-service
 
+# Fingerprint
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint-service.samsung
+
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.vendor.fingerprint.type=side \
+    ro.vendor.fingerprint.supports_gestures=true
+
 # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper-service.teegris

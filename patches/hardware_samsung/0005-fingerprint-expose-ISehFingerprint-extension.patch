@@ -1,0 +1,90 @@
+From 4966c2d04f31419da95746c97d287744448c970e Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 14 Nov 2026 21:51:20 +0300
+Subject: [PATCH] fingerprint: expose ISehFingerprint extension
+
+the framework looks for vendor.samsung.hardware.biometrics.fingerprint
+through the IFingerprint binder extension to toggle swipe gestures and
+deliver screen state changes. implement the extension on top of the
+legacy request entry point so the platform navigation helper can arm
+the sensor.
+---
+ aidl/fingerprint/Android.bp    |  1 +
+ aidl/fingerprint/Fingerprint.h |  2 ++
+ aidl/fingerprint/service.cpp   | 26 ++++++++++++++++++++++++++
+ 3 files changed, 29 insertions(+)
+
+diff --git a/aidl/fingerprint/Android.bp b/aidl/fingerprint/Android.bp
+index 7565911..a1fc487 100644
+--- a/aidl/fingerprint/Android.bp
++++ b/aidl/fingerprint/Android.bp
+@@ -24,6 +24,7 @@ cc_binary {
+         "android.hardware.biometrics.fingerprint-V4-ndk",
+         "android.hardware.biometrics.common-V4-ndk",
+         "android.hardware.biometrics.common.util",
++        "vendor.samsung.hardware.biometrics.fingerprint-ndk",
+     ],
+     static_libs: ["libandroid.hardware.biometrics.fingerprint.SamsungProps"],
+     vendor: true,
+diff --git a/aidl/fingerprint/Fingerprint.h b/aidl/fingerprint/Fingerprint.h
+index 45a452d..39adbac 100644
+--- a/aidl/fingerprint/Fingerprint.h
++++ b/aidl/fingerprint/Fingerprint.h
+@@ -30,6 +30,8 @@ class Fingerprint : public BnFingerprint {
+                                      const std::shared_ptr<ISessionCallback>& cb,
+                                      std::shared_ptr<ISession>* out) override;
+ 
++    int request(int cmd, int param) { return mHal.request(cmd, param); }
++
+   private:
+     static void notify(
+             const fingerprint_msg_t* msg); /* Static callback for legacy HAL implementation */
+diff --git a/aidl/fingerprint/service.cpp b/aidl/fingerprint/service.cpp
+index dbfa421..d82f0f7 100644
+--- a/aidl/fingerprint/service.cpp
++++ b/aidl/fingerprint/service.cpp
+@@ -6,16 +6,42 @@
+ 
+ #include "Fingerprint.h"
+ 
++#include <aidl/vendor/samsung/hardware/biometrics/fingerprint/BnSehFingerprint.h>
++#include <aidl/vendor/samsung/hardware/biometrics/fingerprint/SehResult.h>
+ #include <android-base/logging.h>
++#include <android/binder_ibinder.h>
+ #include <android/binder_manager.h>
+ #include <android/binder_process.h>
+ 
+ using ::aidl::android::hardware::biometrics::fingerprint::Fingerprint;
++using ::aidl::vendor::samsung::hardware::biometrics::fingerprint::BnSehFingerprint;
++using ::aidl::vendor::samsung::hardware::biometrics::fingerprint::SehResult;
++
++class SehFingerprint : public BnSehFingerprint {
++  public:
++    explicit SehFingerprint(std::shared_ptr<Fingerprint> hal) : mHal(std::move(hal)) {}
++
++    ndk::ScopedAStatus sehRequest(int32_t /*sensorId*/, int32_t command, int32_t param,
++                                  const std::vector<uint8_t>& /*data*/,
++                                  SehResult* _aidl_return) override {
++        int ret = mHal->request(command, param);
++        _aidl_return->retValue = ret;
++        _aidl_return->data = {};
++        return ndk::ScopedAStatus::ok();
++    }
++
++  private:
++    std::shared_ptr<Fingerprint> mHal;
++};
+ 
+ int main() {
+     ABinderProcess_setThreadPoolMaxThreadCount(0);
+     std::shared_ptr<Fingerprint> fingerprint = ndk::SharedRefBase::make<Fingerprint>();
+ 
++    std::shared_ptr<SehFingerprint> seh =
++            ndk::SharedRefBase::make<SehFingerprint>(fingerprint);
++    AIBinder_setExtension(fingerprint->asBinder().get(), seh->asBinder().get());
++
+     const std::string instance = std::string() + Fingerprint::descriptor + "/default";
+     binder_status_t status =
+             AServiceManager_addService(fingerprint->asBinder().get(), instance.c_str());
+-- 
+2.56.0

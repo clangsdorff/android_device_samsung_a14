@@ -19,7 +19,7 @@
 /data/vendor/mediadrm(/.*)?                                                                         u:object_r:mediadrm_vendor_data_file:s0
 
 # Fingerprint
-/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.biometrics\.fingerprint-service           u:object_r:hal_fingerprint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint-service\.samsung           u:object_r:hal_fingerprint_default_exec:s0
 /sys/class/fingerprint(/.*)?                                                                        u:object_r:sysfs_fingerprint:s0
 
 # GNSS
