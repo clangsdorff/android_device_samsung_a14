@@ -10,10 +10,11 @@ library so that it is installed as /vendor/bin/main_abox.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/abox/Android.bp b/abox/Android.bp
-index 64d4f15..a4f86e5 100644
+index 64d4f15..ce12db4 100644
 --- a/abox/Android.bp
 +++ b/abox/Android.bp
-@@ -1,4 +1,4 @@
+@@ -1,5 +1,5 @@
+ 
 -cc_library {
 +cc_binary {
      name: "main_abox",
