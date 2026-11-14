@@ -1,4 +1,4 @@
 allow rild tun_device:chr_file rw_file_perms;
-allowxperm rild tun_device:chr_file ioctl 0x54ca;
+allowxperm rild tun_device:chr_file ioctl { 0x54ca 0x54cb };
 allow rild self:tun_socket create_socket_perms_no_ioctl;
 get_prop(rild, vendor_samsung_build_prop)
