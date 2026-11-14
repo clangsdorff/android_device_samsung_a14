@@ -27,6 +27,9 @@
 /(vendor|system/vendor)/bin/hw/gps\.sh                                                              u:object_r:gpsd_exec:s0
 /dev/gnss_ipc                                                                                       u:object_r:gnss_device:s0
 
+# Gatekeeper
+/(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper-service\.teegris                       u:object_r:hal_gatekeeper_default_exec:s0
+
 # Keymaster
 /(vendor|system/vendor)/bin/vendor\.samsung\.hardware\.security\.fkeymaster-service                 u:object_r:hal_keymaster_default_exec:s0
 
