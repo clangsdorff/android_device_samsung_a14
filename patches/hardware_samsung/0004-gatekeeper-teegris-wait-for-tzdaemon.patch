@@ -1,0 +1,139 @@
+From 3b547ecb8b8a0b80f3a5f72e1fffa186550cdb17 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sat, 14 Nov 2026 21:50:00 +0300
+Subject: [PATCH] gatekeeper: teegris: wait for tzdaemon before initializing ta
+
+teegris tzdaemon sets vendor.tzdaemon to ready once the secure os has
+initialized. if the gatekeeper service tries to open a session before
+tzdaemon is ready, teec initialization fails.
+
+wait for vendor.tzdaemon or vendor.tzts_daemon to become ready before
+initializing teec. add proper error handling when opening the session
+and shared memory so the service does not segfault if ta loading fails.
+---
+ aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp | 72 ++++++++++++++++---
+ 1 file changed, 64 insertions(+), 8 deletions(-)
+
+diff --git a/aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp b/aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp
+index f92262b..1bd3412 100644
+--- a/aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp
++++ b/aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp
+@@ -16,29 +16,69 @@
+  */
+ 
+ #include "TeegrisGateKeeper.h"
++#include <android-base/logging.h>
++#include <android-base/properties.h>
+ #include <fcntl.h>
+ #include <sys/stat.h>
+ #include <unistd.h>
+ 
+ namespace gatekeeper {
+ 
+-TeegrisGateKeeper::TeegrisGateKeeper() {
++TeegrisGateKeeper::TeegrisGateKeeper() : context(nullptr), session(nullptr) {
+     int fd;
+     size_t size;
+     struct stat st;
+     void* data;
++    TEEC_Result res;
++
++    for (int i = 0; i < 100; i++) {
++        if (android::base::GetProperty("vendor.tzdaemon", "") == "Ready" ||
++            android::base::GetProperty("vendor.tzts_daemon", "") == "Ready") {
++            break;
++        }
++        usleep(100000);
++    }
+ 
+-    TEEC_InitializeContext(NULL, &context);
++    res = TEEC_InitializeContext(NULL, &context);
++    if (res != TEEC_SUCCESS) {
++        LOG(ERROR) << "TEEC_InitializeContext failed: " << res;
++        return;
++    }
+ 
+     fd = open(TA_PATH, O_RDONLY);
+-    fstat(fd, &st);
++    if (fd < 0) {
++        LOG(ERROR) << "failed to open " << TA_PATH << ": " << strerror(errno);
++        return;
++    }
++
++    if (fstat(fd, &st) != 0) {
++        LOG(ERROR) << "fstat failed: " << strerror(errno);
++        close(fd);
++        return;
++    }
++
+     size = st.st_size;
+     data = malloc(size);
+-    read(fd, data, size);
++    if (!data) {
++        LOG(ERROR) << "failed to allocate memory for TA";
++        close(fd);
++        return;
++    }
++
++    if (read(fd, data, size) != (ssize_t)size) {
++        LOG(ERROR) << "failed to read TA: " << strerror(errno);
++        free(data);
++        close(fd);
++        return;
++    }
+     close(fd);
+ 
+-    TEECS_OpenSession(&context, &session, TA_UUID, data, size, 0, NULL, NULL, NULL);
++    res = TEECS_OpenSession(&context, &session, TA_UUID, data, size, 0, NULL, NULL, NULL);
+     free(data);
++    if (res != TEEC_SUCCESS) {
++        LOG(ERROR) << "TEECS_OpenSession failed: " << res;
++        return;
++    }
+ 
+     enroll_payload.inout.buffer = &enroll_mem;
+     shmem_sz_cmd.buffer = &verify_mem;
+@@ -49,14 +89,24 @@ TeegrisGateKeeper::TeegrisGateKeeper() {
+ }
+ 
+ TeegrisGateKeeper::~TeegrisGateKeeper() {
+-    TEEC_ReleaseSharedMemory(&shmem_sz_cmd);
+-    TEEC_CloseSession(&session);
+-    TEEC_FinalizeContext(&context);
++    if (session) {
++        TEEC_ReleaseSharedMemory(&shmem_sz_cmd);
++        TEEC_CloseSession(&session);
++    }
++    if (context) {
++        TEEC_FinalizeContext(&context);
++    }
+ }
+ 
+ void TeegrisGateKeeper::Enroll(const EnrollRequest& request, EnrollResponse* response) {
+     uint8_t* enrolled_password_handle;
+ 
++    if (!session) {
++        LOG(ERROR) << "session not open";
++        response->error = ERROR_UNKNOWN;
++        return;
++    }
++
+     enroll_mem.password_handle_length = sizeof(enroll_mem.password_handle_buffer);
+     enroll_mem.user_id = request.user_id;
+ 
+@@ -84,6 +134,12 @@ void TeegrisGateKeeper::Enroll(const EnrollRequest& request, EnrollResponse* res
+ void TeegrisGateKeeper::Verify(const VerifyRequest& request, VerifyResponse* response) {
+     uint8_t* auth_token;
+ 
++    if (!session) {
++        LOG(ERROR) << "session not open";
++        response->error = ERROR_UNKNOWN;
++        return;
++    }
++
+     verify_mem.challenge = request.challenge;
+     verify_mem.auth_token_length = sizeof(verify_mem.auth_token_buffer);
+     verify_mem.user_id = request.user_id;
+-- 
+2.56.0
+
