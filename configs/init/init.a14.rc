@@ -24,3 +24,13 @@ on post-fs-data
 on property:init.svc.sec-camera-provider=running
     write /sys/devices/platform/ems/emstune/req_mode 0
 
+on property:sys.boot_completed=1
+    setprop vendor.powerhal.init 1
+
+service vendor.power-hal-aidl /vendor/bin/hw/android.hardware.power-service.pixel-libperfmgr
+    override
+    class hal
+    user root
+    group system radio
+    priority -20
+

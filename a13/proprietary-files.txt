@@ -439,18 +439,6 @@ vendor/lib64/libsensorndkbridge.so:vendor/lib64/libsensorndkbridge_sec.so;FIX_SO
 vendor/lib64/libtinyalsa.so:vendor/lib64/libtinyalsa_sec.so;FIX_SONAME
 
 # Power / Thermal
-vendor/bin/hw/android.hardware.power.samsung-service;MODULE_SUFFIX=_stock
-vendor/bin/hw/vendor.samsung.hardware.hyper-service
-vendor/etc/init/hyper-default-sec.rc
-vendor/etc/hyper/config_chipset.json
-vendor/etc/hyper/config_hyper_permission.json
-vendor/etc/hyper/config_model.json
-vendor/etc/hyper/config_vendor.json
-vendor/etc/init/power-default-sec.rc
-vendor/etc/vintf/manifest/hyper-default-sec.xml
-vendor/etc/vintf/manifest/power-samsung.xml
-vendor/lib64/libSamsngPowerHal.so
-vendor/lib64/libSamsungHyper.so
 vendor/bin/hw/vendor.samsung.hardware.thermal-service
 vendor/etc/init/vendor.samsung.hardware.thermal-default.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal-default.xml

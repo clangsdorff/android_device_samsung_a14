@@ -9,6 +9,9 @@ allow hal_power_default sysfs_sec_touchscreen:dir search;
 allow hal_power_default sysfs_touchscreen_writable:file rw_file_perms;
 allow hal_power_default cgroup:file r_file_perms;
 
+# To get/set powerhal state property
+set_prop(hal_power_default, vendor_power_prop)
+
 # Set scheduling info for apps (for adpf)
 allow hal_power_default appdomain:process { getsched setsched };
 allow hal_power_default self:capability sys_nice;
@@ -32,6 +35,10 @@ allow hal_power_default sysfs_thermal:dir r_dir_perms;
 allow hal_power_default sysfs_thermal:file rw_file_perms;
 allow hal_power_default sysfs_thermal:lnk_file r_file_perms;
 set_prop(hal_power_default, vendor_thermal_prop)
+
+# Allow hal_power to access IStats AIDL
+allow hal_power_default fwk_stats_service:service_manager find;
+binder_call(hal_power_default, stats_service_server);
 
 userdebug_or_eng(`
 # Allow reading /data/vendor/* for debugging
