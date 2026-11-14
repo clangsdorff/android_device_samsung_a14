@@ -34,7 +34,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light-service\.samsung                           u:object_r:hal_light_default_exec:s0
 
 # Media
-/(vendor|system/vendor)/bin/hw/samsung\.hardware\.media\.c2@1\.2-service                            u:object_r:mediacodec_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.software\.media\.c2-service\.samsung                           u:object_r:mediacodec_exec:s0
 
 # NFC
 /(vendor|system/vendor)/bin/hw/sec\.android\.hardware\.nfc-service                                  u:object_r:hal_nfc_default_exec:s0
