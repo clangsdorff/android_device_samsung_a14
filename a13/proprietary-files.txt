@@ -241,8 +241,6 @@ vendor/lib64/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0.so
 # Health / Charger
 
 # Keymint / Gatekeeper / TEE
-vendor/bin/hw/android.hardware.gatekeeper@1.0-service
-vendor/etc/init/android.hardware.gatekeeper@1.0-service.rc:vendor/etc/init/android.hardware.gatekeeper@1.0-service.samsung.rc
 vendor/bin/hw/android.hardware.security.keymint-service:vendor/bin/hw/android.hardware.security.keymint-service.samsung
 vendor/bin/tzdaemon
 vendor/bin/tzts_daemon
@@ -251,13 +249,11 @@ vendor/etc/init/pa_daemon_teegris.rc
 vendor/etc/init/teegris.rc
 vendor/etc/init/vendor.samsung.hardware.security.fkeymaster-service.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.security.fkeymaster-service.xml
-vendor/lib/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib/hw/gatekeeper.s5e3830.so
 vendor/lib/libhypervintf.so
 vendor/lib/libsfp_teegw.so
 vendor/lib/libteecl.so
 vendor/lib/vendor.samsung.hardware.hyper-V2-ndk.so
-vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so
 vendor/lib64/hw/gatekeeper.s5e3830.so
 vendor/lib64/libengmode_client.so
 vendor/lib64/libhypervintf.so
