@@ -209,6 +209,12 @@ PRODUCT_PACKAGES += \
 ifneq ($(TARGET_IS_A13),true)
 PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.nfc.feature.chipname=SLSI
+
+PRODUCT_PACKAGES += \
+    sec.android.hardware.nfc-service
+else
+PRODUCT_PACKAGES += \
+    android.hardware.nfc-service.nxp-samsung
 endif
 
 PRODUCT_COPY_FILES += \

@@ -1,0 +1,48 @@
+cc_binary {
+    name: "sec.android.hardware.nfc-service",
+    relative_install_path: "hw",
+    init_rc: ["sec-nfc-service.rc"],
+    vintf_fragments: ["sec-nfc-service.xml"],
+    vendor: true,
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder_ndk",
+        "android.hardware.nfc-V1-ndk",
+        "nfc_nci_sec",
+    ],
+    srcs: [
+        "sec_nfc_service.cpp",
+    ],
+}
+
+cc_binary {
+    name: "android.hardware.nfc-service.nxp-samsung",
+    relative_install_path: "hw",
+    init_rc: ["nfc-service-nxp-samsung.rc"],
+    vintf_fragments: ["nfc-service-nxp-samsung.xml"],
+    vendor: true,
+    compile_multilib: "32",
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder_ndk",
+        "android.hardware.nfc-V1-ndk",
+        "nfc_nci_nxpsn",
+    ],
+    srcs: [
+        "nxp_nfc_service.cpp",
+    ],
+}

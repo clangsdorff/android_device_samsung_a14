@@ -421,13 +421,10 @@ vendor/lib64/service-listener-ext-aidl-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.sysinput-V2-ndk.so
 
 # NFC
-vendor/bin/hw/sec.android.hardware.nfc-service
 vendor/etc/init/init.nfc.samsung.rc
-vendor/etc/init/sec-nfc-service.rc
 vendor/etc/libnfc-sec-vendor.conf
 vendor/etc/nfc/sec_s3nrn4v_hwreg.bin
 vendor/etc/nfc/sec_s3nrn4v_swreg.bin
-vendor/etc/vintf/manifest/sec-nfc-service.xml
 vendor/firmware/nfc/sec_s3nrn4v_firmware.bin
 vendor/lib64/nfc_nci_sec.so
 vendor/lib64/vendor.samsung.hardware.nfc_aidl-V1-ndk.so
