@@ -254,18 +254,14 @@ vendor/etc/init/teegris.rc
 vendor/etc/init/vendor.samsung.hardware.security.fkeymaster-service.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.security.fkeymaster-service.xml
 vendor/lib/hw/gatekeeper.s5e3830.so
-vendor/lib/libhypervintf.so
 vendor/lib/libsfp_teegw.so
 vendor/lib/libteecl.so
-vendor/lib/vendor.samsung.hardware.hyper-V2-ndk.so
 vendor/lib64/hw/gatekeeper.s5e3830.so
 vendor/lib64/libengmode_client.so
-vendor/lib64/libhypervintf.so
 vendor/lib64/libsfp_teegw.so
 vendor/lib64/libskeymint10device.so
 vendor/lib64/libskeymint_cli.so
 vendor/lib64/libteecl.so
-vendor/lib64/vendor.samsung.hardware.hyper-V2-ndk.so
 vendor/lib64/vendor.samsung.hardware.keymint-V2-ndk.so
 vendor/lib64/vendor.samsung.hardware.security.fkeymaster-V1-ndk.so
 vendor/tee/00000000-0000-0000-0000-000000534b4d
@@ -336,7 +332,6 @@ vendor/etc/init/init.s5e3830.rc
 vendor/etc/init/init.vendor.onebinary.rc
 vendor/etc/init/init.vendor.sysfw.rc
 vendor/etc/init/vendor.samsung.hardware.sysinput-default.rc
-vendor/etc/mercury.json
 vendor/etc/permissions/vendor.samsung.hardware.telephony.cdma_excluded.xml
 vendor/etc/permissions/vendor.samsung.hardware.telephony.gsm.xml
 vendor/etc/str/str_preference_data.dat
@@ -456,12 +451,8 @@ vendor/lib64/libomp.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libsensorndkbridge.so:vendor/lib64/libsensorndkbridge_sec.so;FIX_SONAME
 vendor/lib64/libtinyalsa.so:vendor/lib64/libtinyalsa_sec.so;FIX_SONAME
 
-# Power / Thermal
-vendor/bin/hw/vendor.samsung.hardware.thermal-service
-vendor/etc/init/vendor.samsung.hardware.thermal-default.rc
-vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal-default.xml
+# Thermal
 vendor/lib/vendor.samsung.hardware.thermal@1.0.so
-vendor/lib64/vendor.samsung.hardware.thermal-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 
 # RIL
