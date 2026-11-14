@@ -12,7 +12,8 @@ initializing teec. add proper error handling when opening the session
 and shared memory so the service does not segfault if ta loading fails.
 ---
  aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp | 72 ++++++++++++++++---
- 1 file changed, 64 insertions(+), 8 deletions(-)
+ teegris/teecl.h                               |  9 ++-
+ 2 files changed, 71 insertions(+), 10 deletions(-)
 
 diff --git a/aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp b/aidl/gatekeeper/teegris/TeegrisGateKeeper.cpp
 index f92262b..1bd3412 100644
@@ -134,6 +135,32 @@ index f92262b..1bd3412 100644
      verify_mem.challenge = request.challenge;
      verify_mem.auth_token_length = sizeof(verify_mem.auth_token_buffer);
      verify_mem.user_id = request.user_id;
+diff --git a/teegris/teecl.h b/teegris/teecl.h
+index 0000000..1111111 100644
+--- a/teegris/teecl.h
++++ b/teegris/teecl.h
+@@ -3,14 +3,19 @@
+  * SPDX-License-Identifier: Apache-2.0
+  */
+ 
++#include <stdint.h>
++
+ #define TEEC_VALUE_INPUT 1
+ #define TEEC_VALUE_OUTPUT 2
+ 
++#define TEEC_SUCCESS 0
++typedef uint32_t TEEC_Result;
++
+ void TEEC_AllocateSharedMemory(void**, void*);
+ void TEEC_CloseSession(void**);
+ void TEEC_FinalizeContext(void**);
+-void TEEC_InitializeContext(void*, void**);
++TEEC_Result TEEC_InitializeContext(void*, void**);
+ void TEEC_InvokeCommand(void**, int, void*, int*);
+ void TEEC_RegisterSharedMemory(void**, void*);
+ void TEEC_ReleaseSharedMemory(void*);
+-void TEECS_OpenSession(void**, void**, const char*, void*, size_t, int, void*, void*, int*);
++TEEC_Result TEECS_OpenSession(void**, void**, const char*, void*, size_t, int, void*, void*, int*);
 -- 
 2.56.0
 
