@@ -19,9 +19,8 @@ PRODUCT_COPY_FILES += \
     $(foreach f,abov/a96t396_a13_main.bin sensorhub/shub_nacho_a13.bin tsp_himax/hx83112f_a13.bin tsp_novatek/nt36672_a13_csot.bin tsp_novatek/nt36672_a13_csot_mp.bin tsp_novatek/nt36672_a13_tianma.bin tsp_novatek/nt36672_a13_tianma_mp.bin tsp_ovt/td4375_a13_boe.bin,\
         vendor/samsung/a13/proprietary/vendor/firmware/$(f):$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/$(f))
 
-# NXP NFC and HIDL fingerprint HALs from the A13 stock vendor
+# NXP NFC from the A13 stock vendor
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1.vendor \
     android.hardware.nfc@1.0.vendor \
     android.hardware.nfc@1.1.vendor \
     android.hardware.nfc@1.2.vendor \

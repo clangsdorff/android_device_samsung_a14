@@ -155,6 +155,18 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@4.0-service \
     android.hardware.graphics.composer@2.2-service
 
+# Fingerprint
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint-service.samsung
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/idc/uinput-sec-fp.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/uinput-sec-fp.idc \
+    $(LOCAL_PATH)/configs/keylayout/uinput-sec-fp.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-sec-fp.kl
+
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.vendor.fingerprint.type=side \
+    ro.vendor.fingerprint.supports_gestures=true
+
 # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper-service.teegris
