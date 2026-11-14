@@ -279,10 +279,6 @@ vendor/tee/driver/00000000-0000-0000-0000-494363447256
 vendor/tee/driver/00000000-0000-0000-0000-564c544b4456
 
 # Media / Codec2
-vendor/bin/hw/samsung.hardware.media.c2@1.2-service
-vendor/etc/init/samsung.hardware.media.c2@1.2-service.rc
-vendor/etc/seccomp_policy/codec2.vendor.base.policy
-vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 vendor/etc/seccomp_policy/mediaextractor_sec.policy
 vendor/etc/somxreg.conf
 vendor/firmware/mfc_fw.bin

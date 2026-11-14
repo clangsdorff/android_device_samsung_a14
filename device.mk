@@ -175,6 +175,10 @@ $(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
 $(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
 $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
 
+# Codec2
+PRODUCT_PACKAGES += \
+    android.software.media.c2-service.samsung
+
 # Light
 PRODUCT_PACKAGES += \
     android.hardware.light-service.samsung
