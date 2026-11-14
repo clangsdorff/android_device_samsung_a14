@@ -144,6 +144,11 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.usb.default
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl \
+    android.hardware.bluetooth@1.0-service
+
 # GNSS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@2.1-service.samsung

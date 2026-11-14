@@ -57,11 +57,6 @@
         <name>android.hardware.security.sharedsecret</name>
         <fqname>ISharedSecret/default</fqname>
     </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.bluetooth</name>
-        <transport>hwbinder</transport>
-        <fqname>@2.0::ISehBluetooth/default</fqname>
-    </hal>
     <hal format="aidl">
         <name>vendor.samsung.hardware.keymint</name>
         <version>2</version>
