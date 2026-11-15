@@ -11,12 +11,10 @@ vendor/etc/audio_policy_configuration.xml
 vendor/etc/audio_policy_configuration_sec.xml
 vendor/etc/audio_policy_volumes.xml
 vendor/etc/bluetooth_audio_policy_configuration.xml
-vendor/etc/dax3_media_codecs_dolby_audio.xml
 vendor/etc/default_volume_tables.xml
 vendor/etc/dolby/dax-default.xml
 vendor/etc/hearing_aid_audio_policy_configuration.xml
 vendor/etc/init/secaudiohalaidl.rc
-vendor/etc/media_codecs_dolby_audio.xml
 vendor/etc/mixer_gains.xml
 vendor/etc/mixer_paths.xml
 vendor/etc/r_submix_audio_policy_configuration.xml
@@ -174,14 +172,11 @@ vendor/lib/libdrmresource.so
 vendor/lib64/libdrmresource.so
 vendor/lib64/vendor.samsung.hardware.security.widevine.keyprov-V1-ndk.so
 
-# Face
-
 # Fingerprint
 vendor/app/mcRegistry/00060308060501020000000000000000.tabin
 vendor/app/mcRegistry/07061000000000000000000000000000.tlbin
 vendor/app/mcRegistry/09090000070100010000000000000000.tlbin
 vendor/app/mcRegistry/FFFFFFFFD00000000000000000000016.tlbin
-vendor/etc/init/fingerprint_common.rc
 vendor/etc/init/init.fingerprint.rc
 vendor/lib/libegis_fp_normal_sensor_test.so
 vendor/lib/vendor.samsung.hardware.biometrics.fingerprint-V1-ndk.so
@@ -196,7 +191,6 @@ vendor/etc/gnss/deleteLogCommands
 vendor/etc/gnss/gps.cfg
 vendor/etc/gnss/gps.debug.cfg
 vendor/etc/gps_debug.conf
-vendor/lib/libwrappergps.so
 vendor/lib64/hw/android.hardware.gnss@2.1-impl.so;MODULE_SUFFIX=_stock;FIX_SONAME
 vendor/lib64/libwrappergps.so
 
@@ -235,8 +229,6 @@ vendor/lib64/libion_exynos.so
 vendor/lib64/libOpenCL.so;MODULE_SUFFIX=_stock
 vendor/lib64/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0.so
 
-# Health / Charger
-
 # Keymint / Gatekeeper / TEE
 vendor/bin/hw/android.hardware.security.keymint-service:vendor/bin/hw/android.hardware.security.keymint-service.samsung
 vendor/bin/tzdaemon
@@ -274,7 +266,6 @@ vendor/tee/driver/00000000-0000-0000-0000-564c544b4456
 
 # Media / Codec2
 vendor/etc/seccomp_policy/mediaextractor_sec.policy
-vendor/etc/somxreg.conf
 vendor/firmware/mfc_fw.bin
 vendor/lib/libc2filterplugin.so
 vendor/lib/libExynosC2ComponentRM.so
@@ -304,7 +295,6 @@ vendor/lib64/libExynosC2Mpeg4Enc.so
 vendor/lib64/libExynosC2Vp8Dec.so
 vendor/lib64/libExynosC2Vp8Enc.so
 vendor/lib64/libsec2lsi_conversion.so
-vendor/lib64/libsomxcmn.so
 vendor/lib64/libstagefright_foundation_vendor.so
 
 # Misc
@@ -325,7 +315,6 @@ vendor/etc/str/str_preference_data.dat
 vendor/etc/sysconfig/vendor-apex-allowlist.xml
 vendor/etc/ueventd.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.sysinput-default.xml
-vendor/etc/vramdiskd.xml
 vendor/firmware/abov/a96t396_a14_main.bin
 vendor/firmware/MCD_NACHO_slog.bin
 vendor/firmware/os.checked.bin
@@ -511,8 +500,6 @@ vendor/etc/wifi/indoorchannel.info
 vendor/etc/wifi/p2p_supplicant_overlay.conf
 vendor/etc/wifi/wpa_supplicant.conf
 vendor/etc/wifi/wpa_supplicant_overlay.conf
-vendor/etc/wlan_common_rc
-vendor/etc/wlan_vendor_rc
 vendor/firmware/wifi/hydra_config.sdb
 vendor/firmware/wifi/mx140.bin
 vendor/firmware/wifi/mx140/build_id.txt
