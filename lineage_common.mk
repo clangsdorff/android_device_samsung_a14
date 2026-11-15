@@ -1,0 +1,26 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+TARGET_EXCLUDE_ADB_ROOT := true
+TARGET_EXCLUDE_LOS_EXTRA_CLI_UTILS := true
+TARGET_SKIP_BACKUPTOOL := true
+
+# Inherit some common Lineage stuff
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+# GApps
+$(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
+
+PRODUCT_MODEL := SM-A145F
+PRODUCT_BRAND := samsung
+PRODUCT_MANUFACTURER := samsung
+
+PRODUCT_GMS_CLIENTID_BASE := android-samsung-ss
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BuildDesc="a14nsxx-user 15 AP3A.240905.015.A2 A145FXXSEDZF2 release-keys" \
+    BuildFingerprint=samsung/a14nsxx/a14:15/AP3A.240905.015.A2/A145FXXSEDZF2:user/release-keys \
+    DeviceProduct=a14nsxx \
+    SystemName=a14nsxx
