@@ -1,6 +1,7 @@
 typeattribute hal_power_default mlstrustedsubject;
 
 allow hal_power_default sysfs_power_writable:dir r_dir_perms;
+allow hal_power_default sysfs_power_writable:file rw_file_perms;
 allow hal_power_default sysfs_gpu:dir r_dir_perms;
 allow hal_power_default sysfs_vendor_display:dir search;
 
