@@ -78,12 +78,14 @@
             "Values": [
                 "0",
                 "1",
-                "2"
+                "2",
+                "5"
             ],
             "Comments": [
                 "0 => Normal Mode",
                 "1 => Screen-Off Mode",
-                "2 => Camera Mode"
+                "2 => Performance Mode",
+                "5 => Camera Mode"
             ],
             "DefaultIndex": 0,
             "ResetOnInit": true
@@ -247,25 +249,25 @@
             "PowerHint": "CAMERA_STREAMING_SECURE",
             "Node": "EmsTuneReqMode",
             "Duration": 0,
-            "Value": "2"
+            "Value": "5"
         },
         {
             "PowerHint": "CAMERA_STREAMING_HIGH",
             "Node": "EmsTuneReqMode",
             "Duration": 0,
-            "Value": "2"
+            "Value": "5"
         },
         {
             "PowerHint": "CAMERA_STREAMING_MID",
             "Node": "EmsTuneReqMode",
             "Duration": 0,
-            "Value": "2"
+            "Value": "5"
         },
         {
             "PowerHint": "CAMERA_STREAMING_LOW",
             "Node": "EmsTuneReqMode",
             "Duration": 0,
-            "Value": "2"
+            "Value": "5"
         },
         {
             "PowerHint": "CAMERA_SHOT",
