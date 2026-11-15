@@ -1,7 +1,7 @@
-From 9475105f5b4688b307b27865cc4987206939b2fd Mon Sep 17 00:00:00 2001
+From 78c83e1f165e2b3009919fd0b3e3a66fe0e502ad Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 16:25:53 +0000
-Subject: [PATCH 01/15] display: tell samsung touch about display power changes
+Subject: [PATCH 01/13] display: tell samsung touch about display power changes
 
 in-cell samsung panels skip the backlight ic init while the touch ic
 holds the lcd rails, which leaves the screen black after a double tap
@@ -15,7 +15,7 @@ Change-Id: I7d0add55d82a006b17e2e8f0415e12fc4f33894e
  1 file changed, 50 insertions(+)
 
 diff --git a/services/core/java/com/android/server/display/LocalDisplayAdapter.java b/services/core/java/com/android/server/display/LocalDisplayAdapter.java
-index ae8e01484074..dfe208f61a20 100644
+index c400ea9dc9aa..853605385eba 100644
 --- a/services/core/java/com/android/server/display/LocalDisplayAdapter.java
 +++ b/services/core/java/com/android/server/display/LocalDisplayAdapter.java
 @@ -34,7 +34,10 @@ import android.os.Build;

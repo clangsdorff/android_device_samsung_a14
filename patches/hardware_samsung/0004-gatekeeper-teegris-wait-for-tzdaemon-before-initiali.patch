@@ -1,7 +1,8 @@
-From 3b547ecb8b8a0b80f3a5f72e1fffa186550cdb17 Mon Sep 17 00:00:00 2001
+From 611cbe2c7157e46146a4e1cd354dd36310af8a30 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 14 Nov 2026 21:50:00 +0300
-Subject: [PATCH 4/5] gatekeeper: teegris: wait for tzdaemon before initializing ta
+Subject: [PATCH 4/4] gatekeeper: teegris: wait for tzdaemon before
+ initializing ta
 
 teegris tzdaemon sets vendor.tzdaemon to ready once the secure os has
 initialized. if the gatekeeper service tries to open a session before
@@ -136,7 +137,7 @@ index f92262b..1bd3412 100644
      verify_mem.auth_token_length = sizeof(verify_mem.auth_token_buffer);
      verify_mem.user_id = request.user_id;
 diff --git a/teegris/teecl.h b/teegris/teecl.h
-index 0000000..1111111 100644
+index 0169110..0c2fccc 100644
 --- a/teegris/teecl.h
 +++ b/teegris/teecl.h
 @@ -3,14 +3,19 @@
@@ -162,5 +163,5 @@ index 0000000..1111111 100644
 -void TEECS_OpenSession(void**, void**, const char*, void*, size_t, int, void*, void*, int*);
 +TEEC_Result TEECS_OpenSession(void**, void**, const char*, void*, size_t, int, void*, void*, int*);
 -- 
-2.56.0
+2.43.0
 

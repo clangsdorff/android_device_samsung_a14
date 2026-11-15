@@ -1,7 +1,7 @@
-From 6be6343010bee5f64481aef534aa6418ee70429f Mon Sep 17 00:00:00 2001
+From 350aee735c14f23eee6a060a76fbae9781db0b8f Mon Sep 17 00:00:00 2001
 From: "Christopher A. Williamson" <contact@chrisaw.io>
 Date: Tue, 10 Nov 2026 15:24:02 +0000
-Subject: [PATCH 12/15] frameworks: drop the framework-virtualization
+Subject: [PATCH 10/13] frameworks: drop the framework-virtualization
  references
 
 the com.android.virt apex is no longer installed on the gsi and the
@@ -113,10 +113,10 @@ index cc0e7b5cb7fa..127dd4603a8c 100644
  
              if (TelecomDependencies.isMainlineBuildFlagEnabled()) {
 diff --git a/services/core/Android.bp b/services/core/Android.bp
-index 054f40298768..6b845a663e42 100644
+index 7ce5d205b891..194ac1e40f35 100644
 --- a/services/core/Android.bp
 +++ b/services/core/Android.bp
-@@ -267,7 +267,6 @@ java_library_static {
+@@ -266,7 +266,6 @@ java_library_static {
          "android.adpf.sessionmanager_aidl-java",
          "clipboard_flags_lib",
          "aconfig_adbdauth_flags_java_lib",
