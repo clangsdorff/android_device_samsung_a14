@@ -14,6 +14,8 @@ on init
     chmod 0664 /dev/cpuset/surfaceflinger/tasks
     chmod 0664 /dev/cpuset/surfaceflinger/cgroup.procs
 
+    chown system graphics /dev/graphics/fb0
+
     start watchdogd
 
 on post-fs-data
