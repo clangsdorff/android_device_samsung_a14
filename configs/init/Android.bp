@@ -12,8 +12,29 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "init.baseband.rc",
+    src: "init.baseband.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.gps.rc",
+    src: "init.gps.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "init.s5e3830.usb.rc",
     src: "init.s5e3830.usb.rc",
+    sub_dir: "init",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.vendor.rilcommon.rc",
+    src: "init.vendor.rilcommon.rc",
     sub_dir: "init",
     vendor: true,
 }

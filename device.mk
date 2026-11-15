@@ -68,11 +68,10 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_PACKAGES += \
-    init.a14.rc
-
-PRODUCT_COPY_FILES += \
-    $(foreach f,init.baseband.rc init.gps.rc init.vendor.rilcommon.rc,\
-        $(LOCAL_PATH)/configs/init/$(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/$(f))
+    init.a14.rc \
+    init.baseband.rc \
+    init.gps.rc \
+    init.vendor.rilcommon.rc
 
 # Linker
 PRODUCT_COPY_FILES += \
