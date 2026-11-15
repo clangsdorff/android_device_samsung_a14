@@ -18,7 +18,6 @@ using ::aidl::android::hardware::nfc::NfcStatus;
 using ::aidl::android::hardware::nfc::PresenceCheckAlgorithm;
 using ::ndk::ScopedAStatus;
 
-extern "C" {
 int phNxpNciHal_open(void (*eventCallback)(uint8_t, uint8_t), void (*dataCallback)(uint16_t, uint8_t*));
 int phNxpNciHal_close(bool);
 void phNxpNciHal_configDiscShutdown();
@@ -29,11 +28,12 @@ int phNxpNciHal_pre_discover();
 int phNxpNciHal_write(uint16_t data_len, const uint8_t* p_data);
 void phNxpNciHal_setVerboseLogging(bool enable);
 bool phNxpNciHal_getVerboseLogging();
-
 void phNxpNciHal_getExtVendorConfig();
+uint8_t phNxpNciHal_updateAutonomousPwrState(uint8_t);
+
+extern "C" {
 bool GetNxpNumValue(const char* name, void* p_val, size_t len);
 bool GetNxpByteArrayValue(const char* name, char* p_val, size_t len, size_t* p_real_len);
-uint8_t phNxpNciHal_updateAutonomousPwrState(uint8_t);
 }
 
 class NxpNfc : public BnNfc {
