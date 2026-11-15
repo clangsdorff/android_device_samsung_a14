@@ -1,4 +1,4 @@
-From 539eb2031b5f8da65db6cf9d5572c10392a17334 Mon Sep 17 00:00:00 2001
+From 57d64ceeb65985d25320a196d540f9c2eddf0a83 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 10 Oct 2026 14:24:23 +0300
 Subject: [PATCH 2/5] keyboard: add a toggle to hide the ime back button in the

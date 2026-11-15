@@ -1,102 +1,103 @@
-From 5ec96982b2f6205ddd0e78ca485428db5884c6f5 Mon Sep 17 00:00:00 2001
+From ad768ea897bc3a04adce121bf3446925dba6654e Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Fri, 23 Oct 2026 00:41:49 +0300
-Subject: [PATCH 1/5] gestures: offer fingerprint swipe when the sensor reports
- navigation keys
+Subject: [PATCH 1/5] gestures: drop the back sensor wording from the
+ fingerprint swipe
 
-the swipe toggle was only shown when an input device maps the system
-navigation keys. sensors that report swipes through the hal never
-match, so also show it when the framework sets sys.fp_nav_keys.
+the swipe summary tells users to swipe on a sensor on the back of the
+phone. side and in-key sensors use the same toggle, so name only the
+sensor. also show the toggle on by default to match the value that
+settingsprovider seeds.
 
 Change-Id: I88e3f7a6dbaf4a470b8e955546cd4d727096dceb
 ---
- res-product/values-af/strings.xml             |  8 +++---
- res-product/values-am/strings.xml             |  8 +++---
- res-product/values-ar/strings.xml             |  8 +++---
- res-product/values-as/strings.xml             |  8 +++---
- res-product/values-az/strings.xml             |  8 +++---
- res-product/values-b+sr+Latn/strings.xml      |  8 +++---
- res-product/values-be/strings.xml             |  8 +++---
- res-product/values-bg/strings.xml             |  8 +++---
- res-product/values-bn/strings.xml             |  8 +++---
- res-product/values-bs/strings.xml             |  8 +++---
- res-product/values-ca/strings.xml             |  8 +++---
- res-product/values-cs/strings.xml             |  8 +++---
- res-product/values-da/strings.xml             |  8 +++---
- res-product/values-de/strings.xml             |  8 +++---
- res-product/values-el/strings.xml             |  8 +++---
- res-product/values-en-rAU/strings.xml         |  8 +++---
- res-product/values-en-rCA/strings.xml         |  8 +++---
- res-product/values-en-rGB/strings.xml         |  8 +++---
- res-product/values-en-rIN/strings.xml         |  8 +++---
- res-product/values-es-rUS/strings.xml         |  8 +++---
- res-product/values-es/strings.xml             |  8 +++---
- res-product/values-et/strings.xml             |  8 +++---
- res-product/values-eu/strings.xml             |  8 +++---
- res-product/values-fa/strings.xml             |  8 +++---
- res-product/values-fi/strings.xml             |  8 +++---
- res-product/values-fr-rCA/strings.xml         |  8 +++---
- res-product/values-fr/strings.xml             |  8 +++---
- res-product/values-gl/strings.xml             |  8 +++---
- res-product/values-gu/strings.xml             |  8 +++---
- res-product/values-hi/strings.xml             |  8 +++---
- res-product/values-hr/strings.xml             |  8 +++---
- res-product/values-hu/strings.xml             |  8 +++---
- res-product/values-hy/strings.xml             |  8 +++---
- res-product/values-in/strings.xml             |  8 +++---
- res-product/values-is/strings.xml             |  8 +++---
- res-product/values-it/strings.xml             |  8 +++---
- res-product/values-iw/strings.xml             |  8 +++---
- res-product/values-ja/strings.xml             |  8 +++---
- res-product/values-ka/strings.xml             |  8 +++---
- res-product/values-kk/strings.xml             |  8 +++---
- res-product/values-km/strings.xml             |  8 +++---
- res-product/values-kn/strings.xml             |  8 +++---
- res-product/values-ko/strings.xml             |  8 +++---
- res-product/values-ky/strings.xml             |  8 +++---
- res-product/values-lo/strings.xml             |  8 +++---
- res-product/values-lt/strings.xml             |  8 +++---
- res-product/values-lv/strings.xml             |  8 +++---
- res-product/values-mk/strings.xml             |  8 +++---
- res-product/values-ml/strings.xml             |  8 +++---
- res-product/values-mn/strings.xml             |  8 +++---
- res-product/values-mr/strings.xml             |  8 +++---
- res-product/values-ms/strings.xml             |  8 +++---
- res-product/values-my/strings.xml             |  8 +++---
- res-product/values-nb/strings.xml             |  8 +++---
- res-product/values-ne/strings.xml             |  8 +++---
- res-product/values-nl/strings.xml             |  8 +++---
- res-product/values-or/strings.xml             |  8 +++---
- res-product/values-pa/strings.xml             |  8 +++---
- res-product/values-pl/strings.xml             |  8 +++---
- res-product/values-pt-rBR/strings.xml         |  8 +++---
- res-product/values-pt-rPT/strings.xml         |  8 +++---
- res-product/values-pt/strings.xml             |  8 +++---
- res-product/values-ro/strings.xml             |  8 +++---
- res-product/values-ru/strings.xml             |  8 +++---
- res-product/values-si/strings.xml             |  8 +++---
- res-product/values-sk/strings.xml             |  8 +++---
- res-product/values-sl/strings.xml             |  8 +++---
- res-product/values-sq/strings.xml             |  8 +++---
- res-product/values-sr/strings.xml             |  8 +++---
- res-product/values-sv/strings.xml             |  8 +++---
- res-product/values-sw/strings.xml             |  8 +++---
- res-product/values-ta/strings.xml             |  8 +++---
- res-product/values-te/strings.xml             |  8 +++---
- res-product/values-th/strings.xml             |  8 +++---
- res-product/values-tl/strings.xml             |  8 +++---
- res-product/values-tr/strings.xml             |  8 +++---
- res-product/values-uk/strings.xml             |  8 +++---
- res-product/values-ur/strings.xml             |  8 +++---
- res-product/values-uz/strings.xml             |  8 +++---
- res-product/values-vi/strings.xml             |  8 +++---
- res-product/values-zh-rCN/strings.xml         |  8 +++---
- res-product/values-zh-rHK/strings.xml         |  8 +++---
- res-product/values-zh-rTW/strings.xml         |  8 +++---
- res-product/values-zu/strings.xml             |  8 +++---
- res-product/values/strings.xml                |  8 +++---
- ...ipeToNotificationPreferenceController.java | 25 ++++++++++++++++---
- 86 files changed, 362 insertions(+), 343 deletions(-)
+ res-product/values-af/strings.xml                         | 8 ++++----
+ res-product/values-am/strings.xml                         | 8 ++++----
+ res-product/values-ar/strings.xml                         | 8 ++++----
+ res-product/values-as/strings.xml                         | 8 ++++----
+ res-product/values-az/strings.xml                         | 8 ++++----
+ res-product/values-b+sr+Latn/strings.xml                  | 8 ++++----
+ res-product/values-be/strings.xml                         | 8 ++++----
+ res-product/values-bg/strings.xml                         | 8 ++++----
+ res-product/values-bn/strings.xml                         | 8 ++++----
+ res-product/values-bs/strings.xml                         | 8 ++++----
+ res-product/values-ca/strings.xml                         | 8 ++++----
+ res-product/values-cs/strings.xml                         | 8 ++++----
+ res-product/values-da/strings.xml                         | 8 ++++----
+ res-product/values-de/strings.xml                         | 8 ++++----
+ res-product/values-el/strings.xml                         | 8 ++++----
+ res-product/values-en-rAU/strings.xml                     | 8 ++++----
+ res-product/values-en-rCA/strings.xml                     | 8 ++++----
+ res-product/values-en-rGB/strings.xml                     | 8 ++++----
+ res-product/values-en-rIN/strings.xml                     | 8 ++++----
+ res-product/values-es-rUS/strings.xml                     | 8 ++++----
+ res-product/values-es/strings.xml                         | 8 ++++----
+ res-product/values-et/strings.xml                         | 8 ++++----
+ res-product/values-eu/strings.xml                         | 8 ++++----
+ res-product/values-fa/strings.xml                         | 8 ++++----
+ res-product/values-fi/strings.xml                         | 8 ++++----
+ res-product/values-fr-rCA/strings.xml                     | 8 ++++----
+ res-product/values-fr/strings.xml                         | 8 ++++----
+ res-product/values-gl/strings.xml                         | 8 ++++----
+ res-product/values-gu/strings.xml                         | 8 ++++----
+ res-product/values-hi/strings.xml                         | 8 ++++----
+ res-product/values-hr/strings.xml                         | 8 ++++----
+ res-product/values-hu/strings.xml                         | 8 ++++----
+ res-product/values-hy/strings.xml                         | 8 ++++----
+ res-product/values-in/strings.xml                         | 8 ++++----
+ res-product/values-is/strings.xml                         | 8 ++++----
+ res-product/values-it/strings.xml                         | 8 ++++----
+ res-product/values-iw/strings.xml                         | 8 ++++----
+ res-product/values-ja/strings.xml                         | 8 ++++----
+ res-product/values-ka/strings.xml                         | 8 ++++----
+ res-product/values-kk/strings.xml                         | 8 ++++----
+ res-product/values-km/strings.xml                         | 8 ++++----
+ res-product/values-kn/strings.xml                         | 8 ++++----
+ res-product/values-ko/strings.xml                         | 8 ++++----
+ res-product/values-ky/strings.xml                         | 8 ++++----
+ res-product/values-lo/strings.xml                         | 8 ++++----
+ res-product/values-lt/strings.xml                         | 8 ++++----
+ res-product/values-lv/strings.xml                         | 8 ++++----
+ res-product/values-mk/strings.xml                         | 8 ++++----
+ res-product/values-ml/strings.xml                         | 8 ++++----
+ res-product/values-mn/strings.xml                         | 8 ++++----
+ res-product/values-mr/strings.xml                         | 8 ++++----
+ res-product/values-ms/strings.xml                         | 8 ++++----
+ res-product/values-my/strings.xml                         | 8 ++++----
+ res-product/values-nb/strings.xml                         | 8 ++++----
+ res-product/values-ne/strings.xml                         | 8 ++++----
+ res-product/values-nl/strings.xml                         | 8 ++++----
+ res-product/values-or/strings.xml                         | 8 ++++----
+ res-product/values-pa/strings.xml                         | 8 ++++----
+ res-product/values-pl/strings.xml                         | 8 ++++----
+ res-product/values-pt-rBR/strings.xml                     | 8 ++++----
+ res-product/values-pt-rPT/strings.xml                     | 8 ++++----
+ res-product/values-pt/strings.xml                         | 8 ++++----
+ res-product/values-ro/strings.xml                         | 8 ++++----
+ res-product/values-ru/strings.xml                         | 8 ++++----
+ res-product/values-si/strings.xml                         | 8 ++++----
+ res-product/values-sk/strings.xml                         | 8 ++++----
+ res-product/values-sl/strings.xml                         | 8 ++++----
+ res-product/values-sq/strings.xml                         | 8 ++++----
+ res-product/values-sr/strings.xml                         | 8 ++++----
+ res-product/values-sv/strings.xml                         | 8 ++++----
+ res-product/values-sw/strings.xml                         | 8 ++++----
+ res-product/values-ta/strings.xml                         | 8 ++++----
+ res-product/values-te/strings.xml                         | 8 ++++----
+ res-product/values-th/strings.xml                         | 8 ++++----
+ res-product/values-tl/strings.xml                         | 8 ++++----
+ res-product/values-tr/strings.xml                         | 8 ++++----
+ res-product/values-uk/strings.xml                         | 8 ++++----
+ res-product/values-ur/strings.xml                         | 8 ++++----
+ res-product/values-uz/strings.xml                         | 8 ++++----
+ res-product/values-vi/strings.xml                         | 8 ++++----
+ res-product/values-zh-rCN/strings.xml                     | 8 ++++----
+ res-product/values-zh-rHK/strings.xml                     | 8 ++++----
+ res-product/values-zh-rTW/strings.xml                     | 8 ++++----
+ res-product/values-zu/strings.xml                         | 8 ++++----
+ res-product/values/strings.xml                            | 8 ++++----
+ .../gestures/SwipeToNotificationPreferenceController.java | 2 +-
+ 86 files changed, 341 insertions(+), 341 deletions(-)
 
 diff --git a/res-product/values-af/strings.xml b/res-product/values-af/strings.xml
 index d9bef634bb8..79a0ac7e0db 100644
@@ -1717,49 +1718,10 @@ index 0f8861c15e9..4120da442c9 100644
      <string name="no_5g_in_dsds_text" product="default">When using 2 SIMs, this phone will be limited to 4G. <annotation id="url">Learn more</annotation></string>
      <!-- Footer to show current limitation of 5G on DSDS mode for tablets. [CHAR LIMIT=NONE] -->
 diff --git a/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java b/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java
-index b1738680375..f92f9652e1f 100644
+index b1738680375..c3d1745f390 100644
 --- a/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java
 +++ b/src/com/android/settings/gestures/SwipeToNotificationPreferenceController.java
-@@ -20,8 +20,12 @@ import static android.provider.Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED;
- 
- import android.content.Context;
- import android.content.SharedPreferences;
-+import android.hardware.input.InputManager;
-+import android.os.SystemProperties;
- import android.provider.Settings;
- import android.text.TextUtils;
-+import android.view.InputDevice;
-+import android.view.KeyEvent;
- 
- import com.android.settings.Utils;
- 
-@@ -47,8 +51,23 @@ public class SwipeToNotificationPreferenceController extends GesturePreferenceCo
- 
-     private static boolean isGestureAvailable(Context context) {
-         return Utils.hasFingerprintHardware(context)
--                && context.getResources()
--                .getBoolean(com.android.internal.R.bool.config_supportSystemNavigationKeys);
-+                && (context.getResources()
-+                .getBoolean(com.android.internal.R.bool.config_supportSystemNavigationKeys)
-+                || SystemProperties.getBoolean("sys.fp_nav_keys", false)
-+                || hasSystemNavigationKeys(context));
-+    }
-+
-+    // A GSI can't know the vendor's fingerprint keylayout, so look for a device that maps it.
-+    private static boolean hasSystemNavigationKeys(Context context) {
-+        final InputManager im = context.getSystemService(InputManager.class);
-+        for (int id : im.getInputDeviceIds()) {
-+            final InputDevice device = im.getInputDevice(id);
-+            if (device != null && !device.isVirtual()
-+                    && device.hasKeys(KeyEvent.KEYCODE_SYSTEM_NAVIGATION_DOWN)[0]) {
-+                return true;
-+            }
-+        }
-+        return false;
-     }
- 
-     @Override
-@@ -83,7 +102,7 @@ public class SwipeToNotificationPreferenceController extends GesturePreferenceCo
+@@ -83,7 +83,7 @@ public class SwipeToNotificationPreferenceController extends GesturePreferenceCo
      }
  
      public static boolean isSwipeToNotificationOn(Context context) {

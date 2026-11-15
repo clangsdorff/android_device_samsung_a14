@@ -1,4 +1,4 @@
-From b11151d8fea478d8bcccc0c6c740795f80e84ee2 Mon Sep 17 00:00:00 2001
+From f42d7208d8072ea198a32062b7d416ae75496e1d Mon Sep 17 00:00:00 2001
 From: "Christopher A. Williamson" <contact@chrisaw.io>
 Date: Mon, 28 Sep 2026 16:59:35 +0100
 Subject: [PATCH 5/5] settings: drop the framework-virtualization stub dep

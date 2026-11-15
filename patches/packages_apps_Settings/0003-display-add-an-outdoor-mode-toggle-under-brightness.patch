@@ -1,4 +1,4 @@
-From e0973c1b1e96c73c518b0060c5240a4d0bc691f9 Mon Sep 17 00:00:00 2001
+From ecff0d12b1addf8b3a2dbb6ee1236532e66d6aed Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 9 Nov 2026 01:19:10 +0300
 Subject: [PATCH 3/5] display: add an outdoor mode toggle under brightness

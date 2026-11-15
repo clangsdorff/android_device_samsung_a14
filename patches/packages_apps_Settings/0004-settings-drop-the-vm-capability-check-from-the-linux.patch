@@ -1,4 +1,4 @@
-From 116bb29d3f89f55aab2281e9844a95edb28d77e7 Mon Sep 17 00:00:00 2001
+From 5a517f68f559fd488bcfc8304175b9ae43d2bd80 Mon Sep 17 00:00:00 2001
 From: "Christopher A. Williamson" <contact@chrisaw.io>
 Date: Tue, 10 Nov 2026 15:24:19 +0000
 Subject: [PATCH 4/5] settings: drop the vm capability check from the linux
