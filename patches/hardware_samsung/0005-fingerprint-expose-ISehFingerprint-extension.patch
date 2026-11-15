@@ -1,7 +1,7 @@
 From 4966c2d04f31419da95746c97d287744448c970e Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 14 Nov 2026 21:51:20 +0300
-Subject: [PATCH] fingerprint: expose ISehFingerprint extension
+Subject: [PATCH 5/5] fingerprint: expose ISehFingerprint extension
 
 the framework looks for vendor.samsung.hardware.biometrics.fingerprint
 through the IFingerprint binder extension to toggle swipe gestures and

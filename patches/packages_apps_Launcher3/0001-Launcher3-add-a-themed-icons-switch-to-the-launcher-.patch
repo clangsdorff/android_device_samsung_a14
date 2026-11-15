@@ -1,7 +1,7 @@
 From 8fd27ab23c86ae3fd17ef1e321f4488ee82cd7f8 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 5 Nov 2026 16:26:02 +0000
-Subject: [PATCH] Launcher3: add a themed icons switch to the launcher settings
+Subject: [PATCH 1/1] Launcher3: add a themed icons switch to the launcher settings
 
 lineage only offers themed icons for the app drawer, the home screen
 switch lives in the wallpaper picker. add a themed icons switch to the

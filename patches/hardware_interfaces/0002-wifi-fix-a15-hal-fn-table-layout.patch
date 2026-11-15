@@ -1,7 +1,7 @@
 From 1b068c9f807562d5f6b086735f32c898e278301d Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 15 Nov 2026 05:08:59 +0300
-Subject: [PATCH] wifi: realign android 15 vendor wifi_hal_fn table
+Subject: [PATCH 2/2] wifi: realign android 15 vendor wifi_hal_fn table
 
 stock android 15 libwifi-hal.so lacks wifi_rtt_range_request_v4 and
 wifi_get_rtt_capabilities_v4 in wifi_hal_fn, shifting all following

@@ -1,7 +1,7 @@
 From 354612c11e49a0a493151747c5ff9bad52856caf Mon Sep 17 00:00:00 2001
 From: "Christopher A. Williamson" <contact@chrisaw.io>
 Date: Tue, 29 Sep 2026 18:59:41 +0100
-Subject: [PATCH] sdk: drop the aiseal package from the api 37 latest api text
+Subject: [PATCH 1/1] sdk: drop the aiseal package from the api 37 latest api text
 
 the aiseal framework classes are removed on the gsi, so the frozen api
 text used for binary compatibility checks must not list them.

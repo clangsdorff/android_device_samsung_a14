@@ -1,7 +1,7 @@
 From e5f4dc376ebf495afd46c5a54ab94dc5173abd06 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 8 Nov 2026 10:46:19 +0300
-Subject: [PATCH] gapps: enable dex preopt for the prebuilt apps
+Subject: [PATCH 1/1] gapps: enable dex preopt for the prebuilt apps
 
 the generated android_app_import modules set dex_preopt enabled to
 false, so none of the gapps apks get an odex at build time and they

@@ -1,7 +1,7 @@
 From 57c94eadaac9be2af21878dd2e571e4763b2b539 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 14 Nov 2026 20:13:53 +0000
-Subject: [PATCH] gralloc4: isolate allocator service in soong namespace
+Subject: [PATCH 4/4] gralloc4: isolate allocator service in soong namespace
 
 add a local soong_namespace to the 4.x allocator service so devices can
 include it without importing the top-level exynos namespace.

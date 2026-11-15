@@ -1,7 +1,7 @@
 From bb230359f70bc33810aa617d3dd4e572884ec7ea Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 11 Nov 2026 23:04:33 +0000
-Subject: [PATCH] sepolicy: make adbroot opt-out
+Subject: [PATCH 1/1] sepolicy: make adbroot opt-out
 
 move the adbroot types, contexts and allow rules to common/adbroot and
 only include them when TARGET_EXCLUDE_ADB_ROOT is not set. this avoids

@@ -1,9 +1,10 @@
 From ae12864feeb1cde7f98fdf0b306925c79b3b25c9 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 14 Nov 2026 21:40:00 +0300
-Subject: [PATCH] abox: build main_abox as binary
+Subject: [PATCH 3/4] abox: build main_abox as binary
 
-build the abox daemon as an executable binary instead of a shared library
+build the abox daemon as an executable binary instead of a shared
+library
 so that it is installed as /vendor/bin/main_abox, and isolate it in
 its own soong namespace.
 ---

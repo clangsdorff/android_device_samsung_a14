@@ -1,7 +1,7 @@
 From a18786c363f5ceab385776f0685a9421332e3062 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Tue, 10 Nov 2026 15:42:03 +0000
-Subject: [PATCH] virt: drop the bootclasspath fragment from the apex
+Subject: [PATCH 1/1] virt: drop the bootclasspath fragment from the apex
 
 framework-virtualization is no longer declared as an apex boot jar, so
 soong rejects the fragment that still lists it as its contents. the
