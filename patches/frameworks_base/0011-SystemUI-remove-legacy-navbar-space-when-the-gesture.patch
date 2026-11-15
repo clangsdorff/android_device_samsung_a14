@@ -1,7 +1,7 @@
 From adf8aa3eb6c2d88bb5fbc3effd025e736ab8c085 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Tue, 10 Nov 2026 22:34:53 +0300
-Subject: [PATCH 12/13] SystemUI: remove legacy navbar space when the gesture
+Subject: [PATCH 11/12] SystemUI: remove legacy navbar space when the gesture
  hint is hidden
 
 instagram keeps 24dp of empty space below its tabs when the lineage
