@@ -30,6 +30,7 @@ on property:init.svc.sec-camera-provider=running
 on property:sys.boot_completed=1
     setprop vendor.powerhal.init 1
     write /dev/cpuctl/top-app/cpu.uclamp.min 6.25
+    write /proc/sys/vm/page-cluster 0
 
 service vendor.power-hal-aidl /vendor/bin/hw/android.hardware.power-service.pixel-libperfmgr
     override
