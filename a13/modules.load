@@ -93,7 +93,6 @@ cpif_page.ko
 cpif.ko
 secmem.ko
 exyswd-rng.ko
-zram.ko
 scsc_log_collection.ko
 scsc_logring.ko
 scsc_platform_mif.ko
@@ -140,7 +139,6 @@ is-device-otprom.ko
 smfc.ko
 scaler.ko
 fm_s610.ko
-gpu_cooling.ko
 s3c2410_wdt.ko
 sec_debug_stacktrace.ko
 sec_debug_softdog.ko
@@ -227,8 +225,6 @@ snd-soc-s3c-dma.ko
 snd-soc-samsung-abox-sync.ko
 sec_audio_sysfs.ko
 snd-soc-exynos3830-aud3004x.ko
-tcp_westwood.ko
-tcp_htcp.ko
 is-cis-gc5035.ko
 is-actuator-dw9808.ko
 rt-regmap.ko
