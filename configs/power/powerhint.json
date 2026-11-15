@@ -1,16 +1,12 @@
 {
     "Nodes": [
         {
-            "Name": "CPUNormalClusterMinFreq",
-            "Path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+            "Name": "CPUMinLimit",
+            "Path": "/sys/devices/system/cpu/cpufreq_limit/cpufreq_min_limit",
             "Values": [
                 "2002000",
                 "1456000",
-                "1300000",
-                "1157000",
-                "1053000",
-                "806000",
-                "0"
+                "-1"
             ],
             "ResetOnInit": true
         },
@@ -24,20 +20,6 @@
                 "2002000"
             ],
             "DefaultIndex": 3,
-            "ResetOnInit": true
-        },
-        {
-            "Name": "CPULittleClusterMinFreq",
-            "Path": "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq",
-            "Values": [
-                "2002000",
-                "1456000",
-                "1300000",
-                "1157000",
-                "1053000",
-                "806000",
-                "0"
-            ],
             "ResetOnInit": true
         },
         {
@@ -173,15 +155,9 @@
         },
         {
             "PowerHint": "INTERACTION",
-            "Node": "CPUNormalClusterMinFreq",
+            "Node": "CPUMinLimit",
             "Duration": 1000,
             "Value": "1456000"
-        },
-        {
-            "PowerHint": "INTERACTION",
-            "Node": "CPULittleClusterMinFreq",
-            "Duration": 1000,
-            "Value": "1300000"
         },
         {
             "PowerHint": "INTERACTION",
@@ -203,13 +179,7 @@
         },
         {
             "PowerHint": "LAUNCH",
-            "Node": "CPUNormalClusterMinFreq",
-            "Duration": 3000,
-            "Value": "2002000"
-        },
-        {
-            "PowerHint": "LAUNCH",
-            "Node": "CPULittleClusterMinFreq",
+            "Node": "CPUMinLimit",
             "Duration": 3000,
             "Value": "2002000"
         },
@@ -245,13 +215,7 @@
         },
         {
             "PowerHint": "CAMERA_LAUNCH",
-            "Node": "CPUNormalClusterMinFreq",
-            "Duration": 1000,
-            "Value": "2002000"
-        },
-        {
-            "PowerHint": "CAMERA_LAUNCH",
-            "Node": "CPULittleClusterMinFreq",
+            "Node": "CPUMinLimit",
             "Duration": 1000,
             "Value": "2002000"
         },
@@ -305,7 +269,7 @@
         },
         {
             "PowerHint": "CAMERA_SHOT",
-            "Node": "CPUNormalClusterMinFreq",
+            "Node": "CPUMinLimit",
             "Duration": 500,
             "Value": "2002000"
         },
@@ -365,19 +329,13 @@
         },
         {
             "PowerHint": "FIXED_PERFORMANCE",
-            "Node": "CPUNormalClusterMinFreq",
+            "Node": "CPUMinLimit",
             "Duration": 0,
             "Value": "2002000"
         },
         {
             "PowerHint": "FIXED_PERFORMANCE",
             "Node": "CPUNormalClusterMaxFreq",
-            "Duration": 0,
-            "Value": "2002000"
-        },
-        {
-            "PowerHint": "FIXED_PERFORMANCE",
-            "Node": "CPULittleClusterMinFreq",
             "Duration": 0,
             "Value": "2002000"
         },
