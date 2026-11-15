@@ -13,6 +13,23 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # GApps
 $(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
 
+$(foreach m,\
+    AndroidAutoStub \
+    GoogleCalendarSyncAdapter \
+    GoogleContactsSyncAdapter \
+    GoogleFeedback \
+    GoogleRestore \
+    GoogleServicesFramework \
+    MarkupGoogle_v2 \
+    Phonesky \
+    PrebuiltExchange3Google \
+    SpeechServicesByGoogle \
+    Velvet \
+    VelvetTitan \
+    com.google.android.dialer.support \
+    talkback,\
+    $(call add-product-dex-preopt-module-config,$(m),disable))
+
 PRODUCT_MODEL := SM-A145F
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
