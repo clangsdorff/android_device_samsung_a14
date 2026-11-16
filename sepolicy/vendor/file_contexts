@@ -38,7 +38,6 @@
 /(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.sysinput-service                          u:object_r:hal_sysinput_default_exec:s0
 
 # Wi-Fi
-/(vendor|system/vendor)/bin/hw/mfgloader                                                            u:object_r:mfgloader_exec:s0
 /(vendor|system/vendor)/bin/wlbtd                                                                   u:object_r:wlbtd_exec:s0
 
 # Devices
