@@ -347,3 +347,6 @@ PRODUCT_SOONG_NAMESPACES += \
 ifneq ($(TARGET_IS_A13),true)
 $(call inherit-product, vendor/samsung/a14/a14-vendor.mk)
 endif
+
+# Samsung sound pack
+$(call inherit-product, device/samsung/a14/sounds/sounds.mk)
