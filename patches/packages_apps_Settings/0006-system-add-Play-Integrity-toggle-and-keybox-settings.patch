@@ -1,4 +1,4 @@
-From b981f72360903e02865e955113f39363b4cf356d Mon Sep 17 00:00:00 2001
+From bad457e0c10ae0da051d4f118ca9c9d2fc191958 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 09:31:29 +0000
 Subject: [PATCH] system: add Play Integrity toggle and keybox settings
@@ -186,7 +186,7 @@ Change-Id: Ia01d027fe200d0e68ab10ba01482b24ead1ad113
 
 diff --git a/res/values-af/play_integrity_strings.xml b/res/values-af/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..e47a7e515c9
+index 00000000000..57f4d357204
 --- /dev/null
 +++ b/res/values-af/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -197,14 +197,14 @@ index 00000000000..e47a7e515c9
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Profiel- en keybox-bestuur</string>
++    <string name="play_integrity_summary">Toestelidentiteit en keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Laai en pas Pixel Canary-vingerafdruk outomaties vir DroidGuard toe</string>
-+    <string name="play_integrity_pif_profile_title">Aktiewe vingerafdruk</string>
++    <string name="play_integrity_pif_toggle_summary">Laai en pas Pixel Canary-toestelprofiel outomaties vir DroidGuard toe</string>
++    <string name="play_integrity_pif_profile_title">Aktiewe toestelprofiel</string>
 +    <string name="play_integrity_pif_refresh_hint">Tik om die nuutste Pixel Canary-profiel te laai</string>
 +    <string name="play_integrity_pif_disabled">Gedeaktiveer</string>
 +    <string name="play_integrity_pif_updating">Laai tans nuutste Pixel Canary-profiel...</string>
-+    <string name="play_integrity_pif_updated">Vingerafdruk opgedateer</string>
++    <string name="play_integrity_pif_updated">Toestelprofiel opgedateer</string>
 +    <string name="play_integrity_pif_update_failed">Kon nie Pixel Canary-profiel laai nie</string>
 +    <string name="play_integrity_keybox_category">Attestasie-keybox</string>
 +    <string name="play_integrity_keybox_install_title">Laai keybox.xml</string>
@@ -264,7 +264,7 @@ index 00000000000..4dcf7b070b1
 +</resources>
 diff --git a/res/values-ar/play_integrity_strings.xml b/res/values-ar/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..94e66d175ba
+index 00000000000..5df06291578
 --- /dev/null
 +++ b/res/values-ar/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -275,14 +275,14 @@ index 00000000000..94e66d175ba
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">إدارة ملف التعريف و keybox</string>
++    <string name="play_integrity_summary">هوية الجهاز و keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">جلب بصمة Pixel Canary وتطبيقها تلقائيا على DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">البصمة النشطة</string>
++    <string name="play_integrity_pif_toggle_summary">جلب ملف جهاز Pixel Canary وتطبيقه تلقائيا على DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">ملف الجهاز النشط</string>
 +    <string name="play_integrity_pif_refresh_hint">انقر لجلب أحدث ملف Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">معطل</string>
 +    <string name="play_integrity_pif_updating">جار جلب أحدث ملف Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">تم تحديث البصمة</string>
++    <string name="play_integrity_pif_updated">تم تحديث ملف الجهاز</string>
 +    <string name="play_integrity_pif_update_failed">فشل جلب ملف Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">مفتاح keybox للتصديق</string>
 +    <string name="play_integrity_keybox_install_title">تحميل keybox.xml</string>
@@ -342,7 +342,7 @@ index 00000000000..d8dc18e7fa8
 +</resources>
 diff --git a/res/values-az/play_integrity_strings.xml b/res/values-az/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..8bb8bf5adfe
+index 00000000000..af2142d759a
 --- /dev/null
 +++ b/res/values-az/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -353,14 +353,14 @@ index 00000000000..8bb8bf5adfe
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Barmaq izi və keybox idarəetməsi</string>
++    <string name="play_integrity_summary">Cihaz kimliyi və keybox ayarları</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard üçün Pixel Canary barmaq izini avtomatik endir və tətbiq et</string>
-+    <string name="play_integrity_pif_profile_title">Aktiv barmaq izi</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard üçün Pixel Canary cihaz profilini avtomatik endir və tətbiq et</string>
++    <string name="play_integrity_pif_profile_title">Aktiv cihaz profili</string>
 +    <string name="play_integrity_pif_refresh_hint">Ən son Pixel Canary profilini endirmək üçün toxunun</string>
 +    <string name="play_integrity_pif_disabled">Deaktivdir</string>
 +    <string name="play_integrity_pif_updating">Ən son Pixel Canary profili endirilir...</string>
-+    <string name="play_integrity_pif_updated">Barmaq izi yeniləndi</string>
++    <string name="play_integrity_pif_updated">Cihaz profili yeniləndi</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary profili endirilə bilmədi</string>
 +    <string name="play_integrity_keybox_category">Təsdiq keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml yüklə</string>
@@ -381,7 +381,7 @@ index 00000000000..8bb8bf5adfe
 +</resources>
 diff --git a/res/values-b+sr+Latn/play_integrity_strings.xml b/res/values-b+sr+Latn/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..22e4421fee1
+index 00000000000..e6f73e83139
 --- /dev/null
 +++ b/res/values-b+sr+Latn/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -392,14 +392,14 @@ index 00000000000..22e4421fee1
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Upravljanje profilom i keybox-om</string>
++    <string name="play_integrity_summary">Identitet uređaja i keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Automatski preuzmi i primeni Pixel Canary otisak za DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivan otisak</string>
++    <string name="play_integrity_pif_toggle_summary">Automatski preuzmi i primeni Pixel Canary profil uređaja za DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktivan profil uređaja</string>
 +    <string name="play_integrity_pif_refresh_hint">Dodirnite za preuzimanje najnovijeg Pixel Canary profila</string>
 +    <string name="play_integrity_pif_disabled">Onemogućeno</string>
 +    <string name="play_integrity_pif_updating">Preuzimanje Pixel Canary profila...</string>
-+    <string name="play_integrity_pif_updated">Otisak je ažuriran</string>
++    <string name="play_integrity_pif_updated">Profil uređaja je ažuriran</string>
 +    <string name="play_integrity_pif_update_failed">Preuzimanje Pixel Canary profila nije uspelo</string>
 +    <string name="play_integrity_keybox_category">Keybox za atestaciju</string>
 +    <string name="play_integrity_keybox_install_title">Učitaj keybox.xml</string>
@@ -420,7 +420,7 @@ index 00000000000..22e4421fee1
 +</resources>
 diff --git a/res/values-be/play_integrity_strings.xml b/res/values-be/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..3b1e05ecad4
+index 00000000000..243826ebbff
 --- /dev/null
 +++ b/res/values-be/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -431,14 +431,14 @@ index 00000000000..3b1e05ecad4
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Кіраванне профілем і keybox</string>
++    <string name="play_integrity_summary">Профіль прылады і keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Аўтаматычна спампоўваць і прымяняць адбітак Pixel Canary для DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Актыўны адбітак</string>
++    <string name="play_integrity_pif_toggle_summary">Аўтаматычна спампоўваць і прымяняць профіль Pixel Canary для DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Актыўны профіль прылады</string>
 +    <string name="play_integrity_pif_refresh_hint">Націсніце, каб спампаваць апошні профіль Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Адключана</string>
 +    <string name="play_integrity_pif_updating">Спампоўка профілю Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Адбітак абноўлены</string>
++    <string name="play_integrity_pif_updated">Профіль прылады абноўлены</string>
 +    <string name="play_integrity_pif_update_failed">Не ўдалося спампаваць профіль Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox атэстацыі</string>
 +    <string name="play_integrity_keybox_install_title">Загрузіць keybox.xml</string>
@@ -459,7 +459,7 @@ index 00000000000..3b1e05ecad4
 +</resources>
 diff --git a/res/values-bg/play_integrity_strings.xml b/res/values-bg/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..e64a8b3c323
+index 00000000000..daedb83bc7f
 --- /dev/null
 +++ b/res/values-bg/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -470,14 +470,14 @@ index 00000000000..e64a8b3c323
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Управление на профил и keybox</string>
++    <string name="play_integrity_summary">Идентичност на устройството и keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Автоматично изтегляне и прилагане на отпечатък Pixel Canary за DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Активен отпечатък</string>
++    <string name="play_integrity_pif_toggle_summary">Автоматично изтегляне и прилагане на профил на устройство Pixel Canary за DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Активен профил на устройството</string>
 +    <string name="play_integrity_pif_refresh_hint">Докоснете за изтегляне на последния профил Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Изключено</string>
 +    <string name="play_integrity_pif_updating">Изтегляне на профил Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Отпечатъкът е обновен</string>
++    <string name="play_integrity_pif_updated">Профилът на устройството е обновен</string>
 +    <string name="play_integrity_pif_update_failed">Неуспешно изтегляне на профил Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox за атестация</string>
 +    <string name="play_integrity_keybox_install_title">Зареждане на keybox.xml</string>
@@ -537,7 +537,7 @@ index 00000000000..c9f2bb4ecd1
 +</resources>
 diff --git a/res/values-bs/play_integrity_strings.xml b/res/values-bs/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..61ea9a3a1ff
+index 00000000000..b9afb81e387
 --- /dev/null
 +++ b/res/values-bs/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -548,14 +548,14 @@ index 00000000000..61ea9a3a1ff
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Upravljanje profilom i keyboxom</string>
++    <string name="play_integrity_summary">Identitet uređaja i keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Automatski preuzmi i primijeni Pixel Canary otisak za DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivni otisak</string>
++    <string name="play_integrity_pif_toggle_summary">Automatski preuzmi i primijeni Pixel Canary profil uređaja za DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktivni profil uređaja</string>
 +    <string name="play_integrity_pif_refresh_hint">Dodirnite za preuzimanje najnovijeg Pixel Canary profila</string>
 +    <string name="play_integrity_pif_disabled">Onemogućeno</string>
 +    <string name="play_integrity_pif_updating">Preuzimanje Pixel Canary profila...</string>
-+    <string name="play_integrity_pif_updated">Otisak ažuriran</string>
++    <string name="play_integrity_pif_updated">Profil uređaja ažuriran</string>
 +    <string name="play_integrity_pif_update_failed">Preuzimanje Pixel Canary profila nije uspjelo</string>
 +    <string name="play_integrity_keybox_category">Keybox za atestaciju</string>
 +    <string name="play_integrity_keybox_install_title">Učitaj keybox.xml</string>
@@ -615,7 +615,7 @@ index 00000000000..07251f86767
 +</resources>
 diff --git a/res/values-cs/play_integrity_strings.xml b/res/values-cs/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..fa43a895975
+index 00000000000..0c24c68f823
 --- /dev/null
 +++ b/res/values-cs/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -626,14 +626,14 @@ index 00000000000..fa43a895975
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Správa profilu a keyboxu</string>
++    <string name="play_integrity_summary">Identita zařízení a keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Automaticky stahovat a používat otisk Pixel Canary pro DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivní otisk</string>
++    <string name="play_integrity_pif_toggle_summary">Automaticky stahovat a používat profil Pixel Canary pro DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktivní profil zařízení</string>
 +    <string name="play_integrity_pif_refresh_hint">Klepnutím stáhnete nejnovější profil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Vypnuto</string>
 +    <string name="play_integrity_pif_updating">Stahování nejnovějšího profilu Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Otisk aktualizován</string>
++    <string name="play_integrity_pif_updated">Profil zařízení aktualizován</string>
 +    <string name="play_integrity_pif_update_failed">Nepodařilo se stáhnout profil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox atestace</string>
 +    <string name="play_integrity_keybox_install_title">Načíst keybox.xml</string>
@@ -654,7 +654,7 @@ index 00000000000..fa43a895975
 +</resources>
 diff --git a/res/values-da/play_integrity_strings.xml b/res/values-da/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..5baca8f15b0
+index 00000000000..a2417bde620
 --- /dev/null
 +++ b/res/values-da/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -665,14 +665,14 @@ index 00000000000..5baca8f15b0
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Håndtering af profil og keybox</string>
++    <string name="play_integrity_summary">Enhedsidentitet og keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Hent og anvend Pixel Canary-fingeraftryk automatisk til DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivt fingeraftryk</string>
++    <string name="play_integrity_pif_toggle_summary">Hent og anvend Pixel Canary-enhedsprofil automatisk til DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktiv enhedsprofil</string>
 +    <string name="play_integrity_pif_refresh_hint">Tryk for at hente den nyeste Pixel Canary-profil</string>
 +    <string name="play_integrity_pif_disabled">Deaktiveret</string>
 +    <string name="play_integrity_pif_updating">Henter nyeste Pixel Canary-profil...</string>
-+    <string name="play_integrity_pif_updated">Fingeraftryk opdateret</string>
++    <string name="play_integrity_pif_updated">Enhedsprofil opdateret</string>
 +    <string name="play_integrity_pif_update_failed">Kunne ikke hente Pixel Canary-profil</string>
 +    <string name="play_integrity_keybox_category">Attesterings-keybox</string>
 +    <string name="play_integrity_keybox_install_title">Indlæs keybox.xml</string>
@@ -693,7 +693,7 @@ index 00000000000..5baca8f15b0
 +</resources>
 diff --git a/res/values-de/play_integrity_strings.xml b/res/values-de/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..5541a03cfa3
+index 00000000000..199293c2e85
 --- /dev/null
 +++ b/res/values-de/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -704,14 +704,14 @@ index 00000000000..5541a03cfa3
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Profil- und Keybox-Verwaltung</string>
++    <string name="play_integrity_summary">Geräteidentität und Keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Pixel-Canary-Fingerabdruck automatisch für DroidGuard laden und anwenden</string>
-+    <string name="play_integrity_pif_profile_title">Aktiver Fingerabdruck</string>
++    <string name="play_integrity_pif_toggle_summary">Pixel-Canary-Geräteprofil automatisch für DroidGuard laden und anwenden</string>
++    <string name="play_integrity_pif_profile_title">Aktives Geräteprofil</string>
 +    <string name="play_integrity_pif_refresh_hint">Tippen, um das neueste Pixel-Canary-Profil abzurufen</string>
 +    <string name="play_integrity_pif_disabled">Deaktiviert</string>
 +    <string name="play_integrity_pif_updating">Neuestes Pixel-Canary-Profil wird abgerufen...</string>
-+    <string name="play_integrity_pif_updated">Fingerabdruck aktualisiert</string>
++    <string name="play_integrity_pif_updated">Geräteprofil aktualisiert</string>
 +    <string name="play_integrity_pif_update_failed">Pixel-Canary-Profil konnte nicht abgerufen werden</string>
 +    <string name="play_integrity_keybox_category">Attestierungs-Keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml laden</string>
@@ -771,7 +771,7 @@ index 00000000000..c385b7dcf58
 +</resources>
 diff --git a/res/values-en-rAU/play_integrity_strings.xml b/res/values-en-rAU/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..ba5e25d3528
+index 00000000000..f181e3110c3
 --- /dev/null
 +++ b/res/values-en-rAU/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -782,14 +782,14 @@ index 00000000000..ba5e25d3528
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Spoofing profile and keybox management</string>
++    <string name="play_integrity_summary">Device identity and keybox settings</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary fingerprint to DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Active fingerprint</string>
++    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary device profile to DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Active device profile</string>
 +    <string name="play_integrity_pif_refresh_hint">Tap to fetch latest Pixel Canary profile</string>
 +    <string name="play_integrity_pif_disabled">Disabled</string>
 +    <string name="play_integrity_pif_updating">Fetching latest Pixel Canary profile...</string>
-+    <string name="play_integrity_pif_updated">Fingerprint updated</string>
++    <string name="play_integrity_pif_updated">Device profile updated</string>
 +    <string name="play_integrity_pif_update_failed">Failed to fetch Pixel Canary profile</string>
 +    <string name="play_integrity_keybox_category">Attestation keybox</string>
 +    <string name="play_integrity_keybox_install_title">Load keybox.xml</string>
@@ -810,7 +810,7 @@ index 00000000000..ba5e25d3528
 +</resources>
 diff --git a/res/values-en-rCA/play_integrity_strings.xml b/res/values-en-rCA/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..ba5e25d3528
+index 00000000000..f181e3110c3
 --- /dev/null
 +++ b/res/values-en-rCA/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -821,14 +821,14 @@ index 00000000000..ba5e25d3528
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Spoofing profile and keybox management</string>
++    <string name="play_integrity_summary">Device identity and keybox settings</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary fingerprint to DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Active fingerprint</string>
++    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary device profile to DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Active device profile</string>
 +    <string name="play_integrity_pif_refresh_hint">Tap to fetch latest Pixel Canary profile</string>
 +    <string name="play_integrity_pif_disabled">Disabled</string>
 +    <string name="play_integrity_pif_updating">Fetching latest Pixel Canary profile...</string>
-+    <string name="play_integrity_pif_updated">Fingerprint updated</string>
++    <string name="play_integrity_pif_updated">Device profile updated</string>
 +    <string name="play_integrity_pif_update_failed">Failed to fetch Pixel Canary profile</string>
 +    <string name="play_integrity_keybox_category">Attestation keybox</string>
 +    <string name="play_integrity_keybox_install_title">Load keybox.xml</string>
@@ -849,7 +849,7 @@ index 00000000000..ba5e25d3528
 +</resources>
 diff --git a/res/values-en-rGB/play_integrity_strings.xml b/res/values-en-rGB/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..ba5e25d3528
+index 00000000000..f181e3110c3
 --- /dev/null
 +++ b/res/values-en-rGB/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -860,14 +860,14 @@ index 00000000000..ba5e25d3528
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Spoofing profile and keybox management</string>
++    <string name="play_integrity_summary">Device identity and keybox settings</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary fingerprint to DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Active fingerprint</string>
++    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary device profile to DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Active device profile</string>
 +    <string name="play_integrity_pif_refresh_hint">Tap to fetch latest Pixel Canary profile</string>
 +    <string name="play_integrity_pif_disabled">Disabled</string>
 +    <string name="play_integrity_pif_updating">Fetching latest Pixel Canary profile...</string>
-+    <string name="play_integrity_pif_updated">Fingerprint updated</string>
++    <string name="play_integrity_pif_updated">Device profile updated</string>
 +    <string name="play_integrity_pif_update_failed">Failed to fetch Pixel Canary profile</string>
 +    <string name="play_integrity_keybox_category">Attestation keybox</string>
 +    <string name="play_integrity_keybox_install_title">Load keybox.xml</string>
@@ -888,7 +888,7 @@ index 00000000000..ba5e25d3528
 +</resources>
 diff --git a/res/values-en-rIN/play_integrity_strings.xml b/res/values-en-rIN/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..ba5e25d3528
+index 00000000000..f181e3110c3
 --- /dev/null
 +++ b/res/values-en-rIN/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -899,14 +899,14 @@ index 00000000000..ba5e25d3528
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Spoofing profile and keybox management</string>
++    <string name="play_integrity_summary">Device identity and keybox settings</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary fingerprint to DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Active fingerprint</string>
++    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary device profile to DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Active device profile</string>
 +    <string name="play_integrity_pif_refresh_hint">Tap to fetch latest Pixel Canary profile</string>
 +    <string name="play_integrity_pif_disabled">Disabled</string>
 +    <string name="play_integrity_pif_updating">Fetching latest Pixel Canary profile...</string>
-+    <string name="play_integrity_pif_updated">Fingerprint updated</string>
++    <string name="play_integrity_pif_updated">Device profile updated</string>
 +    <string name="play_integrity_pif_update_failed">Failed to fetch Pixel Canary profile</string>
 +    <string name="play_integrity_keybox_category">Attestation keybox</string>
 +    <string name="play_integrity_keybox_install_title">Load keybox.xml</string>
@@ -927,7 +927,7 @@ index 00000000000..ba5e25d3528
 +</resources>
 diff --git a/res/values-es-rUS/play_integrity_strings.xml b/res/values-es-rUS/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..5ab53ff813d
+index 00000000000..64ed997dab7
 --- /dev/null
 +++ b/res/values-es-rUS/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -938,14 +938,14 @@ index 00000000000..5ab53ff813d
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestión de perfil y keybox</string>
++    <string name="play_integrity_summary">Identidad del dispositivo y keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Obtener y aplicar automáticamente la huella Pixel Canary a DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Huella activa</string>
++    <string name="play_integrity_pif_toggle_summary">Obtener y aplicar automáticamente el perfil Pixel Canary a DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Perfil de dispositivo activo</string>
 +    <string name="play_integrity_pif_refresh_hint">Toca para obtener el último perfil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Desactivado</string>
 +    <string name="play_integrity_pif_updating">Obteniendo el último perfil Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Huella actualizada</string>
++    <string name="play_integrity_pif_updated">Perfil de dispositivo actualizado</string>
 +    <string name="play_integrity_pif_update_failed">No se pudo obtener el perfil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox de atestación</string>
 +    <string name="play_integrity_keybox_install_title">Cargar keybox.xml</string>
@@ -966,7 +966,7 @@ index 00000000000..5ab53ff813d
 +</resources>
 diff --git a/res/values-es/play_integrity_strings.xml b/res/values-es/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..5ab53ff813d
+index 00000000000..64ed997dab7
 --- /dev/null
 +++ b/res/values-es/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -977,14 +977,14 @@ index 00000000000..5ab53ff813d
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestión de perfil y keybox</string>
++    <string name="play_integrity_summary">Identidad del dispositivo y keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Obtener y aplicar automáticamente la huella Pixel Canary a DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Huella activa</string>
++    <string name="play_integrity_pif_toggle_summary">Obtener y aplicar automáticamente el perfil Pixel Canary a DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Perfil de dispositivo activo</string>
 +    <string name="play_integrity_pif_refresh_hint">Toca para obtener el último perfil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Desactivado</string>
 +    <string name="play_integrity_pif_updating">Obteniendo el último perfil Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Huella actualizada</string>
++    <string name="play_integrity_pif_updated">Perfil de dispositivo actualizado</string>
 +    <string name="play_integrity_pif_update_failed">No se pudo obtener el perfil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox de atestación</string>
 +    <string name="play_integrity_keybox_install_title">Cargar keybox.xml</string>
@@ -1005,7 +1005,7 @@ index 00000000000..5ab53ff813d
 +</resources>
 diff --git a/res/values-et/play_integrity_strings.xml b/res/values-et/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..58c91e3eee4
+index 00000000000..e0070491935
 --- /dev/null
 +++ b/res/values-et/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1016,14 +1016,14 @@ index 00000000000..58c91e3eee4
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Profiili ja keyboxi haldus</string>
++    <string name="play_integrity_summary">Seadme identiteet ja keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Hangi ja rakenda Pixel Canary sõrmejälg DroidGuardile automaatselt</string>
-+    <string name="play_integrity_pif_profile_title">Aktiivne sõrmejälg</string>
++    <string name="play_integrity_pif_toggle_summary">Hangi ja rakenda Pixel Canary seadmeprofiil DroidGuardile automaatselt</string>
++    <string name="play_integrity_pif_profile_title">Aktiivne seadmeprofiil</string>
 +    <string name="play_integrity_pif_refresh_hint">Puuduta uusima Pixel Canary profiili hankimiseks</string>
 +    <string name="play_integrity_pif_disabled">Keelatud</string>
 +    <string name="play_integrity_pif_updating">Uusima Pixel Canary profiili hankimine...</string>
-+    <string name="play_integrity_pif_updated">Sõrmejälg uuendatud</string>
++    <string name="play_integrity_pif_updated">Seadmeprofiil uuendatud</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary profiili hankimine ebaõnnestus</string>
 +    <string name="play_integrity_keybox_category">Atesktsiooni keybox</string>
 +    <string name="play_integrity_keybox_install_title">Laadi keybox.xml</string>
@@ -1083,7 +1083,7 @@ index 00000000000..e0c7cc1caf1
 +</resources>
 diff --git a/res/values-fa/play_integrity_strings.xml b/res/values-fa/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..bd6808fc56a
+index 00000000000..852346a855b
 --- /dev/null
 +++ b/res/values-fa/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1094,14 +1094,14 @@ index 00000000000..bd6808fc56a
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">مدیریت نمایه و keybox</string>
++    <string name="play_integrity_summary">هویت دستگاه و keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">دریافت و اعمال خودکار اثرانگشت Pixel Canary برای DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">اثرانگشت فعال</string>
++    <string name="play_integrity_pif_toggle_summary">دریافت و اعمال خودکار نمایه دستگاه Pixel Canary برای DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">نمایه دستگاه فعال</string>
 +    <string name="play_integrity_pif_refresh_hint">برای دریافت جدیدترین نمایه Pixel Canary ضربه بزنید</string>
 +    <string name="play_integrity_pif_disabled">غیرفعال</string>
 +    <string name="play_integrity_pif_updating">در حال دریافت جدیدترین نمایه Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">اثرانگشت به‌روزرسانی شد</string>
++    <string name="play_integrity_pif_updated">نمایه دستگاه به‌روزرسانی شد</string>
 +    <string name="play_integrity_pif_update_failed">دریافت نمایه Pixel Canary ناموفق بود</string>
 +    <string name="play_integrity_keybox_category">keybox گواهی</string>
 +    <string name="play_integrity_keybox_install_title">بارگذاری keybox.xml</string>
@@ -1122,7 +1122,7 @@ index 00000000000..bd6808fc56a
 +</resources>
 diff --git a/res/values-fi/play_integrity_strings.xml b/res/values-fi/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..d6fbc6dbd87
+index 00000000000..60c513adfca
 --- /dev/null
 +++ b/res/values-fi/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1133,14 +1133,14 @@ index 00000000000..d6fbc6dbd87
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Profiilin ja keyboxin hallinta</string>
++    <string name="play_integrity_summary">Laitteen identiteetti ja keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Nouda ja käytä Pixel Canary -sormenjälkeä automaattisesti DroidGuardille</string>
-+    <string name="play_integrity_pif_profile_title">Aktiivinen sormenjälki</string>
++    <string name="play_integrity_pif_toggle_summary">Nouda ja käytä Pixel Canary -laiteprofiilia automaattisesti DroidGuardille</string>
++    <string name="play_integrity_pif_profile_title">Aktiivinen laiteprofiili</string>
 +    <string name="play_integrity_pif_refresh_hint">Napauta noutaaksesi uusimman Pixel Canary -profiilin</string>
 +    <string name="play_integrity_pif_disabled">Pois käytöstä</string>
 +    <string name="play_integrity_pif_updating">Noudetaan uusinta Pixel Canary -profiilia...</string>
-+    <string name="play_integrity_pif_updated">Sormenjälki päivitetty</string>
++    <string name="play_integrity_pif_updated">Laiteprofiili päivitetty</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary -profiilin nouto epäonnistui</string>
 +    <string name="play_integrity_keybox_category">Todennus-keybox</string>
 +    <string name="play_integrity_keybox_install_title">Lataa keybox.xml</string>
@@ -1161,7 +1161,7 @@ index 00000000000..d6fbc6dbd87
 +</resources>
 diff --git a/res/values-fr-rCA/play_integrity_strings.xml b/res/values-fr-rCA/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..412f7fe6885
+index 00000000000..74e7cd51637
 --- /dev/null
 +++ b/res/values-fr-rCA/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1172,14 +1172,14 @@ index 00000000000..412f7fe6885
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestion du profil et de la keybox</string>
++    <string name="play_integrity_summary">Identité de l\'appareil et keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Récupérer et appliquer automatiquement l\'empreinte Pixel Canary pour DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Empreinte active</string>
++    <string name="play_integrity_pif_toggle_summary">Récupérer et appliquer automatiquement le profil Pixel Canary pour DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Profil d\'appareil actif</string>
 +    <string name="play_integrity_pif_refresh_hint">Appuyez pour récupérer le dernier profil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Désactivé</string>
 +    <string name="play_integrity_pif_updating">Téléchargement du profil Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Empreinte mise à jour</string>
++    <string name="play_integrity_pif_updated">Profil d\'appareil mis à jour</string>
 +    <string name="play_integrity_pif_update_failed">Échec de la récupération du profil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox d\'attestation</string>
 +    <string name="play_integrity_keybox_install_title">Charger keybox.xml</string>
@@ -1200,7 +1200,7 @@ index 00000000000..412f7fe6885
 +</resources>
 diff --git a/res/values-fr/play_integrity_strings.xml b/res/values-fr/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..412f7fe6885
+index 00000000000..74e7cd51637
 --- /dev/null
 +++ b/res/values-fr/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1211,14 +1211,14 @@ index 00000000000..412f7fe6885
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestion du profil et de la keybox</string>
++    <string name="play_integrity_summary">Identité de l\'appareil et keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Récupérer et appliquer automatiquement l\'empreinte Pixel Canary pour DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Empreinte active</string>
++    <string name="play_integrity_pif_toggle_summary">Récupérer et appliquer automatiquement le profil Pixel Canary pour DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Profil d\'appareil actif</string>
 +    <string name="play_integrity_pif_refresh_hint">Appuyez pour récupérer le dernier profil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Désactivé</string>
 +    <string name="play_integrity_pif_updating">Téléchargement du profil Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Empreinte mise à jour</string>
++    <string name="play_integrity_pif_updated">Profil d\'appareil mis à jour</string>
 +    <string name="play_integrity_pif_update_failed">Échec de la récupération du profil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox d\'attestation</string>
 +    <string name="play_integrity_keybox_install_title">Charger keybox.xml</string>
@@ -1356,7 +1356,7 @@ index 00000000000..b503f3f1635
 +</resources>
 diff --git a/res/values-hr/play_integrity_strings.xml b/res/values-hr/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..3676031edd0
+index 00000000000..7f605151ad7
 --- /dev/null
 +++ b/res/values-hr/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1367,14 +1367,14 @@ index 00000000000..3676031edd0
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Upravljanje profilom i keyboxom</string>
++    <string name="play_integrity_summary">Identitet uređaja i keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Automatski preuzmi i primijeni Pixel Canary otisak za DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivni otisak</string>
++    <string name="play_integrity_pif_toggle_summary">Automatski preuzmi i primijeni Pixel Canary profil uređaja za DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktivni profil uređaja</string>
 +    <string name="play_integrity_pif_refresh_hint">Dodirnite za preuzimanje najnovijeg Pixel Canary profila</string>
 +    <string name="play_integrity_pif_disabled">Onemogućeno</string>
 +    <string name="play_integrity_pif_updating">Preuzimanje Pixel Canary profila...</string>
-+    <string name="play_integrity_pif_updated">Otisak ažuriran</string>
++    <string name="play_integrity_pif_updated">Profil uređaja ažuriran</string>
 +    <string name="play_integrity_pif_update_failed">Neuspjelo preuzimanje Pixel Canary profila</string>
 +    <string name="play_integrity_keybox_category">Keybox za atestaciju</string>
 +    <string name="play_integrity_keybox_install_title">Učitaj keybox.xml</string>
@@ -1395,7 +1395,7 @@ index 00000000000..3676031edd0
 +</resources>
 diff --git a/res/values-hu/play_integrity_strings.xml b/res/values-hu/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..9ae174a4b1d
+index 00000000000..dde33177e5c
 --- /dev/null
 +++ b/res/values-hu/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1406,14 +1406,14 @@ index 00000000000..9ae174a4b1d
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Profil- és keyboxkezelés</string>
++    <string name="play_integrity_summary">Eszközazonosság és keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Pixel Canary ujjlenyomat automatikus letöltése és alkalmazása a DroidGuardhoz</string>
-+    <string name="play_integrity_pif_profile_title">Aktív ujjlenyomat</string>
++    <string name="play_integrity_pif_toggle_summary">Pixel Canary eszközprofil automatikus letöltése és alkalmazása a DroidGuardhoz</string>
++    <string name="play_integrity_pif_profile_title">Aktív eszközprofil</string>
 +    <string name="play_integrity_pif_refresh_hint">Érintse meg a legújabb Pixel Canary profil letöltéséhez</string>
 +    <string name="play_integrity_pif_disabled">Letiltva</string>
 +    <string name="play_integrity_pif_updating">Legújabb Pixel Canary profil letöltése...</string>
-+    <string name="play_integrity_pif_updated">Ujjlenyomat frissítve</string>
++    <string name="play_integrity_pif_updated">Eszközprofil frissítve</string>
 +    <string name="play_integrity_pif_update_failed">Nem sikerült letölteni a Pixel Canary profilt</string>
 +    <string name="play_integrity_keybox_category">Tanúsító keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml betöltése</string>
@@ -1434,7 +1434,7 @@ index 00000000000..9ae174a4b1d
 +</resources>
 diff --git a/res/values-hy/play_integrity_strings.xml b/res/values-hy/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..86353ae8b0e
+index 00000000000..8c6c5b8db07
 --- /dev/null
 +++ b/res/values-hy/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1445,14 +1445,14 @@ index 00000000000..86353ae8b0e
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Պրոֆիլի և keybox-ի կառավարում</string>
++    <string name="play_integrity_summary">Սարքի ինքնություն և keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Ավտոմատ ներբեռնել և կիրառել Pixel Canary մատնահետքը DroidGuard-ի համար</string>
-+    <string name="play_integrity_pif_profile_title">Ակտիվ մատնահետք</string>
++    <string name="play_integrity_pif_toggle_summary">Ավտոմատ ներբեռնել և կիրառել Pixel Canary սարքի պրոֆիլը DroidGuard-ի համար</string>
++    <string name="play_integrity_pif_profile_title">Ակտիվ սարքի պրոֆիլ</string>
 +    <string name="play_integrity_pif_refresh_hint">Հպեք՝ վերջին Pixel Canary պրոֆիլը ներբեռնելու համար</string>
 +    <string name="play_integrity_pif_disabled">Անջատված է</string>
 +    <string name="play_integrity_pif_updating">Ներբեռնվում է Pixel Canary պրոֆիլը...</string>
-+    <string name="play_integrity_pif_updated">Մատնահետքը թարմացվեց</string>
++    <string name="play_integrity_pif_updated">Սարքի պրոֆիլը թարմացվեց</string>
 +    <string name="play_integrity_pif_update_failed">Չհաջողվեց ներբեռնել Pixel Canary պրոֆիլը</string>
 +    <string name="play_integrity_keybox_category">Ատեստավորման keybox</string>
 +    <string name="play_integrity_keybox_install_title">Բեռնել keybox.xml</string>
@@ -1473,7 +1473,7 @@ index 00000000000..86353ae8b0e
 +</resources>
 diff --git a/res/values-in/play_integrity_strings.xml b/res/values-in/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..220a3277ec7
+index 00000000000..510728b7450
 --- /dev/null
 +++ b/res/values-in/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1484,14 +1484,14 @@ index 00000000000..220a3277ec7
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Pengelolaan profil dan keybox</string>
++    <string name="play_integrity_summary">Identitas perangkat dan keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Ambil dan terapkan sidik jari Pixel Canary secara otomatis ke DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Sidik jari aktif</string>
++    <string name="play_integrity_pif_toggle_summary">Ambil dan terapkan profil perangkat Pixel Canary secara otomatis ke DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Profil perangkat aktif</string>
 +    <string name="play_integrity_pif_refresh_hint">Ketuk untuk mengambil profil Pixel Canary terbaru</string>
 +    <string name="play_integrity_pif_disabled">Dinonaktifkan</string>
 +    <string name="play_integrity_pif_updating">Mengambil profil Pixel Canary terbaru...</string>
-+    <string name="play_integrity_pif_updated">Sidik jari diperbarui</string>
++    <string name="play_integrity_pif_updated">Profil perangkat diperbarui</string>
 +    <string name="play_integrity_pif_update_failed">Gagal mengambil profil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox atestasi</string>
 +    <string name="play_integrity_keybox_install_title">Muat keybox.xml</string>
@@ -1551,7 +1551,7 @@ index 00000000000..756af572ef2
 +</resources>
 diff --git a/res/values-it/play_integrity_strings.xml b/res/values-it/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..d78ed60ba93
+index 00000000000..890011cfc2f
 --- /dev/null
 +++ b/res/values-it/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1562,14 +1562,14 @@ index 00000000000..d78ed60ba93
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestione profilo e keybox</string>
++    <string name="play_integrity_summary">Identità dispositivo e keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Scarica e applica automaticamente il fingerprint Pixel Canary a DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Fingerprint attivo</string>
++    <string name="play_integrity_pif_toggle_summary">Scarica e applica automaticamente il profilo Pixel Canary a DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Profilo dispositivo attivo</string>
 +    <string name="play_integrity_pif_refresh_hint">Tocca per scaricare il profilo Pixel Canary più recente</string>
 +    <string name="play_integrity_pif_disabled">Disattivato</string>
 +    <string name="play_integrity_pif_updating">Download del profilo Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Fingerprint aggiornato</string>
++    <string name="play_integrity_pif_updated">Profilo dispositivo aggiornato</string>
 +    <string name="play_integrity_pif_update_failed">Impossibile scaricare il profilo Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox di attestazione</string>
 +    <string name="play_integrity_keybox_install_title">Carica keybox.xml</string>
@@ -1590,7 +1590,7 @@ index 00000000000..d78ed60ba93
 +</resources>
 diff --git a/res/values-iw/play_integrity_strings.xml b/res/values-iw/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..087c06e3573
+index 00000000000..e4b5dd7d4f9
 --- /dev/null
 +++ b/res/values-iw/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1601,14 +1601,14 @@ index 00000000000..087c06e3573
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">ניהול פרופיל ו-keybox</string>
++    <string name="play_integrity_summary">זהות המכשיר ו-keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">משיכה והחלה אוטומטית של טביעת האצבע של Pixel Canary עבור DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">טביעת אצבע פעילה</string>
++    <string name="play_integrity_pif_toggle_summary">משיכה והחלה אוטומטית של פרופיל המכשיר Pixel Canary עבור DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">פרופיל מכשיר פעיל</string>
 +    <string name="play_integrity_pif_refresh_hint">הקש להורדת פרופיל Pixel Canary העדכני</string>
 +    <string name="play_integrity_pif_disabled">מושבת</string>
 +    <string name="play_integrity_pif_updating">מוריד את פרופיל Pixel Canary העדכני...</string>
-+    <string name="play_integrity_pif_updated">טביעת האצבע עודכנה</string>
++    <string name="play_integrity_pif_updated">פרופיל המכשיר עודכן</string>
 +    <string name="play_integrity_pif_update_failed">הורדת פרופיל Pixel Canary נכשלה</string>
 +    <string name="play_integrity_keybox_category">Keybox לאימות</string>
 +    <string name="play_integrity_keybox_install_title">טען keybox.xml</string>
@@ -1629,7 +1629,7 @@ index 00000000000..087c06e3573
 +</resources>
 diff --git a/res/values-ja/play_integrity_strings.xml b/res/values-ja/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..41af7cd6a73
+index 00000000000..6f321a7352b
 --- /dev/null
 +++ b/res/values-ja/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1640,14 +1640,14 @@ index 00000000000..41af7cd6a73
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">プロファイルと keybox の管理</string>
++    <string name="play_integrity_summary">デバイス識別情報と keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard 用の Pixel Canary フィンガープリントを自動取得・適用</string>
-+    <string name="play_integrity_pif_profile_title">有効なフィンガープリント</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard 用の Pixel Canary デバイスプロファイルを自動取得・適用</string>
++    <string name="play_integrity_pif_profile_title">有効なデバイスプロファイル</string>
 +    <string name="play_integrity_pif_refresh_hint">タップして最新の Pixel Canary を取得</string>
 +    <string name="play_integrity_pif_disabled">無効</string>
 +    <string name="play_integrity_pif_updating">最新の Pixel Canary を取得中...</string>
-+    <string name="play_integrity_pif_updated">フィンガープリントを更新しました</string>
++    <string name="play_integrity_pif_updated">デバイスプロファイルを更新しました</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary の取得に失敗しました</string>
 +    <string name="play_integrity_keybox_category">検証用 keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml を読み込む</string>
@@ -1668,7 +1668,7 @@ index 00000000000..41af7cd6a73
 +</resources>
 diff --git a/res/values-ka/play_integrity_strings.xml b/res/values-ka/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..3d73a69ae18
+index 00000000000..55f112fed7b
 --- /dev/null
 +++ b/res/values-ka/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1679,14 +1679,14 @@ index 00000000000..3d73a69ae18
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">პროფილისა და keybox-ის მართვა</string>
++    <string name="play_integrity_summary">მოწყობილობის იდენტობა და keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard-ისთვის Pixel Canary ანაბეჭდის ავტომატური ჩამოტვირთვა და გამოყენება</string>
-+    <string name="play_integrity_pif_profile_title">აქტიური ანაბეჭდი</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard-ისთვის Pixel Canary მოწყობილობის პროფილის ავტომატური ჩამოტვირთვა და გამოყენება</string>
++    <string name="play_integrity_pif_profile_title">აქტიური მოწყობილობის პროფილი</string>
 +    <string name="play_integrity_pif_refresh_hint">შეეხეთ უახლესი Pixel Canary პროფილის ჩამოსატვირთად</string>
 +    <string name="play_integrity_pif_disabled">გამორთულია</string>
 +    <string name="play_integrity_pif_updating">უახლესი Pixel Canary პროფილი იტვირთება...</string>
-+    <string name="play_integrity_pif_updated">ანაბეჭდი განახლდა</string>
++    <string name="play_integrity_pif_updated">მოწყობილობის პროფილი განახლდა</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary პროფილის ჩამოტვირთვა ვერ მოხერხდა</string>
 +    <string name="play_integrity_keybox_category">ატესტაციის keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml-ის ჩატვირთვა</string>
@@ -1824,7 +1824,7 @@ index 00000000000..12ee6214fac
 +</resources>
 diff --git a/res/values-ko/play_integrity_strings.xml b/res/values-ko/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..83bd25c15b5
+index 00000000000..553062b15d3
 --- /dev/null
 +++ b/res/values-ko/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -1835,14 +1835,14 @@ index 00000000000..83bd25c15b5
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">프로필 및 keybox 관리</string>
++    <string name="play_integrity_summary">기기 프로필 및 keybox 설정</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard용 Pixel Canary 지문을 자동으로 가져와 적용</string>
-+    <string name="play_integrity_pif_profile_title">활성 지문</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard용 Pixel Canary 기기 프로필을 자동으로 가져와 적용</string>
++    <string name="play_integrity_pif_profile_title">활성 기기 프로필</string>
 +    <string name="play_integrity_pif_refresh_hint">탭하여 최신 Pixel Canary 프로필 가져오기</string>
 +    <string name="play_integrity_pif_disabled">사용 안 함</string>
 +    <string name="play_integrity_pif_updating">최신 Pixel Canary 프로필 가져오는 중...</string>
-+    <string name="play_integrity_pif_updated">지문 업데이트됨</string>
++    <string name="play_integrity_pif_updated">기기 프로필 업데이트됨</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary 프로필을 가져오지 못했습니다</string>
 +    <string name="play_integrity_keybox_category">인증 keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml 불러오기</string>
@@ -2019,7 +2019,7 @@ index 00000000000..5245ea2be64
 +</resources>
 diff --git a/res/values-mk/play_integrity_strings.xml b/res/values-mk/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..03697e89026
+index 00000000000..fbd3d884697
 --- /dev/null
 +++ b/res/values-mk/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2030,14 +2030,14 @@ index 00000000000..03697e89026
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Управување со профил и keybox</string>
++    <string name="play_integrity_summary">Идентитет на уредот и keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Автоматски преземи и примени отпечаток Pixel Canary за DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Активен отпечаток</string>
++    <string name="play_integrity_pif_toggle_summary">Автоматски преземи и примени профил на уред Pixel Canary за DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Активен профил на уредот</string>
 +    <string name="play_integrity_pif_refresh_hint">Допрете за преземање на најновиот профил Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Оневозможено</string>
 +    <string name="play_integrity_pif_updating">Се презема профилот Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Отпечатокот е ажуриран</string>
++    <string name="play_integrity_pif_updated">Профилот на уредот е ажуриран</string>
 +    <string name="play_integrity_pif_update_failed">Неуспешно преземање на профил Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox за атестација</string>
 +    <string name="play_integrity_keybox_install_title">Вчитај keybox.xml</string>
@@ -2136,7 +2136,7 @@ index 00000000000..e9c898a1e1f
 +</resources>
 diff --git a/res/values-mr/play_integrity_strings.xml b/res/values-mr/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..34602d01452
+index 00000000000..b5b7a7d1049
 --- /dev/null
 +++ b/res/values-mr/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2147,14 +2147,14 @@ index 00000000000..34602d01452
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">प्रोफाइल आणि keybox व्यवस्थापन</string>
++    <string name="play_integrity_summary">डिव्हाइस ओळख आणि keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard साठी Pixel Canary फिंगरप्रिंट आपोआप मिळवून लागू करा</string>
-+    <string name="play_integrity_pif_profile_title">सक्रिय फिंगरप्रिंट</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard साठी Pixel Canary डिव्हाइस प्रोफाइल आपोआप मिळवून लागू करा</string>
++    <string name="play_integrity_pif_profile_title">सक्रिय डिव्हाइस प्रोफाइल</string>
 +    <string name="play_integrity_pif_refresh_hint">नवीनतम Pixel Canary प्रोफाइल मिळवण्यासाठी टॅप करा</string>
 +    <string name="play_integrity_pif_disabled">अक्षम</string>
 +    <string name="play_integrity_pif_updating">नवीनतम Pixel Canary प्रोफाइल मिळवत आहे...</string>
-+    <string name="play_integrity_pif_updated">फिंगरप्रिंट अपडेट झाले</string>
++    <string name="play_integrity_pif_updated">डिव्हाइस प्रोफाइल अपडेट झाले</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary प्रोफाइल मिळवण्यात अयशस्वी</string>
 +    <string name="play_integrity_keybox_category">प्रमाणन keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml लोड करा</string>
@@ -2175,7 +2175,7 @@ index 00000000000..34602d01452
 +</resources>
 diff --git a/res/values-ms/play_integrity_strings.xml b/res/values-ms/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..afec6e9a6d6
+index 00000000000..6673ab946ac
 --- /dev/null
 +++ b/res/values-ms/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2186,14 +2186,14 @@ index 00000000000..afec6e9a6d6
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Pengurusan profil dan keybox</string>
++    <string name="play_integrity_summary">Identiti peranti dan keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Ambil dan gunakan cap jari Pixel Canary secara automatik untuk DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Cap jari aktif</string>
++    <string name="play_integrity_pif_toggle_summary">Ambil dan gunakan profil peranti Pixel Canary secara automatik untuk DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Profil peranti aktif</string>
 +    <string name="play_integrity_pif_refresh_hint">Ketik untuk mengambil profil Pixel Canary terkini</string>
 +    <string name="play_integrity_pif_disabled">Dilumpuhkan</string>
 +    <string name="play_integrity_pif_updating">Mengambil profil Pixel Canary terkini...</string>
-+    <string name="play_integrity_pif_updated">Cap jari dikemas kini</string>
++    <string name="play_integrity_pif_updated">Profil peranti dikemas kini</string>
 +    <string name="play_integrity_pif_update_failed">Gagal mengambil profil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox pengesahan</string>
 +    <string name="play_integrity_keybox_install_title">Muatkan keybox.xml</string>
@@ -2253,7 +2253,7 @@ index 00000000000..9617a97c1c4
 +</resources>
 diff --git a/res/values-nb/play_integrity_strings.xml b/res/values-nb/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..07e84d5b730
+index 00000000000..04bc1a60e84
 --- /dev/null
 +++ b/res/values-nb/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2264,14 +2264,14 @@ index 00000000000..07e84d5b730
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Håndtering av profil og keybox</string>
++    <string name="play_integrity_summary">Enhetsidentitet og keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Hent og bruk Pixel Canary-fingeravtrykk automatisk for DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivt fingeravtrykk</string>
++    <string name="play_integrity_pif_toggle_summary">Hent og bruk Pixel Canary-enhetsprofil automatisk for DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktiv enhetsprofil</string>
 +    <string name="play_integrity_pif_refresh_hint">Trykk for å hente nyeste Pixel Canary-profil</string>
 +    <string name="play_integrity_pif_disabled">Deaktivert</string>
 +    <string name="play_integrity_pif_updating">Henter nyeste Pixel Canary-profil...</string>
-+    <string name="play_integrity_pif_updated">Fingeravtrykk oppdatert</string>
++    <string name="play_integrity_pif_updated">Enhetsprofil oppdatert</string>
 +    <string name="play_integrity_pif_update_failed">Kunne ikke hente Pixel Canary-profil</string>
 +    <string name="play_integrity_keybox_category">Attesterings-keybox</string>
 +    <string name="play_integrity_keybox_install_title">Last inn keybox.xml</string>
@@ -2292,7 +2292,7 @@ index 00000000000..07e84d5b730
 +</resources>
 diff --git a/res/values-ne/play_integrity_strings.xml b/res/values-ne/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..7651ae43b88
+index 00000000000..d92f24a4670
 --- /dev/null
 +++ b/res/values-ne/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2303,14 +2303,14 @@ index 00000000000..7651ae43b88
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">प्रोफाइल र keybox व्यवस्थापन</string>
++    <string name="play_integrity_summary">यन्त्र पहिचान र keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard का लागि Pixel Canary फिंगरप्रिन्ट स्वतः ल्याएर लागू गर्नुहोस्</string>
-+    <string name="play_integrity_pif_profile_title">सक्रिय फिंगरप्रिन्ट</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard का लागि Pixel Canary यन्त्र प्रोफाइल स्वतः ल्याएर लागू गर्नुहोस्</string>
++    <string name="play_integrity_pif_profile_title">सक्रिय यन्त्र प्रोफाइल</string>
 +    <string name="play_integrity_pif_refresh_hint">नवीनतम Pixel Canary प्रोफाइल ल्याउन ट्याप गर्नुहोस्</string>
 +    <string name="play_integrity_pif_disabled">असक्षम</string>
 +    <string name="play_integrity_pif_updating">नवीनतम Pixel Canary प्रोफाइल ल्याइँदैछ...</string>
-+    <string name="play_integrity_pif_updated">फिंगरप्रिन्ट अद्यावधिक भयो</string>
++    <string name="play_integrity_pif_updated">यन्त्र प्रोफाइल अद्यावधिक भयो</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary प्रोफाइल ल्याउन असफल</string>
 +    <string name="play_integrity_keybox_category">प्रमाणीकरण keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml लोड गर्नुहोस्</string>
@@ -2331,7 +2331,7 @@ index 00000000000..7651ae43b88
 +</resources>
 diff --git a/res/values-nl/play_integrity_strings.xml b/res/values-nl/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..ff0ecd65ad5
+index 00000000000..d9f02227a96
 --- /dev/null
 +++ b/res/values-nl/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2342,14 +2342,14 @@ index 00000000000..ff0ecd65ad5
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Profiel- en keyboxbeheer</string>
++    <string name="play_integrity_summary">Apparaatidentiteit en keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Pixel Canary-vingerafdruk automatisch ophalen en toepassen voor DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Actieve vingerafdruk</string>
++    <string name="play_integrity_pif_toggle_summary">Pixel Canary-apparaatprofiel automatisch ophalen en toepassen voor DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Actief apparaatprofiel</string>
 +    <string name="play_integrity_pif_refresh_hint">Tik om het nieuwste Pixel Canary-profiel op te halen</string>
 +    <string name="play_integrity_pif_disabled">Uitgeschakeld</string>
 +    <string name="play_integrity_pif_updating">Nieuwste Pixel Canary-profiel ophalen...</string>
-+    <string name="play_integrity_pif_updated">Vingerafdruk bijgewerkt</string>
++    <string name="play_integrity_pif_updated">Apparaatprofiel bijgewerkt</string>
 +    <string name="play_integrity_pif_update_failed">Kan Pixel Canary-profiel niet ophalen</string>
 +    <string name="play_integrity_keybox_category">Attestatie-keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml laden</string>
@@ -2448,7 +2448,7 @@ index 00000000000..c0a90a2b77c
 +</resources>
 diff --git a/res/values-pl/play_integrity_strings.xml b/res/values-pl/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..8aa8486279a
+index 00000000000..adcbf2f26f7
 --- /dev/null
 +++ b/res/values-pl/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2459,14 +2459,14 @@ index 00000000000..8aa8486279a
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Zarządzanie profilem i keyboxem</string>
++    <string name="play_integrity_summary">Tożsamość urządzenia i keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Automatycznie pobieraj i stosuj odcisk Pixel Canary dla DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktywny odcisk</string>
++    <string name="play_integrity_pif_toggle_summary">Automatycznie pobieraj i stosuj profil Pixel Canary dla DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktywny profil urządzenia</string>
 +    <string name="play_integrity_pif_refresh_hint">Dotknij, aby pobrać najnowszy profil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Wyłączone</string>
 +    <string name="play_integrity_pif_updating">Pobieranie najnowszego profilu Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Odcisk zaktualizowany</string>
++    <string name="play_integrity_pif_updated">Profil urządzenia zaktualizowany</string>
 +    <string name="play_integrity_pif_update_failed">Nie udało się pobrać profilu Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox poświadczenia</string>
 +    <string name="play_integrity_keybox_install_title">Wczytaj keybox.xml</string>
@@ -2487,7 +2487,7 @@ index 00000000000..8aa8486279a
 +</resources>
 diff --git a/res/values-pt-rBR/play_integrity_strings.xml b/res/values-pt-rBR/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..f078474dd8b
+index 00000000000..3143aa83c0c
 --- /dev/null
 +++ b/res/values-pt-rBR/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2498,14 +2498,14 @@ index 00000000000..f078474dd8b
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestão de perfil e keybox</string>
++    <string name="play_integrity_summary">Identidade do dispositivo e keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Obter e aplicar automaticamente a impressão digital Pixel Canary ao DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Impressão digital ativa</string>
++    <string name="play_integrity_pif_toggle_summary">Obter e aplicar automaticamente o perfil Pixel Canary ao DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Perfil de dispositivo ativo</string>
 +    <string name="play_integrity_pif_refresh_hint">Toque para obter o perfil Pixel Canary mais recente</string>
 +    <string name="play_integrity_pif_disabled">Desativado</string>
 +    <string name="play_integrity_pif_updating">Obtendo o perfil Pixel Canary mais recente...</string>
-+    <string name="play_integrity_pif_updated">Impressão digital atualizada</string>
++    <string name="play_integrity_pif_updated">Perfil de dispositivo atualizado</string>
 +    <string name="play_integrity_pif_update_failed">Falha ao obter perfil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox de atestação</string>
 +    <string name="play_integrity_keybox_install_title">Carregar keybox.xml</string>
@@ -2526,7 +2526,7 @@ index 00000000000..f078474dd8b
 +</resources>
 diff --git a/res/values-pt-rPT/play_integrity_strings.xml b/res/values-pt-rPT/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..f078474dd8b
+index 00000000000..3143aa83c0c
 --- /dev/null
 +++ b/res/values-pt-rPT/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2537,14 +2537,14 @@ index 00000000000..f078474dd8b
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestão de perfil e keybox</string>
++    <string name="play_integrity_summary">Identidade do dispositivo e keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Obter e aplicar automaticamente a impressão digital Pixel Canary ao DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Impressão digital ativa</string>
++    <string name="play_integrity_pif_toggle_summary">Obter e aplicar automaticamente o perfil Pixel Canary ao DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Perfil de dispositivo ativo</string>
 +    <string name="play_integrity_pif_refresh_hint">Toque para obter o perfil Pixel Canary mais recente</string>
 +    <string name="play_integrity_pif_disabled">Desativado</string>
 +    <string name="play_integrity_pif_updating">Obtendo o perfil Pixel Canary mais recente...</string>
-+    <string name="play_integrity_pif_updated">Impressão digital atualizada</string>
++    <string name="play_integrity_pif_updated">Perfil de dispositivo atualizado</string>
 +    <string name="play_integrity_pif_update_failed">Falha ao obter perfil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox de atestação</string>
 +    <string name="play_integrity_keybox_install_title">Carregar keybox.xml</string>
@@ -2565,7 +2565,7 @@ index 00000000000..f078474dd8b
 +</resources>
 diff --git a/res/values-pt/play_integrity_strings.xml b/res/values-pt/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..f078474dd8b
+index 00000000000..3143aa83c0c
 --- /dev/null
 +++ b/res/values-pt/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2576,14 +2576,14 @@ index 00000000000..f078474dd8b
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestão de perfil e keybox</string>
++    <string name="play_integrity_summary">Identidade do dispositivo e keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Obter e aplicar automaticamente a impressão digital Pixel Canary ao DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Impressão digital ativa</string>
++    <string name="play_integrity_pif_toggle_summary">Obter e aplicar automaticamente o perfil Pixel Canary ao DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Perfil de dispositivo ativo</string>
 +    <string name="play_integrity_pif_refresh_hint">Toque para obter o perfil Pixel Canary mais recente</string>
 +    <string name="play_integrity_pif_disabled">Desativado</string>
 +    <string name="play_integrity_pif_updating">Obtendo o perfil Pixel Canary mais recente...</string>
-+    <string name="play_integrity_pif_updated">Impressão digital atualizada</string>
++    <string name="play_integrity_pif_updated">Perfil de dispositivo atualizado</string>
 +    <string name="play_integrity_pif_update_failed">Falha ao obter perfil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox de atestação</string>
 +    <string name="play_integrity_keybox_install_title">Carregar keybox.xml</string>
@@ -2604,7 +2604,7 @@ index 00000000000..f078474dd8b
 +</resources>
 diff --git a/res/values-ro/play_integrity_strings.xml b/res/values-ro/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..f61ad291f81
+index 00000000000..88dd54a128a
 --- /dev/null
 +++ b/res/values-ro/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2615,14 +2615,14 @@ index 00000000000..f61ad291f81
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Gestionare profil și keybox</string>
++    <string name="play_integrity_summary">Identitate dispozitiv și keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Descarcă și aplică automat amprenta Pixel Canary pentru DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Amprentă activă</string>
++    <string name="play_integrity_pif_toggle_summary">Descarcă și aplică automat profilul Pixel Canary pentru DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Profil dispozitiv activ</string>
 +    <string name="play_integrity_pif_refresh_hint">Atinge pentru a descărca cel mai recent profil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Dezactivat</string>
 +    <string name="play_integrity_pif_updating">Se descarcă cel mai recent profil Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Amprentă actualizată</string>
++    <string name="play_integrity_pif_updated">Profil dispozitiv actualizat</string>
 +    <string name="play_integrity_pif_update_failed">Nu s-a putut descărca profilul Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox de atestare</string>
 +    <string name="play_integrity_keybox_install_title">Încarcă keybox.xml</string>
@@ -2643,7 +2643,7 @@ index 00000000000..f61ad291f81
 +</resources>
 diff --git a/res/values-ru/play_integrity_strings.xml b/res/values-ru/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..33aa0acc50d
+index 00000000000..4b49de051ba
 --- /dev/null
 +++ b/res/values-ru/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2654,14 +2654,14 @@ index 00000000000..33aa0acc50d
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Управление профилем и keybox</string>
++    <string name="play_integrity_summary">Профиль устройства и keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Автоматически загружать и применять отпечаток Pixel Canary для DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Активный отпечаток</string>
++    <string name="play_integrity_pif_toggle_summary">Автоматически загружать и применять профиль Pixel Canary для DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Активный профиль устройства</string>
 +    <string name="play_integrity_pif_refresh_hint">Нажмите, чтобы загрузить актуальный профиль Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Отключено</string>
 +    <string name="play_integrity_pif_updating">Загрузка профиля Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Отпечаток обновлен</string>
++    <string name="play_integrity_pif_updated">Профиль устройства обновлен</string>
 +    <string name="play_integrity_pif_update_failed">Не удалось загрузить профиль Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox аттестации</string>
 +    <string name="play_integrity_keybox_install_title">Загрузить keybox.xml</string>
@@ -2721,7 +2721,7 @@ index 00000000000..c3e30edd485
 +</resources>
 diff --git a/res/values-sk/play_integrity_strings.xml b/res/values-sk/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..01c9c100ab0
+index 00000000000..ee9fb1fad85
 --- /dev/null
 +++ b/res/values-sk/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2732,14 +2732,14 @@ index 00000000000..01c9c100ab0
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Správa profilu a keyboxu</string>
++    <string name="play_integrity_summary">Identita zariadenia a keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Automaticky sťahovať a používať odtlačok Pixel Canary pre DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktívny odtlačok</string>
++    <string name="play_integrity_pif_toggle_summary">Automaticky sťahovať a používať profil Pixel Canary pre DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktívny profil zariadenia</string>
 +    <string name="play_integrity_pif_refresh_hint">Klepnutím stiahnete najnovší profil Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Vypnuté</string>
 +    <string name="play_integrity_pif_updating">Sťahuje sa najnovší profil Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Odtlačok aktualizovaný</string>
++    <string name="play_integrity_pif_updated">Profil zariadenia aktualizovaný</string>
 +    <string name="play_integrity_pif_update_failed">Nepodarilo sa stiahnuť profil Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox atestácie</string>
 +    <string name="play_integrity_keybox_install_title">Načítať keybox.xml</string>
@@ -2760,7 +2760,7 @@ index 00000000000..01c9c100ab0
 +</resources>
 diff --git a/res/values-sl/play_integrity_strings.xml b/res/values-sl/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..04209ecb213
+index 00000000000..59b5c7110fc
 --- /dev/null
 +++ b/res/values-sl/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2771,14 +2771,14 @@ index 00000000000..04209ecb213
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Upravljanje profila in keyboxa</string>
++    <string name="play_integrity_summary">Identiteta naprave in keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Samodejno pridobi in uporabi prstni odtis Pixel Canary za DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivni odtis</string>
++    <string name="play_integrity_pif_toggle_summary">Samodejno pridobi in uporabi profil naprave Pixel Canary za DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktivni profil naprave</string>
 +    <string name="play_integrity_pif_refresh_hint">Tapnite za pridobitev najnovejšega profila Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Onemogočeno</string>
 +    <string name="play_integrity_pif_updating">Pridobivanje najnovejšega profila Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Odtis posodobljen</string>
++    <string name="play_integrity_pif_updated">Profil naprave posodobljen</string>
 +    <string name="play_integrity_pif_update_failed">Pridobivanje profila Pixel Canary ni uspelo</string>
 +    <string name="play_integrity_keybox_category">Keybox za atestacijo</string>
 +    <string name="play_integrity_keybox_install_title">Naloži keybox.xml</string>
@@ -2838,7 +2838,7 @@ index 00000000000..ac1704d58d1
 +</resources>
 diff --git a/res/values-sr/play_integrity_strings.xml b/res/values-sr/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..86d2697feab
+index 00000000000..0ba1f3ec9b0
 --- /dev/null
 +++ b/res/values-sr/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2849,14 +2849,14 @@ index 00000000000..86d2697feab
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Управљање профилом и keybox-ом</string>
++    <string name="play_integrity_summary">Идентитет уређаја и keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Аутоматски преузми и примени Pixel Canary отисак за DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Активан отисак</string>
++    <string name="play_integrity_pif_toggle_summary">Аутоматски преузми и примени Pixel Canary профил уређаја за DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Активан профил уређаја</string>
 +    <string name="play_integrity_pif_refresh_hint">Додирните за преузимање најновијег Pixel Canary профила</string>
 +    <string name="play_integrity_pif_disabled">Онемогућено</string>
 +    <string name="play_integrity_pif_updating">Преузимање Pixel Canary профила...</string>
-+    <string name="play_integrity_pif_updated">Отисак је ажуриран</string>
++    <string name="play_integrity_pif_updated">Профил уређаја је ажуриран</string>
 +    <string name="play_integrity_pif_update_failed">Преузимање Pixel Canary профила није успело</string>
 +    <string name="play_integrity_keybox_category">Keybox за атестацију</string>
 +    <string name="play_integrity_keybox_install_title">Учитај keybox.xml</string>
@@ -2877,7 +2877,7 @@ index 00000000000..86d2697feab
 +</resources>
 diff --git a/res/values-sv/play_integrity_strings.xml b/res/values-sv/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..2954eb04003
+index 00000000000..1b663914778
 --- /dev/null
 +++ b/res/values-sv/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2888,14 +2888,14 @@ index 00000000000..2954eb04003
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Hantering av profil och keybox</string>
++    <string name="play_integrity_summary">Enhetsidentitet och keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Hämta och tillämpa Pixel Canary-fingeravtryck automatiskt för DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktivt fingeravtryck</string>
++    <string name="play_integrity_pif_toggle_summary">Hämta och tillämpa Pixel Canary-enhetsprofil automatiskt för DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktiv enhetsprofil</string>
 +    <string name="play_integrity_pif_refresh_hint">Tryck för att hämta senaste Pixel Canary-profilen</string>
 +    <string name="play_integrity_pif_disabled">Inaktiverad</string>
 +    <string name="play_integrity_pif_updating">Hämtar senaste Pixel Canary-profilen...</string>
-+    <string name="play_integrity_pif_updated">Fingeravtryck uppdaterat</string>
++    <string name="play_integrity_pif_updated">Enhetsprofil uppdaterad</string>
 +    <string name="play_integrity_pif_update_failed">Kunde inte hämta Pixel Canary-profil</string>
 +    <string name="play_integrity_keybox_category">Attesterings-keybox</string>
 +    <string name="play_integrity_keybox_install_title">Ladda keybox.xml</string>
@@ -2955,7 +2955,7 @@ index 00000000000..eb8097ec7f7
 +</resources>
 diff --git a/res/values-ta/play_integrity_strings.xml b/res/values-ta/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..4b6b32b583f
+index 00000000000..7f02680b3f4
 --- /dev/null
 +++ b/res/values-ta/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -2966,14 +2966,14 @@ index 00000000000..4b6b32b583f
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">சுயவிவரம் மற்றும் keybox மேலாண்மை</string>
++    <string name="play_integrity_summary">சாதன அடையாளம் மற்றும் keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard-க்கு Pixel Canary கைரேகையை தானாகப் பெற்றுப் பயன்படுத்து</string>
-+    <string name="play_integrity_pif_profile_title">செயலில் உள்ள கைரேகை</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard-க்கு Pixel Canary சாதன சுயவிவரத்தை தானாகப் பெற்றுப் பயன்படுத்து</string>
++    <string name="play_integrity_pif_profile_title">செயலில் உள்ள சாதன சுயவிவரம்</string>
 +    <string name="play_integrity_pif_refresh_hint">புதிய Pixel Canary சுயவிவரத்தைப் பெற தட்டவும்</string>
 +    <string name="play_integrity_pif_disabled">முடக்கப்பட்டது</string>
 +    <string name="play_integrity_pif_updating">புதிய Pixel Canary சுயவிவரம் பெறப்படுகிறது...</string>
-+    <string name="play_integrity_pif_updated">கைரேகை புதுப்பிக்கப்பட்டது</string>
++    <string name="play_integrity_pif_updated">சாதன சுயவிவரம் புதுப்பிக்கப்பட்டது</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary சுயவிவரத்தைப் பெற முடியவில்லை</string>
 +    <string name="play_integrity_keybox_category">சான்றிதழ் keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml ஏற்று</string>
@@ -3033,7 +3033,7 @@ index 00000000000..e2bcb09eaaa
 +</resources>
 diff --git a/res/values-th/play_integrity_strings.xml b/res/values-th/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..00356ef4569
+index 00000000000..88ade1f68f9
 --- /dev/null
 +++ b/res/values-th/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3044,14 +3044,14 @@ index 00000000000..00356ef4569
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">จัดการโปรไฟล์และ keybox</string>
++    <string name="play_integrity_summary">ข้อมูลอุปกรณ์และ keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">ดึงและใช้ลายนิ้วมือ Pixel Canary โดยอัตโนมัติสำหรับ DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">ลายนิ้วมือที่ใช้งาน</string>
++    <string name="play_integrity_pif_toggle_summary">ดึงและใช้โปรไฟล์อุปกรณ์ Pixel Canary โดยอัตโนมัติสำหรับ DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">โปรไฟล์อุปกรณ์ที่ใช้งาน</string>
 +    <string name="play_integrity_pif_refresh_hint">แตะเพื่อดึงโปรไฟล์ Pixel Canary ล่าสุด</string>
 +    <string name="play_integrity_pif_disabled">ปิดใช้งาน</string>
 +    <string name="play_integrity_pif_updating">กำลังดึงโปรไฟล์ Pixel Canary ล่าสุด...</string>
-+    <string name="play_integrity_pif_updated">อัปเดตลายนิ้วมือแล้ว</string>
++    <string name="play_integrity_pif_updated">อัปเดตโปรไฟล์อุปกรณ์แล้ว</string>
 +    <string name="play_integrity_pif_update_failed">ดึงโปรไฟล์ Pixel Canary ไม่สำเร็จ</string>
 +    <string name="play_integrity_keybox_category">Keybox การรับรอง</string>
 +    <string name="play_integrity_keybox_install_title">โหลด keybox.xml</string>
@@ -3072,7 +3072,7 @@ index 00000000000..00356ef4569
 +</resources>
 diff --git a/res/values-tl/play_integrity_strings.xml b/res/values-tl/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..b1d4b4fd581
+index 00000000000..05318824cc3
 --- /dev/null
 +++ b/res/values-tl/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3083,14 +3083,14 @@ index 00000000000..b1d4b4fd581
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Pamamahala ng profile at keybox</string>
++    <string name="play_integrity_summary">Pagkakakilanlan ng device at keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Awtomatikong kunin at ilapat ang Pixel Canary fingerprint sa DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Aktibong fingerprint</string>
++    <string name="play_integrity_pif_toggle_summary">Awtomatikong kunin at ilapat ang Pixel Canary device profile sa DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Aktibong device profile</string>
 +    <string name="play_integrity_pif_refresh_hint">I-tap upang kunin ang pinakabagong Pixel Canary profile</string>
 +    <string name="play_integrity_pif_disabled">Naka-disable</string>
 +    <string name="play_integrity_pif_updating">Kinukuha ang pinakabagong Pixel Canary profile...</string>
-+    <string name="play_integrity_pif_updated">Na-update ang fingerprint</string>
++    <string name="play_integrity_pif_updated">Na-update ang device profile</string>
 +    <string name="play_integrity_pif_update_failed">Nabigong kunin ang Pixel Canary profile</string>
 +    <string name="play_integrity_keybox_category">Keybox ng pagpapatunay</string>
 +    <string name="play_integrity_keybox_install_title">I-load ang keybox.xml</string>
@@ -3111,7 +3111,7 @@ index 00000000000..b1d4b4fd581
 +</resources>
 diff --git a/res/values-tr/play_integrity_strings.xml b/res/values-tr/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..0d2cae1f62a
+index 00000000000..3987baabaec
 --- /dev/null
 +++ b/res/values-tr/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3122,14 +3122,14 @@ index 00000000000..0d2cae1f62a
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Parmak izi ve keybox yönetimi</string>
++    <string name="play_integrity_summary">Cihaz kimliği ve keybox ayarları</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">DroidGuard için Pixel Canary parmak izini otomatik indir ve uygula</string>
-+    <string name="play_integrity_pif_profile_title">Aktif parmak izi</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard için Pixel Canary cihaz profilini otomatik indir ve uygula</string>
++    <string name="play_integrity_pif_profile_title">Aktif cihaz profili</string>
 +    <string name="play_integrity_pif_refresh_hint">Güncel Pixel Canary profili için dokunun</string>
 +    <string name="play_integrity_pif_disabled">Devre dışı</string>
 +    <string name="play_integrity_pif_updating">Güncel Pixel Canary indiriliyor...</string>
-+    <string name="play_integrity_pif_updated">Parmak izi güncellendi</string>
++    <string name="play_integrity_pif_updated">Cihaz profili güncellendi</string>
 +    <string name="play_integrity_pif_update_failed">Pixel Canary indirilemedi</string>
 +    <string name="play_integrity_keybox_category">Attestation keybox</string>
 +    <string name="play_integrity_keybox_install_title">keybox.xml yükle</string>
@@ -3150,7 +3150,7 @@ index 00000000000..0d2cae1f62a
 +</resources>
 diff --git a/res/values-uk/play_integrity_strings.xml b/res/values-uk/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..cedaa475123
+index 00000000000..a6acf6dfdd8
 --- /dev/null
 +++ b/res/values-uk/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3161,14 +3161,14 @@ index 00000000000..cedaa475123
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Керування профілем і keybox</string>
++    <string name="play_integrity_summary">Профіль пристрою та keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Автоматично завантажувати та застосовувати відбиток Pixel Canary для DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Активний відбиток</string>
++    <string name="play_integrity_pif_toggle_summary">Автоматично завантажувати та застосовувати профіль Pixel Canary для DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Активний профіль пристрою</string>
 +    <string name="play_integrity_pif_refresh_hint">Торкніться, щоб завантажити найновіший профіль Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Вимкнено</string>
 +    <string name="play_integrity_pif_updating">Завантаження профілю Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">Відбиток оновлено</string>
++    <string name="play_integrity_pif_updated">Профіль пристрою оновлено</string>
 +    <string name="play_integrity_pif_update_failed">Не вдалося завантажити профіль Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox атестації</string>
 +    <string name="play_integrity_keybox_install_title">Завантажити keybox.xml</string>
@@ -3267,7 +3267,7 @@ index 00000000000..1fb526bcc8d
 +</resources>
 diff --git a/res/values-vi/play_integrity_strings.xml b/res/values-vi/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..4d35ccc4444
+index 00000000000..fc47808bce1
 --- /dev/null
 +++ b/res/values-vi/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3278,14 +3278,14 @@ index 00000000000..4d35ccc4444
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Quản lý hồ sơ và keybox</string>
++    <string name="play_integrity_summary">Nhận dạng thiết bị và keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Tự động tải và áp dụng vân tay Pixel Canary cho DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Vân tay đang dùng</string>
++    <string name="play_integrity_pif_toggle_summary">Tự động tải và áp dụng hồ sơ thiết bị Pixel Canary cho DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Hồ sơ thiết bị đang dùng</string>
 +    <string name="play_integrity_pif_refresh_hint">Chạm để tải hồ sơ Pixel Canary mới nhất</string>
 +    <string name="play_integrity_pif_disabled">Đã tắt</string>
 +    <string name="play_integrity_pif_updating">Đang tải hồ sơ Pixel Canary mới nhất...</string>
-+    <string name="play_integrity_pif_updated">Đã cập nhật vân tay</string>
++    <string name="play_integrity_pif_updated">Đã cập nhật hồ sơ thiết bị</string>
 +    <string name="play_integrity_pif_update_failed">Không thể tải hồ sơ Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">Keybox chứng thực</string>
 +    <string name="play_integrity_keybox_install_title">Tải keybox.xml</string>
@@ -3306,7 +3306,7 @@ index 00000000000..4d35ccc4444
 +</resources>
 diff --git a/res/values-zh-rCN/play_integrity_strings.xml b/res/values-zh-rCN/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..e223339f786
+index 00000000000..430f93bb8e8
 --- /dev/null
 +++ b/res/values-zh-rCN/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3317,14 +3317,14 @@ index 00000000000..e223339f786
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">伪装配置与 Keybox 管理</string>
++    <string name="play_integrity_summary">设备配置与 Keybox 设置</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">自动获取并为 DroidGuard 应用 Pixel Canary 指纹</string>
-+    <string name="play_integrity_pif_profile_title">当前指纹</string>
++    <string name="play_integrity_pif_toggle_summary">自动获取并为 DroidGuard 应用 Pixel Canary 设备配置</string>
++    <string name="play_integrity_pif_profile_title">当前设备配置</string>
 +    <string name="play_integrity_pif_refresh_hint">点击获取最新 Pixel Canary 配置</string>
 +    <string name="play_integrity_pif_disabled">已禁用</string>
 +    <string name="play_integrity_pif_updating">正在获取最新 Pixel Canary 配置...</string>
-+    <string name="play_integrity_pif_updated">指纹已更新</string>
++    <string name="play_integrity_pif_updated">设备配置已更新</string>
 +    <string name="play_integrity_pif_update_failed">获取 Pixel Canary 配置失败</string>
 +    <string name="play_integrity_keybox_category">认证 Keybox</string>
 +    <string name="play_integrity_keybox_install_title">加载 keybox.xml</string>
@@ -3345,7 +3345,7 @@ index 00000000000..e223339f786
 +</resources>
 diff --git a/res/values-zh-rHK/play_integrity_strings.xml b/res/values-zh-rHK/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..d487b338cf8
+index 00000000000..61b30c619b9
 --- /dev/null
 +++ b/res/values-zh-rHK/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3356,14 +3356,14 @@ index 00000000000..d487b338cf8
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">偽裝設定與 Keybox 管理</string>
++    <string name="play_integrity_summary">裝置設定檔與 Keybox 設定</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">自動擷取並套用 Pixel Canary 指紋至 DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">目前指紋</string>
++    <string name="play_integrity_pif_toggle_summary">自動擷取並套用 Pixel Canary 裝置設定檔至 DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">目前裝置設定檔</string>
 +    <string name="play_integrity_pif_refresh_hint">輕觸以擷取最新 Pixel Canary 設定檔</string>
 +    <string name="play_integrity_pif_disabled">已停用</string>
 +    <string name="play_integrity_pif_updating">正在擷取最新 Pixel Canary 設定檔...</string>
-+    <string name="play_integrity_pif_updated">指紋已更新</string>
++    <string name="play_integrity_pif_updated">裝置設定檔已更新</string>
 +    <string name="play_integrity_pif_update_failed">無法擷取 Pixel Canary 設定檔</string>
 +    <string name="play_integrity_keybox_category">證明 Keybox</string>
 +    <string name="play_integrity_keybox_install_title">載入 keybox.xml</string>
@@ -3384,7 +3384,7 @@ index 00000000000..d487b338cf8
 +</resources>
 diff --git a/res/values-zh-rTW/play_integrity_strings.xml b/res/values-zh-rTW/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..d487b338cf8
+index 00000000000..61b30c619b9
 --- /dev/null
 +++ b/res/values-zh-rTW/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3395,14 +3395,14 @@ index 00000000000..d487b338cf8
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">偽裝設定與 Keybox 管理</string>
++    <string name="play_integrity_summary">裝置設定檔與 Keybox 設定</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">自動擷取並套用 Pixel Canary 指紋至 DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">目前指紋</string>
++    <string name="play_integrity_pif_toggle_summary">自動擷取並套用 Pixel Canary 裝置設定檔至 DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">目前裝置設定檔</string>
 +    <string name="play_integrity_pif_refresh_hint">輕觸以擷取最新 Pixel Canary 設定檔</string>
 +    <string name="play_integrity_pif_disabled">已停用</string>
 +    <string name="play_integrity_pif_updating">正在擷取最新 Pixel Canary 設定檔...</string>
-+    <string name="play_integrity_pif_updated">指紋已更新</string>
++    <string name="play_integrity_pif_updated">裝置設定檔已更新</string>
 +    <string name="play_integrity_pif_update_failed">無法擷取 Pixel Canary 設定檔</string>
 +    <string name="play_integrity_keybox_category">證明 Keybox</string>
 +    <string name="play_integrity_keybox_install_title">載入 keybox.xml</string>
@@ -3423,7 +3423,7 @@ index 00000000000..d487b338cf8
 +</resources>
 diff --git a/res/values-zu/play_integrity_strings.xml b/res/values-zu/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..358ead63648
+index 00000000000..3ad4295d341
 --- /dev/null
 +++ b/res/values-zu/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3434,14 +3434,14 @@ index 00000000000..358ead63648
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Ukuphathwa kwephrofayela ne-keybox</string>
++    <string name="play_integrity_summary">Ubunikazi bedivayisi ne-keybox</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Landa futhi usebenzise i-fingerprint ye-Pixel Canary ngokuzenzakalelayo ku-DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">I-fingerprint esebenzayo</string>
++    <string name="play_integrity_pif_toggle_summary">Landa futhi usebenzise iphrofayela yedivayisi ye-Pixel Canary ngokuzenzakalelayo ku-DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Iphrofayela yedivayisi esebenzayo</string>
 +    <string name="play_integrity_pif_refresh_hint">Thepha ukuze uthole iphrofayela yakamuva ye-Pixel Canary</string>
 +    <string name="play_integrity_pif_disabled">Kukhutshaziwe</string>
 +    <string name="play_integrity_pif_updating">Ilungisa iphrofayela yakamuva ye-Pixel Canary...</string>
-+    <string name="play_integrity_pif_updated">I-fingerprint ibuyekeziwe</string>
++    <string name="play_integrity_pif_updated">Iphrofayela yedivayisi ibuyekeziwe</string>
 +    <string name="play_integrity_pif_update_failed">Kwehlulekile ukuthola iphrofayela ye-Pixel Canary</string>
 +    <string name="play_integrity_keybox_category">I-keybox yokuqinisekisa</string>
 +    <string name="play_integrity_keybox_install_title">Layisha i-keybox.xml</string>
@@ -3462,7 +3462,7 @@ index 00000000000..358ead63648
 +</resources>
 diff --git a/res/values/play_integrity_strings.xml b/res/values/play_integrity_strings.xml
 new file mode 100644
-index 00000000000..ba5e25d3528
+index 00000000000..f181e3110c3
 --- /dev/null
 +++ b/res/values/play_integrity_strings.xml
 @@ -0,0 +1,33 @@
@@ -3473,14 +3473,14 @@ index 00000000000..ba5e25d3528
 +-->
 +<resources>
 +    <string name="play_integrity_title">Play Integrity</string>
-+    <string name="play_integrity_summary">Spoofing profile and keybox management</string>
++    <string name="play_integrity_summary">Device identity and keybox settings</string>
 +    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
-+    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary fingerprint to DroidGuard</string>
-+    <string name="play_integrity_pif_profile_title">Active fingerprint</string>
++    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary device profile to DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Active device profile</string>
 +    <string name="play_integrity_pif_refresh_hint">Tap to fetch latest Pixel Canary profile</string>
 +    <string name="play_integrity_pif_disabled">Disabled</string>
 +    <string name="play_integrity_pif_updating">Fetching latest Pixel Canary profile...</string>
-+    <string name="play_integrity_pif_updated">Fingerprint updated</string>
++    <string name="play_integrity_pif_updated">Device profile updated</string>
 +    <string name="play_integrity_pif_update_failed">Failed to fetch Pixel Canary profile</string>
 +    <string name="play_integrity_keybox_category">Attestation keybox</string>
 +    <string name="play_integrity_keybox_install_title">Load keybox.xml</string>
