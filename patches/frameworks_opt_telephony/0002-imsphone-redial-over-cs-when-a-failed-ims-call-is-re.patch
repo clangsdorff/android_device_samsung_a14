@@ -1,0 +1,51 @@
+From dcca3505efef4dfd486118174b39d98e9cbb611f Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 17 Nov 2026 01:15:13 +0300
+Subject: [PATCH 2/2] imsphone: redial over cs when a failed ims call is
+ remapped to cs retry
+
+ims_reasoninfo_mapping_string_array only changes the disconnect cause,
+the silent redial check still looks at the raw code. an ims stack that
+reports a network 503 as CODE_LOCAL_NOT_REGISTERED can then never fall
+back to cs, and the call ends with "mobile network not available".
+
+apply the carrier remap before the cs retry check, and also redial when
+the call is still dialing, since onCallProgressing clears mPendingMO.
+---
+ .../telephony/imsphone/ImsPhoneCallTracker.java      | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/java/com/android/internal/telephony/imsphone/ImsPhoneCallTracker.java b/src/java/com/android/internal/telephony/imsphone/ImsPhoneCallTracker.java
+index 9a33237dc241..11968cd38408 100644
+--- a/src/java/com/android/internal/telephony/imsphone/ImsPhoneCallTracker.java
++++ b/src/java/com/android/internal/telephony/imsphone/ImsPhoneCallTracker.java
+@@ -3618,6 +3618,13 @@ public class ImsPhoneCallTracker extends CallTracker implements ImsPullCall {
+                                     reasonInfo.mExtraCode,
+                                     reasonInfo.mExtraMessage));
+ 
++            int remappedCode = maybeRemapReasonCode(reasonInfo);
++            if (remappedCode == ImsReasonInfo.CODE_LOCAL_CALL_CS_RETRY_REQUIRED
++                    && reasonInfo.getCode() != remappedCode) {
++                reasonInfo = new ImsReasonInfo(remappedCode, reasonInfo.getExtraCode(),
++                        reasonInfo.getExtraMessage());
++            }
++
+             if (DomainSelectionResolver.getInstance().isDomainSelectionSupported()) {
+                 ImsPhoneConnection conn = findConnection(imsCall);
+                 // Since onCallInitiating and onCallProgressing reset mPendingMO,
+@@ -3668,9 +3675,10 @@ public class ImsPhoneCallTracker extends CallTracker implements ImsPullCall {
+                     sendCallStartFailedDisconnect(imsCall, reasonInfo);
+                 }
+             } else if (reasonInfo.getCode() == ImsReasonInfo.CODE_LOCAL_CALL_CS_RETRY_REQUIRED
+-                    && mForegroundCall.getState() == ImsPhoneCall.State.ALERTING) {
++                    && (mForegroundCall.getState() == ImsPhoneCall.State.ALERTING
++                    || mForegroundCall.getState() == ImsPhoneCall.State.DIALING)) {
+                 if (DBG) log("onCallStartFailed: Initiated call by silent redial"
+-                        + " under ALERTING state.");
++                        + " under " + mForegroundCall.getState() + " state.");
+                 ImsPhoneConnection conn = findConnection(imsCall);
+                 if (conn != null) {
+                     mForegroundCall.detach(conn);
+-- 
+2.56.0
+

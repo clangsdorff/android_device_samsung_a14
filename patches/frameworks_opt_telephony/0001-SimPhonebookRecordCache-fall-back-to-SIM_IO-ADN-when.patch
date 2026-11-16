@@ -1,7 +1,7 @@
-From 9d74f66c13b41c993b4ffd91324ddb0348c0c0e8 Mon Sep 17 00:00:00 2001
+From 696ba25b32e3134790366e0c15c4f20de22c416b Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 30 Sep 2026 23:32:52 +0300
-Subject: [PATCH 1/1] SimPhonebookRecordCache: fall back to SIM_IO ADN when the
+Subject: [PATCH 1/2] SimPhonebookRecordCache: fall back to SIM_IO ADN when the
  modem rejects the phonebook capacity query
 
 some modems advertise sim phonebook support through radio config but
