@@ -57,6 +57,9 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
     'vendor/etc/init/android.hardware.security.keymint-service.samsung.rc': blob_fixup()
         .regex_replace('(?m)keymint-service$', 'keymint-service.samsung'),
+    # the camera hal never restores emstune if it dies with a session open
+    'vendor/etc/init/vendor.samsung.hardware.camera.provider-service_64.rc': blob_fixup()
+        .regex_replace('(?m)^(    task_profiles .*)$', '\\1\n    onrestart write /sys/devices/platform/ems/emstune/req_mode 0'),
     'vendor/lib/lib_SoundAlive_play_plus_ver400.so': blob_fixup()
         .add_needed('liblog.so'),
     # drop the error level log for every netlink message

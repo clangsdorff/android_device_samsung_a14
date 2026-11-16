@@ -27,10 +27,6 @@ on post-fs-data
 on boot
     setprop vendor.thermal.link_ready 1
 
-# The camera hal never restores emstune if it dies with a session open
-on property:init.svc.sec-camera-provider=running
-    write /sys/devices/platform/ems/emstune/req_mode 0
-
 on property:sys.boot_completed=1
     setprop vendor.powerhal.init 1
     write /dev/cpuctl/top-app/cpu.uclamp.min 6.25
