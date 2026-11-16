@@ -154,3 +154,6 @@ bluetooth.profile.vcp.controller.enabled=false
 ro.vendor.vibrator_hal.click_duration=20
 ro.vendor.vibrator_hal.tick_duration=10
 ro.vendor.vibrator_hal.texture_tick_duration=10
+
+# Factory Reset Protection
+ro.frp.pst=/dev/block/by-name/persistent
