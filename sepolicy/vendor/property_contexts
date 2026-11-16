@@ -17,3 +17,6 @@ persist.sys.spr_hfa_completed                   u:object_r:vendor_radio_prop:s0
 ro.build.version.oneui                          u:object_r:vendor_samsung_build_prop:s0
 ro.security.keystore.keytype                    u:object_r:vendor_samsung_build_prop:s0
 ro.security.cass.feature                        u:object_r:vendor_samsung_build_prop:s0
+
+# thermal
+vendor.disable.thermalhal.control               u:object_r:vendor_thermal_prop:s0

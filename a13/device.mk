@@ -27,4 +27,8 @@ PRODUCT_PACKAGES += \
     android.hardware.nfc-V1-ndk.vendor \
     libhardware_legacy.vendor
 
+# keep the thermal hal alive if init fails, the failing step shows up in logcat
+PRODUCT_VENDOR_PROPERTIES += \
+    vendor.disable.thermalhal.control=1
+
 $(call inherit-product, vendor/samsung/a13/a13-vendor.mk)
