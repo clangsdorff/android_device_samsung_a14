@@ -227,6 +227,8 @@ snd-soc-s3c-dma.ko
 snd-soc-samsung-abox-sync.ko
 sec_audio_sysfs.ko
 snd-soc-exynos3830-aud3004x.ko
+tcp_westwood.ko
+tcp_htcp.ko
 is-cis-gc5035.ko
 is-actuator-dw9808.ko
 rt-regmap.ko
