@@ -4,4 +4,3 @@
 #
 
 allow dumpstate dmabuf_system_heap_device:chr_file r_file_perms;
-dontaudit dumpstate proc_last_kmsg:file r_file_perms;

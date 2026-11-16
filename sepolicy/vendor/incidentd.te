@@ -1,0 +1,7 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+dontaudit incidentd sysfs_battery:dir search;
+dontaudit incidentd proc_last_kmsg:file r_file_perms;
