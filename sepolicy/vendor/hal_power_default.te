@@ -40,3 +40,6 @@ userdebug_or_eng(`
 # Allow reading /data/vendor/* for debugging
   allow hal_power_default vendor_data_file:file r_file_perms;
 ')
+
+# dac_override is neverallowed on user builds
+dontaudit hal_power_default self:capability { dac_override dac_read_search };

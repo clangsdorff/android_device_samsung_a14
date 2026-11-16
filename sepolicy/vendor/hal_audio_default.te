@@ -8,3 +8,6 @@ get_prop(hal_audio_default, vendor_radio_prop)
 r_dir_file(hal_audio_default, sysfs_abox_writable)
 allow hal_audio_default log_vendor_data_file:dir rw_dir_perms;
 allow hal_audio_default log_vendor_data_file:file create_file_perms;
+
+# radio_prop reads are neverallowed for vendor hals
+dontaudit hal_audio_default radio_prop:file r_file_perms;

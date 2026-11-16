@@ -1,0 +1,7 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+dontaudit incidentd pstorefs:dir search;
+dontaudit incidentd self:capability sys_ptrace;

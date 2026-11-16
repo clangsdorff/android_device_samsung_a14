@@ -1,0 +1,6 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+dontaudit system_server system_user_mode_emulation_prop:file r_file_perms;

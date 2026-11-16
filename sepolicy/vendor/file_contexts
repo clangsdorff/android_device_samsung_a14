@@ -53,4 +53,5 @@
 /efs/DAK/keymaster(/.*)?    u:object_r:keymaster_efs_file:s0
 /efs/DAK/prov_data(/.*)?    u:object_r:keymaster_efs_file:s0
 /efs/taas(/.*)?             u:object_r:taas_efs_file:s0
+/mnt/vendor/efs/taas(/.*)?  u:object_r:taas_efs_file:s0
 /efs/carrier(/.*)?          u:object_r:carrier_efs_file:s0

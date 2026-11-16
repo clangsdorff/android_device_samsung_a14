@@ -7,3 +7,7 @@
 allow hal_wifi_supplicant_default wifi_vendor_data_file:dir create_dir_perms;
 allow hal_wifi_supplicant_default wifi_vendor_data_file:file create_file_perms;
 allow hal_wifi_supplicant_default wifi_vendor_data_file:sock_file create_file_perms;
+
+# runs as root, os_program_init tries to drop to wifi and probes /dev/rfkill
+dontaudit hal_wifi_supplicant_default self:capability { setuid setgid };
+dontaudit hal_wifi_supplicant_default device:chr_file r_file_perms;

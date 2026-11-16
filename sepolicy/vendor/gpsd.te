@@ -10,3 +10,6 @@ allow gpsd sysfs_soc:file r_file_perms;
 allow gpsd gpsd_exec:file { rx_file_perms execute_no_trans };
 
 allow gpsd system_data_file:dir search;
+
+# /data/data lookups hit the mls categories, gpsd works without them
+dontaudit gpsd system_data_file:dir search;

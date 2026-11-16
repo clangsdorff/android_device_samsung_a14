@@ -1,0 +1,6 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+dontaudit isolated_app content_capture_service:service_manager find;

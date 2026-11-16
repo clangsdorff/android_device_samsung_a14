@@ -17,3 +17,9 @@ allow vendor_init proc_hung_task:file w_file_perms;
 allow vendor_init taas_efs_file:dir { r_dir_perms setattr };
 allow vendor_init taas_efs_file:file { getattr setattr };
 allow vendor_init carrier_efs_file:dir { r_dir_perms setattr };
+
+get_prop(vendor_init, vts_status_prop)
+
+# init.s5e3830.rc mkdirs under the unlabeled /mnt tmpfs and sets qcom era and system owned props
+dontaudit vendor_init tmpfs:dir { write add_name };
+dontaudit vendor_init { default_prop vold_prop }:property_service set;
