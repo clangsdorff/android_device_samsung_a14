@@ -1,0 +1,76 @@
+From 2365e464e18ac7d13c4ce903795154a75aa4039d Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 16 Nov 2026 14:17:48 +0300
+Subject: [PATCH] fingerprint: allow building a 32-bit service variant
+
+older devices ship 32-bit only libbauthserver.so, so a 64-bit hal
+process fails dlopen and segfaults when calling LegacyHAL::request.
+
+add a 32-bit service variant gated by samsungFingerprintVars.use_32bit_hal
+so both 32-bit and 64-bit targets install to the same binary path without
+colliding, and guard LegacyHAL::request against a null symbol.
+---
+ aidl/fingerprint/Android.bp    | 24 ++++++++++++++++++++++--
+ aidl/fingerprint/LegacyHAL.cpp |  4 ++++
+ 2 files changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/aidl/fingerprint/Android.bp b/aidl/fingerprint/Android.bp
+index 7565911..c887a01 100644
+--- a/aidl/fingerprint/Android.bp
++++ b/aidl/fingerprint/Android.bp
+@@ -4,8 +4,8 @@
+ // SPDX-License-Identifier: Apache-2.0
+ //
+ 
+-cc_binary {
+-    name: "android.hardware.biometrics.fingerprint-service.samsung",
++cc_defaults {
++    name: "android.hardware.biometrics.fingerprint-service.samsung_defaults",
+     relative_install_path: "hw",
+     init_rc: ["android.hardware.biometrics.fingerprint-service.samsung.rc"],
+     vintf_fragments: ["android.hardware.biometrics.fingerprint-service.samsung.xml"],
+@@ -29,6 +29,26 @@ cc_binary {
+     vendor: true,
+ }
+ 
++cc_binary {
++    name: "android.hardware.biometrics.fingerprint-service.samsung",
++    defaults: ["android.hardware.biometrics.fingerprint-service.samsung_defaults"],
++    enabled: select(soong_config_variable("samsungFingerprintVars", "use_32bit_hal"), {
++        true: false,
++        default: true,
++    }),
++}
++
++cc_binary {
++    name: "android.hardware.biometrics.fingerprint-service.samsung32",
++    stem: "android.hardware.biometrics.fingerprint-service.samsung",
++    defaults: ["android.hardware.biometrics.fingerprint-service.samsung_defaults"],
++    compile_multilib: "32",
++    enabled: select(soong_config_variable("samsungFingerprintVars", "use_32bit_hal"), {
++        true: true,
++        default: false,
++    }),
++}
++
+ sysprop_library {
+     name: "android.hardware.biometrics.fingerprint.SamsungProps",
+     srcs: ["fingerprint.sysprop"],
+diff --git a/aidl/fingerprint/LegacyHAL.cpp b/aidl/fingerprint/LegacyHAL.cpp
+index fd48ada..1672af3 100644
+--- a/aidl/fingerprint/LegacyHAL.cpp
++++ b/aidl/fingerprint/LegacyHAL.cpp
+@@ -71,6 +71,10 @@ bool LegacyHAL::openHal(fingerprint_notify_t notify) {
+ }
+ 
+ int LegacyHAL::request(int cmd, int param) {
++    if (!ss_fingerprint_request) {
++        LOG(ERROR) << "ss_fingerprint_request is null";
++        return -1;
++    }
+     // TO-DO: input, output handling not implemented
+     int result = ss_fingerprint_request(cmd, nullptr, 0, nullptr, 0, param);
+     LOG(INFO) << "request(cmd=" << cmd << ", param=" << param << ", result=" << result << ")";
+-- 
+2.56.0
+

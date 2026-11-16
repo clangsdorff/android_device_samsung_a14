@@ -63,3 +63,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/a14/a13/releasetools
 
 TARGET_RECOVERY_FSTAB := device/samsung/a14/a13/fstab.s5e3830
 BOARD_VENDOR_SEPOLICY_DIRS += device/samsung/a14/a13/sepolicy/vendor
+
+# Fingerprint
+$(call soong_config_set_bool,samsungFingerprintVars,use_32bit_hal,true)
