@@ -1,4 +1,4 @@
-From 0d619320367d23bd8b17470ce7575dfac2599dac Mon Sep 17 00:00:00 2001
+From d993348cc9b3bcddbcea4d0b5374618ffd44ab4e Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 09:31:23 +0000
 Subject: [PATCH] pif: auto-fetch Pixel Canary identity for DroidGuard
@@ -8,14 +8,14 @@ Fetch and cache the latest Pixel Canary fingerprint with first_api_level <= 35 f
 Change-Id: I14654ee5f6026c8e11a0844419691e3627b15c33
 ---
  core/java/android/app/ActivityThread.java     |   3 +-
- core/java/android/app/IActivityManager.aidl   |  13 +
+ core/java/android/app/IActivityManager.aidl   |  15 +
  core/java/android/os/SystemProperties.java    |  10 +
- .../com/android/internal/util/PifHooks.java   | 187 +++++
+ .../com/android/internal/util/PifHooks.java   | 187 ++++
  core/jni/android_os_SystemProperties.cpp      |  20 +-
- .../security/AndroidKeyStoreMaintenance.java  |  32 +
- .../server/am/ActivityManagerService.java     |  87 ++-
- .../com/android/server/am/PifAutoUpdater.java | 705 ++++++++++++++++++
- 8 files changed, 1054 insertions(+), 3 deletions(-)
+ .../security/AndroidKeyStoreMaintenance.java  |  45 +
+ .../server/am/ActivityManagerService.java     |  98 +-
+ .../com/android/server/am/PifAutoUpdater.java | 843 ++++++++++++++++++
+ 8 files changed, 1218 insertions(+), 3 deletions(-)
  create mode 100644 core/java/com/android/internal/util/PifHooks.java
  create mode 100644 services/core/java/com/android/server/am/PifAutoUpdater.java
 
@@ -41,10 +41,10 @@ index 49d11ce08a66..972c36202af0 100644
          if (ii != null) {
              initInstrumentation(ii, data, appContext);
 diff --git a/core/java/android/app/IActivityManager.aidl b/core/java/android/app/IActivityManager.aidl
-index 8703ccbea576..b6bdbc22e627 100644
+index 8703ccbea576..07819344cd77 100644
 --- a/core/java/android/app/IActivityManager.aidl
 +++ b/core/java/android/app/IActivityManager.aidl
-@@ -1066,4 +1066,17 @@ interface IActivityManager {
+@@ -1066,4 +1066,19 @@ interface IActivityManager {
       * Unregisters the listener previously registered for ANR warning.
       */
      void unregisterAnrWarningListener(in IAnrWarningCallback callback);
@@ -61,6 +61,8 @@ index 8703ccbea576..b6bdbc22e627 100644
 +    int setKeyboxXml(in String xml);
 +    /** @hide */
 +    int getKeyboxStatus();
++    /** @hide */
++    String[] getKeyboxDetails(boolean checkOnline);
  }
 diff --git a/core/java/android/os/SystemProperties.java b/core/java/android/os/SystemProperties.java
 index 18b207a42f75..a52ae87656d1 100644
@@ -331,10 +333,10 @@ index e99d89098a40..9643078fda74 100644
      return RegisterMethodsOrDie(env, "android/os/SystemProperties",
                                  method_table, NELEM(method_table));
 diff --git a/keystore/java/android/security/AndroidKeyStoreMaintenance.java b/keystore/java/android/security/AndroidKeyStoreMaintenance.java
-index ecf4eb4502df..5c7ef0515ed2 100644
+index ecf4eb4502df..cb9b9e76229b 100644
 --- a/keystore/java/android/security/AndroidKeyStoreMaintenance.java
 +++ b/keystore/java/android/security/AndroidKeyStoreMaintenance.java
-@@ -225,4 +225,36 @@ public class AndroidKeyStoreMaintenance {
+@@ -225,4 +225,49 @@ public class AndroidKeyStoreMaintenance {
                      "Keystore error while trying to delete all keys.");
          }
      }
@@ -370,9 +372,22 @@ index ecf4eb4502df..5c7ef0515ed2 100644
 +            return -1;
 +        }
 +    }
++
++    /**
++     * Returns hex-encoded public DER certificates from the loaded keybox.xml (no private keys).
++     * @hide
++     */
++    public static String[] getKeyboxCertsHex() {
++        try {
++            return getService().getKeyboxCertsHex();
++        } catch (Exception e) {
++            Log.e(TAG, "getKeyboxCertsHex failed", e);
++            return new String[0];
++        }
++    }
  }
 diff --git a/services/core/java/com/android/server/am/ActivityManagerService.java b/services/core/java/com/android/server/am/ActivityManagerService.java
-index e63c7c7b97b5..2247373af9d9 100644
+index e63c7c7b97b5..90ce7c657923 100644
 --- a/services/core/java/com/android/server/am/ActivityManagerService.java
 +++ b/services/core/java/com/android/server/am/ActivityManagerService.java
 @@ -5965,7 +5965,7 @@ public class ActivityManagerService extends IActivityManager.Stub
@@ -384,7 +399,7 @@ index e63c7c7b97b5..2247373af9d9 100644
          synchronized (mGlobalLock) {
              // Ensure that any processes we had put on hold are now started
              // up.
-@@ -21239,4 +21239,89 @@ public class ActivityManagerService extends IActivityManager.Stub
+@@ -21239,4 +21239,100 @@ public class ActivityManagerService extends IActivityManager.Stub
          mAnrWarningController.notifyAnrWarning(
                  uid, anrId, errorId, anrType, consumedTimeMs, timeoutMs, description);
      }
@@ -473,13 +488,24 @@ index e63c7c7b97b5..2247373af9d9 100644
 +            Binder.restoreCallingIdentity(token);
 +        }
 +    }
++
++    @Override
++    public String[] getKeyboxDetails(boolean checkOnline) {
++        enforcePlayIntegritySettingsPermission("getKeyboxDetails");
++        final long token = Binder.clearCallingIdentity();
++        try {
++            return PifAutoUpdater.getKeyboxDetails(checkOnline);
++        } finally {
++            Binder.restoreCallingIdentity(token);
++        }
++    }
  }
 diff --git a/services/core/java/com/android/server/am/PifAutoUpdater.java b/services/core/java/com/android/server/am/PifAutoUpdater.java
 new file mode 100644
-index 000000000000..2edf933e59a8
+index 000000000000..8ef4f855a8c6
 --- /dev/null
 +++ b/services/core/java/com/android/server/am/PifAutoUpdater.java
-@@ -0,0 +1,705 @@
+@@ -0,0 +1,843 @@
 +/*
 + * SPDX-FileCopyrightText: The LineageOS Project
 + * SPDX-License-Identifier: Apache-2.0
@@ -504,25 +530,29 @@ index 000000000000..2edf933e59a8
 +import org.json.JSONException;
 +import org.json.JSONObject;
 +
++import java.io.ByteArrayInputStream;
 +import java.io.ByteArrayOutputStream;
 +import java.io.File;
 +import java.io.FileInputStream;
 +import java.io.FileOutputStream;
 +import java.io.IOException;
 +import java.io.InputStream;
++import java.math.BigInteger;
 +import java.net.HttpURLConnection;
 +import java.net.URL;
 +import java.nio.charset.StandardCharsets;
++import java.security.cert.CertificateFactory;
++import java.security.cert.X509Certificate;
 +import java.util.ArrayList;
 +import java.util.Collections;
 +import java.util.HashMap;
++import java.util.HexFormat;
 +import java.util.List;
++import java.util.Locale;
 +import java.util.Map;
 +import java.util.concurrent.atomic.AtomicBoolean;
 +import java.util.regex.Matcher;
 +import java.util.regex.Pattern;
-+
-+import javax.net.ssl.HttpsURLConnection;
 +
 +/**
 + * Automatically fetches and caches the latest Pixel Canary fingerprint profile from official
@@ -545,7 +575,12 @@ index 000000000000..2edf933e59a8
 +            "https://content-flashstation-pa.googleapis.com/v1/builds?product=%s&key=%s";
 +    private static final String URL_SECURITY_BULLETIN =
 +            "https://source.android.com/docs/security/bulletin/pixel";
-+
++    private static final String URL_ATTESTATION_STATUS =
++            "https://android.googleapis.com/attestation/status";
++    private static final String RKP_METADATA_OID = "1.3.6.1.4.1.11129.2.1.30";
++    private static final long CRL_CACHE_TTL_MS = 15L * 60L * 1000L;
++    private static volatile JSONObject sCrlEntries;
++    private static volatile long sCrlFetchedAtMs = 0L;
 +    private static final Map<String, String> FIRST_API_MAP;
 +    static {
 +        Map<String, String> m = new HashMap<>();
@@ -1156,6 +1191,135 @@ index 000000000000..2edf933e59a8
 +            }
 +        }
 +        return yearMonth + "-05";
++    }
++
++    public static String[] getKeyboxDetails(boolean checkOnline) {
++        int statusMask = android.security.AndroidKeyStoreMaintenance.getKeyboxStatus();
++        if (statusMask <= 0) {
++            return new String[] { "0", "NONE", "", "0", "0" };
++        }
++        String[] certsHex = android.security.AndroidKeyStoreMaintenance.getKeyboxCertsHex();
++        JSONObject crl = getCrlEntries(checkOnline);
++        return inspectKeyboxCerts(statusMask, certsHex, crl, System.currentTimeMillis());
++    }
++
++    private static JSONObject getCrlEntries(boolean checkOnline) {
++        long now = System.currentTimeMillis();
++        JSONObject cached = sCrlEntries;
++        if (cached != null && (now - sCrlFetchedAtMs) < CRL_CACHE_TTL_MS) {
++            return cached;
++        }
++        if (!checkOnline) {
++            return cached;
++        }
++        try {
++            String json = httpGet(URL_ATTESTATION_STATUS, null);
++            JSONObject root = new JSONObject(json);
++            JSONObject entries = root.optJSONObject("entries");
++            if (entries != null) {
++                sCrlEntries = entries;
++                sCrlFetchedAtMs = System.currentTimeMillis();
++                return entries;
++            }
++        } catch (Throwable t) {
++            Slog.w(TAG, "failed fetching Google attestation CRL", t);
++        }
++        return cached;
++    }
++
++    public static String[] inspectKeyboxCerts(
++            int statusMask, String[] certsHex, JSONObject crlEntries, long nowMs) {
++        if (statusMask <= 0 || certsHex == null || certsHex.length == 0) {
++            return new String[] {
++                String.valueOf(Math.max(0, statusMask)), "NONE", "", "0", "0"
++            };
++        }
++        long earliestExpiryMs = Long.MAX_VALUE;
++        boolean expired = false;
++        boolean notYetValid = false;
++        boolean isAospTest = false;
++        boolean isRkp = false;
++        String revokedDetail = null;
++
++        try {
++            CertificateFactory cf = CertificateFactory.getInstance("X.509");
++            HexFormat hexFmt = HexFormat.of();
++            for (String hex : certsHex) {
++                if (hex == null || hex.isEmpty()) {
++                    continue;
++                }
++                byte[] der = hexFmt.parseHex(hex);
++                X509Certificate cert = (X509Certificate)
++                        cf.generateCertificate(new ByteArrayInputStream(der));
++                long notBefore = cert.getNotBefore().getTime();
++                long notAfter = cert.getNotAfter().getTime();
++                if (notAfter < earliestExpiryMs) {
++                    earliestExpiryMs = notAfter;
++                }
++                if (nowMs > notAfter) {
++                    expired = true;
++                } else if (nowMs < notBefore) {
++                    notYetValid = true;
++                }
++                String subj = cert.getSubjectX500Principal().getName();
++                String iss = cert.getIssuerX500Principal().getName();
++                if (subj.contains("Android Keystore Software Attestation")
++                        || iss.contains("Android Keystore Software Attestation")) {
++                    isAospTest = true;
++                }
++                if (cert.getExtensionValue(RKP_METADATA_OID) != null) {
++                    isRkp = true;
++                }
++                if (crlEntries != null && revokedDetail == null) {
++                    BigInteger serial = cert.getSerialNumber();
++                    String hexKey = serial.toString(16).toLowerCase(Locale.ROOT);
++                    String decKey = serial.toString(10);
++                    JSONObject entry = crlEntries.optJSONObject(hexKey);
++                    if (entry == null) {
++                        entry = crlEntries.optJSONObject(decKey);
++                    }
++                    if (entry != null) {
++                        String st = entry.optString("status", "REVOKED");
++                        String reason = entry.optString("reason", "");
++                        revokedDetail = reason.isEmpty() ? st : (st + ": " + reason);
++                    }
++                }
++            }
++        } catch (Throwable t) {
++            Slog.w(TAG, "failed inspecting keybox certs", t);
++        }
++
++        if (earliestExpiryMs == Long.MAX_VALUE) {
++            earliestExpiryMs = 0L;
++        }
++        final String verdict;
++        final String detail;
++        if (revokedDetail != null) {
++            verdict = "REVOKED";
++            detail = revokedDetail;
++        } else if (expired) {
++            verdict = "EXPIRED";
++            detail = "";
++        } else if (notYetValid) {
++            verdict = "NOT_YET_VALID";
++            detail = "";
++        } else if (isAospTest) {
++            verdict = "AOSP_TEST";
++            detail = "";
++        } else if (crlEntries == null) {
++            verdict = "OFFLINE";
++            detail = "";
++        } else {
++            verdict = "VALID";
++            detail = "";
++        }
++        return new String[] {
++            String.valueOf(statusMask),
++            verdict,
++            detail,
++            Long.toString(earliestExpiryMs),
++            isRkp ? "1" : "0",
++        };
 +    }
 +
 +    private static String httpGet(String urlStr, String referer) throws IOException {
