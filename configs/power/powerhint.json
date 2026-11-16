@@ -5,6 +5,7 @@
             "Path": "/sys/devices/system/cpu/cpufreq_limit/cpufreq_min_limit",
             "Values": [
                 "2002000",
+                "1742000",
                 "1456000",
                 "-1"
             ],
@@ -160,7 +161,7 @@
             "PowerHint": "INTERACTION",
             "Node": "CPUMinLimit",
             "Duration": 1000,
-            "Value": "1456000"
+            "Value": "1742000"
         },
         {
             "PowerHint": "INTERACTION",
