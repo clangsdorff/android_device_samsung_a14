@@ -304,11 +304,19 @@ PRODUCT_COPY_FILES += \
 PRODUCT_ENABLE_UFFD_GC := true
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 
+# Recovery
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init/init.recovery.s5e3830.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.s5e3830.rc
+
+PRODUCT_PACKAGES += \
+    watchdogd.recovery
+
 # Touchscreen firmware, requested before /vendor is mounted
 ifneq ($(TARGET_IS_A13),true)
 PRODUCT_COPY_FILES += \
     $(foreach f,ft8720_a14.bin ft8720_a14_ramtest.bin ili7807_a14.hex nt36672_a14_csot.bin nt36672_a14_csot_mp.bin nt36672_a14_tianma.bin nt36672_a14_tianma_mp.bin,\
-        vendor/samsung/a14/proprietary/vendor/firmware/$(f):$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/$(f))
+        vendor/samsung/a14/proprietary/vendor/firmware/$(f):$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/$(f) \
+        vendor/samsung/a14/proprietary/vendor/firmware/$(f):$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/$(f))
 endif
 
 # OTA

@@ -1,0 +1,17 @@
+on init
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "13600000.dwc3"
+
+on boot
+    # the bootloader passes usb_restrict=1 into recovery, and usb_notify then kills adb
+    write /sys/module/usb_notify_layer/parameters/usb_restrict 0
+    write /sys/class/usb_notify/usb_control/usb_sl SUNNY_WORK_MODE
+
+# s3c2410_wdt is armed as soon as its module loads in first stage
+on init
+    start watchdogd
+
+service watchdogd /system/bin/watchdogd 10 20
+    user root
+    oneshot
+    seclabel u:r:watchdogd:s0
