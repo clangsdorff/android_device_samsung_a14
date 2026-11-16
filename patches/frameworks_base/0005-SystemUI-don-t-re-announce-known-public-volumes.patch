@@ -1,7 +1,7 @@
 From 496698c1344eb709850d5025d113d672f0842193 Mon Sep 17 00:00:00 2001
 From: Chara <bionichuman07@gmail.com>
 Date: Fri, 23 Oct 2026 15:44:38 -0700
-Subject: [PATCH 5/12] SystemUI: don't re-announce known public volumes
+Subject: [PATCH 5/13] SystemUI: don't re-announce known public volumes
 
 use persisted VolumeRecord creation times instead of shutdown
 preferences and a boot timeout. only records predating this boot

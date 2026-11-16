@@ -1,7 +1,7 @@
 From 7477b73d0fde06171bd0fddc5d5dc1cbe45e3749 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sun, 15 Nov 2026 16:57:12 +0000
-Subject: [PATCH 12/12] display: port the stock user brightness offset
+Subject: [PATCH 12/13] display: port the stock user brightness offset
 
 aosp turns a slider change in auto mode into a gamma for the whole
 curve, and the adjustment setting keeps that gamma after a reboot, so

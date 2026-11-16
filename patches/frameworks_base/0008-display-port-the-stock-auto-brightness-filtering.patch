@@ -1,7 +1,7 @@
 From 1101636b724054b7beda79aae41b0140d05e3b5c Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 9 Nov 2026 01:14:22 +0300
-Subject: [PATCH 8/12] display: port the stock auto brightness filtering
+Subject: [PATCH 8/13] display: port the stock auto brightness filtering
 
 without a display device config the debounces are never loaded and
 stay at -1, so every lux change moves the screen at once. the ambient

@@ -1,7 +1,7 @@
 From 350aee735c14f23eee6a060a76fbae9781db0b8f Mon Sep 17 00:00:00 2001
 From: "Christopher A. Williamson" <contact@chrisaw.io>
 Date: Tue, 10 Nov 2026 15:24:02 +0000
-Subject: [PATCH 9/12] frameworks: drop the framework-virtualization
+Subject: [PATCH 9/13] frameworks: drop the framework-virtualization
  references
 
 the com.android.virt apex is no longer installed on the gsi and the
