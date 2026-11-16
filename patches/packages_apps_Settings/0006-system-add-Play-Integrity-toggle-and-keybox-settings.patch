@@ -1,0 +1,466 @@
+From 9dcf5e97651e997fb940bd5136bfd3150fd85023 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 16 Nov 2026 09:31:29 +0000
+Subject: [PATCH] system: add Play Integrity toggle and keybox settings
+
+Add a Play Integrity preference screen under System settings to toggle automatic DroidGuard spoofing, trigger an immediate Pixel Canary fingerprint refresh, and load or remove keybox.xml via document picker.
+
+Change-Id: Ia01d027fe200d0e68ab10ba01482b24ead1ad113
+---
+ res/values-tr/play_integrity_strings.xml      |  29 ++
+ res/values/play_integrity_strings.xml         |  29 ++
+ res/xml/play_integrity_settings.xml           |  39 +++
+ res/xml/system_dashboard_fragment.xml         |   7 +
+ .../system/PlayIntegritySettingsFragment.java | 304 ++++++++++++++++++
+ 5 files changed, 408 insertions(+)
+ create mode 100644 res/values-tr/play_integrity_strings.xml
+ create mode 100644 res/values/play_integrity_strings.xml
+ create mode 100644 res/xml/play_integrity_settings.xml
+ create mode 100644 src/com/android/settings/system/PlayIntegritySettingsFragment.java
+
+diff --git a/res/values-tr/play_integrity_strings.xml b/res/values-tr/play_integrity_strings.xml
+new file mode 100644
+index 00000000000..2380e919c39
+--- /dev/null
++++ b/res/values-tr/play_integrity_strings.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="play_integrity_title">Play Integrity</string>
++    <string name="play_integrity_summary">Parmak izi ve keybox yönetimi</string>
++    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
++    <string name="play_integrity_pif_toggle_summary">DroidGuard için Pixel Canary parmak izini otomatik indir ve uygula</string>
++    <string name="play_integrity_pif_profile_title">Aktif parmak izi</string>
++    <string name="play_integrity_pif_refresh_hint">Güncel Pixel Canary profili için dokunun</string>
++    <string name="play_integrity_pif_disabled">Devre dışı</string>
++    <string name="play_integrity_pif_updating">Güncel Pixel Canary indiriliyor…</string>
++    <string name="play_integrity_pif_updated">Parmak izi güncellendi</string>
++    <string name="play_integrity_pif_update_failed">Pixel Canary indirilemedi</string>
++    <string name="play_integrity_keybox_category">Attestation keybox</string>
++    <string name="play_integrity_keybox_install_title">keybox.xml yükle</string>
++    <string name="play_integrity_keybox_status_none">Yüklü değil (Passthrough)</string>
++    <string name="play_integrity_keybox_status_ec">Yüklü (ECDSA)</string>
++    <string name="play_integrity_keybox_status_rsa">Yüklü (RSA)</string>
++    <string name="play_integrity_keybox_status_both">Yüklü (ECDSA + RSA)</string>
++    <string name="play_integrity_keybox_installed">Keybox yüklendi</string>
++    <string name="play_integrity_keybox_invalid">Geçersiz keybox.xml dosyası</string>
++    <string name="play_integrity_keybox_too_large">Dosya çok büyük (en fazla 256 KB)</string>
++    <string name="play_integrity_keybox_remove_title">Keybox kaldır</string>
++    <string name="play_integrity_keybox_remove_summary">Stok donanım attestation davranışına dön</string>
++    <string name="play_integrity_keybox_removed">Keybox kaldırıldı</string>
++</resources>
+diff --git a/res/values/play_integrity_strings.xml b/res/values/play_integrity_strings.xml
+new file mode 100644
+index 00000000000..e57a4310064
+--- /dev/null
++++ b/res/values/play_integrity_strings.xml
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="play_integrity_title">Play Integrity</string>
++    <string name="play_integrity_summary">Spoofing profile and keybox management</string>
++    <string name="play_integrity_pif_toggle_title">Play Integrity Fix</string>
++    <string name="play_integrity_pif_toggle_summary">Auto-fetch and apply Pixel Canary fingerprint to DroidGuard</string>
++    <string name="play_integrity_pif_profile_title">Active fingerprint</string>
++    <string name="play_integrity_pif_refresh_hint">Tap to fetch latest Pixel Canary profile</string>
++    <string name="play_integrity_pif_disabled">Disabled</string>
++    <string name="play_integrity_pif_updating">Fetching latest Pixel Canary profile…</string>
++    <string name="play_integrity_pif_updated">Fingerprint updated</string>
++    <string name="play_integrity_pif_update_failed">Failed to fetch Pixel Canary profile</string>
++    <string name="play_integrity_keybox_category">Attestation keybox</string>
++    <string name="play_integrity_keybox_install_title">Load keybox.xml</string>
++    <string name="play_integrity_keybox_status_none">Not installed (Passthrough)</string>
++    <string name="play_integrity_keybox_status_ec">Installed (ECDSA)</string>
++    <string name="play_integrity_keybox_status_rsa">Installed (RSA)</string>
++    <string name="play_integrity_keybox_status_both">Installed (ECDSA + RSA)</string>
++    <string name="play_integrity_keybox_installed">Keybox installed</string>
++    <string name="play_integrity_keybox_invalid">Invalid keybox.xml file</string>
++    <string name="play_integrity_keybox_too_large">File too large (max 256 KB)</string>
++    <string name="play_integrity_keybox_remove_title">Remove keybox</string>
++    <string name="play_integrity_keybox_remove_summary">Revert to stock hardware attestation</string>
++    <string name="play_integrity_keybox_removed">Keybox removed</string>
++</resources>
+diff --git a/res/xml/play_integrity_settings.xml b/res/xml/play_integrity_settings.xml
+new file mode 100644
+index 00000000000..788bd4c30a4
+--- /dev/null
++++ b/res/xml/play_integrity_settings.xml
+@@ -0,0 +1,39 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<PreferenceScreen
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:key="play_integrity_screen"
++    android:title="@string/play_integrity_title">
++
++    <SwitchPreferenceCompat
++        android:key="pif_enabled"
++        android:title="@string/play_integrity_pif_toggle_title"
++        android:summary="@string/play_integrity_pif_toggle_summary"
++        android:persistent="false" />
++
++    <Preference
++        android:key="pif_profile"
++        android:title="@string/play_integrity_pif_profile_title"
++        android:summary="@string/play_integrity_pif_refresh_hint"
++        android:persistent="false" />
++
++    <PreferenceCategory
++        android:key="keybox_category"
++        android:title="@string/play_integrity_keybox_category">
++
++        <Preference
++            android:key="keybox_install"
++            android:title="@string/play_integrity_keybox_install_title"
++            android:summary="@string/play_integrity_keybox_status_none"
++            android:persistent="false" />
++
++        <Preference
++            android:key="keybox_remove"
++            android:title="@string/play_integrity_keybox_remove_title"
++            android:summary="@string/play_integrity_keybox_remove_summary"
++            android:persistent="false" />
++    </PreferenceCategory>
++</PreferenceScreen>
+diff --git a/res/xml/system_dashboard_fragment.xml b/res/xml/system_dashboard_fragment.xml
+index 3dae93a4d86..e14bc3f268d 100644
+--- a/res/xml/system_dashboard_fragment.xml
++++ b/res/xml/system_dashboard_fragment.xml
+@@ -147,6 +147,13 @@
+             android:fragment="com.android.settings.users.UserSettings"
+             settings:controller="com.android.settings.users.MultiUserPreferenceController"/>
+ 
++        <Preference
++            android:key="play_integrity_settings"
++            android:title="@string/play_integrity_title"
++            android:summary="@string/play_integrity_summary"
++            android:icon="@drawable/ic_device_locked_24dp"
++            android:fragment="com.android.settings.system.PlayIntegritySettingsFragment"/>
++
+     </PreferenceCategory>
+ 
+     <PreferenceCategory
+diff --git a/src/com/android/settings/system/PlayIntegritySettingsFragment.java b/src/com/android/settings/system/PlayIntegritySettingsFragment.java
+new file mode 100644
+index 00000000000..af0bd692f79
+--- /dev/null
++++ b/src/com/android/settings/system/PlayIntegritySettingsFragment.java
+@@ -0,0 +1,304 @@
++/*
++ * SPDX-FileCopyrightText: 2026 Langsdorff
++ * SPDX-License-Identifier: Apache-2.0
++ */
++
++package com.android.settings.system;
++
++import android.app.Activity;
++import android.app.ActivityManager;
++import android.app.settings.SettingsEnums;
++import android.content.Context;
++import android.content.Intent;
++import android.net.Uri;
++import android.os.Bundle;
++import android.os.RemoteException;
++import android.text.format.DateFormat;
++import android.util.Log;
++import android.widget.Toast;
++
++import androidx.annotation.Nullable;
++import androidx.preference.Preference;
++import androidx.preference.SwitchPreferenceCompat;
++
++import com.android.settings.R;
++import com.android.settings.dashboard.DashboardFragment;
++import com.android.settings.search.BaseSearchIndexProvider;
++import com.android.settingslib.search.SearchIndexable;
++
++import java.io.ByteArrayOutputStream;
++import java.io.IOException;
++import java.io.InputStream;
++import java.nio.charset.StandardCharsets;
++import java.util.Date;
++import java.util.concurrent.ExecutorService;
++import java.util.concurrent.Executors;
++
++@SearchIndexable
++public class PlayIntegritySettingsFragment extends DashboardFragment {
++    private static final String TAG = "PlayIntegritySettings";
++    private static final String KEY_PIF_ENABLED = "pif_enabled";
++    private static final String KEY_PIF_PROFILE = "pif_profile";
++    private static final String KEY_KEYBOX_INSTALL = "keybox_install";
++    private static final String KEY_KEYBOX_REMOVE = "keybox_remove";
++    private static final int REQ_PICK_KEYBOX = 9101;
++    private static final int MAX_KEYBOX_BYTES = 256 * 1024;
++
++    private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
++    private SwitchPreferenceCompat mPifToggle;
++    private Preference mPifProfilePref;
++    private Preference mKeyboxInstallPref;
++    private Preference mKeyboxRemovePref;
++
++    @Override
++    public int getMetricsCategory() {
++        return SettingsEnums.SETTINGS_SYSTEM_CATEGORY;
++    }
++
++    @Override
++    protected String getLogTag() {
++        return TAG;
++    }
++
++    @Override
++    protected int getPreferenceScreenResId() {
++        return R.xml.play_integrity_settings;
++    }
++
++    @Override
++    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
++        super.onCreatePreferences(savedInstanceState, rootKey);
++        mPifToggle = findPreference(KEY_PIF_ENABLED);
++        mPifProfilePref = findPreference(KEY_PIF_PROFILE);
++        mKeyboxInstallPref = findPreference(KEY_KEYBOX_INSTALL);
++        mKeyboxRemovePref = findPreference(KEY_KEYBOX_REMOVE);
++
++        if (mPifToggle != null) {
++            mPifToggle.setOnPreferenceChangeListener((pref, newVal) -> {
++                boolean enabled = Boolean.TRUE.equals(newVal);
++                mExecutor.execute(() -> {
++                    try {
++                        ActivityManager.getService().setPifEnabled(enabled);
++                    } catch (RemoteException e) {
++                        Log.w(TAG, "setPifEnabled failed", e);
++                    }
++                    refreshStateAsync();
++                });
++                return true;
++            });
++        }
++    }
++
++    @Override
++    public void onResume() {
++        super.onResume();
++        refreshStateAsync();
++    }
++
++    @Override
++    public void onDestroy() {
++        super.onDestroy();
++        mExecutor.shutdownNow();
++    }
++
++    @Override
++    public boolean onPreferenceTreeClick(Preference preference) {
++        String key = preference.getKey();
++        if (KEY_PIF_PROFILE.equals(key)) {
++            if (mPifProfilePref != null) {
++                mPifProfilePref.setSummary(R.string.play_integrity_pif_updating);
++                mPifProfilePref.setEnabled(false);
++            }
++            mExecutor.execute(() -> {
++                boolean ok = false;
++                try {
++                    ok = ActivityManager.getService().refreshPifProfile();
++                } catch (RemoteException e) {
++                    Log.w(TAG, "refreshPifProfile failed", e);
++                }
++                final boolean success = ok;
++                postOnUi(() -> {
++                    Context ctx = getContext();
++                    if (ctx != null) {
++                        Toast.makeText(ctx,
++                                success ? R.string.play_integrity_pif_updated
++                                        : R.string.play_integrity_pif_update_failed,
++                                Toast.LENGTH_SHORT).show();
++                    }
++                    if (mPifProfilePref != null) {
++                        mPifProfilePref.setEnabled(true);
++                    }
++                });
++                refreshStateAsync();
++            });
++            return true;
++        }
++        if (KEY_KEYBOX_INSTALL.equals(key)) {
++            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
++            intent.addCategory(Intent.CATEGORY_OPENABLE);
++            intent.setType("*/*");
++            startActivityForResult(intent, REQ_PICK_KEYBOX);
++            return true;
++        }
++        if (KEY_KEYBOX_REMOVE.equals(key)) {
++            mExecutor.execute(() -> {
++                int res = -1;
++                try {
++                    res = ActivityManager.getService().setKeyboxXml("");
++                } catch (RemoteException e) {
++                    Log.w(TAG, "remove keybox failed", e);
++                }
++                final boolean removed = (res == 0);
++                postOnUi(() -> {
++                    Context ctx = getContext();
++                    if (ctx != null && removed) {
++                        Toast.makeText(ctx, R.string.play_integrity_keybox_removed,
++                                Toast.LENGTH_SHORT).show();
++                    }
++                });
++                refreshStateAsync();
++            });
++            return true;
++        }
++        return super.onPreferenceTreeClick(preference);
++    }
++
++    @Override
++    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
++        super.onActivityResult(requestCode, resultCode, data);
++        if (requestCode != REQ_PICK_KEYBOX || resultCode != Activity.RESULT_OK || data == null) {
++            return;
++        }
++        final Uri uri = data.getData();
++        if (uri == null) {
++            return;
++        }
++        mExecutor.execute(() -> installKeyboxFromUri(uri));
++    }
++
++    private void installKeyboxFromUri(Uri uri) {
++        Context ctx = getContext();
++        if (ctx == null) {
++            return;
++        }
++        final byte[] bytes;
++        try (InputStream is = ctx.getContentResolver().openInputStream(uri);
++             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
++            if (is == null) {
++                showToast(R.string.play_integrity_keybox_invalid);
++                return;
++            }
++            byte[] buf = new byte[4096];
++            int total = 0;
++            int n;
++            while ((n = is.read(buf)) >= 0) {
++                total += n;
++                if (total > MAX_KEYBOX_BYTES) {
++                    showToast(R.string.play_integrity_keybox_too_large);
++                    return;
++                }
++                baos.write(buf, 0, n);
++            }
++            bytes = baos.toByteArray();
++        } catch (IOException e) {
++            Log.w(TAG, "failed reading selected keybox", e);
++            showToast(R.string.play_integrity_keybox_invalid);
++            return;
++        }
++
++        String xml = new String(bytes, StandardCharsets.UTF_8);
++        int status = -1;
++        try {
++            status = ActivityManager.getService().setKeyboxXml(xml);
++        } catch (RemoteException e) {
++            Log.w(TAG, "setKeyboxXml failed", e);
++        }
++        showToast(status > 0 ? R.string.play_integrity_keybox_installed
++                : R.string.play_integrity_keybox_invalid);
++        refreshStateAsync();
++    }
++
++    private void refreshStateAsync() {
++        mExecutor.execute(() -> {
++            String[] pifStatus = null;
++            int kbStatus = -1;
++            try {
++                pifStatus = ActivityManager.getService().getPifStatus();
++                kbStatus = ActivityManager.getService().getKeyboxStatus();
++            } catch (RemoteException e) {
++                Log.w(TAG, "refreshStateAsync failed", e);
++            }
++            final String[] pif = pifStatus;
++            final int kb = kbStatus;
++            postOnUi(() -> updateUi(pif, kb));
++        });
++    }
++
++    private void updateUi(@Nullable String[] pif, int kbStatus) {
++        Context ctx = getContext();
++        if (ctx == null) {
++            return;
++        }
++        boolean enabled = pif != null && pif.length >= 9 && "1".equals(pif[0]);
++        if (mPifToggle != null) {
++            mPifToggle.setChecked(enabled);
++        }
++        if (mPifProfilePref != null) {
++            if (!enabled) {
++                mPifProfilePref.setSummary(R.string.play_integrity_pif_disabled);
++            } else if (pif != null && pif.length >= 9) {
++                String model = pif[1];
++                String id = pif[3];
++                String patch = pif[6];
++                long fetchedAt = 0L;
++                try {
++                    fetchedAt = Long.parseLong(pif[8]);
++                } catch (NumberFormatException ignored) {
++                }
++                StringBuilder sb = new StringBuilder();
++                sb.append(model).append(" (").append(id).append(") - ").append(patch);
++                if (fetchedAt > 0L) {
++                    sb.append('\n')
++                            .append(DateFormat.getDateFormat(ctx).format(new Date(fetchedAt)));
++                }
++                sb.append('\n').append(ctx.getString(R.string.play_integrity_pif_refresh_hint));
++                mPifProfilePref.setSummary(sb.toString());
++            }
++        }
++        if (mKeyboxInstallPref != null) {
++            int resId;
++            if (kbStatus == 3) {
++                resId = R.string.play_integrity_keybox_status_both;
++            } else if (kbStatus == 1) {
++                resId = R.string.play_integrity_keybox_status_ec;
++            } else if (kbStatus == 2) {
++                resId = R.string.play_integrity_keybox_status_rsa;
++            } else {
++                resId = R.string.play_integrity_keybox_status_none;
++            }
++            mKeyboxInstallPref.setSummary(resId);
++        }
++        if (mKeyboxRemovePref != null) {
++            mKeyboxRemovePref.setEnabled(kbStatus > 0);
++        }
++    }
++
++    private void showToast(int resId) {
++        postOnUi(() -> {
++            Context ctx = getContext();
++            if (ctx != null) {
++                Toast.makeText(ctx, resId, Toast.LENGTH_SHORT).show();
++            }
++        });
++    }
++
++    private void postOnUi(Runnable r) {
++        Activity act = getActivity();
++        if (act != null && !act.isFinishing() && !act.isDestroyed()) {
++            act.runOnUiThread(r);
++        }
++    }
++
++    public static final BaseSearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
++            new BaseSearchIndexProvider(R.xml.play_integrity_settings);
++}
+-- 
+2.43.0
+
