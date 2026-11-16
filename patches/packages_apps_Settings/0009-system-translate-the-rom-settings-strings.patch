@@ -1,0 +1,2009 @@
+From 561df3d69cae7996281797c1ca1c5d5ba68e8c6c Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 17 Nov 2026 00:59:55 +0300
+Subject: [PATCH] system: translate the rom settings strings
+
+The rom settings screen only shipped english and turkish text, so
+every other locale fell back to english.
+
+Add translations for the remaining locales the Play Integrity
+strings already cover. Brand names and the sound pack arrays stay
+untranslated.
+---
+ res/values-af/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-am/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ar/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-as/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-az/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-b+sr+Latn/rom_settings_strings.xml | 16 ++++++++++++++++
+ res/values-be/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-bg/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-bn/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-bs/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ca/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-cs/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-da/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-de/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-el/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-en-rAU/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-en-rCA/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-en-rGB/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-en-rIN/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-es-rUS/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-es/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-et/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-eu/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-fa/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-fi/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-fr-rCA/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-fr/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-gl/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-gu/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-hi/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-hr/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-hu/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-hy/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-in/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-is/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-it/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-iw/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ja/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ka/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-kk/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-km/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-kn/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ko/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ky/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-lo/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-lt/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-lv/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-mk/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ml/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-mn/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-mr/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ms/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-my/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-nb/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ne/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-nl/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-or/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-pa/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-pl/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-pt-rBR/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-pt-rPT/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-pt/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ro/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ru/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-si/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-sk/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-sl/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-sq/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-sr/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-sv/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-sw/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ta/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-te/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-th/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-tl/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-uk/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-ur/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-uz/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-vi/rom_settings_strings.xml        | 16 ++++++++++++++++
+ res/values-zh-rCN/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-zh-rHK/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-zh-rTW/rom_settings_strings.xml    | 16 ++++++++++++++++
+ res/values-zu/rom_settings_strings.xml        | 16 ++++++++++++++++
+ 83 files changed, 1328 insertions(+)
+ create mode 100644 res/values-af/rom_settings_strings.xml
+ create mode 100644 res/values-am/rom_settings_strings.xml
+ create mode 100644 res/values-ar/rom_settings_strings.xml
+ create mode 100644 res/values-as/rom_settings_strings.xml
+ create mode 100644 res/values-az/rom_settings_strings.xml
+ create mode 100644 res/values-b+sr+Latn/rom_settings_strings.xml
+ create mode 100644 res/values-be/rom_settings_strings.xml
+ create mode 100644 res/values-bg/rom_settings_strings.xml
+ create mode 100644 res/values-bn/rom_settings_strings.xml
+ create mode 100644 res/values-bs/rom_settings_strings.xml
+ create mode 100644 res/values-ca/rom_settings_strings.xml
+ create mode 100644 res/values-cs/rom_settings_strings.xml
+ create mode 100644 res/values-da/rom_settings_strings.xml
+ create mode 100644 res/values-de/rom_settings_strings.xml
+ create mode 100644 res/values-el/rom_settings_strings.xml
+ create mode 100644 res/values-en-rAU/rom_settings_strings.xml
+ create mode 100644 res/values-en-rCA/rom_settings_strings.xml
+ create mode 100644 res/values-en-rGB/rom_settings_strings.xml
+ create mode 100644 res/values-en-rIN/rom_settings_strings.xml
+ create mode 100644 res/values-es-rUS/rom_settings_strings.xml
+ create mode 100644 res/values-es/rom_settings_strings.xml
+ create mode 100644 res/values-et/rom_settings_strings.xml
+ create mode 100644 res/values-eu/rom_settings_strings.xml
+ create mode 100644 res/values-fa/rom_settings_strings.xml
+ create mode 100644 res/values-fi/rom_settings_strings.xml
+ create mode 100644 res/values-fr-rCA/rom_settings_strings.xml
+ create mode 100644 res/values-fr/rom_settings_strings.xml
+ create mode 100644 res/values-gl/rom_settings_strings.xml
+ create mode 100644 res/values-gu/rom_settings_strings.xml
+ create mode 100644 res/values-hi/rom_settings_strings.xml
+ create mode 100644 res/values-hr/rom_settings_strings.xml
+ create mode 100644 res/values-hu/rom_settings_strings.xml
+ create mode 100644 res/values-hy/rom_settings_strings.xml
+ create mode 100644 res/values-in/rom_settings_strings.xml
+ create mode 100644 res/values-is/rom_settings_strings.xml
+ create mode 100644 res/values-it/rom_settings_strings.xml
+ create mode 100644 res/values-iw/rom_settings_strings.xml
+ create mode 100644 res/values-ja/rom_settings_strings.xml
+ create mode 100644 res/values-ka/rom_settings_strings.xml
+ create mode 100644 res/values-kk/rom_settings_strings.xml
+ create mode 100644 res/values-km/rom_settings_strings.xml
+ create mode 100644 res/values-kn/rom_settings_strings.xml
+ create mode 100644 res/values-ko/rom_settings_strings.xml
+ create mode 100644 res/values-ky/rom_settings_strings.xml
+ create mode 100644 res/values-lo/rom_settings_strings.xml
+ create mode 100644 res/values-lt/rom_settings_strings.xml
+ create mode 100644 res/values-lv/rom_settings_strings.xml
+ create mode 100644 res/values-mk/rom_settings_strings.xml
+ create mode 100644 res/values-ml/rom_settings_strings.xml
+ create mode 100644 res/values-mn/rom_settings_strings.xml
+ create mode 100644 res/values-mr/rom_settings_strings.xml
+ create mode 100644 res/values-ms/rom_settings_strings.xml
+ create mode 100644 res/values-my/rom_settings_strings.xml
+ create mode 100644 res/values-nb/rom_settings_strings.xml
+ create mode 100644 res/values-ne/rom_settings_strings.xml
+ create mode 100644 res/values-nl/rom_settings_strings.xml
+ create mode 100644 res/values-or/rom_settings_strings.xml
+ create mode 100644 res/values-pa/rom_settings_strings.xml
+ create mode 100644 res/values-pl/rom_settings_strings.xml
+ create mode 100644 res/values-pt-rBR/rom_settings_strings.xml
+ create mode 100644 res/values-pt-rPT/rom_settings_strings.xml
+ create mode 100644 res/values-pt/rom_settings_strings.xml
+ create mode 100644 res/values-ro/rom_settings_strings.xml
+ create mode 100644 res/values-ru/rom_settings_strings.xml
+ create mode 100644 res/values-si/rom_settings_strings.xml
+ create mode 100644 res/values-sk/rom_settings_strings.xml
+ create mode 100644 res/values-sl/rom_settings_strings.xml
+ create mode 100644 res/values-sq/rom_settings_strings.xml
+ create mode 100644 res/values-sr/rom_settings_strings.xml
+ create mode 100644 res/values-sv/rom_settings_strings.xml
+ create mode 100644 res/values-sw/rom_settings_strings.xml
+ create mode 100644 res/values-ta/rom_settings_strings.xml
+ create mode 100644 res/values-te/rom_settings_strings.xml
+ create mode 100644 res/values-th/rom_settings_strings.xml
+ create mode 100644 res/values-tl/rom_settings_strings.xml
+ create mode 100644 res/values-uk/rom_settings_strings.xml
+ create mode 100644 res/values-ur/rom_settings_strings.xml
+ create mode 100644 res/values-uz/rom_settings_strings.xml
+ create mode 100644 res/values-vi/rom_settings_strings.xml
+ create mode 100644 res/values-zh-rCN/rom_settings_strings.xml
+ create mode 100644 res/values-zh-rHK/rom_settings_strings.xml
+ create mode 100644 res/values-zh-rTW/rom_settings_strings.xml
+ create mode 100644 res/values-zu/rom_settings_strings.xml
+
+diff --git a/res/values-af/rom_settings_strings.xml b/res/values-af/rom_settings_strings.xml
+new file mode 100644
+index 0000000..ace2eee
+--- /dev/null
++++ b/res/values-af/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-instellings</string>
++    <string name="rom_settings_summary">Veilige skermkiekies, klankpakket, programoptimering</string>
++    <string name="rom_settings_ignore_secure_title">Laat skermkiekies toe in veilige programme</string>
++    <string name="rom_settings_ignore_secure_summary">Ignoreer FLAG_SECURE sodat skermkiekies, skermopname en uitsending in elke program werk. DRM-video bly swart.</string>
++    <string name="rom_settings_sound_pack_title">Klankpakket</string>
++    <string name="rom_settings_sound_pack_applied">Verstek luitoon-, kennisgewing-, wekker- en stelselklanke is verander</string>
++    <string name="rom_settings_dexopt_title">Optimeer programme nou</string>
++    <string name="rom_settings_dexopt_summary">Kompileer programme volgens hul gebruiksprofiele in plaas daarvan om vir die ledige instandhoudingsvenster te wag. Vordering word in \'n kennisgewing gewys.</string>
++    <string name="rom_settings_dexopt_started">Programoptimering het begin</string>
++</resources>
+diff --git a/res/values-am/rom_settings_strings.xml b/res/values-am/rom_settings_strings.xml
+new file mode 100644
+index 0000000..4881cf1
+--- /dev/null
++++ b/res/values-am/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ቅንብሮች</string>
++    <string name="rom_settings_summary">ደህንነቱ የተጠበቀ ቅጽበታዊ ገጽ እይታዎች፣ የድምፅ ጥቅል፣ የመተግበሪያ ማሻሻያ</string>
++    <string name="rom_settings_ignore_secure_title">በደህንነቱ የተጠበቁ መተግበሪያዎች ውስጥ ቅጽበታዊ ገጽ እይታዎችን ፍቀድ</string>
++    <string name="rom_settings_ignore_secure_summary">ቅጽበታዊ ገጽ እይታዎች፣ የማያ ገጽ ቀረጻ እና ማሰራጨት በሁሉም መተግበሪያ እንዲሰሩ FLAG_SECURE ችላ ይባላል። የDRM ቪዲዮ ጥቁር ሆኖ ይቆያል።</string>
++    <string name="rom_settings_sound_pack_title">የድምፅ ጥቅል</string>
++    <string name="rom_settings_sound_pack_applied">ነባሪ የስልክ ጥሪ፣ ማሳወቂያ፣ ማንቂያ እና የስርዓት ድምፆች ተቀይረዋል</string>
++    <string name="rom_settings_dexopt_title">መተግበሪያዎችን አሁን አሻሽል</string>
++    <string name="rom_settings_dexopt_summary">የስራ ፈት ጥገና ጊዜን ከመጠበቅ ይልቅ መተግበሪያዎች በአጠቃቀም መገለጫዎቻቸው መሠረት ይቀየሳሉ። እድገቱ በማሳወቂያ ውስጥ ይታያል።</string>
++    <string name="rom_settings_dexopt_started">የመተግበሪያ ማሻሻያ ተጀምሯል</string>
++</resources>
+diff --git a/res/values-ar/rom_settings_strings.xml b/res/values-ar/rom_settings_strings.xml
+new file mode 100644
+index 0000000..8d81aef
+--- /dev/null
++++ b/res/values-ar/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">إعدادات ROM</string>
++    <string name="rom_settings_summary">لقطات شاشة آمنة، حزمة الأصوات، تحسين التطبيقات</string>
++    <string name="rom_settings_ignore_secure_title">السماح بلقطات الشاشة في التطبيقات الآمنة</string>
++    <string name="rom_settings_ignore_secure_summary">يتم تجاهل FLAG_SECURE لتعمل لقطات الشاشة وتسجيل الشاشة والبث في كل التطبيقات. تبقى فيديوهات DRM سوداء.</string>
++    <string name="rom_settings_sound_pack_title">حزمة الأصوات</string>
++    <string name="rom_settings_sound_pack_applied">تم تغيير نغمة الرنين والإشعارات والمنبّه وأصوات النظام الافتراضية</string>
++    <string name="rom_settings_dexopt_title">حسّن التطبيقات الآن</string>
++    <string name="rom_settings_dexopt_summary">تتم معالجة التطبيقات وفق ملفات استخدامها بدلًا من انتظار فترة الصيانة في وضع الخمول. يظهر التقدم في إشعار.</string>
++    <string name="rom_settings_dexopt_started">بدأ تحسين التطبيقات</string>
++</resources>
+diff --git a/res/values-as/rom_settings_strings.xml b/res/values-as/rom_settings_strings.xml
+new file mode 100644
+index 0000000..bd2559e
+--- /dev/null
++++ b/res/values-as/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ছেটিংছ</string>
++    <string name="rom_settings_summary">সুৰক্ষিত স্ক্ৰীনশ্বট, ধ্বনি পেক, এপ অপ্টিমাইজেশ্বন</string>
++    <string name="rom_settings_ignore_secure_title">সুৰক্ষিত এপত স্ক্ৰীনশ্বটৰ অনুমতি দিয়ক</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE উপেক্ষা কৰা হয়, যাতে প্ৰতিটো এপত স্ক্ৰীনশ্বট, স্ক্ৰীন ৰেকৰ্ডিং আৰু কাষ্ট কাম কৰে। DRM ভিডিঅ’ ক’লা হৈয়ে থাকে।</string>
++    <string name="rom_settings_sound_pack_title">ধ্বনি পেক</string>
++    <string name="rom_settings_sound_pack_applied">ডিফল্ট ৰিংটোন, জাননী, এলাৰ্ম আৰু ছিষ্টেমৰ ধ্বনি সলনি কৰা হ’ল</string>
++    <string name="rom_settings_dexopt_title">এপ এতিয়াই অপ্টিমাইজ কৰক</string>
++    <string name="rom_settings_dexopt_summary">নিষ্ক্ৰিয় ৰক্ষণাবেক্ষণৰ সময়লৈ অপেক্ষা নকৰি এপবোৰ ব্যৱহাৰৰ প্ৰ’ফাইল অনুসৰি কম্পাইল কৰা হয়। অগ্ৰগতি জাননীত দেখুওৱা হয়।</string>
++    <string name="rom_settings_dexopt_started">এপ অপ্টিমাইজেশ্বন আৰম্ভ হ’ল</string>
++</resources>
+diff --git a/res/values-az/rom_settings_strings.xml b/res/values-az/rom_settings_strings.xml
+new file mode 100644
+index 0000000..a58955b
+--- /dev/null
++++ b/res/values-az/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ayarları</string>
++    <string name="rom_settings_summary">Təhlükəsiz ekran görüntüləri, səs paketi, tətbiq optimallaşdırması</string>
++    <string name="rom_settings_ignore_secure_title">Təhlükəsiz tətbiqlərdə ekran görüntüsünə icazə ver</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE nəzərə alınmır, beləliklə ekran görüntüsü, ekran qeydi və yayım hər tətbiqdə işləyir. DRM videolar qara qalır.</string>
++    <string name="rom_settings_sound_pack_title">Səs paketi</string>
++    <string name="rom_settings_sound_pack_applied">Defolt zəng, bildiriş, siqnal və sistem səsləri dəyişdirildi</string>
++    <string name="rom_settings_dexopt_title">Tətbiqləri indi optimallaşdır</string>
++    <string name="rom_settings_dexopt_summary">Tətbiqlər boş vaxt texniki xidmət pəncərəsini gözləmədən istifadə profillərinə görə tərtib edilir. Gedişat bildirişdə göstərilir.</string>
++    <string name="rom_settings_dexopt_started">Tətbiq optimallaşdırması başladı</string>
++</resources>
+diff --git a/res/values-b+sr+Latn/rom_settings_strings.xml b/res/values-b+sr+Latn/rom_settings_strings.xml
+new file mode 100644
+index 0000000..b563298
+--- /dev/null
++++ b/res/values-b+sr+Latn/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM podešavanja</string>
++    <string name="rom_settings_summary">Bezbedni snimci ekrana, paket zvukova, optimizacija aplikacija</string>
++    <string name="rom_settings_ignore_secure_title">Dozvoli snimke ekrana u bezbednim aplikacijama</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE se ignoriše pa snimci ekrana, snimanje ekrana i prebacivanje rade u svakoj aplikaciji. DRM video ostaje crn.</string>
++    <string name="rom_settings_sound_pack_title">Paket zvukova</string>
++    <string name="rom_settings_sound_pack_applied">Podrazumevani zvukovi zvona, obaveštenja, alarma i sistema su promenjeni</string>
++    <string name="rom_settings_dexopt_title">Optimizuj aplikacije sada</string>
++    <string name="rom_settings_dexopt_summary">Aplikacije se kompajliraju prema profilima korišćenja umesto da čekaju prozor za održavanje u mirovanju. Napredak se prikazuje u obaveštenju.</string>
++    <string name="rom_settings_dexopt_started">Optimizacija aplikacija je počela</string>
++</resources>
+diff --git a/res/values-be/rom_settings_strings.xml b/res/values-be/rom_settings_strings.xml
+new file mode 100644
+index 0000000..40bf1fc
+--- /dev/null
++++ b/res/values-be/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Налады ROM</string>
++    <string name="rom_settings_summary">Бяспечныя здымкі экрана, пакет гукаў, аптымізацыя праграм</string>
++    <string name="rom_settings_ignore_secure_title">Дазволіць здымкі экрана ў бяспечных праграмах</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ігнаруецца, таму здымкі экрана, запіс экрана і трансляцыя працуюць у кожнай праграме. Відэа з DRM застаецца чорным.</string>
++    <string name="rom_settings_sound_pack_title">Пакет гукаў</string>
++    <string name="rom_settings_sound_pack_applied">Гукі званка, апавяшчэнняў, будзільніка і сістэмы па змаўчанні зменены</string>
++    <string name="rom_settings_dexopt_title">Аптымізаваць праграмы цяпер</string>
++    <string name="rom_settings_dexopt_summary">Праграмы кампілююцца паводле профіляў выкарыстання, не чакаючы акна абслугоўвання ў рэжыме чакання. Ход выканання паказваецца ў апавяшчэнні.</string>
++    <string name="rom_settings_dexopt_started">Аптымізацыя праграм пачалася</string>
++</resources>
+diff --git a/res/values-bg/rom_settings_strings.xml b/res/values-bg/rom_settings_strings.xml
+new file mode 100644
+index 0000000..cb9f7a1
+--- /dev/null
++++ b/res/values-bg/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Настройки на ROM</string>
++    <string name="rom_settings_summary">Защитени екранни снимки, звуков пакет, оптимизиране на приложенията</string>
++    <string name="rom_settings_ignore_secure_title">Разрешаване на екранни снимки в защитени приложения</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE се игнорира, така че екранните снимки, записът на екрана и предаването работят във всяко приложение. DRM видеото остава черно.</string>
++    <string name="rom_settings_sound_pack_title">Звуков пакет</string>
++    <string name="rom_settings_sound_pack_applied">Мелодията, звукът за известия, будилникът и системните звуци по подразбиране са променени</string>
++    <string name="rom_settings_dexopt_title">Оптимизиране на приложенията сега</string>
++    <string name="rom_settings_dexopt_summary">Приложенията се компилират според профилите им на използване, без да се чака прозорецът за поддръжка в неактивно състояние. Напредъкът се показва в известие.</string>
++    <string name="rom_settings_dexopt_started">Оптимизирането на приложенията започна</string>
++</resources>
+diff --git a/res/values-bn/rom_settings_strings.xml b/res/values-bn/rom_settings_strings.xml
+new file mode 100644
+index 0000000..c2bd5e2
+--- /dev/null
++++ b/res/values-bn/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM সেটিংস</string>
++    <string name="rom_settings_summary">নিরাপদ স্ক্রিনশট, সাউন্ড প্যাক, অ্যাপ অপ্টিমাইজেশন</string>
++    <string name="rom_settings_ignore_secure_title">নিরাপদ অ্যাপে স্ক্রিনশটের অনুমতি দিন</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE উপেক্ষা করা হয়, ফলে প্রতিটি অ্যাপে স্ক্রিনশট, স্ক্রিন রেকর্ডিং ও কাস্ট কাজ করে। DRM ভিডিও কালো থাকে।</string>
++    <string name="rom_settings_sound_pack_title">সাউন্ড প্যাক</string>
++    <string name="rom_settings_sound_pack_applied">ডিফল্ট রিংটোন, বিজ্ঞপ্তি, অ্যালার্ম ও সিস্টেমের শব্দ পরিবর্তিত হয়েছে</string>
++    <string name="rom_settings_dexopt_title">এখনই অ্যাপ অপ্টিমাইজ করুন</string>
++    <string name="rom_settings_dexopt_summary">নিষ্ক্রিয় অবস্থায় রক্ষণাবেক্ষণের সময়ের অপেক্ষা না করে অ্যাপগুলো ব্যবহারের প্রোফাইল অনুযায়ী কম্পাইল করা হয়। অগ্রগতি বিজ্ঞপ্তিতে দেখানো হয়।</string>
++    <string name="rom_settings_dexopt_started">অ্যাপ অপ্টিমাইজেশন শুরু হয়েছে</string>
++</resources>
+diff --git a/res/values-bs/rom_settings_strings.xml b/res/values-bs/rom_settings_strings.xml
+new file mode 100644
+index 0000000..93829eb
+--- /dev/null
++++ b/res/values-bs/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM postavke</string>
++    <string name="rom_settings_summary">Sigurni snimci ekrana, paket zvukova, optimizacija aplikacija</string>
++    <string name="rom_settings_ignore_secure_title">Dozvoli snimke ekrana u sigurnim aplikacijama</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE se ignorira pa snimci ekrana, snimanje ekrana i emitiranje rade u svakoj aplikaciji. DRM video ostaje crn.</string>
++    <string name="rom_settings_sound_pack_title">Paket zvukova</string>
++    <string name="rom_settings_sound_pack_applied">Zadani zvukovi melodije zvona, obavještenja, alarma i sistema su promijenjeni</string>
++    <string name="rom_settings_dexopt_title">Optimiziraj aplikacije odmah</string>
++    <string name="rom_settings_dexopt_summary">Aplikacije se kompajliraju prema profilima korištenja umjesto da čekaju prozor za održavanje u mirovanju. Napredak se prikazuje u obavještenju.</string>
++    <string name="rom_settings_dexopt_started">Optimizacija aplikacija je počela</string>
++</resources>
+diff --git a/res/values-ca/rom_settings_strings.xml b/res/values-ca/rom_settings_strings.xml
+new file mode 100644
+index 0000000..41682c6
+--- /dev/null
++++ b/res/values-ca/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Configuració de ROM</string>
++    <string name="rom_settings_summary">Captures de pantalla segures, paquet de sons, optimització d\'aplicacions</string>
++    <string name="rom_settings_ignore_secure_title">Permet captures de pantalla a les aplicacions segures</string>
++    <string name="rom_settings_ignore_secure_summary">S\'ignora FLAG_SECURE perquè les captures de pantalla, la gravació de pantalla i l\'emissió funcionin a totes les aplicacions. El vídeo amb DRM continua en negre.</string>
++    <string name="rom_settings_sound_pack_title">Paquet de sons</string>
++    <string name="rom_settings_sound_pack_applied">S\'han canviat els sons predeterminats de to, notificació, alarma i sistema</string>
++    <string name="rom_settings_dexopt_title">Optimitza les aplicacions ara</string>
++    <string name="rom_settings_dexopt_summary">Les aplicacions es compilen segons els seus perfils d\'ús en lloc d\'esperar la finestra de manteniment en repòs. El progrés es mostra en una notificació.</string>
++    <string name="rom_settings_dexopt_started">S\'ha iniciat l\'optimització d\'aplicacions</string>
++</resources>
+diff --git a/res/values-cs/rom_settings_strings.xml b/res/values-cs/rom_settings_strings.xml
+new file mode 100644
+index 0000000..6252459
+--- /dev/null
++++ b/res/values-cs/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Nastavení ROM</string>
++    <string name="rom_settings_summary">Zabezpečené snímky obrazovky, zvukový balíček, optimalizace aplikací</string>
++    <string name="rom_settings_ignore_secure_title">Povolit snímky obrazovky v zabezpečených aplikacích</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE se ignoruje, takže snímky obrazovky, záznam obrazovky a odesílání obsahu fungují v každé aplikaci. Video s DRM zůstane černé.</string>
++    <string name="rom_settings_sound_pack_title">Zvukový balíček</string>
++    <string name="rom_settings_sound_pack_applied">Výchozí vyzvánění, oznámení, budík a systémové zvuky byly změněny</string>
++    <string name="rom_settings_dexopt_title">Optimalizovat aplikace hned</string>
++    <string name="rom_settings_dexopt_summary">Aplikace se zkompilují podle profilů používání, aniž by se čekalo na okno údržby v nečinnosti. Průběh se zobrazuje v oznámení.</string>
++    <string name="rom_settings_dexopt_started">Optimalizace aplikací byla zahájena</string>
++</resources>
+diff --git a/res/values-da/rom_settings_strings.xml b/res/values-da/rom_settings_strings.xml
+new file mode 100644
+index 0000000..a43343f
+--- /dev/null
++++ b/res/values-da/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-indstillinger</string>
++    <string name="rom_settings_summary">Sikre skærmbilleder, lydpakke, appoptimering</string>
++    <string name="rom_settings_ignore_secure_title">Tillad skærmbilleder i sikre apps</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ignoreres, så skærmbilleder, skærmoptagelse og casting virker i alle apps. DRM-video forbliver sort.</string>
++    <string name="rom_settings_sound_pack_title">Lydpakke</string>
++    <string name="rom_settings_sound_pack_applied">Standardlyde til ringetone, notifikation, alarm og system er ændret</string>
++    <string name="rom_settings_dexopt_title">Optimer apps nu</string>
++    <string name="rom_settings_dexopt_summary">Apps kompileres efter deres brugsprofiler i stedet for at vente på vedligeholdelsesvinduet i inaktiv tilstand. Fremdriften vises i en notifikation.</string>
++    <string name="rom_settings_dexopt_started">Appoptimering er startet</string>
++</resources>
+diff --git a/res/values-de/rom_settings_strings.xml b/res/values-de/rom_settings_strings.xml
+new file mode 100644
+index 0000000..42c9b48
+--- /dev/null
++++ b/res/values-de/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-Einstellungen</string>
++    <string name="rom_settings_summary">Sichere Screenshots, Soundpaket, App-Optimierung</string>
++    <string name="rom_settings_ignore_secure_title">Screenshots in geschützten Apps erlauben</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE wird ignoriert, damit Screenshots, Bildschirmaufnahmen und Übertragung in jeder App funktionieren. DRM-Videos bleiben schwarz.</string>
++    <string name="rom_settings_sound_pack_title">Soundpaket</string>
++    <string name="rom_settings_sound_pack_applied">Standardklingelton, -benachrichtigungston, -wecker und Systemtöne geändert</string>
++    <string name="rom_settings_dexopt_title">Apps jetzt optimieren</string>
++    <string name="rom_settings_dexopt_summary">Apps werden anhand ihrer Nutzungsprofile kompiliert, statt auf das Wartungsfenster im Leerlauf zu warten. Der Fortschritt wird in einer Benachrichtigung angezeigt.</string>
++    <string name="rom_settings_dexopt_started">App-Optimierung gestartet</string>
++</resources>
+diff --git a/res/values-el/rom_settings_strings.xml b/res/values-el/rom_settings_strings.xml
+new file mode 100644
+index 0000000..6d004bb
+--- /dev/null
++++ b/res/values-el/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Ρυθμίσεις ROM</string>
++    <string name="rom_settings_summary">Ασφαλή στιγμιότυπα οθόνης, πακέτο ήχων, βελτιστοποίηση εφαρμογών</string>
++    <string name="rom_settings_ignore_secure_title">Να επιτρέπονται στιγμιότυπα οθόνης σε ασφαλείς εφαρμογές</string>
++    <string name="rom_settings_ignore_secure_summary">Το FLAG_SECURE αγνοείται ώστε τα στιγμιότυπα οθόνης, η εγγραφή οθόνης και η προβολή να λειτουργούν σε κάθε εφαρμογή. Τα βίντεο με DRM παραμένουν μαύρα.</string>
++    <string name="rom_settings_sound_pack_title">Πακέτο ήχων</string>
++    <string name="rom_settings_sound_pack_applied">Οι προεπιλεγμένοι ήχοι κλήσης, ειδοποιήσεων, ξυπνητηριού και συστήματος άλλαξαν</string>
++    <string name="rom_settings_dexopt_title">Βελτιστοποίηση εφαρμογών τώρα</string>
++    <string name="rom_settings_dexopt_summary">Οι εφαρμογές μεταγλωττίζονται με βάση τα προφίλ χρήσης τους, αντί να περιμένουν το παράθυρο συντήρησης σε αδράνεια. Η πρόοδος εμφανίζεται σε ειδοποίηση.</string>
++    <string name="rom_settings_dexopt_started">Η βελτιστοποίηση εφαρμογών ξεκίνησε</string>
++</resources>
+diff --git a/res/values-en-rAU/rom_settings_strings.xml b/res/values-en-rAU/rom_settings_strings.xml
+new file mode 100644
+index 0000000..22e0891
+--- /dev/null
++++ b/res/values-en-rAU/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM settings</string>
++    <string name="rom_settings_summary">Secure screenshots, sound pack, app optimisation</string>
++    <string name="rom_settings_ignore_secure_title">Allow screenshots in secure apps</string>
++    <string name="rom_settings_ignore_secure_summary">Ignore FLAG_SECURE so screenshots, screen recording and casting work in every app. DRM video stays black.</string>
++    <string name="rom_settings_sound_pack_title">Sound pack</string>
++    <string name="rom_settings_sound_pack_applied">Default ringtone, notification, alarm and system sounds changed</string>
++    <string name="rom_settings_dexopt_title">Optimise apps now</string>
++    <string name="rom_settings_dexopt_summary">Compile apps with their usage profiles instead of waiting for the idle maintenance window. Progress is shown in a notification.</string>
++    <string name="rom_settings_dexopt_started">App optimisation started</string>
++</resources>
+diff --git a/res/values-en-rCA/rom_settings_strings.xml b/res/values-en-rCA/rom_settings_strings.xml
+new file mode 100644
+index 0000000..f3377d3
+--- /dev/null
++++ b/res/values-en-rCA/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM settings</string>
++    <string name="rom_settings_summary">Secure screenshots, sound pack, app optimization</string>
++    <string name="rom_settings_ignore_secure_title">Allow screenshots in secure apps</string>
++    <string name="rom_settings_ignore_secure_summary">Ignore FLAG_SECURE so screenshots, screen recording and casting work in every app. DRM video stays black.</string>
++    <string name="rom_settings_sound_pack_title">Sound pack</string>
++    <string name="rom_settings_sound_pack_applied">Default ringtone, notification, alarm and system sounds changed</string>
++    <string name="rom_settings_dexopt_title">Optimize apps now</string>
++    <string name="rom_settings_dexopt_summary">Compile apps with their usage profiles instead of waiting for the idle maintenance window. Progress is shown in a notification.</string>
++    <string name="rom_settings_dexopt_started">App optimization started</string>
++</resources>
+diff --git a/res/values-en-rGB/rom_settings_strings.xml b/res/values-en-rGB/rom_settings_strings.xml
+new file mode 100644
+index 0000000..22e0891
+--- /dev/null
++++ b/res/values-en-rGB/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM settings</string>
++    <string name="rom_settings_summary">Secure screenshots, sound pack, app optimisation</string>
++    <string name="rom_settings_ignore_secure_title">Allow screenshots in secure apps</string>
++    <string name="rom_settings_ignore_secure_summary">Ignore FLAG_SECURE so screenshots, screen recording and casting work in every app. DRM video stays black.</string>
++    <string name="rom_settings_sound_pack_title">Sound pack</string>
++    <string name="rom_settings_sound_pack_applied">Default ringtone, notification, alarm and system sounds changed</string>
++    <string name="rom_settings_dexopt_title">Optimise apps now</string>
++    <string name="rom_settings_dexopt_summary">Compile apps with their usage profiles instead of waiting for the idle maintenance window. Progress is shown in a notification.</string>
++    <string name="rom_settings_dexopt_started">App optimisation started</string>
++</resources>
+diff --git a/res/values-en-rIN/rom_settings_strings.xml b/res/values-en-rIN/rom_settings_strings.xml
+new file mode 100644
+index 0000000..22e0891
+--- /dev/null
++++ b/res/values-en-rIN/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM settings</string>
++    <string name="rom_settings_summary">Secure screenshots, sound pack, app optimisation</string>
++    <string name="rom_settings_ignore_secure_title">Allow screenshots in secure apps</string>
++    <string name="rom_settings_ignore_secure_summary">Ignore FLAG_SECURE so screenshots, screen recording and casting work in every app. DRM video stays black.</string>
++    <string name="rom_settings_sound_pack_title">Sound pack</string>
++    <string name="rom_settings_sound_pack_applied">Default ringtone, notification, alarm and system sounds changed</string>
++    <string name="rom_settings_dexopt_title">Optimise apps now</string>
++    <string name="rom_settings_dexopt_summary">Compile apps with their usage profiles instead of waiting for the idle maintenance window. Progress is shown in a notification.</string>
++    <string name="rom_settings_dexopt_started">App optimisation started</string>
++</resources>
+diff --git a/res/values-es-rUS/rom_settings_strings.xml b/res/values-es-rUS/rom_settings_strings.xml
+new file mode 100644
+index 0000000..017c0e1
+--- /dev/null
++++ b/res/values-es-rUS/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Configuración de ROM</string>
++    <string name="rom_settings_summary">Capturas de pantalla seguras, paquete de sonidos, optimización de apps</string>
++    <string name="rom_settings_ignore_secure_title">Permitir capturas en apps seguras</string>
++    <string name="rom_settings_ignore_secure_summary">Se ignora FLAG_SECURE para que las capturas de pantalla, la grabación de pantalla y la transmisión funcionen en todas las apps. El video con DRM sigue en negro.</string>
++    <string name="rom_settings_sound_pack_title">Paquete de sonidos</string>
++    <string name="rom_settings_sound_pack_applied">Se cambiaron los sonidos predeterminados de tono, notificaciones, alarma y sistema</string>
++    <string name="rom_settings_dexopt_title">Optimizar apps ahora</string>
++    <string name="rom_settings_dexopt_summary">Las apps se compilan según sus perfiles de uso en lugar de esperar a la ventana de mantenimiento en reposo. El progreso se muestra en una notificación.</string>
++    <string name="rom_settings_dexopt_started">Optimización de apps iniciada</string>
++</resources>
+diff --git a/res/values-es/rom_settings_strings.xml b/res/values-es/rom_settings_strings.xml
+new file mode 100644
+index 0000000..a212c71
+--- /dev/null
++++ b/res/values-es/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Ajustes de ROM</string>
++    <string name="rom_settings_summary">Capturas de pantalla seguras, paquete de sonidos, optimización de apps</string>
++    <string name="rom_settings_ignore_secure_title">Permitir capturas en apps seguras</string>
++    <string name="rom_settings_ignore_secure_summary">Se ignora FLAG_SECURE para que las capturas de pantalla, la grabación de pantalla y la transmisión funcionen en todas las apps. El vídeo con DRM sigue en negro.</string>
++    <string name="rom_settings_sound_pack_title">Paquete de sonidos</string>
++    <string name="rom_settings_sound_pack_applied">Se cambiaron los sonidos predeterminados de tono, notificaciones, alarma y sistema</string>
++    <string name="rom_settings_dexopt_title">Optimizar apps ahora</string>
++    <string name="rom_settings_dexopt_summary">Las apps se compilan según sus perfiles de uso en lugar de esperar a la ventana de mantenimiento en reposo. El progreso se muestra en una notificación.</string>
++    <string name="rom_settings_dexopt_started">Optimización de apps iniciada</string>
++</resources>
+diff --git a/res/values-et/rom_settings_strings.xml b/res/values-et/rom_settings_strings.xml
+new file mode 100644
+index 0000000..0c9a7d7
+--- /dev/null
++++ b/res/values-et/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-i seaded</string>
++    <string name="rom_settings_summary">Turvalised ekraanikuvad, helipakett, rakenduste optimeerimine</string>
++    <string name="rom_settings_ignore_secure_title">Luba ekraanikuvad turvatud rakendustes</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ignoreeritakse, et ekraanikuvad, ekraanisalvestus ja ülekandmine töötaksid igas rakenduses. DRM-videod jäävad mustaks.</string>
++    <string name="rom_settings_sound_pack_title">Helipakett</string>
++    <string name="rom_settings_sound_pack_applied">Vaikimisi helina-, märguande-, äratus- ja süsteemihelid on muudetud</string>
++    <string name="rom_settings_dexopt_title">Optimeeri rakendused kohe</string>
++    <string name="rom_settings_dexopt_summary">Rakendused kompileeritakse kasutusprofiilide järgi, ootamata jõudeoleku hooldusakent. Edenemist näidatakse märguandes.</string>
++    <string name="rom_settings_dexopt_started">Rakenduste optimeerimine algas</string>
++</resources>
+diff --git a/res/values-eu/rom_settings_strings.xml b/res/values-eu/rom_settings_strings.xml
+new file mode 100644
+index 0000000..e62a6b8
+--- /dev/null
++++ b/res/values-eu/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ezarpenak</string>
++    <string name="rom_settings_summary">Pantaila-argazki seguruak, soinu-paketea, aplikazioen optimizazioa</string>
++    <string name="rom_settings_ignore_secure_title">Onartu pantaila-argazkiak aplikazio seguruetan</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ez da kontuan hartzen, pantaila-argazkiek, pantaila-grabaketak eta igorpenak aplikazio guztietan funtziona dezaten. DRM bideoak beltz geratzen dira.</string>
++    <string name="rom_settings_sound_pack_title">Soinu-paketea</string>
++    <string name="rom_settings_sound_pack_applied">Tonu, jakinarazpen, alarma eta sistemaren soinu lehenetsiak aldatu dira</string>
++    <string name="rom_settings_dexopt_title">Optimizatu aplikazioak orain</string>
++    <string name="rom_settings_dexopt_summary">Aplikazioak erabilera-profilen arabera konpilatzen dira, inaktibo dagoenean egiten den mantentze-leihoa itxaron gabe. Aurrerapena jakinarazpen batean erakusten da.</string>
++    <string name="rom_settings_dexopt_started">Aplikazioen optimizazioa hasi da</string>
++</resources>
+diff --git a/res/values-fa/rom_settings_strings.xml b/res/values-fa/rom_settings_strings.xml
+new file mode 100644
+index 0000000..8fdd25b
+--- /dev/null
++++ b/res/values-fa/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">تنظیمات ROM</string>
++    <string name="rom_settings_summary">اسکرین‌شات امن، بسته صدا، بهینه‌سازی برنامه‌ها</string>
++    <string name="rom_settings_ignore_secure_title">مجاز کردن اسکرین‌شات در برنامه‌های امن</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE نادیده گرفته می‌شود تا اسکرین‌شات، ضبط صفحه و ارسال صفحه در همه برنامه‌ها کار کند. ویدیوی DRM سیاه می‌ماند.</string>
++    <string name="rom_settings_sound_pack_title">بسته صدا</string>
++    <string name="rom_settings_sound_pack_applied">آهنگ زنگ، اعلان، زنگ هشدار و صداهای سیستم پیش‌فرض تغییر کرد</string>
++    <string name="rom_settings_dexopt_title">بهینه‌سازی برنامه‌ها همین حالا</string>
++    <string name="rom_settings_dexopt_summary">برنامه‌ها به‌جای انتظار برای بازه نگهداری در حالت بیکاری، بر اساس نمایه‌های استفاده‌شان کامپایل می‌شوند. پیشرفت در یک اعلان نمایش داده می‌شود.</string>
++    <string name="rom_settings_dexopt_started">بهینه‌سازی برنامه‌ها شروع شد</string>
++</resources>
+diff --git a/res/values-fi/rom_settings_strings.xml b/res/values-fi/rom_settings_strings.xml
+new file mode 100644
+index 0000000..bc41a7f
+--- /dev/null
++++ b/res/values-fi/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-asetukset</string>
++    <string name="rom_settings_summary">Suojatut kuvakaappaukset, äänipaketti, sovellusten optimointi</string>
++    <string name="rom_settings_ignore_secure_title">Salli kuvakaappaukset suojatuissa sovelluksissa</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ohitetaan, jotta kuvakaappaukset, näytön tallennus ja lähetys toimivat kaikissa sovelluksissa. DRM-videot pysyvät mustina.</string>
++    <string name="rom_settings_sound_pack_title">Äänipaketti</string>
++    <string name="rom_settings_sound_pack_applied">Oletussoittoääni, ilmoitusääni, herätysääni ja järjestelmän äänet vaihdettu</string>
++    <string name="rom_settings_dexopt_title">Optimoi sovellukset nyt</string>
++    <string name="rom_settings_dexopt_summary">Sovellukset käännetään käyttöprofiiliensa mukaan odottamatta joutotilan huoltoikkunaa. Edistyminen näkyy ilmoituksessa.</string>
++    <string name="rom_settings_dexopt_started">Sovellusten optimointi aloitettu</string>
++</resources>
+diff --git a/res/values-fr-rCA/rom_settings_strings.xml b/res/values-fr-rCA/rom_settings_strings.xml
+new file mode 100644
+index 0000000..cc3b012
+--- /dev/null
++++ b/res/values-fr-rCA/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Paramètres ROM</string>
++    <string name="rom_settings_summary">Captures d\'écran sécurisées, pack de sons, optimisation des applications</string>
++    <string name="rom_settings_ignore_secure_title">Autoriser les captures d\'écran dans les applications sécurisées</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE est ignoré pour que les captures d\'écran, l\'enregistrement de l\'écran et la diffusion fonctionnent dans toutes les applications. Les vidéos DRM restent noires.</string>
++    <string name="rom_settings_sound_pack_title">Pack de sons</string>
++    <string name="rom_settings_sound_pack_applied">Sonnerie, son de notification, alarme et sons système par défaut modifiés</string>
++    <string name="rom_settings_dexopt_title">Optimiser les applications maintenant</string>
++    <string name="rom_settings_dexopt_summary">Les applications sont compilées selon leurs profils d\'utilisation au lieu d\'attendre la fenêtre de maintenance en veille. La progression s\'affiche dans une notification.</string>
++    <string name="rom_settings_dexopt_started">Optimisation des applications lancée</string>
++</resources>
+diff --git a/res/values-fr/rom_settings_strings.xml b/res/values-fr/rom_settings_strings.xml
+new file mode 100644
+index 0000000..cc3b012
+--- /dev/null
++++ b/res/values-fr/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Paramètres ROM</string>
++    <string name="rom_settings_summary">Captures d\'écran sécurisées, pack de sons, optimisation des applications</string>
++    <string name="rom_settings_ignore_secure_title">Autoriser les captures d\'écran dans les applications sécurisées</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE est ignoré pour que les captures d\'écran, l\'enregistrement de l\'écran et la diffusion fonctionnent dans toutes les applications. Les vidéos DRM restent noires.</string>
++    <string name="rom_settings_sound_pack_title">Pack de sons</string>
++    <string name="rom_settings_sound_pack_applied">Sonnerie, son de notification, alarme et sons système par défaut modifiés</string>
++    <string name="rom_settings_dexopt_title">Optimiser les applications maintenant</string>
++    <string name="rom_settings_dexopt_summary">Les applications sont compilées selon leurs profils d\'utilisation au lieu d\'attendre la fenêtre de maintenance en veille. La progression s\'affiche dans une notification.</string>
++    <string name="rom_settings_dexopt_started">Optimisation des applications lancée</string>
++</resources>
+diff --git a/res/values-gl/rom_settings_strings.xml b/res/values-gl/rom_settings_strings.xml
+new file mode 100644
+index 0000000..07fe099
+--- /dev/null
++++ b/res/values-gl/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Configuración de ROM</string>
++    <string name="rom_settings_summary">Capturas de pantalla seguras, paquete de sons, optimización de aplicacións</string>
++    <string name="rom_settings_ignore_secure_title">Permitir capturas de pantalla en aplicacións seguras</string>
++    <string name="rom_settings_ignore_secure_summary">Ignórase FLAG_SECURE para que as capturas de pantalla, a gravación da pantalla e a emisión funcionen en todas as aplicacións. O vídeo con DRM segue en negro.</string>
++    <string name="rom_settings_sound_pack_title">Paquete de sons</string>
++    <string name="rom_settings_sound_pack_applied">Cambiáronse os sons predeterminados de ton, notificación, alarma e sistema</string>
++    <string name="rom_settings_dexopt_title">Optimizar as aplicacións agora</string>
++    <string name="rom_settings_dexopt_summary">As aplicacións compílanse segundo os seus perfís de uso en lugar de agardar á xanela de mantemento en repouso. O progreso móstrase nunha notificación.</string>
++    <string name="rom_settings_dexopt_started">Iniciouse a optimización de aplicacións</string>
++</resources>
+diff --git a/res/values-gu/rom_settings_strings.xml b/res/values-gu/rom_settings_strings.xml
+new file mode 100644
+index 0000000..3c7f5a5
+--- /dev/null
++++ b/res/values-gu/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM સેટિંગ</string>
++    <string name="rom_settings_summary">સુરક્ષિત સ્ક્રીનશૉટ, સાઉન્ડ પૅક, ઍપ ઑપ્ટિમાઇઝેશન</string>
++    <string name="rom_settings_ignore_secure_title">સુરક્ષિત ઍપમાં સ્ક્રીનશૉટની મંજૂરી આપો</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE અવગણવામાં આવે છે, જેથી દરેક ઍપમાં સ્ક્રીનશૉટ, સ્ક્રીન રેકોર્ડિંગ અને કાસ્ટ કામ કરે. DRM વીડિયો કાળા રહે છે.</string>
++    <string name="rom_settings_sound_pack_title">સાઉન્ડ પૅક</string>
++    <string name="rom_settings_sound_pack_applied">ડિફૉલ્ટ રિંગટોન, નોટિફિકેશન, અલાર્મ અને સિસ્ટમના અવાજો બદલાયા</string>
++    <string name="rom_settings_dexopt_title">ઍપ હમણાં ઑપ્ટિમાઇઝ કરો</string>
++    <string name="rom_settings_dexopt_summary">નિષ્ક્રિય જાળવણી વિન્ડોની રાહ જોવાને બદલે ઍપ તેમની વપરાશ પ્રોફાઇલ મુજબ કમ્પાઇલ થાય છે. પ્રગતિ નોટિફિકેશનમાં બતાવવામાં આવે છે.</string>
++    <string name="rom_settings_dexopt_started">ઍપ ઑપ્ટિમાઇઝેશન શરૂ થયું</string>
++</resources>
+diff --git a/res/values-hi/rom_settings_strings.xml b/res/values-hi/rom_settings_strings.xml
+new file mode 100644
+index 0000000..1cbabb6
+--- /dev/null
++++ b/res/values-hi/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM सेटिंग</string>
++    <string name="rom_settings_summary">सुरक्षित स्क्रीनशॉट, साउंड पैक, ऐप ऑप्टिमाइज़ेशन</string>
++    <string name="rom_settings_ignore_secure_title">सुरक्षित ऐप में स्क्रीनशॉट की अनुमति दें</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE को अनदेखा किया जाता है, ताकि हर ऐप में स्क्रीनशॉट, स्क्रीन रिकॉर्डिंग और कास्ट काम करें. DRM वीडियो काले ही रहते हैं.</string>
++    <string name="rom_settings_sound_pack_title">साउंड पैक</string>
++    <string name="rom_settings_sound_pack_applied">डिफ़ॉल्ट रिंगटोन, सूचना, अलार्म और सिस्टम की आवाज़ें बदल गईं</string>
++    <string name="rom_settings_dexopt_title">ऐप अभी ऑप्टिमाइज़ करें</string>
++    <string name="rom_settings_dexopt_summary">इस्तेमाल की प्रोफ़ाइल के हिसाब से ऐप कंपाइल किए जाते हैं, निष्क्रिय रखरखाव विंडो का इंतज़ार नहीं किया जाता. प्रगति सूचना में दिखती है.</string>
++    <string name="rom_settings_dexopt_started">ऐप ऑप्टिमाइज़ेशन शुरू हुआ</string>
++</resources>
+diff --git a/res/values-hr/rom_settings_strings.xml b/res/values-hr/rom_settings_strings.xml
+new file mode 100644
+index 0000000..303136b
+--- /dev/null
++++ b/res/values-hr/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM postavke</string>
++    <string name="rom_settings_summary">Sigurni snimci zaslona, paket zvukova, optimizacija aplikacija</string>
++    <string name="rom_settings_ignore_secure_title">Dopusti snimke zaslona u sigurnim aplikacijama</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE se zanemaruje pa snimke zaslona, snimanje zaslona i emitiranje rade u svakoj aplikaciji. DRM videozapisi ostaju crni.</string>
++    <string name="rom_settings_sound_pack_title">Paket zvukova</string>
++    <string name="rom_settings_sound_pack_applied">Zadani zvukovi melodije zvona, obavijesti, alarma i sustava su promijenjeni</string>
++    <string name="rom_settings_dexopt_title">Optimiziraj aplikacije sada</string>
++    <string name="rom_settings_dexopt_summary">Aplikacije se kompajliraju prema profilima korištenja umjesto da čekaju prozor za održavanje u mirovanju. Napredak se prikazuje u obavijesti.</string>
++    <string name="rom_settings_dexopt_started">Optimizacija aplikacija je započela</string>
++</resources>
+diff --git a/res/values-hu/rom_settings_strings.xml b/res/values-hu/rom_settings_strings.xml
+new file mode 100644
+index 0000000..1ca2c9c
+--- /dev/null
++++ b/res/values-hu/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-beállítások</string>
++    <string name="rom_settings_summary">Biztonságos képernyőképek, hangcsomag, alkalmazásoptimalizálás</string>
++    <string name="rom_settings_ignore_secure_title">Képernyőképek engedélyezése biztonságos alkalmazásokban</string>
++    <string name="rom_settings_ignore_secure_summary">A FLAG_SECURE figyelmen kívül marad, így a képernyőkép, a képernyőfelvétel és a tartalomtükrözés minden alkalmazásban működik. A DRM-védett videó fekete marad.</string>
++    <string name="rom_settings_sound_pack_title">Hangcsomag</string>
++    <string name="rom_settings_sound_pack_applied">Az alapértelmezett csengőhang, értesítés-, ébresztő- és rendszerhangok megváltoztak</string>
++    <string name="rom_settings_dexopt_title">Alkalmazások optimalizálása most</string>
++    <string name="rom_settings_dexopt_summary">Az alkalmazások a használati profiljuk alapján fordulnak le, nem kell megvárni az üresjárati karbantartási ablakot. Az előrehaladás értesítésben látható.</string>
++    <string name="rom_settings_dexopt_started">Az alkalmazásoptimalizálás elindult</string>
++</resources>
+diff --git a/res/values-hy/rom_settings_strings.xml b/res/values-hy/rom_settings_strings.xml
+new file mode 100644
+index 0000000..31bbe8b
+--- /dev/null
++++ b/res/values-hy/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-ի կարգավորումներ</string>
++    <string name="rom_settings_summary">Անվտանգ էկրանի նկարներ, ձայների փաթեթ, հավելվածների օպտիմալացում</string>
++    <string name="rom_settings_ignore_secure_title">Թույլատրել էկրանի նկարները անվտանգ հավելվածներում</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE-ը անտեսվում է, որպեսզի էկրանի նկարները, էկրանի տեսագրումը և հեռարձակումը աշխատեն ցանկացած հավելվածում։ DRM տեսանյութերը մնում են սև։</string>
++    <string name="rom_settings_sound_pack_title">Ձայների փաթեթ</string>
++    <string name="rom_settings_sound_pack_applied">Զանգի, ծանուցումների, զարթուցիչի և համակարգի ստանդարտ ձայները փոխվել են</string>
++    <string name="rom_settings_dexopt_title">Օպտիմալացնել հավելվածները հիմա</string>
++    <string name="rom_settings_dexopt_summary">Հավելվածները կոմպիլացվում են օգտագործման պրոֆիլներով՝ առանց անգործության ժամանակ սպասարկման պատուհանին սպասելու։ Առաջընթացը ցուցադրվում է ծանուցման մեջ։</string>
++    <string name="rom_settings_dexopt_started">Հավելվածների օպտիմալացումը սկսվեց</string>
++</resources>
+diff --git a/res/values-in/rom_settings_strings.xml b/res/values-in/rom_settings_strings.xml
+new file mode 100644
+index 0000000..d4a2478
+--- /dev/null
++++ b/res/values-in/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Setelan ROM</string>
++    <string name="rom_settings_summary">Tangkapan layar aman, paket suara, pengoptimalan aplikasi</string>
++    <string name="rom_settings_ignore_secure_title">Izinkan tangkapan layar di aplikasi aman</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE diabaikan agar tangkapan layar, perekaman layar, dan transmisi berfungsi di semua aplikasi. Video DRM tetap hitam.</string>
++    <string name="rom_settings_sound_pack_title">Paket suara</string>
++    <string name="rom_settings_sound_pack_applied">Nada dering, notifikasi, alarm, dan suara sistem default diubah</string>
++    <string name="rom_settings_dexopt_title">Optimalkan aplikasi sekarang</string>
++    <string name="rom_settings_dexopt_summary">Aplikasi dikompilasi sesuai profil penggunaannya tanpa menunggu jendela pemeliharaan saat idle. Progres ditampilkan di notifikasi.</string>
++    <string name="rom_settings_dexopt_started">Pengoptimalan aplikasi dimulai</string>
++</resources>
+diff --git a/res/values-is/rom_settings_strings.xml b/res/values-is/rom_settings_strings.xml
+new file mode 100644
+index 0000000..06f6fea
+--- /dev/null
++++ b/res/values-is/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-stillingar</string>
++    <string name="rom_settings_summary">Öruggar skjámyndir, hljóðpakki, fínstilling forrita</string>
++    <string name="rom_settings_ignore_secure_title">Leyfa skjámyndir í öruggum forritum</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE er hunsað svo skjámyndir, skjáupptaka og útsending virki í öllum forritum. DRM-myndskeið haldast svört.</string>
++    <string name="rom_settings_sound_pack_title">Hljóðpakki</string>
++    <string name="rom_settings_sound_pack_applied">Sjálfgefnum hringitónum, tilkynninga-, vekjara- og kerfishljóðum var breytt</string>
++    <string name="rom_settings_dexopt_title">Fínstilla forrit núna</string>
++    <string name="rom_settings_dexopt_summary">Forrit eru þýdd samkvæmt notkunarsniðum þeirra í stað þess að bíða eftir viðhaldsglugganum í aðgerðaleysi. Framvinda birtist í tilkynningu.</string>
++    <string name="rom_settings_dexopt_started">Fínstilling forrita hófst</string>
++</resources>
+diff --git a/res/values-it/rom_settings_strings.xml b/res/values-it/rom_settings_strings.xml
+new file mode 100644
+index 0000000..d3921d2
+--- /dev/null
++++ b/res/values-it/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Impostazioni ROM</string>
++    <string name="rom_settings_summary">Screenshot protetti, pacchetto suoni, ottimizzazione app</string>
++    <string name="rom_settings_ignore_secure_title">Consenti screenshot nelle app protette</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE viene ignorato, così screenshot, registrazione schermo e trasmissione funzionano in ogni app. I video DRM restano neri.</string>
++    <string name="rom_settings_sound_pack_title">Pacchetto suoni</string>
++    <string name="rom_settings_sound_pack_applied">Suoneria, notifica, sveglia e suoni di sistema predefiniti modificati</string>
++    <string name="rom_settings_dexopt_title">Ottimizza le app ora</string>
++    <string name="rom_settings_dexopt_summary">Le app vengono compilate in base ai profili di utilizzo senza attendere la finestra di manutenzione a riposo. L\'avanzamento è mostrato in una notifica.</string>
++    <string name="rom_settings_dexopt_started">Ottimizzazione delle app avviata</string>
++</resources>
+diff --git a/res/values-iw/rom_settings_strings.xml b/res/values-iw/rom_settings_strings.xml
+new file mode 100644
+index 0000000..78f0ed2
+--- /dev/null
++++ b/res/values-iw/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">הגדרות ROM</string>
++    <string name="rom_settings_summary">צילומי מסך מאובטחים, חבילת צלילים, אופטימיזציית אפליקציות</string>
++    <string name="rom_settings_ignore_secure_title">אישור צילומי מסך באפליקציות מאובטחות</string>
++    <string name="rom_settings_ignore_secure_summary">מתעלמים מ-FLAG_SECURE כדי שצילומי מסך, הקלטת מסך והעברה יפעלו בכל אפליקציה. סרטוני DRM יישארו שחורים.</string>
++    <string name="rom_settings_sound_pack_title">חבילת צלילים</string>
++    <string name="rom_settings_sound_pack_applied">צלצול, התראות, שעון מעורר וצלילי המערכת שמוגדרים כברירת מחדל שונו</string>
++    <string name="rom_settings_dexopt_title">אופטימיזציה של אפליקציות עכשיו</string>
++    <string name="rom_settings_dexopt_summary">האפליקציות עוברות הידור לפי פרופילי השימוש שלהן, בלי להמתין לחלון התחזוקה במצב סרק. ההתקדמות מוצגת בהתראה.</string>
++    <string name="rom_settings_dexopt_started">אופטימיזציית האפליקציות התחילה</string>
++</resources>
+diff --git a/res/values-ja/rom_settings_strings.xml b/res/values-ja/rom_settings_strings.xml
+new file mode 100644
+index 0000000..12be823
+--- /dev/null
++++ b/res/values-ja/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM 設定</string>
++    <string name="rom_settings_summary">セキュアなスクリーンショット、サウンドパック、アプリの最適化</string>
++    <string name="rom_settings_ignore_secure_title">保護されたアプリでのスクリーンショットを許可</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE を無視して、すべてのアプリでスクリーンショット、画面録画、キャストを使えるようにします。DRM 動画は黒いままです。</string>
++    <string name="rom_settings_sound_pack_title">サウンドパック</string>
++    <string name="rom_settings_sound_pack_applied">デフォルトの着信音、通知音、アラーム、システム音を変更しました</string>
++    <string name="rom_settings_dexopt_title">今すぐアプリを最適化</string>
++    <string name="rom_settings_dexopt_summary">アイドル時のメンテナンスを待たずに、使用状況プロファイルに基づいてアプリをコンパイルします。進行状況は通知に表示されます。</string>
++    <string name="rom_settings_dexopt_started">アプリの最適化を開始しました</string>
++</resources>
+diff --git a/res/values-ka/rom_settings_strings.xml b/res/values-ka/rom_settings_strings.xml
+new file mode 100644
+index 0000000..719c6a6
+--- /dev/null
++++ b/res/values-ka/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-ის პარამეტრები</string>
++    <string name="rom_settings_summary">დაცული ეკრანის ანაბეჭდები, ხმების პაკეტი, აპების ოპტიმიზაცია</string>
++    <string name="rom_settings_ignore_secure_title">ეკრანის ანაბეჭდების დაშვება დაცულ აპებში</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE იგნორირებულია, რათა ეკრანის ანაბეჭდები, ეკრანის ჩაწერა და გადაცემა ნებისმიერ აპში მუშაობდეს. DRM ვიდეო შავი რჩება.</string>
++    <string name="rom_settings_sound_pack_title">ხმების პაკეტი</string>
++    <string name="rom_settings_sound_pack_applied">ნაგულისხმევი ზარის, შეტყობინების, მაღვიძარას და სისტემის ხმები შეიცვალა</string>
++    <string name="rom_settings_dexopt_title">აპების ოპტიმიზაცია ახლავე</string>
++    <string name="rom_settings_dexopt_summary">აპები კომპილირდება გამოყენების პროფილების მიხედვით და არ ელოდება უქმ რეჟიმში მოვლის ფანჯარას. პროგრესი ნაჩვენებია შეტყობინებაში.</string>
++    <string name="rom_settings_dexopt_started">აპების ოპტიმიზაცია დაიწყო</string>
++</resources>
+diff --git a/res/values-kk/rom_settings_strings.xml b/res/values-kk/rom_settings_strings.xml
+new file mode 100644
+index 0000000..0fe0050
+--- /dev/null
++++ b/res/values-kk/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM параметрлері</string>
++    <string name="rom_settings_summary">Қауіпсіз скриншоттар, дыбыс пакеті, қолданбаларды оңтайландыру</string>
++    <string name="rom_settings_ignore_secure_title">Қауіпсіз қолданбаларда скриншотқа рұқсат беру</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE елемейді, сондықтан скриншот, экранды жазу және трансляция кез келген қолданбада жұмыс істейді. DRM бейнелері қара болып қалады.</string>
++    <string name="rom_settings_sound_pack_title">Дыбыс пакеті</string>
++    <string name="rom_settings_sound_pack_applied">Әдепкі рингтон, хабарландыру, оятқыш және жүйе дыбыстары өзгертілді</string>
++    <string name="rom_settings_dexopt_title">Қолданбаларды қазір оңтайландыру</string>
++    <string name="rom_settings_dexopt_summary">Қолданбалар бос тұрғандағы қызмет көрсету терезесін күтпей, пайдалану профильдері бойынша компиляцияланады. Барысы хабарландыруда көрсетіледі.</string>
++    <string name="rom_settings_dexopt_started">Қолданбаларды оңтайландыру басталды</string>
++</resources>
+diff --git a/res/values-km/rom_settings_strings.xml b/res/values-km/rom_settings_strings.xml
+new file mode 100644
+index 0000000..5246cfa
+--- /dev/null
++++ b/res/values-km/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ការកំណត់ ROM</string>
++    <string name="rom_settings_summary">រូបថតអេក្រង់សុវត្ថិភាព កញ្ចប់សំឡេង ការបង្កើនប្រសិទ្ធភាពកម្មវិធី</string>
++    <string name="rom_settings_ignore_secure_title">អនុញ្ញាតរូបថតអេក្រង់ក្នុងកម្មវិធីសុវត្ថិភាព</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ត្រូវបានមិនអើពើ ដើម្បីឱ្យរូបថតអេក្រង់ ការថតអេក្រង់ និងការភ្ជាប់ចាក់ដំណើរការនៅគ្រប់កម្មវិធី។ វីដេអូ DRM នៅតែខ្មៅ។</string>
++    <string name="rom_settings_sound_pack_title">កញ្ចប់សំឡេង</string>
++    <string name="rom_settings_sound_pack_applied">សំឡេងរោទ៍ ការជូនដំណឹង ម៉ោងរោទ៍ និងសំឡេងប្រព័ន្ធលំនាំដើមត្រូវបានផ្លាស់ប្ដូរ</string>
++    <string name="rom_settings_dexopt_title">បង្កើនប្រសិទ្ធភាពកម្មវិធីឥឡូវនេះ</string>
++    <string name="rom_settings_dexopt_summary">កម្មវិធីត្រូវបានចងក្រងតាមប្រវត្តិរូបប្រើប្រាស់របស់វា ដោយមិនចាំបង្អួចថែទាំពេលទំនេរ។ វឌ្ឍនភាពបង្ហាញក្នុងការជូនដំណឹង។</string>
++    <string name="rom_settings_dexopt_started">ការបង្កើនប្រសិទ្ធភាពកម្មវិធីបានចាប់ផ្ដើម</string>
++</resources>
+diff --git a/res/values-kn/rom_settings_strings.xml b/res/values-kn/rom_settings_strings.xml
+new file mode 100644
+index 0000000..485389d
+--- /dev/null
++++ b/res/values-kn/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
++    <string name="rom_settings_summary">ಸುರಕ್ಷಿತ ಸ್ಕ್ರೀನ್‌ಶಾಟ್‌ಗಳು, ಸೌಂಡ್ ಪ್ಯಾಕ್, ಆ್ಯಪ್ ಆಪ್ಟಿಮೈಸೇಶನ್</string>
++    <string name="rom_settings_ignore_secure_title">ಸುರಕ್ಷಿತ ಆ್ಯಪ್‌ಗಳಲ್ಲಿ ಸ್ಕ್ರೀನ್‌ಶಾಟ್‌ಗೆ ಅನುಮತಿಸಿ</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ಅನ್ನು ನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತದೆ, ಇದರಿಂದ ಪ್ರತಿ ಆ್ಯಪ್‌ನಲ್ಲಿ ಸ್ಕ್ರೀನ್‌ಶಾಟ್, ಸ್ಕ್ರೀನ್ ರೆಕಾರ್ಡಿಂಗ್ ಮತ್ತು ಕ್ಯಾಸ್ಟ್ ಕೆಲಸ ಮಾಡುತ್ತವೆ. DRM ವೀಡಿಯೊ ಕಪ್ಪಾಗಿಯೇ ಉಳಿಯುತ್ತದೆ.</string>
++    <string name="rom_settings_sound_pack_title">ಸೌಂಡ್ ಪ್ಯಾಕ್</string>
++    <string name="rom_settings_sound_pack_applied">ಡೀಫಾಲ್ಟ್ ರಿಂಗ್‌ಟೋನ್, ಅಧಿಸೂಚನೆ, ಅಲಾರಾಂ ಮತ್ತು ಸಿಸ್ಟಂ ಧ್ವನಿಗಳನ್ನು ಬದಲಾಯಿಸಲಾಗಿದೆ</string>
++    <string name="rom_settings_dexopt_title">ಆ್ಯಪ್‌ಗಳನ್ನು ಈಗಲೇ ಆಪ್ಟಿಮೈಸ್ ಮಾಡಿ</string>
++    <string name="rom_settings_dexopt_summary">ನಿಷ್ಕ್ರಿಯ ನಿರ್ವಹಣೆ ವಿಂಡೋಗಾಗಿ ಕಾಯದೆ ಆ್ಯಪ್‌ಗಳನ್ನು ಬಳಕೆಯ ಪ್ರೊಫೈಲ್‌ಗಳ ಪ್ರಕಾರ ಕಂಪೈಲ್ ಮಾಡಲಾಗುತ್ತದೆ. ಪ್ರಗತಿಯನ್ನು ಅಧಿಸೂಚನೆಯಲ್ಲಿ ತೋರಿಸಲಾಗುತ್ತದೆ.</string>
++    <string name="rom_settings_dexopt_started">ಆ್ಯಪ್ ಆಪ್ಟಿಮೈಸೇಶನ್ ಪ್ರಾರಂಭವಾಗಿದೆ</string>
++</resources>
+diff --git a/res/values-ko/rom_settings_strings.xml b/res/values-ko/rom_settings_strings.xml
+new file mode 100644
+index 0000000..206747f
+--- /dev/null
++++ b/res/values-ko/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM 설정</string>
++    <string name="rom_settings_summary">보안 스크린샷, 사운드 팩, 앱 최적화</string>
++    <string name="rom_settings_ignore_secure_title">보안 앱에서 스크린샷 허용</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE를 무시하여 모든 앱에서 스크린샷, 화면 녹화, 전송이 작동합니다. DRM 동영상은 계속 검은 화면으로 나옵니다.</string>
++    <string name="rom_settings_sound_pack_title">사운드 팩</string>
++    <string name="rom_settings_sound_pack_applied">기본 벨소리, 알림음, 알람, 시스템 소리가 변경되었습니다</string>
++    <string name="rom_settings_dexopt_title">지금 앱 최적화</string>
++    <string name="rom_settings_dexopt_summary">유휴 상태 유지보수 시간을 기다리지 않고 사용 프로필에 따라 앱을 컴파일합니다. 진행 상황은 알림에 표시됩니다.</string>
++    <string name="rom_settings_dexopt_started">앱 최적화를 시작했습니다</string>
++</resources>
+diff --git a/res/values-ky/rom_settings_strings.xml b/res/values-ky/rom_settings_strings.xml
+new file mode 100644
+index 0000000..b862f3f
+--- /dev/null
++++ b/res/values-ky/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM жөндөөлөрү</string>
++    <string name="rom_settings_summary">Коопсуз скриншоттор, үн топтому, колдонмолорду оптималдаштыруу</string>
++    <string name="rom_settings_ignore_secure_title">Коопсуз колдонмолордо скриншотко уруксат берүү</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE эске алынбайт, ошондуктан скриншот, экранды жаздыруу жана тышкы экранга чыгаруу ар бир колдонмодо иштейт. DRM видеолору кара бойдон калат.</string>
++    <string name="rom_settings_sound_pack_title">Үн топтому</string>
++    <string name="rom_settings_sound_pack_applied">Демейки рингтон, билдирме, ойготкуч жана тутумдун үндөрү өзгөртүлдү</string>
++    <string name="rom_settings_dexopt_title">Колдонмолорду азыр оптималдаштыруу</string>
++    <string name="rom_settings_dexopt_summary">Колдонмолор бош турган учурдагы тейлөө терезесин күтпөстөн, колдонуу профилдери боюнча компиляцияланат. Жүрүшү билдирмеде көрсөтүлөт.</string>
++    <string name="rom_settings_dexopt_started">Колдонмолорду оптималдаштыруу башталды</string>
++</resources>
+diff --git a/res/values-lo/rom_settings_strings.xml b/res/values-lo/rom_settings_strings.xml
+new file mode 100644
+index 0000000..f6be52f
+--- /dev/null
++++ b/res/values-lo/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ການຕັ້ງຄ່າ ROM</string>
++    <string name="rom_settings_summary">ພາບໜ້າຈໍທີ່ປອດໄພ, ຊຸດສຽງ, ການເພີ່ມປະສິດທິພາບແອັບ</string>
++    <string name="rom_settings_ignore_secure_title">ອະນຸຍາດພາບໜ້າຈໍໃນແອັບທີ່ປອດໄພ</string>
++    <string name="rom_settings_ignore_secure_summary">ລະເວັ້ນ FLAG_SECURE ເພື່ອໃຫ້ພາບໜ້າຈໍ, ການບັນທຶກໜ້າຈໍ ແລະ ການສົ່ງສັນຍານໜ້າຈໍໃຊ້ໄດ້ໃນທຸກແອັບ. ວິດີໂອ DRM ຍັງເປັນສີດຳຢູ່.</string>
++    <string name="rom_settings_sound_pack_title">ຊຸດສຽງ</string>
++    <string name="rom_settings_sound_pack_applied">ປ່ຽນສຽງໂທເຂົ້າ, ສຽງແຈ້ງເຕືອນ, ສຽງໂມງປຸກ ແລະ ສຽງລະບົບເລີ່ມຕົ້ນແລ້ວ</string>
++    <string name="rom_settings_dexopt_title">ເພີ່ມປະສິດທິພາບແອັບດຽວນີ້</string>
++    <string name="rom_settings_dexopt_summary">ແອັບຖືກຄອມໄພລ໌ຕາມໂປຣໄຟລ໌ການໃຊ້ງານ ແທນການລໍຖ້າຊ່ວງບຳລຸງຮັກສາຕອນບໍ່ໄດ້ໃຊ້ງານ. ຄວາມຄືບໜ້າຈະສະແດງໃນການແຈ້ງເຕືອນ.</string>
++    <string name="rom_settings_dexopt_started">ເລີ່ມການເພີ່ມປະສິດທິພາບແອັບແລ້ວ</string>
++</resources>
+diff --git a/res/values-lt/rom_settings_strings.xml b/res/values-lt/rom_settings_strings.xml
+new file mode 100644
+index 0000000..c98169e
+--- /dev/null
++++ b/res/values-lt/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM nustatymai</string>
++    <string name="rom_settings_summary">Saugios ekrano kopijos, garsų paketas, programų optimizavimas</string>
++    <string name="rom_settings_ignore_secure_title">Leisti ekrano kopijas saugiose programose</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ignoruojamas, kad ekrano kopijos, ekrano įrašymas ir perdavimas veiktų visose programose. DRM vaizdo įrašai lieka juodi.</string>
++    <string name="rom_settings_sound_pack_title">Garsų paketas</string>
++    <string name="rom_settings_sound_pack_applied">Numatytieji skambučio, pranešimų, žadintuvo ir sistemos garsai pakeisti</string>
++    <string name="rom_settings_dexopt_title">Optimizuoti programas dabar</string>
++    <string name="rom_settings_dexopt_summary">Programos kompiliuojamos pagal naudojimo profilius, nelaukiant priežiūros lango neveikos metu. Eiga rodoma pranešime.</string>
++    <string name="rom_settings_dexopt_started">Programų optimizavimas pradėtas</string>
++</resources>
+diff --git a/res/values-lv/rom_settings_strings.xml b/res/values-lv/rom_settings_strings.xml
+new file mode 100644
+index 0000000..0489bc4
+--- /dev/null
++++ b/res/values-lv/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM iestatījumi</string>
++    <string name="rom_settings_summary">Drošie ekrānuzņēmumi, skaņu pakotne, lietotņu optimizēšana</string>
++    <string name="rom_settings_ignore_secure_title">Atļaut ekrānuzņēmumus drošās lietotnēs</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE tiek ignorēts, lai ekrānuzņēmumi, ekrāna ierakstīšana un pārraide darbotos visās lietotnēs. DRM video paliek melns.</string>
++    <string name="rom_settings_sound_pack_title">Skaņu pakotne</string>
++    <string name="rom_settings_sound_pack_applied">Noklusējuma zvana, paziņojumu, modinātāja un sistēmas skaņas ir mainītas</string>
++    <string name="rom_settings_dexopt_title">Optimizēt lietotnes tagad</string>
++    <string name="rom_settings_dexopt_summary">Lietotnes tiek kompilētas pēc lietojuma profiliem, negaidot dīkstāves apkopes logu. Norise tiek rādīta paziņojumā.</string>
++    <string name="rom_settings_dexopt_started">Lietotņu optimizēšana sākta</string>
++</resources>
+diff --git a/res/values-mk/rom_settings_strings.xml b/res/values-mk/rom_settings_strings.xml
+new file mode 100644
+index 0000000..eedf771
+--- /dev/null
++++ b/res/values-mk/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Поставки за ROM</string>
++    <string name="rom_settings_summary">Безбедни слики од екранот, пакет звуци, оптимизација на апликациите</string>
++    <string name="rom_settings_ignore_secure_title">Дозволи слики од екранот во безбедни апликации</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE се игнорира за сликите од екранот, снимањето на екранот и емитувањето да работат во секоја апликација. DRM-видеото останува црно.</string>
++    <string name="rom_settings_sound_pack_title">Пакет звуци</string>
++    <string name="rom_settings_sound_pack_applied">Стандардните звуци за мелодија, известувања, аларм и систем се променети</string>
++    <string name="rom_settings_dexopt_title">Оптимизирај ги апликациите сега</string>
++    <string name="rom_settings_dexopt_summary">Апликациите се компајлираат според профилите на користење, без да се чека прозорецот за одржување во мирување. Напредокот се прикажува во известување.</string>
++    <string name="rom_settings_dexopt_started">Оптимизацијата на апликациите започна</string>
++</resources>
+diff --git a/res/values-ml/rom_settings_strings.xml b/res/values-ml/rom_settings_strings.xml
+new file mode 100644
+index 0000000..54d54f0
+--- /dev/null
++++ b/res/values-ml/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ക്രമീകരണം</string>
++    <string name="rom_settings_summary">സുരക്ഷിത സ്ക്രീൻഷോട്ടുകൾ, ശബ്ദ പാക്ക്, ആപ്പ് ഒപ്റ്റിമൈസേഷൻ</string>
++    <string name="rom_settings_ignore_secure_title">സുരക്ഷിത ആപ്പുകളിൽ സ്ക്രീൻഷോട്ട് അനുവദിക്കുക</string>
++    <string name="rom_settings_ignore_secure_summary">എല്ലാ ആപ്പിലും സ്ക്രീൻഷോട്ടും സ്ക്രീൻ റെക്കോർഡിംഗും കാസ്റ്റും പ്രവർത്തിക്കാൻ FLAG_SECURE അവഗണിക്കുന്നു. DRM വീഡിയോ കറുപ്പായിത്തന്നെ തുടരും.</string>
++    <string name="rom_settings_sound_pack_title">ശബ്ദ പാക്ക്</string>
++    <string name="rom_settings_sound_pack_applied">ഡിഫോൾട്ട് റിംഗ്‌ടോൺ, അറിയിപ്പ്, അലാറം, സിസ്റ്റം ശബ്ദങ്ങൾ മാറ്റി</string>
++    <string name="rom_settings_dexopt_title">ആപ്പുകൾ ഇപ്പോൾ ഒപ്റ്റിമൈസ് ചെയ്യുക</string>
++    <string name="rom_settings_dexopt_summary">നിഷ്ക്രിയ അറ്റകുറ്റപ്പണി സമയത്തിനായി കാത്തിരിക്കാതെ ആപ്പുകൾ അവയുടെ ഉപയോഗ പ്രൊഫൈൽ അനുസരിച്ച് കംപൈൽ ചെയ്യുന്നു. പുരോഗതി അറിയിപ്പിൽ കാണിക്കും.</string>
++    <string name="rom_settings_dexopt_started">ആപ്പ് ഒപ്റ്റിമൈസേഷൻ ആരംഭിച്ചു</string>
++</resources>
+diff --git a/res/values-mn/rom_settings_strings.xml b/res/values-mn/rom_settings_strings.xml
+new file mode 100644
+index 0000000..1d3a01a
+--- /dev/null
++++ b/res/values-mn/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-ын тохиргоо</string>
++    <string name="rom_settings_summary">Аюулгүй дэлгэцийн агшин, дууны багц, аппын оновчлол</string>
++    <string name="rom_settings_ignore_secure_title">Аюулгүй аппуудад дэлгэцийн агшин авахыг зөвшөөрөх</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE-г үл тооно, ингэснээр дэлгэцийн агшин, дэлгэц бичлэг болон дэлгэц дамжуулалт бүх аппад ажиллана. DRM видео хар хэвээр үлдэнэ.</string>
++    <string name="rom_settings_sound_pack_title">Дууны багц</string>
++    <string name="rom_settings_sound_pack_applied">Үндсэн хонхны ая, мэдэгдэл, сэрүүлэг болон системийн дууг өөрчиллөө</string>
++    <string name="rom_settings_dexopt_title">Аппуудыг одоо оновчлох</string>
++    <string name="rom_settings_dexopt_summary">Идэвхгүй үеийн засвар үйлчилгээний цонхыг хүлээлгүйгээр аппуудыг ашиглалтын профайлаар нь хөрвүүлнэ. Явц мэдэгдэлд харагдана.</string>
++    <string name="rom_settings_dexopt_started">Аппын оновчлол эхэллээ</string>
++</resources>
+diff --git a/res/values-mr/rom_settings_strings.xml b/res/values-mr/rom_settings_strings.xml
+new file mode 100644
+index 0000000..4528b41
+--- /dev/null
++++ b/res/values-mr/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM सेटिंग्ज</string>
++    <string name="rom_settings_summary">सुरक्षित स्क्रीनशॉट, साउंड पॅक, अ‍ॅप ऑप्टिमायझेशन</string>
++    <string name="rom_settings_ignore_secure_title">सुरक्षित अ‍ॅप्समध्ये स्क्रीनशॉटला परवानगी द्या</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE कडे दुर्लक्ष केले जाते, ज्यामुळे प्रत्येक अ‍ॅपमध्ये स्क्रीनशॉट, स्क्रीन रेकॉर्डिंग आणि कास्ट काम करतात. DRM व्हिडिओ काळा राहतो.</string>
++    <string name="rom_settings_sound_pack_title">साउंड पॅक</string>
++    <string name="rom_settings_sound_pack_applied">डीफॉल्ट रिंगटोन, सूचना, अलार्म आणि सिस्टम आवाज बदलले</string>
++    <string name="rom_settings_dexopt_title">अ‍ॅप्स आता ऑप्टिमाइझ करा</string>
++    <string name="rom_settings_dexopt_summary">निष्क्रिय देखभाल विंडोची वाट न पाहता अ‍ॅप्स त्यांच्या वापर प्रोफाइलनुसार कंपाइल केली जातात. प्रगती सूचनेमध्ये दाखवली जाते.</string>
++    <string name="rom_settings_dexopt_started">अ‍ॅप ऑप्टिमायझेशन सुरू झाले</string>
++</resources>
+diff --git a/res/values-ms/rom_settings_strings.xml b/res/values-ms/rom_settings_strings.xml
+new file mode 100644
+index 0000000..0cf5ba7
+--- /dev/null
++++ b/res/values-ms/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Tetapan ROM</string>
++    <string name="rom_settings_summary">Tangkapan skrin selamat, pek bunyi, pengoptimuman apl</string>
++    <string name="rom_settings_ignore_secure_title">Benarkan tangkapan skrin dalam apl selamat</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE diabaikan supaya tangkapan skrin, rakaman skrin dan penghantaran berfungsi dalam setiap apl. Video DRM kekal hitam.</string>
++    <string name="rom_settings_sound_pack_title">Pek bunyi</string>
++    <string name="rom_settings_sound_pack_applied">Nada dering, pemberitahuan, penggera dan bunyi sistem lalai telah diubah</string>
++    <string name="rom_settings_dexopt_title">Optimumkan apl sekarang</string>
++    <string name="rom_settings_dexopt_summary">Apl dikompil mengikut profil penggunaannya tanpa menunggu tetingkap penyelenggaraan semasa melahu. Kemajuan dipaparkan dalam pemberitahuan.</string>
++    <string name="rom_settings_dexopt_started">Pengoptimuman apl dimulakan</string>
++</resources>
+diff --git a/res/values-my/rom_settings_strings.xml b/res/values-my/rom_settings_strings.xml
+new file mode 100644
+index 0000000..723ca02
+--- /dev/null
++++ b/res/values-my/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ဆက်တင်များ</string>
++    <string name="rom_settings_summary">လုံခြုံသော ဖန်သားပြင်ဓာတ်ပုံများ၊ အသံအစုံ၊ အက်ပ်ကောင်းမွန်အောင်လုပ်ခြင်း</string>
++    <string name="rom_settings_ignore_secure_title">လုံခြုံသောအက်ပ်များတွင် ဖန်သားပြင်ဓာတ်ပုံရိုက်ခွင့်ပြုရန်</string>
++    <string name="rom_settings_ignore_secure_summary">အက်ပ်တိုင်းတွင် ဖန်သားပြင်ဓာတ်ပုံ၊ ဖန်သားပြင်ရိုက်ကူးခြင်းနှင့် ကာစ်လုပ်ခြင်းတို့ အလုပ်လုပ်စေရန် FLAG_SECURE ကို လျစ်လျူရှုထားသည်။ DRM ဗီဒီယိုများသည် အနက်ရောင်အတိုင်း ဆက်ရှိနေမည်။</string>
++    <string name="rom_settings_sound_pack_title">အသံအစုံ</string>
++    <string name="rom_settings_sound_pack_applied">မူလဖုန်းမြည်သံ၊ အကြောင်းကြားချက်၊ နှိုးစက်နှင့် စနစ်အသံများကို ပြောင်းလိုက်ပြီ</string>
++    <string name="rom_settings_dexopt_title">အက်ပ်များကို ယခုကောင်းမွန်အောင်လုပ်ရန်</string>
++    <string name="rom_settings_dexopt_summary">အလုပ်မလုပ်ချိန် ပြုပြင်ထိန်းသိမ်းမှုအချိန်ကို မစောင့်ဘဲ အက်ပ်များကို အသုံးပြုမှုပရိုဖိုင်အလိုက် ကွန်ပိုင်းလုပ်သည်။ တိုးတက်မှုကို အကြောင်းကြားချက်တွင် ပြသည်။</string>
++    <string name="rom_settings_dexopt_started">အက်ပ်ကောင်းမွန်အောင်လုပ်ခြင်း စတင်ပြီ</string>
++</resources>
+diff --git a/res/values-nb/rom_settings_strings.xml b/res/values-nb/rom_settings_strings.xml
+new file mode 100644
+index 0000000..89bf825
+--- /dev/null
++++ b/res/values-nb/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-innstillinger</string>
++    <string name="rom_settings_summary">Sikre skjermbilder, lydpakke, appoptimalisering</string>
++    <string name="rom_settings_ignore_secure_title">Tillat skjermbilder i sikre apper</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ignoreres, slik at skjermbilder, skjermopptak og casting fungerer i alle apper. DRM-video forblir svart.</string>
++    <string name="rom_settings_sound_pack_title">Lydpakke</string>
++    <string name="rom_settings_sound_pack_applied">Standard ringetone, varsellyd, alarm og systemlyder er endret</string>
++    <string name="rom_settings_dexopt_title">Optimaliser apper nå</string>
++    <string name="rom_settings_dexopt_summary">Apper kompileres etter bruksprofilene sine i stedet for å vente på vedlikeholdsvinduet i hvilemodus. Fremdriften vises i et varsel.</string>
++    <string name="rom_settings_dexopt_started">Appoptimalisering er startet</string>
++</resources>
+diff --git a/res/values-ne/rom_settings_strings.xml b/res/values-ne/rom_settings_strings.xml
+new file mode 100644
+index 0000000..5976484
+--- /dev/null
++++ b/res/values-ne/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM सेटिङ</string>
++    <string name="rom_settings_summary">सुरक्षित स्क्रिनसट, साउन्ड प्याक, एप अप्टिमाइजेसन</string>
++    <string name="rom_settings_ignore_secure_title">सुरक्षित एपहरूमा स्क्रिनसटको अनुमति दिनुहोस्</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE लाई बेवास्ता गरिन्छ, जसले गर्दा हरेक एपमा स्क्रिनसट, स्क्रिन रेकर्डिङ र क्यास्ट काम गर्छन्। DRM भिडियो कालो नै रहन्छ।</string>
++    <string name="rom_settings_sound_pack_title">साउन्ड प्याक</string>
++    <string name="rom_settings_sound_pack_applied">पूर्वनिर्धारित रिङटोन, सूचना, अलार्म र प्रणालीका ध्वनिहरू परिवर्तन गरियो</string>
++    <string name="rom_settings_dexopt_title">एपहरू अहिले नै अप्टिमाइज गर्नुहोस्</string>
++    <string name="rom_settings_dexopt_summary">निष्क्रिय अवस्थाको मर्मतसम्भार विन्डोको प्रतीक्षा नगरी एपहरू तिनीहरूको प्रयोग प्रोफाइलअनुसार कम्पाइल गरिन्छ। प्रगति सूचनामा देखाइन्छ।</string>
++    <string name="rom_settings_dexopt_started">एप अप्टिमाइजेसन सुरु भयो</string>
++</resources>
+diff --git a/res/values-nl/rom_settings_strings.xml b/res/values-nl/rom_settings_strings.xml
+new file mode 100644
+index 0000000..838c168
+--- /dev/null
++++ b/res/values-nl/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-instellingen</string>
++    <string name="rom_settings_summary">Beveiligde screenshots, geluidspakket, app-optimalisatie</string>
++    <string name="rom_settings_ignore_secure_title">Screenshots toestaan in beveiligde apps</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE wordt genegeerd, zodat screenshots, schermopname en casten in elke app werken. DRM-video blijft zwart.</string>
++    <string name="rom_settings_sound_pack_title">Geluidspakket</string>
++    <string name="rom_settings_sound_pack_applied">Standaard beltoon, meldingsgeluid, wekker en systeemgeluiden gewijzigd</string>
++    <string name="rom_settings_dexopt_title">Apps nu optimaliseren</string>
++    <string name="rom_settings_dexopt_summary">Apps worden gecompileerd op basis van hun gebruiksprofielen in plaats van te wachten op het onderhoudsvenster bij inactiviteit. De voortgang wordt getoond in een melding.</string>
++    <string name="rom_settings_dexopt_started">App-optimalisatie gestart</string>
++</resources>
+diff --git a/res/values-or/rom_settings_strings.xml b/res/values-or/rom_settings_strings.xml
+new file mode 100644
+index 0000000..f2cbaaf
+--- /dev/null
++++ b/res/values-or/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ସେଟିଂସ</string>
++    <string name="rom_settings_summary">ସୁରକ୍ଷିତ ସ୍କ୍ରିନସଟ, ସାଉଣ୍ଡ ପ୍ୟାକ, ଆପ ଅପ୍ଟିମାଇଜେସନ</string>
++    <string name="rom_settings_ignore_secure_title">ସୁରକ୍ଷିତ ଆପରେ ସ୍କ୍ରିନସଟକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
++    <string name="rom_settings_ignore_secure_summary">ପ୍ରତ୍ୟେକ ଆପରେ ସ୍କ୍ରିନସଟ, ସ୍କ୍ରିନ ରେକର୍ଡିଂ ଏବଂ କାଷ୍ଟ କାମ କରିବା ପାଇଁ FLAG_SECURE କୁ ଅଣଦେଖା କରାଯାଏ। DRM ଭିଡିଓ କଳା ହିଁ ରହେ।</string>
++    <string name="rom_settings_sound_pack_title">ସାଉଣ୍ଡ ପ୍ୟାକ</string>
++    <string name="rom_settings_sound_pack_applied">ଡିଫଲ୍ଟ ରିଙ୍ଗଟୋନ, ବିଜ୍ଞପ୍ତି, ଆଲାରାମ ଏବଂ ସିଷ୍ଟମ ସାଉଣ୍ଡ ବଦଳାଗଲା</string>
++    <string name="rom_settings_dexopt_title">ଆପଗୁଡ଼ିକୁ ବର୍ତ୍ତମାନ ଅପ୍ଟିମାଇଜ କରନ୍ତୁ</string>
++    <string name="rom_settings_dexopt_summary">ନିଷ୍କ୍ରିୟ ରକ୍ଷଣାବେକ୍ଷଣ ୱିଣ୍ଡୋ ପାଇଁ ଅପେକ୍ଷା ନକରି ଆପଗୁଡ଼ିକୁ ସେମାନଙ୍କ ବ୍ୟବହାର ପ୍ରୋଫାଇଲ ଅନୁସାରେ କମ୍ପାଇଲ କରାଯାଏ। ପ୍ରଗତି ବିଜ୍ଞପ୍ତିରେ ଦେଖାଯାଏ।</string>
++    <string name="rom_settings_dexopt_started">ଆପ ଅପ୍ଟିମାଇଜେସନ ଆରମ୍ଭ ହେଲା</string>
++</resources>
+diff --git a/res/values-pa/rom_settings_strings.xml b/res/values-pa/rom_settings_strings.xml
+new file mode 100644
+index 0000000..2900ec2
+--- /dev/null
++++ b/res/values-pa/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM ਸੈਟਿੰਗਾਂ</string>
++    <string name="rom_settings_summary">ਸੁਰੱਖਿਅਤ ਸਕ੍ਰੀਨਸ਼ਾਟ, ਧੁਨੀ ਪੈਕ, ਐਪ ਅਨੁਕੂਲਨ</string>
++    <string name="rom_settings_ignore_secure_title">ਸੁਰੱਖਿਅਤ ਐਪਾਂ ਵਿੱਚ ਸਕ੍ਰੀਨਸ਼ਾਟ ਦੀ ਆਗਿਆ ਦਿਓ</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ਨੂੰ ਅਣਡਿੱਠ ਕੀਤਾ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਜੋ ਹਰ ਐਪ ਵਿੱਚ ਸਕ੍ਰੀਨਸ਼ਾਟ, ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਅਤੇ ਕਾਸਟ ਕੰਮ ਕਰਨ। DRM ਵੀਡੀਓ ਕਾਲੇ ਹੀ ਰਹਿੰਦੇ ਹਨ।</string>
++    <string name="rom_settings_sound_pack_title">ਧੁਨੀ ਪੈਕ</string>
++    <string name="rom_settings_sound_pack_applied">ਡਿਫਾਲਟ ਰਿੰਗਟੋਨ, ਸੂਚਨਾ, ਅਲਾਰਮ ਅਤੇ ਸਿਸਟਮ ਦੀਆਂ ਆਵਾਜ਼ਾਂ ਬਦਲ ਦਿੱਤੀਆਂ ਗਈਆਂ</string>
++    <string name="rom_settings_dexopt_title">ਐਪਾਂ ਨੂੰ ਹੁਣੇ ਅਨੁਕੂਲ ਬਣਾਓ</string>
++    <string name="rom_settings_dexopt_summary">ਵਿਹਲੇ ਸਮੇਂ ਦੀ ਸਾਂਭ-ਸੰਭਾਲ ਵਿੰਡੋ ਦੀ ਉਡੀਕ ਕਰਨ ਦੀ ਬਜਾਏ ਐਪਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਵਰਤੋਂ ਪ੍ਰੋਫਾਈਲਾਂ ਅਨੁਸਾਰ ਕੰਪਾਈਲ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਪ੍ਰਗਤੀ ਸੂਚਨਾ ਵਿੱਚ ਦਿਖਾਈ ਜਾਂਦੀ ਹੈ।</string>
++    <string name="rom_settings_dexopt_started">ਐਪ ਅਨੁਕੂਲਨ ਸ਼ੁਰੂ ਹੋਇਆ</string>
++</resources>
+diff --git a/res/values-pl/rom_settings_strings.xml b/res/values-pl/rom_settings_strings.xml
+new file mode 100644
+index 0000000..4893dd6
+--- /dev/null
++++ b/res/values-pl/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Ustawienia ROM</string>
++    <string name="rom_settings_summary">Bezpieczne zrzuty ekranu, pakiet dźwięków, optymalizacja aplikacji</string>
++    <string name="rom_settings_ignore_secure_title">Zezwalaj na zrzuty ekranu w zabezpieczonych aplikacjach</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE jest ignorowane, dzięki czemu zrzuty ekranu, nagrywanie ekranu i przesyłanie obrazu działają w każdej aplikacji. Filmy z DRM pozostają czarne.</string>
++    <string name="rom_settings_sound_pack_title">Pakiet dźwięków</string>
++    <string name="rom_settings_sound_pack_applied">Zmieniono domyślne dźwięki dzwonka, powiadomień, budzika i systemu</string>
++    <string name="rom_settings_dexopt_title">Zoptymalizuj aplikacje teraz</string>
++    <string name="rom_settings_dexopt_summary">Aplikacje są kompilowane według profili użycia, bez czekania na okno konserwacji w stanie bezczynności. Postęp widać w powiadomieniu.</string>
++    <string name="rom_settings_dexopt_started">Rozpoczęto optymalizację aplikacji</string>
++</resources>
+diff --git a/res/values-pt-rBR/rom_settings_strings.xml b/res/values-pt-rBR/rom_settings_strings.xml
+new file mode 100644
+index 0000000..f40f6bb
+--- /dev/null
++++ b/res/values-pt-rBR/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Configurações de ROM</string>
++    <string name="rom_settings_summary">Capturas de tela seguras, pacote de sons, otimização de apps</string>
++    <string name="rom_settings_ignore_secure_title">Permitir capturas de tela em apps seguros</string>
++    <string name="rom_settings_ignore_secure_summary">O FLAG_SECURE é ignorado para que capturas de tela, gravação de tela e transmissão funcionem em todos os apps. Vídeos com DRM continuam pretos.</string>
++    <string name="rom_settings_sound_pack_title">Pacote de sons</string>
++    <string name="rom_settings_sound_pack_applied">Toque, notificação, alarme e sons do sistema padrão alterados</string>
++    <string name="rom_settings_dexopt_title">Otimizar apps agora</string>
++    <string name="rom_settings_dexopt_summary">Os apps são compilados conforme seus perfis de uso, sem esperar a janela de manutenção em inatividade. O progresso aparece em uma notificação.</string>
++    <string name="rom_settings_dexopt_started">Otimização de apps iniciada</string>
++</resources>
+diff --git a/res/values-pt-rPT/rom_settings_strings.xml b/res/values-pt-rPT/rom_settings_strings.xml
+new file mode 100644
+index 0000000..99e1aa1
+--- /dev/null
++++ b/res/values-pt-rPT/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Definições da ROM</string>
++    <string name="rom_settings_summary">Capturas de ecrã seguras, pacote de sons, otimização de aplicações</string>
++    <string name="rom_settings_ignore_secure_title">Permitir capturas de ecrã em aplicações seguras</string>
++    <string name="rom_settings_ignore_secure_summary">O FLAG_SECURE é ignorado para que as capturas de ecrã, a gravação do ecrã e a transmissão funcionem em todas as aplicações. Os vídeos com DRM continuam pretos.</string>
++    <string name="rom_settings_sound_pack_title">Pacote de sons</string>
++    <string name="rom_settings_sound_pack_applied">Toque, notificação, alarme e sons do sistema predefinidos alterados</string>
++    <string name="rom_settings_dexopt_title">Otimizar aplicações agora</string>
++    <string name="rom_settings_dexopt_summary">As aplicações são compiladas de acordo com os respetivos perfis de utilização, sem esperar pela janela de manutenção em inatividade. O progresso é apresentado numa notificação.</string>
++    <string name="rom_settings_dexopt_started">Otimização de aplicações iniciada</string>
++</resources>
+diff --git a/res/values-pt/rom_settings_strings.xml b/res/values-pt/rom_settings_strings.xml
+new file mode 100644
+index 0000000..f40f6bb
+--- /dev/null
++++ b/res/values-pt/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Configurações de ROM</string>
++    <string name="rom_settings_summary">Capturas de tela seguras, pacote de sons, otimização de apps</string>
++    <string name="rom_settings_ignore_secure_title">Permitir capturas de tela em apps seguros</string>
++    <string name="rom_settings_ignore_secure_summary">O FLAG_SECURE é ignorado para que capturas de tela, gravação de tela e transmissão funcionem em todos os apps. Vídeos com DRM continuam pretos.</string>
++    <string name="rom_settings_sound_pack_title">Pacote de sons</string>
++    <string name="rom_settings_sound_pack_applied">Toque, notificação, alarme e sons do sistema padrão alterados</string>
++    <string name="rom_settings_dexopt_title">Otimizar apps agora</string>
++    <string name="rom_settings_dexopt_summary">Os apps são compilados conforme seus perfis de uso, sem esperar a janela de manutenção em inatividade. O progresso aparece em uma notificação.</string>
++    <string name="rom_settings_dexopt_started">Otimização de apps iniciada</string>
++</resources>
+diff --git a/res/values-ro/rom_settings_strings.xml b/res/values-ro/rom_settings_strings.xml
+new file mode 100644
+index 0000000..ed562c7
+--- /dev/null
++++ b/res/values-ro/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Setări ROM</string>
++    <string name="rom_settings_summary">Capturi de ecran securizate, pachet de sunete, optimizarea aplicațiilor</string>
++    <string name="rom_settings_ignore_secure_title">Permite capturi de ecran în aplicațiile securizate</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE este ignorat, astfel încât capturile de ecran, înregistrarea ecranului și proiectarea funcționează în orice aplicație. Videoclipurile DRM rămân negre.</string>
++    <string name="rom_settings_sound_pack_title">Pachet de sunete</string>
++    <string name="rom_settings_sound_pack_applied">Sunetele implicite de apel, notificare, alarmă și sistem au fost schimbate</string>
++    <string name="rom_settings_dexopt_title">Optimizează aplicațiile acum</string>
++    <string name="rom_settings_dexopt_summary">Aplicațiile sunt compilate după profilurile de utilizare, fără a aștepta fereastra de mentenanță din starea inactivă. Progresul este afișat într-o notificare.</string>
++    <string name="rom_settings_dexopt_started">Optimizarea aplicațiilor a început</string>
++</resources>
+diff --git a/res/values-ru/rom_settings_strings.xml b/res/values-ru/rom_settings_strings.xml
+new file mode 100644
+index 0000000..235d5de
+--- /dev/null
++++ b/res/values-ru/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Настройки ROM</string>
++    <string name="rom_settings_summary">Защищённые скриншоты, звуковой пакет, оптимизация приложений</string>
++    <string name="rom_settings_ignore_secure_title">Разрешить скриншоты в защищённых приложениях</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE игнорируется, поэтому скриншоты, запись экрана и трансляция работают в любом приложении. Видео с DRM остаётся чёрным.</string>
++    <string name="rom_settings_sound_pack_title">Звуковой пакет</string>
++    <string name="rom_settings_sound_pack_applied">Мелодия звонка, звук уведомлений, будильник и системные звуки по умолчанию изменены</string>
++    <string name="rom_settings_dexopt_title">Оптимизировать приложения сейчас</string>
++    <string name="rom_settings_dexopt_summary">Приложения компилируются по профилям использования, не дожидаясь окна обслуживания в режиме простоя. Ход выполнения виден в уведомлении.</string>
++    <string name="rom_settings_dexopt_started">Оптимизация приложений начата</string>
++</resources>
+diff --git a/res/values-si/rom_settings_strings.xml b/res/values-si/rom_settings_strings.xml
+new file mode 100644
+index 0000000..dc3afaa
+--- /dev/null
++++ b/res/values-si/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM සැකසුම්</string>
++    <string name="rom_settings_summary">ආරක්ෂිත තිර රූ, ශබ්ද පැකේජය, යෙදුම් ප්‍රශස්තකරණය</string>
++    <string name="rom_settings_ignore_secure_title">ආරක්ෂිත යෙදුම්වල තිර රූ ගැනීමට ඉඩ දෙන්න</string>
++    <string name="rom_settings_ignore_secure_summary">සෑම යෙදුමකම තිර රූ, තිර පටිගත කිරීම සහ විකාශය ක්‍රියා කිරීමට FLAG_SECURE නොසලකා හරිනු ලැබේ. DRM වීඩියෝ කළු පාටින්ම පවතී.</string>
++    <string name="rom_settings_sound_pack_title">ශබ්ද පැකේජය</string>
++    <string name="rom_settings_sound_pack_applied">පෙරනිමි රිංටෝනය, දැනුම්දීම, එලාම් සහ පද්ධති ශබ්ද වෙනස් කරන ලදි</string>
++    <string name="rom_settings_dexopt_title">යෙදුම් දැන් ප්‍රශස්ත කරන්න</string>
++    <string name="rom_settings_dexopt_summary">අක්‍රිය නඩත්තු කවුළුව එනතුරු බලා නොසිට යෙදුම් ඒවායේ භාවිත පැතිකඩ අනුව සම්පාදනය කෙරේ. ප්‍රගතිය දැනුම්දීමක පෙන්වයි.</string>
++    <string name="rom_settings_dexopt_started">යෙදුම් ප්‍රශස්තකරණය ආරම්භ විය</string>
++</resources>
+diff --git a/res/values-sk/rom_settings_strings.xml b/res/values-sk/rom_settings_strings.xml
+new file mode 100644
+index 0000000..14c9c7b
+--- /dev/null
++++ b/res/values-sk/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Nastavenia ROM</string>
++    <string name="rom_settings_summary">Zabezpečené snímky obrazovky, zvukový balík, optimalizácia aplikácií</string>
++    <string name="rom_settings_ignore_secure_title">Povoliť snímky obrazovky v zabezpečených aplikáciách</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE sa ignoruje, takže snímky obrazovky, nahrávanie obrazovky a prenos obrazu fungujú v každej aplikácii. Videá s DRM zostanú čierne.</string>
++    <string name="rom_settings_sound_pack_title">Zvukový balík</string>
++    <string name="rom_settings_sound_pack_applied">Predvolené zvuky zvonenia, upozornení, budíka a systému boli zmenené</string>
++    <string name="rom_settings_dexopt_title">Optimalizovať aplikácie teraz</string>
++    <string name="rom_settings_dexopt_summary">Aplikácie sa skompilujú podľa profilov používania bez čakania na okno údržby v nečinnosti. Priebeh sa zobrazuje v upozornení.</string>
++    <string name="rom_settings_dexopt_started">Optimalizácia aplikácií sa začala</string>
++</resources>
+diff --git a/res/values-sl/rom_settings_strings.xml b/res/values-sl/rom_settings_strings.xml
+new file mode 100644
+index 0000000..38058a2
+--- /dev/null
++++ b/res/values-sl/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Nastavitve ROM</string>
++    <string name="rom_settings_summary">Varni posnetki zaslona, paket zvokov, optimizacija aplikacij</string>
++    <string name="rom_settings_ignore_secure_title">Dovoli posnetke zaslona v varnih aplikacijah</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE se prezre, tako da posnetki zaslona, snemanje zaslona in predvajanje delujejo v vsaki aplikaciji. Videoposnetki z DRM ostanejo črni.</string>
++    <string name="rom_settings_sound_pack_title">Paket zvokov</string>
++    <string name="rom_settings_sound_pack_applied">Privzeti zvoki zvonjenja, obvestil, alarma in sistema so spremenjeni</string>
++    <string name="rom_settings_dexopt_title">Optimiziraj aplikacije zdaj</string>
++    <string name="rom_settings_dexopt_summary">Aplikacije se prevedejo glede na profile uporabe, ne da bi čakale na okno vzdrževanja v mirovanju. Napredek je prikazan v obvestilu.</string>
++    <string name="rom_settings_dexopt_started">Optimizacija aplikacij se je začela</string>
++</resources>
+diff --git a/res/values-sq/rom_settings_strings.xml b/res/values-sq/rom_settings_strings.xml
+new file mode 100644
+index 0000000..7d7bb81
+--- /dev/null
++++ b/res/values-sq/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Cilësimet e ROM</string>
++    <string name="rom_settings_summary">Pamje ekrani të sigurta, paketa e tingujve, optimizimi i aplikacioneve</string>
++    <string name="rom_settings_ignore_secure_title">Lejo pamjet e ekranit në aplikacionet e sigurta</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE injorohet që pamjet e ekranit, regjistrimi i ekranit dhe transmetimi të funksionojnë në çdo aplikacion. Videoja me DRM mbetet e zezë.</string>
++    <string name="rom_settings_sound_pack_title">Paketa e tingujve</string>
++    <string name="rom_settings_sound_pack_applied">Tingujt e parazgjedhur të zilës, njoftimeve, alarmit dhe sistemit u ndryshuan</string>
++    <string name="rom_settings_dexopt_title">Optimizo aplikacionet tani</string>
++    <string name="rom_settings_dexopt_summary">Aplikacionet përpilohen sipas profileve të përdorimit pa pritur dritaren e mirëmbajtjes në gjendje joaktive. Përparimi shfaqet në një njoftim.</string>
++    <string name="rom_settings_dexopt_started">Optimizimi i aplikacioneve filloi</string>
++</resources>
+diff --git a/res/values-sr/rom_settings_strings.xml b/res/values-sr/rom_settings_strings.xml
+new file mode 100644
+index 0000000..2c9726d
+--- /dev/null
++++ b/res/values-sr/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM подешавања</string>
++    <string name="rom_settings_summary">Безбедни снимци екрана, пакет звукова, оптимизација апликација</string>
++    <string name="rom_settings_ignore_secure_title">Дозволи снимке екрана у безбедним апликацијама</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE се игнорише па снимци екрана, снимање екрана и пребацивање раде у свакој апликацији. DRM видео остаје црн.</string>
++    <string name="rom_settings_sound_pack_title">Пакет звукова</string>
++    <string name="rom_settings_sound_pack_applied">Подразумевани звукови звона, обавештења, аларма и система су промењени</string>
++    <string name="rom_settings_dexopt_title">Оптимизуј апликације сада</string>
++    <string name="rom_settings_dexopt_summary">Апликације се компајлирају према профилима коришћења уместо да чекају прозор за одржавање у мировању. Напредак се приказује у обавештењу.</string>
++    <string name="rom_settings_dexopt_started">Оптимизација апликација је почела</string>
++</resources>
+diff --git a/res/values-sv/rom_settings_strings.xml b/res/values-sv/rom_settings_strings.xml
+new file mode 100644
+index 0000000..e5510e9
+--- /dev/null
++++ b/res/values-sv/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM-inställningar</string>
++    <string name="rom_settings_summary">Säkra skärmbilder, ljudpaket, appoptimering</string>
++    <string name="rom_settings_ignore_secure_title">Tillåt skärmbilder i säkra appar</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ignoreras så att skärmbilder, skärminspelning och casting fungerar i alla appar. DRM-video förblir svart.</string>
++    <string name="rom_settings_sound_pack_title">Ljudpaket</string>
++    <string name="rom_settings_sound_pack_applied">Standardsignal, aviseringsljud, alarm och systemljud har ändrats</string>
++    <string name="rom_settings_dexopt_title">Optimera appar nu</string>
++    <string name="rom_settings_dexopt_summary">Appar kompileras efter sina användningsprofiler i stället för att vänta på underhållsfönstret i viloläge. Förloppet visas i en avisering.</string>
++    <string name="rom_settings_dexopt_started">Appoptimeringen har startat</string>
++</resources>
+diff --git a/res/values-sw/rom_settings_strings.xml b/res/values-sw/rom_settings_strings.xml
+new file mode 100644
+index 0000000..01fb591
+--- /dev/null
++++ b/res/values-sw/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Mipangilio ya ROM</string>
++    <string name="rom_settings_summary">Picha salama za skrini, kifurushi cha sauti, uboreshaji wa programu</string>
++    <string name="rom_settings_ignore_secure_title">Ruhusu picha za skrini katika programu salama</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE hupuuzwa ili picha za skrini, kurekodi skrini na kutuma skrini zifanye kazi katika kila programu. Video za DRM hubaki nyeusi.</string>
++    <string name="rom_settings_sound_pack_title">Kifurushi cha sauti</string>
++    <string name="rom_settings_sound_pack_applied">Milio chaguomsingi ya simu, arifa, kengele na mfumo imebadilishwa</string>
++    <string name="rom_settings_dexopt_title">Boresha programu sasa</string>
++    <string name="rom_settings_dexopt_summary">Programu hukusanywa kulingana na wasifu wa matumizi badala ya kusubiri dirisha la matengenezo wakati kifaa hakitumiki. Maendeleo huonyeshwa kwenye arifa.</string>
++    <string name="rom_settings_dexopt_started">Uboreshaji wa programu umeanza</string>
++</resources>
+diff --git a/res/values-ta/rom_settings_strings.xml b/res/values-ta/rom_settings_strings.xml
+new file mode 100644
+index 0000000..e5db2aa
+--- /dev/null
++++ b/res/values-ta/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM அமைப்புகள்</string>
++    <string name="rom_settings_summary">பாதுகாப்பான ஸ்கிரீன்ஷாட்கள், ஒலித் தொகுப்பு, ஆப்ஸ் மேம்படுத்தல்</string>
++    <string name="rom_settings_ignore_secure_title">பாதுகாப்பான ஆப்ஸில் ஸ்கிரீன்ஷாட்டை அனுமதி</string>
++    <string name="rom_settings_ignore_secure_summary">ஒவ்வொரு ஆப்ஸிலும் ஸ்கிரீன்ஷாட், திரைப் பதிவு, அலைபரப்பு ஆகியவை வேலை செய்ய FLAG_SECURE புறக்கணிக்கப்படுகிறது. DRM வீடியோ கறுப்பாகவே இருக்கும்.</string>
++    <string name="rom_settings_sound_pack_title">ஒலித் தொகுப்பு</string>
++    <string name="rom_settings_sound_pack_applied">இயல்புநிலை ரிங்டோன், அறிவிப்பு, அலாரம், சிஸ்டம் ஒலிகள் மாற்றப்பட்டன</string>
++    <string name="rom_settings_dexopt_title">ஆப்ஸை இப்போதே மேம்படுத்து</string>
++    <string name="rom_settings_dexopt_summary">செயலற்ற நிலை பராமரிப்பு நேரத்திற்காகக் காத்திருக்காமல் ஆப்ஸ் அவற்றின் பயன்பாட்டு சுயவிவரங்களின்படி தொகுக்கப்படும். முன்னேற்றம் அறிவிப்பில் காட்டப்படும்.</string>
++    <string name="rom_settings_dexopt_started">ஆப்ஸ் மேம்படுத்தல் தொடங்கியது</string>
++</resources>
+diff --git a/res/values-te/rom_settings_strings.xml b/res/values-te/rom_settings_strings.xml
+new file mode 100644
+index 0000000..7f2d050
+--- /dev/null
++++ b/res/values-te/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM సెట్టింగ్‌లు</string>
++    <string name="rom_settings_summary">సురక్షిత స్క్రీన్‌షాట్‌లు, సౌండ్ ప్యాక్, యాప్ ఆప్టిమైజేషన్</string>
++    <string name="rom_settings_ignore_secure_title">సురక్షిత యాప్‌లలో స్క్రీన్‌షాట్‌లను అనుమతించు</string>
++    <string name="rom_settings_ignore_secure_summary">ప్రతి యాప్‌లో స్క్రీన్‌షాట్, స్క్రీన్ రికార్డింగ్, కాస్టింగ్ పనిచేయడానికి FLAG_SECURE ను విస్మరిస్తుంది. DRM వీడియో నల్లగానే ఉంటుంది.</string>
++    <string name="rom_settings_sound_pack_title">సౌండ్ ప్యాక్</string>
++    <string name="rom_settings_sound_pack_applied">డిఫాల్ట్ రింగ్‌టోన్, నోటిఫికేషన్, అలారం, సిస్టమ్ శబ్దాలు మారాయి</string>
++    <string name="rom_settings_dexopt_title">యాప్‌లను ఇప్పుడే ఆప్టిమైజ్ చేయి</string>
++    <string name="rom_settings_dexopt_summary">ఖాళీ సమయంలో నిర్వహణ విండో కోసం ఎదురుచూడకుండా యాప్‌లను వాటి వినియోగ ప్రొఫైల్‌ల ప్రకారం కంపైల్ చేస్తుంది. పురోగతి నోటిఫికేషన్‌లో చూపబడుతుంది.</string>
++    <string name="rom_settings_dexopt_started">యాప్ ఆప్టిమైజేషన్ ప్రారంభమైంది</string>
++</resources>
+diff --git a/res/values-th/rom_settings_strings.xml b/res/values-th/rom_settings_strings.xml
+new file mode 100644
+index 0000000..66b97a0
+--- /dev/null
++++ b/res/values-th/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">การตั้งค่า ROM</string>
++    <string name="rom_settings_summary">ภาพหน้าจอที่ปลอดภัย, ชุดเสียง, การเพิ่มประสิทธิภาพแอป</string>
++    <string name="rom_settings_ignore_secure_title">อนุญาตภาพหน้าจอในแอปที่ปลอดภัย</string>
++    <string name="rom_settings_ignore_secure_summary">ข้าม FLAG_SECURE เพื่อให้ภาพหน้าจอ การบันทึกหน้าจอ และการแคสต์ใช้งานได้ในทุกแอป วิดีโอ DRM ยังคงเป็นสีดำ</string>
++    <string name="rom_settings_sound_pack_title">ชุดเสียง</string>
++    <string name="rom_settings_sound_pack_applied">เปลี่ยนเสียงเรียกเข้า เสียงแจ้งเตือน เสียงปลุก และเสียงระบบเริ่มต้นแล้ว</string>
++    <string name="rom_settings_dexopt_title">เพิ่มประสิทธิภาพแอปตอนนี้</string>
++    <string name="rom_settings_dexopt_summary">คอมไพล์แอปตามโปรไฟล์การใช้งานโดยไม่ต้องรอช่วงบำรุงรักษาตอนว่าง ความคืบหน้าจะแสดงในการแจ้งเตือน</string>
++    <string name="rom_settings_dexopt_started">เริ่มเพิ่มประสิทธิภาพแอปแล้ว</string>
++</resources>
+diff --git a/res/values-tl/rom_settings_strings.xml b/res/values-tl/rom_settings_strings.xml
+new file mode 100644
+index 0000000..ebecd69
+--- /dev/null
++++ b/res/values-tl/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Mga setting ng ROM</string>
++    <string name="rom_settings_summary">Mga secure na screenshot, sound pack, pag-optimize ng app</string>
++    <string name="rom_settings_ignore_secure_title">Payagan ang mga screenshot sa mga secure na app</string>
++    <string name="rom_settings_ignore_secure_summary">Binabalewala ang FLAG_SECURE para gumana ang mga screenshot, screen recording, at pag-cast sa bawat app. Nananatiling itim ang DRM video.</string>
++    <string name="rom_settings_sound_pack_title">Sound pack</string>
++    <string name="rom_settings_sound_pack_applied">Napalitan ang default na ringtone, notification, alarm, at mga tunog ng system</string>
++    <string name="rom_settings_dexopt_title">I-optimize na ngayon ang mga app</string>
++    <string name="rom_settings_dexopt_summary">Kino-compile ang mga app ayon sa kanilang mga profile sa paggamit sa halip na maghintay sa idle na maintenance window. Ipinapakita ang progreso sa isang notification.</string>
++    <string name="rom_settings_dexopt_started">Nagsimula ang pag-optimize ng app</string>
++</resources>
+diff --git a/res/values-uk/rom_settings_strings.xml b/res/values-uk/rom_settings_strings.xml
+new file mode 100644
+index 0000000..12196c8
+--- /dev/null
++++ b/res/values-uk/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Налаштування ROM</string>
++    <string name="rom_settings_summary">Захищені знімки екрана, звуковий пакет, оптимізація додатків</string>
++    <string name="rom_settings_ignore_secure_title">Дозволити знімки екрана в захищених додатках</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE ігнорується, тому знімки екрана, запис екрана й трансляція працюють у будь-якому додатку. Відео з DRM залишається чорним.</string>
++    <string name="rom_settings_sound_pack_title">Звуковий пакет</string>
++    <string name="rom_settings_sound_pack_applied">Мелодію дзвінка, звук сповіщень, будильник і системні звуки за умовчанням змінено</string>
++    <string name="rom_settings_dexopt_title">Оптимізувати додатки зараз</string>
++    <string name="rom_settings_dexopt_summary">Додатки компілюються за профілями використання, не чекаючи вікна обслуговування в режимі очікування. Перебіг показано в сповіщенні.</string>
++    <string name="rom_settings_dexopt_started">Оптимізацію додатків розпочато</string>
++</resources>
+diff --git a/res/values-ur/rom_settings_strings.xml b/res/values-ur/rom_settings_strings.xml
+new file mode 100644
+index 0000000..78085b6
+--- /dev/null
++++ b/res/values-ur/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM کی ترتیبات</string>
++    <string name="rom_settings_summary">محفوظ اسکرین شاٹس، ساؤنڈ پیک، ایپ آپٹیمائزیشن</string>
++    <string name="rom_settings_ignore_secure_title">محفوظ ایپس میں اسکرین شاٹس کی اجازت دیں</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE کو نظر انداز کیا جاتا ہے تاکہ ہر ایپ میں اسکرین شاٹس، اسکرین ریکارڈنگ اور کاسٹ کام کریں۔ DRM ویڈیو کالی ہی رہتی ہے۔</string>
++    <string name="rom_settings_sound_pack_title">ساؤنڈ پیک</string>
++    <string name="rom_settings_sound_pack_applied">ڈیفالٹ رنگ ٹون، اطلاع، الارم اور سسٹم کی آوازیں تبدیل ہو گئیں</string>
++    <string name="rom_settings_dexopt_title">ایپس کو ابھی آپٹیمائز کریں</string>
++    <string name="rom_settings_dexopt_summary">غیر فعال دیکھ بھال کی ونڈو کا انتظار کیے بغیر ایپس کو ان کے استعمال کے پروفائلز کے مطابق مرتب کیا جاتا ہے۔ پیش رفت اطلاع میں دکھائی جاتی ہے۔</string>
++    <string name="rom_settings_dexopt_started">ایپ آپٹیمائزیشن شروع ہو گئی</string>
++</resources>
+diff --git a/res/values-uz/rom_settings_strings.xml b/res/values-uz/rom_settings_strings.xml
+new file mode 100644
+index 0000000..8d1a1c9
+--- /dev/null
++++ b/res/values-uz/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM sozlamalari</string>
++    <string name="rom_settings_summary">Xavfsiz skrinshotlar, ovozlar toʻplami, ilovalarni optimallashtirish</string>
++    <string name="rom_settings_ignore_secure_title">Xavfsiz ilovalarda skrinshotga ruxsat berish</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE eʼtiborga olinmaydi, shunda skrinshot, ekranni yozib olish va translatsiya har bir ilovada ishlaydi. DRM videolar qora boʻlib qoladi.</string>
++    <string name="rom_settings_sound_pack_title">Ovozlar toʻplami</string>
++    <string name="rom_settings_sound_pack_applied">Standart rington, bildirishnoma, signal va tizim ovozlari oʻzgartirildi</string>
++    <string name="rom_settings_dexopt_title">Ilovalarni hoziroq optimallashtirish</string>
++    <string name="rom_settings_dexopt_summary">Ilovalar boʻsh turgandagi xizmat oynasini kutmasdan, foydalanish profillari boʻyicha kompilyatsiya qilinadi. Jarayon bildirishnomada koʻrsatiladi.</string>
++    <string name="rom_settings_dexopt_started">Ilovalarni optimallashtirish boshlandi</string>
++</resources>
+diff --git a/res/values-vi/rom_settings_strings.xml b/res/values-vi/rom_settings_strings.xml
+new file mode 100644
+index 0000000..a61d4d5
+--- /dev/null
++++ b/res/values-vi/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Cài đặt ROM</string>
++    <string name="rom_settings_summary">Ảnh chụp màn hình bảo mật, gói âm thanh, tối ưu hóa ứng dụng</string>
++    <string name="rom_settings_ignore_secure_title">Cho phép chụp ảnh màn hình trong ứng dụng bảo mật</string>
++    <string name="rom_settings_ignore_secure_summary">FLAG_SECURE bị bỏ qua để ảnh chụp màn hình, quay màn hình và truyền màn hình hoạt động trong mọi ứng dụng. Video DRM vẫn hiển thị màu đen.</string>
++    <string name="rom_settings_sound_pack_title">Gói âm thanh</string>
++    <string name="rom_settings_sound_pack_applied">Đã đổi nhạc chuông, âm thông báo, báo thức và âm thanh hệ thống mặc định</string>
++    <string name="rom_settings_dexopt_title">Tối ưu hóa ứng dụng ngay</string>
++    <string name="rom_settings_dexopt_summary">Ứng dụng được biên dịch theo hồ sơ sử dụng thay vì chờ khung bảo trì khi rảnh. Tiến trình hiển thị trong thông báo.</string>
++    <string name="rom_settings_dexopt_started">Đã bắt đầu tối ưu hóa ứng dụng</string>
++</resources>
+diff --git a/res/values-zh-rCN/rom_settings_strings.xml b/res/values-zh-rCN/rom_settings_strings.xml
+new file mode 100644
+index 0000000..f5a59b0
+--- /dev/null
++++ b/res/values-zh-rCN/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM 设置</string>
++    <string name="rom_settings_summary">安全截图、音效包、应用优化</string>
++    <string name="rom_settings_ignore_secure_title">允许在受保护的应用中截图</string>
++    <string name="rom_settings_ignore_secure_summary">忽略 FLAG_SECURE，使截图、录屏和投屏在所有应用中都能使用。DRM 视频仍为黑屏。</string>
++    <string name="rom_settings_sound_pack_title">音效包</string>
++    <string name="rom_settings_sound_pack_applied">已更改默认铃声、通知、闹钟和系统提示音</string>
++    <string name="rom_settings_dexopt_title">立即优化应用</string>
++    <string name="rom_settings_dexopt_summary">按应用的使用配置文件进行编译，无需等待空闲维护时段。进度会显示在通知中。</string>
++    <string name="rom_settings_dexopt_started">已开始优化应用</string>
++</resources>
+diff --git a/res/values-zh-rHK/rom_settings_strings.xml b/res/values-zh-rHK/rom_settings_strings.xml
+new file mode 100644
+index 0000000..97daf91
+--- /dev/null
++++ b/res/values-zh-rHK/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM 設定</string>
++    <string name="rom_settings_summary">安全螢幕截圖、音效包、應用程式最佳化</string>
++    <string name="rom_settings_ignore_secure_title">允許在受保護的應用程式中截圖</string>
++    <string name="rom_settings_ignore_secure_summary">忽略 FLAG_SECURE，讓螢幕截圖、螢幕錄影和投放在所有應用程式中都能使用。DRM 影片仍會是黑畫面。</string>
++    <string name="rom_settings_sound_pack_title">音效包</string>
++    <string name="rom_settings_sound_pack_applied">已變更預設鈴聲、通知、鬧鐘和系統音效</string>
++    <string name="rom_settings_dexopt_title">立即最佳化應用程式</string>
++    <string name="rom_settings_dexopt_summary">依應用程式的使用設定檔進行編譯，不必等待閒置維護時段。進度會顯示在通知中。</string>
++    <string name="rom_settings_dexopt_started">已開始最佳化應用程式</string>
++</resources>
+diff --git a/res/values-zh-rTW/rom_settings_strings.xml b/res/values-zh-rTW/rom_settings_strings.xml
+new file mode 100644
+index 0000000..e9635a7
+--- /dev/null
++++ b/res/values-zh-rTW/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">ROM 設定</string>
++    <string name="rom_settings_summary">安全螢幕截圖、音效包、應用程式最佳化</string>
++    <string name="rom_settings_ignore_secure_title">允許在受保護的應用程式中螢幕截圖</string>
++    <string name="rom_settings_ignore_secure_summary">忽略 FLAG_SECURE，讓螢幕截圖、螢幕錄影和投放在所有應用程式中都能使用。DRM 影片仍會是黑畫面。</string>
++    <string name="rom_settings_sound_pack_title">音效包</string>
++    <string name="rom_settings_sound_pack_applied">已變更預設鈴聲、通知、鬧鐘和系統音效</string>
++    <string name="rom_settings_dexopt_title">立即最佳化應用程式</string>
++    <string name="rom_settings_dexopt_summary">依應用程式的使用設定檔進行編譯，不必等待閒置維護時段。進度會顯示在通知中。</string>
++    <string name="rom_settings_dexopt_started">已開始最佳化應用程式</string>
++</resources>
+diff --git a/res/values-zu/rom_settings_strings.xml b/res/values-zu/rom_settings_strings.xml
+new file mode 100644
+index 0000000..dd0c499
+--- /dev/null
++++ b/res/values-zu/rom_settings_strings.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++    <string name="rom_settings_title">Amasethingi e-ROM</string>
++    <string name="rom_settings_summary">Izithombe-skrini ezivikelekile, iphakheji lomsindo, ukuthuthukisa izinhlelo zokusebenza</string>
++    <string name="rom_settings_ignore_secure_title">Vumela izithombe-skrini ezinhlelweni zokusebenza ezivikelekile</string>
++    <string name="rom_settings_ignore_secure_summary">I-FLAG_SECURE iyashiywa ukuze izithombe-skrini, ukurekhoda isikrini nokusakaza kusebenze kuzo zonke izinhlelo zokusebenza. Ividiyo ye-DRM ihlala imnyama.</string>
++    <string name="rom_settings_sound_pack_title">Iphakheji lomsindo</string>
++    <string name="rom_settings_sound_pack_applied">Ithoni yokukhala, isaziso, i-alamu nemisindo yesistimu ezenzakalelayo kushintshiwe</string>
++    <string name="rom_settings_dexopt_title">Thuthukisa izinhlelo zokusebenza manje</string>
++    <string name="rom_settings_dexopt_summary">Izinhlelo zokusebenza ziyahlanganiswa ngokuya ngamaphrofayela azo okusetshenziswa esikhundleni sokulinda iwindi lokulondoloza lapho kungasetshenziswa. Inqubekela phambili iboniswa esaziseni.</string>
++    <string name="rom_settings_dexopt_started">Ukuthuthukiswa kwezinhlelo zokusebenza kuqalile</string>
++</resources>
+-- 
+2.56.0
+
