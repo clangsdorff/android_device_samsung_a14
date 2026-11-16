@@ -8,6 +8,7 @@ TARGET_EXCLUDE_LOS_EXTRA_CLI_UTILS := true
 TARGET_SKIP_BACKUPTOOL := true
 
 # Inherit some common Lineage stuff
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_system.mk)
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # GApps
@@ -33,6 +34,11 @@ $(foreach m,\
 PRODUCT_MODEL := SM-A145F
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
+
+PRODUCT_SYSTEM_NAME := a14nsxx
+PRODUCT_SYSTEM_BRAND := samsung
+PRODUCT_SYSTEM_MANUFACTURER := samsung
+PRODUCT_SYSTEM_MODEL := SM-A145F
 
 PRODUCT_GMS_CLIENTID_BASE := android-samsung-ss
 
