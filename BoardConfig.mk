@@ -17,6 +17,8 @@ TARGET_ARCH_VARIANT := armv8-2a
 TARGET_CPU_ABI := arm64-v8a
 # exynos 850 a55 lacks dotprod, -mcpu=cortex-a55 would emit sdot/udot
 TARGET_CPU_VARIANT := cortex-a53
+# dex2oat intersects the variant with hwcap on device, so dotprod stays off
+TARGET_CPU_VARIANT_RUNTIME := cortex-a55
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
