@@ -1,0 +1,298 @@
+From dea537358eaf7faed88a2623921f96c49b21ac59 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 17 Nov 2026 00:47:42 +0300
+Subject: [PATCH] pm: add an on demand app optimization run
+
+The background dexopt job only runs while the device is idle and
+charging, so on devices that are rarely left alone apps can stay on
+verify or stale profiles for a long time.
+
+Let Settings start the job through a protected broadcast, show an
+ongoing notification with a cancel action and report how many apps
+were optimized once the main and supplementary passes are done.
+---
+ core/res/AndroidManifest.xml                  |   4 +
+ core/res/res/drawable/ic_rom_dexopt.xml       |  11 ++
+ core/res/res/values-tr/rom_strings.xml        |  12 ++
+ core/res/res/values/rom_strings.xml           |  19 +++
+ proto/src/system_messages.proto               |   4 +
+ .../com/android/server/pm/DexOptHelper.java   |   1 +
+ .../android/server/pm/RomDexoptRunner.java    | 161 ++++++++++++++++++
+ 7 files changed, 212 insertions(+)
+ create mode 100644 core/res/res/drawable/ic_rom_dexopt.xml
+ create mode 100644 core/res/res/values-tr/rom_strings.xml
+ create mode 100644 core/res/res/values/rom_strings.xml
+ create mode 100644 services/core/java/com/android/server/pm/RomDexoptRunner.java
+
+diff --git a/core/res/AndroidManifest.xml b/core/res/AndroidManifest.xml
+index 721e530..f6cddab 100644
+--- a/core/res/AndroidManifest.xml
++++ b/core/res/AndroidManifest.xml
+@@ -883,6 +883,10 @@
+     <!-- Used for long press power torch feature - automatic turn off on timeout -->
+     <protected-broadcast android:name="com.android.server.policy.PhoneWindowManager.ACTION_TORCH_OFF" />
+ 
++    <!-- App optimization run started from Settings -->
++    <protected-broadcast android:name="com.android.server.pm.action.ROM_DEXOPT_START" />
++    <protected-broadcast android:name="com.android.server.pm.action.ROM_DEXOPT_CANCEL" />
++
+     <!-- ====================================================================== -->
+     <!--                          RUNTIME PERMISSIONS                           -->
+     <!-- ====================================================================== -->
+diff --git a/core/res/res/drawable/ic_rom_dexopt.xml b/core/res/res/drawable/ic_rom_dexopt.xml
+new file mode 100644
+index 0000000..3d46d25
+--- /dev/null
++++ b/core/res/res/drawable/ic_rom_dexopt.xml
+@@ -0,0 +1,11 @@
++<!-- "update" from Material Symbols, Apache 2.0 -->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="960"
++    android:viewportHeight="960"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M480,840Q405,840 339.5,811.5Q274,783 225.5,734.5Q177,686 148.5,620.5Q120,555 120,480Q120,405 148.5,339.5Q177,274 225.5,225.5Q274,177 339.5,148.5Q405,120 480,120Q562,120 635.5,155Q709,190 760,254L760,160L840,160L840,400L600,400L600,320L710,320Q669,264 609,232Q549,200 480,200Q363,200 281.5,281.5Q200,363 200,480Q200,597 281.5,678.5Q363,760 480,760Q585,760 663.5,692Q742,624 756,520L838,520Q823,657 720.5,748.5Q618,840 480,840ZM592,648L440,496L440,280L520,280L520,464L648,592L592,648Z"/>
++</vector>
+diff --git a/core/res/res/values-tr/rom_strings.xml b/core/res/res/values-tr/rom_strings.xml
+new file mode 100644
+index 0000000..ed78419
+--- /dev/null
++++ b/core/res/res/values-tr/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Uygulamalar optimize ediliyor</string>
++    <string name="rom_dexopt_running_text">Bu işlem bitene kadar uygulamalar yavaş olabilir</string>
++    <string name="rom_dexopt_done_title">Uygulama optimizasyonu tamamlandı</string>
++    <string name="rom_dexopt_cancelled_title">Uygulama optimizasyonu iptal edildi</string>
++    <string name="rom_dexopt_done_text">Optimize edilen uygulama: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values/rom_strings.xml b/core/res/res/values/rom_strings.xml
+new file mode 100644
+index 0000000..510bc4d
+--- /dev/null
++++ b/core/res/res/values/rom_strings.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizing apps</string>
++    <string name="rom_dexopt_running_text">Apps may be slower until this finishes</string>
++    <string name="rom_dexopt_done_title">App optimization finished</string>
++    <string name="rom_dexopt_cancelled_title">App optimization cancelled</string>
++    <string name="rom_dexopt_done_text">Apps optimized: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++
++    <java-symbol type="string" name="rom_dexopt_running_title" />
++    <java-symbol type="string" name="rom_dexopt_running_text" />
++    <java-symbol type="string" name="rom_dexopt_done_title" />
++    <java-symbol type="string" name="rom_dexopt_cancelled_title" />
++    <java-symbol type="string" name="rom_dexopt_done_text" />
++    <java-symbol type="drawable" name="ic_rom_dexopt" />
++</resources>
+diff --git a/proto/src/system_messages.proto b/proto/src/system_messages.proto
+index 1a8ae67..f15ef83 100644
+--- a/proto/src/system_messages.proto
++++ b/proto/src/system_messages.proto
+@@ -318,6 +318,10 @@ message SystemMessage {
+     // Package: android
+     NOTE_WRONG_HSUM_STATUS = 77;
+ 
++    // Progress and result of an app optimization run started from Settings.
++    // Package: android
++    NOTE_ROM_DEXOPT = 78;
++
+     // ADD_NEW_IDS_ABOVE_THIS_LINE
+     // Legacy IDs with arbitrary values appear below
+     // Legacy IDs existed as stable non-conflicting constants prior to the O release
+diff --git a/services/core/java/com/android/server/pm/DexOptHelper.java b/services/core/java/com/android/server/pm/DexOptHelper.java
+index 3e0f541..c86d7e6 100644
+--- a/services/core/java/com/android/server/pm/DexOptHelper.java
++++ b/services/core/java/com/android/server/pm/DexOptHelper.java
+@@ -286,6 +286,7 @@ public final class DexOptHelper {
+                 pm.getDexOptHelper().new DexoptDoneHandler());
+         LocalManagerRegistry.addManager(ArtManagerLocal.class, artManager);
+         sArtManagerLocalIsInitialized = true;
++        RomDexoptRunner.register(systemContext, artManager);
+ 
+         // Schedule the background job when boot is complete. This decouples us from when
+         // JobSchedulerService is initialized.
+diff --git a/services/core/java/com/android/server/pm/RomDexoptRunner.java b/services/core/java/com/android/server/pm/RomDexoptRunner.java
+new file mode 100644
+index 0000000..f429785
+--- /dev/null
++++ b/services/core/java/com/android/server/pm/RomDexoptRunner.java
+@@ -0,0 +1,161 @@
++/*
++ * SPDX-FileCopyrightText: 2026 Langsdorff
++ * SPDX-License-Identifier: Apache-2.0
++ */
++
++package com.android.server.pm;
++
++import android.annotation.NonNull;
++import android.app.Notification;
++import android.app.NotificationManager;
++import android.app.PendingIntent;
++import android.content.BroadcastReceiver;
++import android.content.Context;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.os.SystemClock;
++import android.os.UserHandle;
++import android.util.Slog;
++
++import com.android.internal.R;
++import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
++import com.android.internal.notification.SystemNotificationChannels;
++import com.android.internal.os.BackgroundThread;
++import com.android.server.art.ArtManagerLocal;
++import com.android.server.art.ReasonMapping;
++import com.android.server.art.model.DexoptResult;
++
++/** Runs the background dexopt job on request and reports it in a notification. */
++final class RomDexoptRunner implements ArtManagerLocal.DexoptDoneCallback {
++    private static final String TAG = "RomDexoptRunner";
++
++    static final String ACTION_START = "com.android.server.pm.action.ROM_DEXOPT_START";
++    static final String ACTION_CANCEL = "com.android.server.pm.action.ROM_DEXOPT_CANCEL";
++
++    private static final int NOTIF_ID = SystemMessage.NOTE_ROM_DEXOPT;
++    // The job reports its main and supplementary passes as separate results.
++    private static final long DONE_WINDOW_MS = 60_000;
++
++    private final Context mContext;
++    private final ArtManagerLocal mArtManager;
++    private final Object mLock = new Object();
++    private boolean mRunning;
++    private boolean mCancelled;
++    private long mDoneAt = -DONE_WINDOW_MS;
++    private int mUpdated;
++
++    private RomDexoptRunner(Context context, ArtManagerLocal artManager) {
++        mContext = context;
++        mArtManager = artManager;
++    }
++
++    static void register(@NonNull Context context, @NonNull ArtManagerLocal artManager) {
++        RomDexoptRunner runner = new RomDexoptRunner(context, artManager);
++        artManager.addDexoptDoneCallback(false /* onlyIncludeUpdates */,
++                BackgroundThread.getExecutor(), runner);
++        IntentFilter filter = new IntentFilter();
++        filter.addAction(ACTION_START);
++        filter.addAction(ACTION_CANCEL);
++        context.registerReceiver(new BroadcastReceiver() {
++            @Override
++            public void onReceive(Context ctx, Intent intent) {
++                if (ACTION_START.equals(intent.getAction())) {
++                    runner.start();
++                } else if (ACTION_CANCEL.equals(intent.getAction())) {
++                    runner.cancel();
++                }
++            }
++        }, filter, null, BackgroundThread.getHandler(), Context.RECEIVER_NOT_EXPORTED);
++    }
++
++    private void start() {
++        synchronized (mLock) {
++            if (mRunning) {
++                return;
++            }
++            mRunning = true;
++            mCancelled = false;
++            mUpdated = 0;
++        }
++        Slog.i(TAG, "starting background dexopt on request");
++        showProgress();
++        mArtManager.startBackgroundDexoptJob();
++    }
++
++    private void cancel() {
++        synchronized (mLock) {
++            if (!mRunning) {
++                return;
++            }
++        }
++        Slog.i(TAG, "cancelling background dexopt on request");
++        mArtManager.cancelBackgroundDexoptJob();
++    }
++
++    @Override
++    public void onDexoptDone(@NonNull DexoptResult result) {
++        if (!ReasonMapping.REASON_BG_DEXOPT.equals(result.getReason())) {
++            return;
++        }
++        int updated;
++        boolean cancelled;
++        synchronized (mLock) {
++            long now = SystemClock.elapsedRealtime();
++            if (!mRunning && now - mDoneAt > DONE_WINDOW_MS) {
++                return;
++            }
++            mRunning = false;
++            mDoneAt = now;
++            for (DexoptResult.PackageDexoptResult pkg : result.getPackageDexoptResults()) {
++                if (pkg.hasUpdatedArtifacts()) {
++                    mUpdated++;
++                }
++            }
++            mCancelled |= result.getFinalStatus() == DexoptResult.DEXOPT_CANCELLED;
++            updated = mUpdated;
++            cancelled = mCancelled;
++        }
++        showDone(updated, cancelled);
++    }
++
++    private Notification.Builder builder() {
++        return new Notification.Builder(mContext, SystemNotificationChannels.SYSTEM_CHANGES)
++                .setSmallIcon(R.drawable.ic_rom_dexopt)
++                .setColor(mContext.getColor(R.color.system_notification_accent_color))
++                .setLocalOnly(true);
++    }
++
++    private void showProgress() {
++        Intent cancel = new Intent(ACTION_CANCEL).setPackage(mContext.getPackageName());
++        PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, cancel,
++                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
++        Notification n = builder()
++                .setContentTitle(mContext.getString(R.string.rom_dexopt_running_title))
++                .setContentText(mContext.getString(R.string.rom_dexopt_running_text))
++                .setProgress(0, 0, true)
++                .setOngoing(true)
++                .setOnlyAlertOnce(true)
++                .addAction(0, mContext.getString(R.string.cancel), pi)
++                .build();
++        notify(n);
++    }
++
++    private void showDone(int updated, boolean cancelled) {
++        Notification n = builder()
++                .setContentTitle(mContext.getString(cancelled
++                        ? R.string.rom_dexopt_cancelled_title
++                        : R.string.rom_dexopt_done_title))
++                .setContentText(mContext.getString(R.string.rom_dexopt_done_text, updated))
++                .setOnlyAlertOnce(true)
++                .setAutoCancel(true)
++                .build();
++        notify(n);
++    }
++
++    private void notify(Notification n) {
++        NotificationManager nm = mContext.getSystemService(NotificationManager.class);
++        if (nm != null) {
++            nm.notifyAsUser(null, NOTIF_ID, n, UserHandle.ALL);
++        }
++    }
++}
+-- 
+2.56.0
+
