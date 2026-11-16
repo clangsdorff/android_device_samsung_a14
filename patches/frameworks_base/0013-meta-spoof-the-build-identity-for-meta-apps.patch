@@ -1,4 +1,4 @@
-From 0a507fcb89cf7553ac3275a36ec1555583d6b822 Mon Sep 17 00:00:00 2001
+From 3714ef98cb442fb119e293face372f363194c5ca Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 03:03:26 +0000
 Subject: [PATCH 13/13] meta: spoof the build identity for meta apps
@@ -11,10 +11,14 @@ add MetaPropsHooks and call it from handleBindApplication, before any
 app code runs. for the instagram and facebook packages it sets MODEL,
 DEVICE, PRODUCT, BRAND, MANUFACTURER and FINGERPRINT to a galaxy a16
 one ui 9 build. HARDWARE, BOARD and SOC_MODEL stay untouched.
+
+art write protects the static finals of android.os.Build, so
+Field.set throws. write the fields with jdk.internal.misc.Unsafe
+putReference on the class static base and field offset instead.
 ---
  core/java/android/app/ActivityThread.java     |  3 +
- .../android/internal/util/MetaPropsHooks.java | 60 +++++++++++++++++++
- 2 files changed, 63 insertions(+)
+ .../android/internal/util/MetaPropsHooks.java | 74 +++++++++++++++++++
+ 2 files changed, 77 insertions(+)
  create mode 100644 core/java/com/android/internal/util/MetaPropsHooks.java
 
 diff --git a/core/java/android/app/ActivityThread.java b/core/java/android/app/ActivityThread.java
@@ -40,10 +44,10 @@ index b7d9f6530..49d11ce08 100644
              initInstrumentation(ii, data, appContext);
 diff --git a/core/java/com/android/internal/util/MetaPropsHooks.java b/core/java/com/android/internal/util/MetaPropsHooks.java
 new file mode 100644
-index 000000000..339ed500d
+index 000000000..b9a126d43
 --- /dev/null
 +++ b/core/java/com/android/internal/util/MetaPropsHooks.java
-@@ -0,0 +1,60 @@
+@@ -0,0 +1,74 @@
 +/*
 + * SPDX-FileCopyrightText: The LineageOS Project
 + * SPDX-License-Identifier: Apache-2.0
@@ -55,6 +59,7 @@ index 000000000..339ed500d
 +import android.util.Log;
 +
 +import java.lang.reflect.Field;
++import java.lang.reflect.Method;
 +import java.util.Map;
 +
 +public final class MetaPropsHooks {
@@ -93,14 +98,27 @@ index 000000000..339ed500d
 +            return;
 +        }
 +        Log.d(TAG, "spoofing Build fields for " + packageName);
-+        for (Map.Entry<String, String> e : PROPS.entrySet()) {
-+            try {
-+                Field f = Build.class.getDeclaredField(e.getKey());
-+                f.setAccessible(true);
-+                f.set(null, e.getValue());
-+            } catch (ReflectiveOperationException ex) {
-+                Log.e(TAG, "failed to set " + e.getKey(), ex);
++        try {
++            // art rejects Field.set on android.os.Build static finals, unsafe does not check
++            Class<?> unsafeClass = Class.forName("jdk.internal.misc.Unsafe");
++            Field theOne = unsafeClass.getDeclaredField("THE_ONE");
++            theOne.setAccessible(true);
++            Object unsafe = theOne.get(null);
++            Method offsetOf = unsafeClass.getMethod("staticFieldOffset", Field.class);
++            Method baseOf = unsafeClass.getMethod("staticFieldBase", Field.class);
++            Method put = unsafeClass.getMethod("putReference",
++                    Object.class, long.class, Object.class);
++            for (Map.Entry<String, String> e : PROPS.entrySet()) {
++                try {
++                    Field f = Build.class.getDeclaredField(e.getKey());
++                    put.invoke(unsafe, baseOf.invoke(unsafe, f),
++                            offsetOf.invoke(unsafe, f), e.getValue());
++                } catch (ReflectiveOperationException ex) {
++                    Log.e(TAG, "failed to set " + e.getKey(), ex);
++                }
 +            }
++        } catch (ReflectiveOperationException ex) {
++            Log.e(TAG, "failed to get unsafe", ex);
 +        }
 +    }
 +}
