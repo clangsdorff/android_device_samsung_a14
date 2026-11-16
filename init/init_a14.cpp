@@ -71,21 +71,25 @@ void vendor_load_properties() {
 
     spoof_boot_state();
 
+    if (GetProperty("ro.boot.hardware.sku", "") == "disabled" ||
+        GetProperty("ro.boot.product.hardware.sku", "") == "disabled") {
+        property_override("ro.camera.notify_nfc", "0");
+    }
+
     // The A13 port keeps the A14 identity
-    if (GetProperty("ro.boot.bootloader", "").rfind("A135F", 0) == 0) {
+    if (GetProperty("ro.boot.bootloader", "").rfind("A135", 0) == 0) {
         set_ro_build_prop("model", "SM-A145F");
         set_ro_build_prop("device", "a14");
         set_ro_build_prop("name", "a14nsxx");
         property_override("ro.build.product", "a14");
-        return;
-    }
+    } else {
+        model = GetProperty("ro.boot.product.model", "");
+        if (model.empty()) {
+            model = GetProperty("ro.boot.em.model", "");
+        }
 
-    model = GetProperty("ro.boot.product.model", "");
-    if (model.empty()) {
-        model = GetProperty("ro.boot.em.model", "");
-    }
-
-    if (!model.empty()) {
-        set_ro_build_prop("model", model);
+        if (!model.empty()) {
+            set_ro_build_prop("model", model);
+        }
     }
 }
