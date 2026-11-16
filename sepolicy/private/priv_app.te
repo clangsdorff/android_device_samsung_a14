@@ -1,0 +1,7 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+dontaudit priv_app gsi_service:service_manager find;
+dontaudit priv_app gsid_prop:file r_file_perms;

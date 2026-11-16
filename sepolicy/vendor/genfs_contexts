@@ -61,10 +61,12 @@ genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003d/wakeup u:object_r:sys
 genfscon sysfs /devices/platform/13830000.i2c/i2c-0/0-003b/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/13870000.i2c/i2c-4/4-0020/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/11d00000.spi/spi_master/spi1/spi1.0/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/11d00000.spi/spi_master/spi1/spi1.0/input u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/14400000.is_sensor3/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/gnssif/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/14a50000.abox/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/14420000.is_sensor4/wakeup u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/14420000.is_sensor2/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/14400000.is_sensor1/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/gpio_keys/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/cpif/wakeup u:object_r:sysfs_wakeup:s0

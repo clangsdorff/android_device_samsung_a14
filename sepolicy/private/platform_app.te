@@ -1,0 +1,6 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+dontaudit platform_app shell_data_file:dir getattr;
