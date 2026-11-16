@@ -2,25 +2,17 @@
 
 # ADSP / Audio
 vendor/bin/hw/secaudiohalaidl
-vendor/etc/a2dpsink_audio_policy_configuration.xml
 vendor/etc/aidl/le_audio/aidl_audio_set_configurations.json
 vendor/etc/aidl/le_audio/aidl_audio_set_scenarios.json
 vendor/etc/audio_board_info.xml
 vendor/etc/audio_effects.xml
 vendor/etc/audio_policy_configuration.xml
-vendor/etc/audio_policy_configuration_sec.xml
 vendor/etc/audio_policy_volumes.xml
 vendor/etc/bluetooth_audio_policy_configuration.xml
 vendor/etc/default_volume_tables.xml
-vendor/etc/dolby/dax-default.xml
-vendor/etc/hearing_aid_audio_policy_configuration.xml
 vendor/etc/init/secaudiohalaidl.rc
 vendor/etc/mixer_gains.xml
 vendor/etc/mixer_paths.xml
-vendor/etc/r_submix_audio_policy_configuration.xml
-vendor/etc/sec_audio_volume_curve.xml
-vendor/etc/situation_audio_policy_volumes_sec.xml
-vendor/etc/SoundBoosterParam.txt
 vendor/etc/usb_audio_policy_configuration.xml
 vendor/etc/vintf/manifest/secaudiohalaidl_manifest.xml
 vendor/firmware/abox_tplg.bin
@@ -44,35 +36,19 @@ vendor/firmware/txse2.bin
 vendor/lib/hw/android.hardware.soundtrigger@2.0-impl.so
 vendor/lib/hw/audio.primary.default.so
 vendor/lib/hw/audio.primary.s5e3830.so
-vendor/lib/lib_SoundAlive_3DPosition_ver202.so
-vendor/lib/lib_SoundAlive_AlbumArt_ver105.so
-vendor/lib/lib_SoundAlive_play_plus_ver400.so
 vendor/lib/lib_SoundAlive_SRC384_ver320.so
 vendor/lib/lib_soundaliveresampler.so
-vendor/lib/lib_SoundBooster_ver1100.so
 vendor/lib/libaboxdump.so
 vendor/lib/libaudio-ril.so
 vendor/lib/libaudioparamupdate.so
 vendor/lib/libaudioproxy.so
 vendor/lib/liblastaboxmsg.so
-vendor/lib/libsecaudiocoreutils.so
 vendor/lib/libsecaudioinfo.so
-vendor/lib/libsehbluetooth_audio_session_aidl.so
-vendor/lib/libspatializerparamstorage.so
 vendor/lib/soundfx/libaudioeffectoffload.so
-vendor/lib/vendor.samsung.hardware.bluetooth.audio-impl.so
-vendor/lib/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 vendor/lib64/hw/audio.primary.default.so
 vendor/lib64/hw/libsecaudiohal_aidl.so
-vendor/lib64/lib_SoundAlive_3DPosition_ver202.so
-vendor/lib64/lib_SoundAlive_AlbumArt_ver105.so
-vendor/lib64/lib_SoundAlive_play_plus_ver400.so
-vendor/lib64/lib_SoundBooster_ver1100.so
-vendor/lib64/libsecaudiocoreutils.so
-vendor/lib64/libsecaudiohalproxy_vendor.so
 vendor/lib64/libsecaudioinfo.so
 vendor/lib64/libsehbluetooth_audio_session_aidl.so
-vendor/lib64/libspatializerparamstorage.so
 vendor/lib64/soundfx/libaudioeffectoffload.so
 vendor/lib64/vendor.samsung.hardware.audio-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.bluetooth.audio-impl.so
@@ -80,7 +56,6 @@ vendor/lib64/vendor.samsung.hardware.bluetooth.audio-V2-ndk.so
 
 # Bluetooth
 vendor/etc/bluetooth/bt_did.conf
-vendor/etc/btcon.json
 vendor/lib/libbt-vendor.so;MODULE_SUFFIX=_stock
 vendor/lib64/libbt-vendor.so;MODULE_SUFFIX=_stock
 
@@ -106,15 +81,11 @@ vendor/firmware/tdnr_HI5022.json
 vendor/firmware/tdnr_HI556.json
 vendor/firmware/tdnr_S5KJN1.json
 vendor/firmware/tdnr_SC201.json
-vendor/lib/hw/camera.s5e3830.so
 vendor/lib/libBeauty_v4.camera.samsung.so
 vendor/lib/libbeautyshot.arcsoft.so
 vendor/lib/libDualCamBokehCapture.camera.samsung.so
 vendor/lib/libexifa.camera.samsung.so
-vendor/lib/libexynoscamera3.so
-vendor/lib/libexynoscamera_plugin.so
 vendor/lib/libexynoscamera_plugin_utils.so
-vendor/lib/libexynoscamera_tdnr_plugin.so
 vendor/lib/libFace_Landmark_API.camera.samsung.so
 vendor/lib/libface_landmark_lite.arcsoft.so
 vendor/lib/libheifcapture.so
@@ -125,8 +96,6 @@ vendor/lib/libLocalTM_capture_core.camera.samsung.so
 vendor/lib/libLocalTM_wrapper.camera.samsung.so
 vendor/lib/libOpenCv.camera.samsung.so
 vendor/lib/libpadm.so
-vendor/lib/libSEF.quram.so
-vendor/lib/libvideobeauty.arcsoft.so
 vendor/lib64/hw/camera.s5e3830.so
 vendor/lib64/hw/camera.unihal.default.so
 vendor/lib64/libBeauty_v4.camera.samsung.so
@@ -173,10 +142,6 @@ vendor/lib64/libdrmresource.so
 vendor/lib64/vendor.samsung.hardware.security.widevine.keyprov-V1-ndk.so
 
 # Fingerprint
-vendor/app/mcRegistry/00060308060501020000000000000000.tabin
-vendor/app/mcRegistry/07061000000000000000000000000000.tlbin
-vendor/app/mcRegistry/09090000070100010000000000000000.tlbin
-vendor/app/mcRegistry/FFFFFFFFD00000000000000000000016.tlbin
 vendor/etc/init/init.fingerprint.rc
 vendor/lib/libegis_fp_normal_sensor_test.so
 vendor/lib64/libegis_fp_normal_sensor_test.so
@@ -185,7 +150,6 @@ vendor/lib64/libegis_fp_normal_sensor_test.so
 vendor/bin/hw/gps.sh
 vendor/bin/hw/gpsd
 vendor/etc/gnss/ca.pem
-vendor/etc/gnss/deleteLogCommands
 vendor/etc/gnss/gps.cfg
 vendor/etc/gnss/gps.debug.cfg
 vendor/etc/gps_debug.conf
@@ -204,10 +168,8 @@ vendor/lib/hw/vulkan.mali.so
 vendor/lib/libacryl.so
 vendor/lib/libexynosdisplay.so
 vendor/lib/libExynosHWCService.so
-vendor/lib/libexynosscaler.so
 vendor/lib/libexynosutils.so
 vendor/lib/libexynosv4l2.so
-vendor/lib/libgpudataproducer.so
 vendor/lib/libion_exynos.so
 vendor/lib/libOpenCL.so;MODULE_SUFFIX=_stock
 vendor/lib64/android.hardware.graphics.extension.composer3-V2-ndk.so
@@ -232,11 +194,9 @@ vendor/bin/hw/android.hardware.security.keymint-service:vendor/bin/hw/android.ha
 vendor/bin/tzdaemon
 vendor/bin/tzts_daemon
 vendor/bin/vendor.samsung.hardware.security.fkeymaster-service
-vendor/etc/init/pa_daemon_teegris.rc
 vendor/etc/init/teegris.rc
 vendor/etc/init/vendor.samsung.hardware.security.fkeymaster-service.rc
 vendor/etc/vintf/manifest/vendor.samsung.hardware.security.fkeymaster-service.xml
-vendor/lib/libsfp_teegw.so
 vendor/lib/libteecl.so
 vendor/lib64/libengmode_client.so
 vendor/lib64/libsfp_teegw.so
@@ -246,10 +206,8 @@ vendor/lib64/libteecl.so
 vendor/lib64/vendor.samsung.hardware.keymint-V2-ndk.so
 vendor/lib64/vendor.samsung.hardware.security.fkeymaster-V1-ndk.so
 vendor/tee/00000000-0000-0000-0000-000000534b4d
-vendor/tee/00000000-0000-0000-0000-0050524f4341
 vendor/tee/00000000-0000-0000-0000-0053545354ab
 vendor/tee/00000000-0000-0000-0000-00575644524d
-vendor/tee/00000000-0000-0000-0000-42494f535542
 vendor/tee/00000000-0000-0000-0000-4662436b6d52
 vendor/tee/00000000-0000-0000-0000-474154454b45
 vendor/tee/00000000-0000-0000-0000-4b45594d5354
@@ -262,7 +220,6 @@ vendor/tee/driver/00000000-0000-0000-0000-494363447256
 vendor/tee/driver/00000000-0000-0000-0000-564c544b4456
 
 # Media / Codec2
-vendor/etc/seccomp_policy/mediaextractor_sec.policy
 vendor/firmware/mfc_fw.bin
 vendor/lib/libc2filterplugin.so
 vendor/lib/libExynosC2ComponentRM.so
@@ -295,12 +252,8 @@ vendor/lib64/libsec2lsi_conversion.so
 vendor/lib64/libstagefright_foundation_vendor.so
 
 # Misc
-vendor/bin/hcgcd
 vendor/bin/hw/vendor.samsung.hardware.sysinput-service
-vendor/bin/init.insmod.sh
-vendor/bin/iod
 vendor/etc/floating_feature.xml
-vendor/etc/init.insmod.s5e3830.cfg
 vendor/etc/init/init.s5e3830.rc
 vendor/etc/init/init.vendor.onebinary.rc
 vendor/etc/init/init.vendor.sysfw.rc
@@ -315,7 +268,6 @@ vendor/firmware/MCD_NACHO_slog.bin
 vendor/firmware/os.checked.bin
 vendor/lib/arm.graphics-V1-ndk.so
 vendor/lib/lib_SamsungRec_07010.so
-vendor/lib/libcsc.so
 vendor/lib/libdisplayaiqe.so
 vendor/lib/libdisplaycolor_default.so
 vendor/lib/libdisplaycolorwrapper.so
@@ -323,37 +275,19 @@ vendor/lib/libexynosgraphicbuffer.so
 vendor/lib/libfloatingfeature.so
 vendor/lib/libgf_in_system_lib.so
 vendor/lib/libhdrwrapper.so
-vendor/lib/libhwjpeg.so
-vendor/lib/liblivefocus_preview_engine.so
-vendor/lib/liblivefocus_preview_interface.so
-vendor/lib/libmfb.so
 vendor/lib/libmpbase.so
 vendor/lib/libphotohdr.so
-vendor/lib/libprofileparamstorage.so
 vendor/lib/librecordalive.so
-vendor/lib/libremosaic_wrapper.so
-vendor/lib/libsavsac.so
 vendor/lib/libsavscmn.so
 vendor/lib/libsavsvc.so
 vendor/lib/libsecnativefeature.so
-vendor/lib/libsemnativecarrierfeature.so
 vendor/lib/libsimba.media.samsung.so
-vendor/lib/libskhynix_q2b_5022Q_shared.so
-vendor/lib/libsnaace.so
-vendor/lib/libsnamrnb.so
-vendor/lib/libsnamrwb.so
-vendor/lib/libuniapi.so
-vendor/lib/libuniplugin.so
-vendor/lib/libuuid.so;MODULE_SUFFIX=_vendor
-vendor/lib/libvideobeauty_interface.so
 vendor/lib64/arm.graphics-V1-ndk.so
 vendor/lib64/lib_samsung_profiler.so
 vendor/lib64/libcsc.so
-vendor/lib64/libdeccfg.so
 vendor/lib64/libdisplayaiqe.so
 vendor/lib64/libdisplaycolor_default.so
 vendor/lib64/libdisplaycolorwrapper.so
-vendor/lib64/libdk_vnd_service_core.so
 vendor/lib64/libdlrmsc.so
 vendor/lib64/libdualcam_refocus_image.so
 vendor/lib64/libdualcam_refocus_video.so
@@ -373,10 +307,8 @@ vendor/lib64/libmfb.so
 vendor/lib64/libmpbase.so
 vendor/lib64/liboemcrypto.so
 vendor/lib64/libphotohdr.so
-vendor/lib64/libprofileparamstorage.so
 vendor/lib64/libremosaic_wrapper.so
 vendor/lib64/libremosaiclib.so
-vendor/lib64/libsavsac.so
 vendor/lib64/libsavscmn.so
 vendor/lib64/libsavsvc.so
 vendor/lib64/libscaler_hw.unifunc.so
@@ -385,10 +317,6 @@ vendor/lib64/libsecnativefeature.so
 vendor/lib64/libsemnativecarrierfeature.so
 vendor/lib64/libsimba.media.samsung.so
 vendor/lib64/libskhynix_q2b_5022Q_shared.so
-vendor/lib64/libsnaace.so
-vendor/lib64/libsnamrnb.so
-vendor/lib64/libsnamrwb.so
-vendor/lib64/libstork_shared.so
 vendor/lib64/libuniapi.so
 vendor/lib64/libuniplugin.so
 vendor/lib64/libuuid.so;MODULE_SUFFIX=_vendor
@@ -396,8 +324,6 @@ vendor/lib64/libVendorSemDataProps.so
 vendor/lib64/libVendorSemTelephonyProps.so
 vendor/lib64/libvideobeauty_interface.so
 vendor/lib64/libvkmanager_vendor.so
-vendor/lib64/libvkservice.so
-vendor/lib64/service-listener-ext-aidl-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.sysinput-V2-ndk.so
 
 # NFC
@@ -413,12 +339,10 @@ vendor/lib64/libsensorndkbridge.so:vendor/lib64/libsensorndkbridge_sec.so;FIX_SO
 vendor/lib64/libtinyalsa.so:vendor/lib64/libtinyalsa_sec.so;FIX_SONAME
 
 # Thermal
-vendor/lib/vendor.samsung.hardware.thermal@1.0.so
 vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
 
 # RIL
 vendor/bin/hw/rild
-vendor/etc/init/vendor.samsung.rilchip.slsi.rc
 vendor/etc/init/vendor.samsung.rild.rc
 vendor/etc/locale/plmn_delta_eng.bin
 vendor/etc/locale/plmn_delta_zh-rCN.bin
@@ -433,7 +357,6 @@ vendor/etc/plmn_delta_hktw.bin
 vendor/etc/plmn_delta_ltn.bin
 vendor/etc/plmn_delta_usagsm.bin
 vendor/etc/plmn_se13_prebuilt.bin
-vendor/etc/vintf/manifest/vendor.samsung.hardware.radio.exclude.slsi.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.radio_manifest_2_202404.xml
 vendor/etc/vintf/manifest/vendor.samsung.hardware.sehradio_manifest_2_202404.xml
 vendor/lib/libsecril-client.so
@@ -452,11 +375,7 @@ vendor/etc/init/init.sensorhub.rc
 vendor/etc/sensors/hals.conf
 vendor/lib/libqfp_sensortest.so
 vendor/lib/libSamsungPostProcessConvertor.so
-vendor/lib/libsensorlistener.so
 vendor/lib/libsynaFpSensorTestNwd.so;DISABLE_CHECKELF
-vendor/lib/sensors.grip.so
-vendor/lib/sensors.inputvirtual.so
-vendor/lib/sensors.sensorhub.so
 vendor/lib64/libqfp_sensortest.so
 vendor/lib64/libsensorlistener.so
 vendor/lib64/libsynaFpSensorTestNwd.so
@@ -466,9 +385,6 @@ vendor/lib64/sensors.sensorhub.so
 
 # Wi-Fi
 vendor/bin/hw/macloader
-vendor/bin/hw/mfgloader
-vendor/bin/slsi_wlan_udi_log
-vendor/bin/slsi_wlan_udi_log_decode
 vendor/bin/wlbtd
 vendor/etc/init/android.hardware.security.keymint-service.rc:vendor/etc/init/android.hardware.security.keymint-service.samsung.rc
 vendor/etc/init/wifi.rc
