@@ -8,3 +8,4 @@ $(call inherit-product, device/samsung/a14/lineage_common.mk)
 
 PRODUCT_NAME := lineage_a13
 PRODUCT_DEVICE := a13
+PRODUCT_SYSTEM_DEVICE := a13
