@@ -1,0 +1,748 @@
+From 28b16e592858321ec6d37e774ffbe4e1a439f566 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 17 Nov 2026 01:18:47 +0300
+Subject: [PATCH 3/3] carriersettings: map samsung cs fallback errors to cs
+ retry
+
+samsung's ims stack redials over cs when the network answers an invite
+with one of the operator's voice_csfb_error_code_list codes, e.g. 503
+on mobifone. the pixel configs have no such mapping, so these calls
+just end.
+
+translate each operator's list into ims_reasoninfo_mapping_string_array
+entries that remap the matching sip reason codes, and the not
+registered code our ims stack reports after a 503, to
+CODE_LOCAL_CALL_CS_RETRY_REQUIRED. busy, cancelled and rejected stay
+as they are, and existing mappings are kept.
+---
+ carriersettings/configs/2degrees_nz.pb     | Bin 1368 -> 1490 bytes
+ carriersettings/configs/ais_th.pb          | Bin 1124 -> 1235 bytes
+ carriersettings/configs/astca_as.pb        | Bin 793 -> 915 bytes
+ carriersettings/configs/axis_id.pb         | Bin 267 -> 402 bytes
+ carriersettings/configs/batelco_bh.pb      | Bin 784 -> 884 bytes
+ carriersettings/configs/best_la.pb         | Bin 100 -> 222 bytes
+ carriersettings/configs/dito_ph.pb         | Bin 769 -> 891 bytes
+ carriersettings/configs/docomomvno_jp.pb   | Bin 4778 -> 5144 bytes
+ carriersettings/configs/eastlink_ca.pb     | Bin 1510 -> 1667 bytes
+ carriersettings/configs/eplus_de.pb        | Bin 3996 -> 4143 bytes
+ carriersettings/configs/esk_ca.pb          | Bin 92 -> 249 bytes
+ carriersettings/configs/esn_gb.pb          | Bin 4154 -> 4289 bytes
+ carriersettings/configs/grameenphone_bd.pb | Bin 339 -> 439 bytes
+ carriersettings/configs/imagine_bn.pb      | Bin 122 -> 244 bytes
+ carriersettings/configs/indosat_id.pb      | Bin 424 -> 524 bytes
+ carriersettings/configs/maxis_my.pb        | Bin 1286 -> 1421 bytes
+ carriersettings/configs/mectel_mm.pb       | Bin 60 -> 182 bytes
+ carriersettings/configs/mobifone_vn.pb     | Bin 357 -> 479 bytes
+ carriersettings/configs/ncell_np.pb        | Bin 246 -> 357 bytes
+ carriersettings/configs/ntel_ng.pb         | Bin 58 -> 193 bytes
+ carriersettings/configs/o2_cz.pb           | Bin 1659 -> 1759 bytes
+ carriersettings/configs/o2_de.pb           | Bin 3885 -> 4032 bytes
+ carriersettings/configs/ooredoo_kw.pb      | Bin 1007 -> 1142 bytes
+ carriersettings/configs/ooredoo_qa.pb      | Bin 807 -> 1009 bytes
+ carriersettings/configs/orange_gp.pb       | Bin 2297 -> 2454 bytes
+ carriersettings/configs/orange_lu.pb       | Bin 1529 -> 1686 bytes
+ carriersettings/configs/orange_md.pb       | Bin 350 -> 507 bytes
+ carriersettings/configs/orange_pl.pb       | Bin 4045 -> 4202 bytes
+ carriersettings/configs/orange_re.pb       | Bin 2147 -> 2304 bytes
+ carriersettings/configs/others.pb          | Bin 127543 -> 129555 bytes
+ carriersettings/configs/pelephone_il.pb    | Bin 1049 -> 1184 bytes
+ carriersettings/configs/pn_xx.pb           | Bin 565 -> 665 bytes
+ carriersettings/configs/robi_bd.pb         | Bin 254 -> 376 bytes
+ carriersettings/configs/sbb_ch.pb          | Bin 51 -> 173 bytes
+ carriersettings/configs/smart_ph.pb        | Bin 1179 -> 1279 bytes
+ carriersettings/configs/smile_ng.pb        | Bin 59 -> 194 bytes
+ carriersettings/configs/smile_tz.pb        | Bin 59 -> 194 bytes
+ carriersettings/configs/smile_ug.pb        | Bin 59 -> 194 bytes
+ carriersettings/configs/starhub_sg.pb      | Bin 2655 -> 2777 bytes
+ carriersettings/configs/stc_kw.pb          | Bin 1141 -> 1276 bytes
+ carriersettings/configs/telefonica_de.pb   | Bin 209 -> 298 bytes
+ carriersettings/configs/telenor_pk.pb      | Bin 242 -> 342 bytes
+ carriersettings/configs/telkomsel_id.pb    | Bin 393 -> 515 bytes
+ carriersettings/configs/truemove_th.pb     | Bin 1564 -> 1686 bytes
+ carriersettings/configs/turktelekom_tr.pb  | Bin 721 -> 856 bytes
+ carriersettings/configs/tuvalu_nz.pb       | Bin 143 -> 265 bytes
+ carriersettings/configs/unn_bn.pb          | Bin 118 -> 240 bytes
+ carriersettings/configs/upc_ch.pb          | Bin 171 -> 293 bytes
+ carriersettings/configs/viettel_vn.pb      | Bin 813 -> 935 bytes
+ carriersettings/configs/vinaphone_vn.pb    | Bin 598 -> 720 bytes
+ carriersettings/configs/vodafone_de.pb     | Bin 3725 -> 3825 bytes
+ carriersettings/configs/vodafone_es.pb     | Bin 3044 -> 3144 bytes
+ carriersettings/configs/vodafone_gb.pb     | Bin 3681 -> 3820 bytes
+ carriersettings/configs/vodafone_it.pb     | Bin 3730 -> 3830 bytes
+ carriersettings/configs/vodafone_qa.pb     | Bin 977 -> 1099 bytes
+ carriersettings/configs/vodafone_tr.pb     | Bin 2305 -> 2416 bytes
+ carriersettings/configs/vodafonelab_de.pb  | Bin 3733 -> 3833 bytes
+ carriersettings/configs/vodafonepng_nz.pb  | Bin 90 -> 225 bytes
+ carriersettings/configs/we_eg.pb           | Bin 246 -> 368 bytes
+ carriersettings/configs/zain_kw.pb         | Bin 934 -> 1069 bytes
+ 60 files changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/carriersettings/configs/2degrees_nz.pb b/carriersettings/configs/2degrees_nz.pb
+index 378e2b1e28b0eabfc47162e5744317dc52ec310b..50dc4a3198e9e70e9ffd85363aff7ff5eb9928b7 100644
+GIT binary patch
+delta 130
+zcmcb?b%}dJ1Z$O2g-{una%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTgiH
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiMq-*8
+J!bMG?3IM6RDGvYu
+
+delta 7
+Ocmcb_eS>R51S<dyECS5{
+
+diff --git a/carriersettings/configs/ais_th.pb b/carriersettings/configs/ais_th.pb
+index bf07b598caab42780dcc936c63fd5b7bda5dca23..44c25909ff57a2ea5dc75778c7e5040394b869c3 100644
+GIT binary patch
+delta 119
+zcmaFDahY>N3QN9Hu243Ya%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTb}r
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiHZ?>r
+Gp`rlnB_@vm
+
+delta 7
+Ocmcc2`GjLb3JU-YasuH1
+
+diff --git a/carriersettings/configs/astca_as.pb b/carriersettings/configs/astca_as.pb
+index 6cef16677e695ed4de176eed74d5306879f06abf..ac8ad4e5e8ff546000ba0d924943e242f603f0b0 100644
+GIT binary patch
+delta 130
+zcmbQqHko~cBy*Kgg-{una%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTgiH
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiMq-*8
+J!bMG?3IIlfC`bSR
+
+delta 7
+OcmbQtK9g;OBr^aBkOBq(
+
+diff --git a/carriersettings/configs/axis_id.pb b/carriersettings/configs/axis_id.pb
+index 79da7f4dda084014d7a4ecacd73edf7442bf00fa..93bac5b772ab083150e80c1553240b003ffaadc5 100644
+GIT binary patch
+delta 144
+zcmeBXn#8<;o3UQ0g;A)HkxMx<w>Z8iHL*B9FEcMKKR!3Hpdd3ZJ-)c42t*|o6(v?0
+zMR6&b8XD9%C+6fRB<JTA<fN9QrYNN56sMMFq!y*t7#bLwaB&(M8`Wsl7@C-IaT+5t
+Pjp3rEhHxf_DO524JIE@#
+
+delta 7
+OcmbQl+|9Isn-KsA{Q=(q
+
+diff --git a/carriersettings/configs/batelco_bh.pb b/carriersettings/configs/batelco_bh.pb
+index e46e2868222e2dc67fd5ed70a4b779465892b851..71a032156787d71cbec020f44e8e5da057810bc4 100644
+GIT binary patch
+delta 108
+zcmbQh_JwVO0CS2`l28Jda%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTeLZ
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiHZ_JY
+E0SM0{ZU6uP
+
+delta 7
+OcmeyuHi2z}05bp!@&Z%<
+
+diff --git a/carriersettings/configs/best_la.pb b/carriersettings/configs/best_la.pb
+index 859ba294bbfaed02f833b563c8bf01fad8538f87..2a7729b879eb80ccb9f489eac98ae5213324fd73 100644
+GIT binary patch
+delta 128
+zcmYef$2cLSN~uDqj7vE)w>Z8iHL*B9FEcMKKR!3Hpdd3ZJ-)c42t*|o6(v?0`Ex0n
+z8XD9%C+6fRB<JTA<fN9QrYNN56sMMFq!y*t7#bLwaB&(M8`Wsl7@C-IaT+5rO%36q
+Hrcea{TjwZx
+
+delta 5
+Mcmcb|m@**+00$2OH~;_u
+
+diff --git a/carriersettings/configs/dito_ph.pb b/carriersettings/configs/dito_ph.pb
+index b0e6946f8dc3859872817ad3c7ea421b3bc898c5..bd6ac6ac5d10e55d54f98dac2e7f38ff0e17bed3 100644
+GIT binary patch
+delta 130
+zcmZo<`^~n2k-18#La2;OIWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvP(p
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$BQZ@4
+J;i9Hc1ps0kD1QI|
+
+delta 7
+Ocmey(*2uPjkr@CBx&l1_
+
+diff --git a/carriersettings/configs/docomomvno_jp.pb b/carriersettings/configs/docomomvno_jp.pb
+index d8ddef7ee7508e3a9d596d54c3671547aad9845a..ba3c8a911ad19557d0af9984d99b78230b103445 100644
+GIT binary patch
+delta 303
+zcmYL@%?ScA6b2y&A@L#$HXtY>2*&rPy#=<2y;#GZEWvUVoABahZbSGo^XC2I_?(B;
+z?wf{pnm*-_UTNB_&tu6|uI<#SddVUcRM5cas27lLicF;sjDayQY2#8ha?ZlNE1a_5
+Xc)fQF?g?_i5kVpr?>0*yj=%T^5Di84
+
+delta 7
+OcmbQCu}XErDj@(2djk9b
+
+diff --git a/carriersettings/configs/eastlink_ca.pb b/carriersettings/configs/eastlink_ca.pb
+index babbbe191935fb25d42844e009a5c0b9273971f7..b99bd0e2962c4e3b93336c780f2183de10bab79a 100644
+GIT binary patch
+delta 166
+zcmaFH-ORh;8Ed`LEJmT}j9ki@xyA8Csfoq;d6{`>`SH1l1qGRT>G8!SMIb7%s3@`0
+zsDMk+)X<>DIWZ?kAvr&{ASbmXHANvcr#Q7dBef{C#?Zjfgp1SA*r-OU#?Zu!i_;jH
+VX^IdvgEQq!4B%{2Lj)6Q1ON>VF(v>2
+
+delta 7
+OcmZqXea5}v87lw`bpss$
+
+diff --git a/carriersettings/configs/eplus_de.pb b/carriersettings/configs/eplus_de.pb
+index adf057ecd309a821f773c25d3a908e92a238443f..f84c3c3d78134456abc703cfd3ad844902850830 100644
+GIT binary patch
+delta 35
+rcmbOuzg}U(9DY`%35-I$lbx8=8Pg_bF-LQAaT*#M)o9finwS9qyRQjv
+
+delta 7
+OcmZ3lFh_pF9DV={Zvy53
+
+diff --git a/carriersettings/configs/esk_ca.pb b/carriersettings/configs/esk_ca.pb
+index 20348459310c3ce8a7621f10fc5f257326523b3c..866ec94d2f115421f8af5f531aec5663f0b5bcae 100644
+GIT binary patch
+delta 164
+zcma#~$v7dVUTGGi&~!#F<;>jT_@dOr;{3eKytMrI+{A){%)IpY;*uf|l~`1iSZP$i
+zrD$qsP~)7KlcSKFpIeZVT9TTgkeXARTAq<wlv-nGU}(a{X=rRzqg7*QV#dX3jLbAe
+Th?>EfawZ0Fwy7b42{i%$f0i&z
+
+delta 5
+Mcmey#7&9RT00(vgLjV8(
+
+diff --git a/carriersettings/configs/esn_gb.pb b/carriersettings/configs/esn_gb.pb
+index d2b161a061a30a97a99b7cf05ac655bbd25c804a..3f5246353c8340cf6ee84fdcb131b18af0ed6ed2 100644
+GIT binary patch
+delta 144
+zcmdm`a8PlBl|a2x3!_jYBbRb!ZgG53YGQGIUS?ieetd3XK|y9-dVFz75r|4GDoU(0
+zisDi<H8iMkPRz+sNY2kK$Vn|pO;JeADNZfVNG(dOF*GnV;o>wjHmcF8F*Gsb;xslj
+QL@<#=jp3pkrX~<J0JE$snE(I)
+
+delta 7
+OcmX@8xJzM!l>h(?$^y3l
+
+diff --git a/carriersettings/configs/grameenphone_bd.pb b/carriersettings/configs/grameenphone_bd.pb
+index 34f11e98d5519a25648827a58b379fb2e8dcbd39..012dc71d26d8f58ea698c6f64b8c885d88d156e9 100644
+GIT binary patch
+delta 108
+zcmcc2w4HfFFk^~Rl28Jda%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTeLZ
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MihA{ym
+C{3ELX
+
+delta 7
+Ocmdnae3@xOFe3m9_yUvw
+
+diff --git a/carriersettings/configs/imagine_bn.pb b/carriersettings/configs/imagine_bn.pb
+index a38f402c3231f6e7167dcf8da1828fc61a4c215f..5ea20dab1f9987ab0618e04aa623e50097d2a21b 100644
+GIT binary patch
+delta 128
+zcmb>W!Z@L-N~uDqj7vE)w>Z8iHL*B9FEcMKKR!3Hpdd3ZJ-)c42t*|o6(v?0`Ex0n
+z8XD9%C+6fRB<JTA<fN9QrYNN56sMMFq!y*t7#bLwaB&(M8`Wsl7@C-IaT+5rO%36q
+Hrcea{e0eCm
+
+delta 5
+McmeyuST&&v00-3qdH?_b
+
+diff --git a/carriersettings/configs/indosat_id.pb b/carriersettings/configs/indosat_id.pb
+index c5c913692169cd84cb18e822b184e97064751cf8..7f98fe60be33fe30cd648f5d14e94e7038721514 100644
+GIT binary patch
+delta 108
+zcmZ3%+{3bA1!Ia*l28Jda%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTeLZ
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MihA{ym
+C5hJVs
+
+delta 7
+OcmeBSS;4$v1tS0or~;J$
+
+diff --git a/carriersettings/configs/maxis_my.pb b/carriersettings/configs/maxis_my.pb
+index 5267babcc683dbc6c43387bc9087060e941804e0..7b74ba9e05f8ad8ecadfeac40a9c2b0e2ab18f08 100644
+GIT binary patch
+delta 144
+zcmZqU>gC?R##*n`!YI_p$fcZ_TO41Mnpm8lmzkHAAD^38P>`9I9$#Ei1fmj)iV`c0
+zqPP@I4Gn6X6LWGDlJj#5a#BlDQxsBjic`xoQj1b+3=IrTxHt`sjcT-N3{A|qIE|5*
+QriO4)Q-lHzQ)7rQ06w28!T<mO
+
+delta 7
+OcmeC>ZsXd(#tHxl3jyQ+
+
+diff --git a/carriersettings/configs/mectel_mm.pb b/carriersettings/configs/mectel_mm.pb
+index 4d0e96c20840360860b8fae81c89f93e3e796985..53059f71d2670e089ff8f0ccd9883d886ffc077c 100644
+GIT binary patch
+delta 128
+zcmcE7#yG*IN~uDqj7vE)w>Z8iHL*B9FEcMKKR!3Hpdd3ZJ-)c42t*|o6(v?0`Ex0n
+z8XD9%C+6fRB<JTA<fN9QrYNN56sMMFq!y*t7#bLwaB&(M8`Wsl7@C-IaT+5rO%36q
+Hrcea{Ag?F_
+
+delta 5
+McmdnSXfweE00pN3zyJUM
+
+diff --git a/carriersettings/configs/mobifone_vn.pb b/carriersettings/configs/mobifone_vn.pb
+index d1e14a54d18614743d75972ca94f7cf47b704c88..a5d0ca349535fee7f5a0a186050fa603a5c52ea9 100644
+GIT binary patch
+delta 130
+zcmaFLbf0-cDr1#Wg-{una%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTgiH
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiMq-*8
+J!bMG?3IMY|DIx#>
+
+delta 7
+Ocmcc5{FG@!DkA_5jsoBS
+
+diff --git a/carriersettings/configs/ncell_np.pb b/carriersettings/configs/ncell_np.pb
+index d12814a9a61b5fbbacb41e137ad7cbecf7e39052..d645d02df831e75078c659a49a2e3820f0cd9528 100644
+GIT binary patch
+delta 118
+zcmeyy_>^hFw|u2sp=>VY%-rJmqSVCV{JhM(wEXzo#Dap%y!80uk|Ge5SX7i)Y2?DC
+zXliIs<D8h2qmZ1RTac4llA5BBnp2!wo{?IVT4QKnXu`#5XlzuYRbyyk#>HuDYKUM$
+FMFAt>Cldew
+
+delta 6
+NcmaFL^o?=CHvkJ?17!dJ
+
+diff --git a/carriersettings/configs/ntel_ng.pb b/carriersettings/configs/ntel_ng.pb
+index c581f49288c0d650d3701e187098b965cbbcd1d5..349b3078af54cfdd6006b73aca68e267f38f664c 100644
+GIT binary patch
+delta 142
+zcmcCI$T-2OUa5sqsF9INIWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvJZd
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$n;IgR
+ONTSAYQ4UiR2pa$_3M#1p
+
+delta 5
+McmX@eXf?qK00q_o#{d8T
+
+diff --git a/carriersettings/configs/o2_cz.pb b/carriersettings/configs/o2_cz.pb
+index 134fe9e612e96672560ab1b0db4505f2dcefbc8e..cbeb297188f42466fcb8883f973dcaa0f224fe9a 100644
+GIT binary patch
+delta 108
+zcmey(bDwuZHCu{Ol28Jda%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTeLZ
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MihA{zN
+C$|O7h
+
+delta 7
+Ocmcc5`<rJ&H5&j9kpm?F
+
+diff --git a/carriersettings/configs/o2_de.pb b/carriersettings/configs/o2_de.pb
+index be6d87929987531ef150302abe5b5a8396f4355e..2664f1c48ea437d50dbab065d3d7546d2fb8681d 100644
+GIT binary patch
+delta 35
+qcmZ20cR+rFE<dZ%1V*9W$@a|ZjA@h8nWMS6I1P=BYP4z$P0RqYg9#b{
+
+delta 7
+OcmX>gzgBL8E<XSaQv#O&
+
+diff --git a/carriersettings/configs/ooredoo_kw.pb b/carriersettings/configs/ooredoo_kw.pb
+index 08cebd321c63fcf63ea467470aad3bb89b540d59..ca602a2e55ac5033a80991198f8cd79949dc032d 100644
+GIT binary patch
+delta 144
+zcmaFQ{*7b9d**tj7Dk~)MlR*d+~WA6)WqWayv)3`{P^6&f`ZJv^!VbEA`q2WRFqh0
+z6vd@zYG_d7oS2iNker`ekds=Hnxc@JQ=D3!ky?~mV`yM#!o_K5Y*eFFV`yT=#c6D6
+Qh+ra#8pB07Oidtc04{ngc>n+a
+
+delta 7
+Ocmeyy@t%Fddu9L+sRNe)
+
+diff --git a/carriersettings/configs/ooredoo_qa.pb b/carriersettings/configs/ooredoo_qa.pb
+index 8fc9b038f5990a29160d20d7b8a5259417366c08..23dbf8e591ecb6d7d376ced6a74158159415e324 100644
+GIT binary patch
+delta 211
+zcmZ3^_K|&qI&;0!aYmsdj9ki@xyA8Csfoq;d6{`>`SH1l1qGRT>G8!SMIb7%s3@`0
+zXbvNnqN$-ljdNm7jzV&NZb43JNotBhYEE%#c}8kcYK@_Rp$QkKp|MeoR*j*F85gIq
+mu_1zKj9{9=nBK<5W-zv~i2;I%&}WLoL>O#}FwN8iq7495|2pIV
+
+delta 7
+Ocmey!zMO4?Ix_$agaUv7
+
+diff --git a/carriersettings/configs/orange_gp.pb b/carriersettings/configs/orange_gp.pb
+index 526d5a77720db59103f00607b6120b81757e6c88..dd0426ff232acc910b642055b6e94687c00085fa 100644
+GIT binary patch
+delta 166
+zcmew<I8AuNPmX$}S&Tx{8M%}*bBp7PQWJ~w^D^_&^5b(83kovx(&LLuia=CiQBh*0
+zQ302tsi8rQb7D@8LUMj?K~8E(YKlT?PH}2^Mru)NjiG^|2^XiKu~CgyjiHGd7pE~Y
+X(-bahY6xe_nIaUM8pDN6O(0AFJ0LM~
+
+delta 7
+OcmbOx{8MnlPYwVLz5`_d
+
+diff --git a/carriersettings/configs/orange_lu.pb b/carriersettings/configs/orange_lu.pb
+index 7f5b1130bb7829d330bfa8f69a19e54a38696b65..3491f3c97625a018f0e0c2752dac22471bf3499c 100644
+GIT binary patch
+delta 166
+zcmey#J&kw6Pu6;+S&Tx{8M%}*bBp7PQWJ~w^D^_&^5b(83kovx(&LLuia=CiQBh*0
+zQ302tsi8rQb7D@8LUMj?K~8E(YKlT?PH}2^Mru)NjiG^|2^XiKu~CgyjiHGd7pE~Y
+X(-bahY6xe_nIaUM8pDN6O(0AFF_1B1
+
+delta 7
+OcmbQn`;&XaPgVd8e*;zk
+
+diff --git a/carriersettings/configs/orange_md.pb b/carriersettings/configs/orange_md.pb
+index 42fadd9e5775df362d96efd4ac9eda5ed09bd022..be51a996df2adc7943b8d0c15b0c0a7518d1d0af 100644
+GIT binary patch
+delta 166
+zcmcb|^qYA@9AmxGEJmT}j9ki@xyA8Csfoq;d6{`>`SH1l1qGRT>G8!SMIb7%s3@`0
+zsDMk+)X<>DIWZ?kAvr&{ASbmXHANvcr#Q7dBef{C#?Zjfgp1SA*r-OU#?Zu!i_;jH
+XX$luLHH0(eOc9Drjp4$kCJ-h7@QpD0
+
+delta 7
+Ocmey(e2-~E93ub@Ap-6I
+
+diff --git a/carriersettings/configs/orange_pl.pb b/carriersettings/configs/orange_pl.pb
+index 047e13cb51b315c0cdc6173f33f9200884876056..70aae198169cc25e7461e9e3b26f7be034e4c54a 100644
+GIT binary patch
+delta 166
+zcmX>r|4L!QS^j#ZS&Tx{8M%}*bBp7PQWJ~w^D^_&^5b(83kovx(&LLuia=CiQBh*0
+zQ302tsi8rQb7D@8LUMj?K~8E(YKlT?PH}2^Mru)NjiG^|2^XiKu~CgyjiHGd7pE~Y
+X(-bahY6xe_nIaUM8pDN6O(0AFPH8ca
+
+delta 7
+OcmaE*a8`c9S$+TyV*`T#
+
+diff --git a/carriersettings/configs/orange_re.pb b/carriersettings/configs/orange_re.pb
+index 56388a6ab14dbb7b3a8a9fcc855e3fc48061d09d..3ac38f7fe7d3c27d0e88994a261ca6fa6455ca17 100644
+GIT binary patch
+delta 166
+zcmaDX&>*xSnWJ857NgK~MlR*d+~WA6)WqWayv)3`{P^6&f`ZJv^!VbEA`q2WRFqh0
+zRKTTZYG_d7oS2iNker`ekds=Hnxc@JQ=D3!ky?~mV`yM#!o_K5Y*eFFV`yT=#c7Pp
+XG=+<r8p4@!rU=ER#&BU%69^LkzZWpB
+
+delta 7
+OcmZn=dMvOZnF9a|fC8Za
+
+diff --git a/carriersettings/configs/others.pb b/carriersettings/configs/others.pb
+index 30ca366ce84e82031c324dcc6aa887d0c42fe509..224dc3fc7c92fa06692aaa8c306775bd8bf10467 100644
+GIT binary patch
+delta 1500
+zcmbu8&1(}u7{+~Ovk6%daj+%`VwqG870Rx&AI(J%f`_V9p?`qJ#*<2sT3aYo6f20D
+zgTkPQ|9~C@4+Gu=jduk>#DgG3#fxACFY4}QyYI$qsUNrZF!MaWdFFZb`_j#?rH5j<
+zwgk&`9oKfYZsHp)<M5FQUOYWDeWo>Cg;*z^gFjVc9qeLvq0V+Nv`}{Bp84T<$MvnU
+zln#xOMvq269bKD7y5?m@()CEpbGz60B8x~L9az3K$gVQ=W&pFMXoFvi`Ou2-#(MEG
+zGJot-3vE2#Zm4%9Y*TYvFt_7&6p|N&A#LW|G7e4b=cUQk$>Zlvg(+2yFsE5QqYiek
+z6XP+)?p}<{!}>84uRyRbP+kS+3;&~}A5>tK@j>fBTt-1O`LQlkBZjKxLh-ju?GyOk
+zcYGlCxE`&+G}%3<y>$%r;f~~93Y(Ji&pfQuWF4YU<Zsf`i*?Kt*-u0N7(o-JxC5@b
+zjhKpGJ-!-|q?Tr?nZp^;Cq?4l40XcBm7@5}_(v9}%bu{<X!XsY@0V0ane;l^A|jEr
+zFEXHg$z2_n#3Jg2WG6kcTfvTAKz2TP_~hY_rgnZK9RqR>sJa0;2dVCM8IW*5!a*Xe
+zKiPPFlr0tXvy0e(qIkvl%Ot}4Yeks4^n^twnICkC)1@eW3oAdXG(xiTN#b8~%L^+%
+etFlbPdT|Ml*RvZ?*V`CgV>efRT<bP2G=Bk5({FzO
+
+delta 204
+zcmbRIg?;-I_6<s3Wo5WnO$<#845b8x__>&U144w@atliGQcENll^8a2eVeVoSTTLM
+z7?9W~&NyE|9;n>Z9H?AGNQjHsC&XEZJtZ|Qu`~y$UV>SPVft&JKF0Ft{F032+oTw|
+zI2l{Eb1O5pGBOMOWSst8h4JV15H&_tRz{WS(b_;lAc2u(`af+(h3zwR7|Yn09x-hf
+zFlI~wDsN|;E@aBszMaFI@n#@XFVptN9gMt;+daD(cX2anO=q3XsI`6abjF4x02Tx|
+AQvd(}
+
+diff --git a/carriersettings/configs/pelephone_il.pb b/carriersettings/configs/pelephone_il.pb
+index a073c3adc9f6ae08173179c3bc4ce094f3f33fc0..5d52573f5501ae4a25b30421572d92061915f28b 100644
+GIT binary patch
+delta 144
+zcmbQqv4C@fBul+g3!_jYBbRb!ZgG53YGQGIUS?ieetd3XK|y9-dVFz75r|4GDoU(0
+zisDi<H8iMkPRz+sNY2kK$Vn|pO;JeADNZfVNG(dOF*GnV;o>wjHmcF8F*Gsb;xtBP
+Pn!-g*4dF}<Q>bD9TZk(5
+
+delta 7
+OcmZ3$Ig?|9Bntov00I~Q
+
+diff --git a/carriersettings/configs/pn_xx.pb b/carriersettings/configs/pn_xx.pb
+index c2ffd7bf75a0d5ebc536499b6b2e597a7ed17e63..42c629bf1339433e4d32af164c4fc5690e470d89 100644
+GIT binary patch
+delta 108
+zcmdnWGLv<KDN~A4l28Jda%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTeLZ
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiHa3PZ
+E0sq`1R{#J2
+
+delta 7
+OcmbQqx|L;vDH8w+X#zh0
+
+diff --git a/carriersettings/configs/robi_bd.pb b/carriersettings/configs/robi_bd.pb
+index 8fa9ed2d5ee8d3a0367b8204a7c50a39237aa42e..6ee38799bad9bfc437a3a7d112397002e5bd564b 100644
+GIT binary patch
+delta 129
+zcmeyz_=9P}zbd5)p)xMz%-rJmqSVCV{JhM(wEXzo#Dap%y!80uk|Ge5SX7i)Y2?qP
+zXliIs<D8h2qmZ1RTac4llA5BBnp2!wo{?IVT4QKnXu`#5XlzuYRbyyk#>Huj#56U8
+Ji<&|e0007UDarr<
+
+delta 6
+Ncmeyt^pA1EKL88)1Bd_s
+
+diff --git a/carriersettings/configs/sbb_ch.pb b/carriersettings/configs/sbb_ch.pb
+index ea675578823cc9491f3b8e7bdbfadb777f57f4a1..ba47be47a04ed1e8978084d17ec673e587f1db6c 100644
+GIT binary patch
+delta 128
+zcmXqB%Q(TfN~uDqj7vE)w>Z8iHL*B9FEcMKKR!3Hpdd3ZJ-)c42t*|o6(v?0`Ex0n
+z8XD9%C+6fRB<JTA<fN9QrYNN56sMMFq!y*t7#bLwaB&(M8`Wsl7@C-IaT+5rO%36q
+Hrcea{6I>_f
+
+delta 5
+McmZ3>Xgt9f00mY7r2qf`
+
+diff --git a/carriersettings/configs/smart_ph.pb b/carriersettings/configs/smart_ph.pb
+index 867a6eb468c34742aca66afe91b057f166aa891c..0b6f87d1da10a0583023ab298bf8042c601188d2 100644
+GIT binary patch
+delta 108
+zcmbQu`JZ#cY?c(IB%uT@<;>jT_@dOr;{3eKytMrI+{A){%)IpY;*uf|l~`1iSZQR*
+zrD$qsP~)7KlcSKFpIeZVT9TTgkeXARTAq<wlv-nGU}(a{X=rRzqg7*QV#dX33}XTS
+DOt~Zz
+
+delta 7
+Ocmey*Ih%9CY!(0ws{;H0
+
+diff --git a/carriersettings/configs/smile_ng.pb b/carriersettings/configs/smile_ng.pb
+index d8baa731ff78c50ac6061daaa61a7f0d5bd1357c..486ca87a539d2b197067d1fa2411c138c1ec1bc3 100644
+GIT binary patch
+delta 142
+zcmcCM#5lpaUa5sqsF9INIWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvJZd
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$n;IgR
+ONTSAYQ4UiR2pa$`uPUqn
+
+delta 5
+McmX@aXg$Fi00rLx$^ZZW
+
+diff --git a/carriersettings/configs/smile_tz.pb b/carriersettings/configs/smile_tz.pb
+index 905d0119432b07b6db042eab03061192fc8d0401..e5fb63520bbbfe84332ec79c95b553f659f62f1f 100644
+GIT binary patch
+delta 142
+zcmcCM#5lpaUa5sqsF9INIWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvJZd
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$n;IgR
+ONTSAYQ4UiR2pa$`uPUqn
+
+delta 5
+McmX@aXg$Fi00rLx$^ZZW
+
+diff --git a/carriersettings/configs/smile_ug.pb b/carriersettings/configs/smile_ug.pb
+index 53bb62d5d04c3fe257add9bd51042a21aa98689c..56e18577b375a9bd1ce6191299f4c08083c79ceb 100644
+GIT binary patch
+delta 142
+zcmcCM#5lpaUa5sqsF9INIWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvJZd
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$n;IgR
+ONTSAYQ4UiR2pa$`uPUqn
+
+delta 5
+McmX@aXg$Fi00rLx$^ZZW
+
+diff --git a/carriersettings/configs/starhub_sg.pb b/carriersettings/configs/starhub_sg.pb
+index 4051bcfb3beffb9adfcb2ff7084891bca84bfe42..e3e42689f082cb72404110374de66f60e6032413 100644
+GIT binary patch
+delta 130
+zcmcaFa#M6eJXe)cg-{una%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTgiH
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiHZg!R
+KO$`xDr~&}Mg(*A$
+
+delta 7
+Ocmca9dS7HiJQn~B_X7I>
+
+diff --git a/carriersettings/configs/stc_kw.pb b/carriersettings/configs/stc_kw.pb
+index c746e31dd17e2d4ab1838386bc5c1ddb4304c99d..b6fadb7cc50778fbd4a77a30066abc0cd6bf6692 100644
+GIT binary patch
+delta 144
+zcmey$@rQFmDNDUl3!_jYBbRb!ZgG53YGQGIUS?ieetd3XK|y9-dVFz75r|4GDoU(0
+zisDi<H8iMkPRz+sNY2kK$Vn|pO;JeADNZfVNG(dOF*GnV;o>wjHmcF8F*Gsb;xslj
+QL@<#=jp3pkrX~<J0Q83}4gdfE
+
+delta 7
+Ocmeyv`ITcsDGLA(2m>qt
+
+diff --git a/carriersettings/configs/telefonica_de.pb b/carriersettings/configs/telefonica_de.pb
+index 3d52ba46fdfeac11b4248a6ea99961ee895d88bb..ccc5dd4f5994f7b1d8decbb0a0ab2cdcb42dd0b6 100644
+GIT binary patch
+delta 96
+zcmcb}xQc1Q#Ym-ap-?X6%-rJmqSVCV{JhM(wEXzo#Dap%y!80uk|Ge5SX7i)X{5)c
+xXliIs<D8h2qmZ1RTac4llA5BBnp2!wo{?IVT4QKnXu`#5XlzuYRbyyk1^}~GA!7gl
+
+delta 6
+NcmZ3*bdhnwMF0sz0^k4u
+
+diff --git a/carriersettings/configs/telenor_pk.pb b/carriersettings/configs/telenor_pk.pb
+index 5dfead00d7c58744deec4772888be8160b5e4b4f..f759f508a50f4729d5136dc765b7dcbc290c8585 100644
+GIT binary patch
+delta 107
+zcmeywc#Uborxc|mp#(1F%-rJmqSVCV{JhM(wEXzo#Dap%y!80uk|Ge5SX7i)X=KTz
+zXliIs<D8h2qmZ1RTac4llA5BBnp2!wo{?IVT4QKnXu`#5XlzuYRbyyk#>HuDY7Ail
+E0Bdd}XaE2J
+
+delta 6
+Ncmcb{^oeo8CjbiZ15N+{
+
+diff --git a/carriersettings/configs/telkomsel_id.pb b/carriersettings/configs/telkomsel_id.pb
+index b8521535af2fc485540bc90709a1aedf90939e47..172a32729b45c3ca33d385581415eb1d80b6f6e1 100644
+GIT binary patch
+delta 130
+zcmeBVZf4og$ylXSAymetoS9o3UzD0yoS&DOmzE!&n^;hgnU@}4Tv7z05{rrwD~<fQ
+z6ip2cYMc{uaukyDa|?1(OHxx5Qgez^%QI4oQfmwi3{AK=4ULUzv}z1Z%(ys>k(j22
+Ja8XmJ0sv_nD3AaE
+
+delta 7
+OcmZo>>15u}$p`=mkOEEs
+
+diff --git a/carriersettings/configs/truemove_th.pb b/carriersettings/configs/truemove_th.pb
+index d57f8e9667401e9c59a6a23cae7816b537a2e90b..f95ae078ef4f67e03b7fa0700d22bb8d2eba0ea5 100644
+GIT binary patch
+delta 130
+zcmbQkGmUqH3|o~_g-{una%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTgiH
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiMq-*8
+J!bMG?3II}cC}02p
+
+delta 7
+OcmbQnJBMe33>yFm`2rpQ
+
+diff --git a/carriersettings/configs/turktelekom_tr.pb b/carriersettings/configs/turktelekom_tr.pb
+index e82fcf1bad3e50bd399ca55976c9e3bb7522a474..5d361823fe89e808574ddf993a041047b12a1bb0 100644
+GIT binary patch
+delta 144
+zcmcb}dV_7lMW%YC7Dk~)MlR*d+~WA6)WqWayv)3`{P^6&f`ZJv^!VbEA`q2WRFqh0
+z6vd@zYG_d7oS2iNker`ekds=Hnxc@JQ=D3!ky?~mV`yM#!o_K5Y*eFFV`yT=#c6D6
+Qh+ra#8pB07Oidtc0QuW28UO$Q
+
+delta 7
+Ocmcb?c9C_%MJ50Z@B=si
+
+diff --git a/carriersettings/configs/tuvalu_nz.pb b/carriersettings/configs/tuvalu_nz.pb
+index b4108b064092d49edc1a6044992d35ebebe50b36..73d71552b3e25390575c89848b21e2b27eac0265 100644
+GIT binary patch
+delta 129
+zcmeBY>|~nIU!_zbRK}&8nOhuRl$uzapO=}JmLH#+SWu9emmXhSQUszBi;5B}jr_S3
+zO$`ldoD*|$6q56E3vyCRQd1OCbBa^TGg6CEYYYtxO}ID>jg4xwY79-xxHyfGn5Kqs
+IQB$Y_09~FaeE<Le
+
+delta 6
+NcmeBV>SvtL4*&-=0y_Wz
+
+diff --git a/carriersettings/configs/unn_bn.pb b/carriersettings/configs/unn_bn.pb
+index 73548669a3b040cd0bac9aabcc48778e039720da..ec17caa2a774e02b3818815d9b9022285cbcb15a 100644
+GIT binary patch
+delta 128
+zcmXT>z&N3-N~uDqj7vE)w>Z8iHL*B9FEcMKKR!3Hpdd3ZJ-)c42t*|o6(v?0`Ex0n
+z8XD9%C+6fRB<JTA<fN9QrYNN56sMMFq!y*t7#bLwaB&(M8`Wsl7@C-IaT+5rO%36q
+Hrcea{c8w^o
+
+delta 5
+McmeysST>;y00*%GZU6uP
+
+diff --git a/carriersettings/configs/upc_ch.pb b/carriersettings/configs/upc_ch.pb
+index bde94e2420d641ad7484bd6a36381f0cc088273c..e1829e018e6cb2744f3eadeede0739c09c42dc05 100644
+GIT binary patch
+delta 129
+zcmZ3@xRhza>MErQp)xMz%-rJmqSVCV{JhM(wEXzo#Dap%y!80uk|Ge5SX7i)Y2?qP
+zXliIs<D8h2qmZ1RTac4llA5BBnp2!wo{?IVT4QKnXu`#5XlzuYRbyyk#>HuDY>Hr-
+J!I`E|1ptS+DAxc0
+
+delta 6
+NcmZ3=w3>0kY5)jm0*?Ry
+
+diff --git a/carriersettings/configs/viettel_vn.pb b/carriersettings/configs/viettel_vn.pb
+index e958f96a00af9a12674b21e0d5214e8d71eff3e2..b5dbd141fbbb8ba5307695408b793be915c039cf 100644
+GIT binary patch
+delta 130
+zcmZ3>ww!%~E_0Pqg-{una%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTgiH
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiMq-*8
+J!bMG?3IJqpD1-n2
+
+delta 7
+OcmZ3^zLsr+E;9fMr~*O&
+
+diff --git a/carriersettings/configs/vinaphone_vn.pb b/carriersettings/configs/vinaphone_vn.pb
+index b82adb353ab73cd8c68514d903ad8f23efb000a3..680edc36e6af6aa1da8152797e026509a83d18ae 100644
+GIT binary patch
+delta 130
+zcmcb{a)EV27*mx}g-{una%OIEd{Js*aeiKAURr*9Zel?}W?p)HaY+$~N-Qc$tTgiH
+zQZzL*sBuor$x%qo&n?JFElEvLNX;ouEzd|TO06+8Ff`%fG&DA<(W)^tG2`MiMq-*8
+J!bMG?3ILx<DEa^Z
+
+delta 7
+Ocmcb>dW~g67!v>t(E_*t
+
+diff --git a/carriersettings/configs/vodafone_de.pb b/carriersettings/configs/vodafone_de.pb
+index 3ebea02cd021fca8903a905fd0601148cde65849..21eb0b337f02583a59af952d73016d1b6790d912 100644
+GIT binary patch
+delta 108
+zcmeB`{V2PkmoG&rNhpC!IWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvKAy
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$n?jiY
+DPyZwx
+
+delta 7
+Ocmew;+bg@Fmk$69xdQ|M
+
+diff --git a/carriersettings/configs/vodafone_es.pb b/carriersettings/configs/vodafone_es.pb
+index 809d48f01a6da9bd26a60ad88e58ba853bfaec32..78ebbab881fa53485758fe2769b5ce93c5f626a6 100644
+GIT binary patch
+delta 108
+zcmaDNenMiy6YdnHB%uT@<;>jT_@dOr;{3eKytMrI+{A){%)IpY;*uf|l~`1iSZQR*
+zrD$qsP~)7KlcSKFpIeZVT9TTgkeXARTAq<wlv-nGU}(a{X=rRzqg7*QV#dX3Yzk!p
+E0D$=<lmGw#
+
+delta 7
+OcmX>h@kD&X6K((w!UKB%
+
+diff --git a/carriersettings/configs/vodafone_gb.pb b/carriersettings/configs/vodafone_gb.pb
+index 188b7bf554737975d534680d0255884b99de675c..7929f6b0668b00fb2ea3c9fd1821c147b7e33a5b 100644
+GIT binary patch
+delta 58
+zcmaDT^G0?<A|IPl2cu9c<K#cgYK(D{m04^Rxi}4tjcT-N3{A|qIE_sW5lpBk0OBAH
+A*8l(j
+
+delta 7
+OcmaDO`%q>>A|C(_-UB88
+
+diff --git a/carriersettings/configs/vodafone_it.pb b/carriersettings/configs/vodafone_it.pb
+index 089afd71e1fd6d61aa78b9550587007828ec5aa6..6ba0a4f4885095cbe4a70df5202658e36f2eff73 100644
+GIT binary patch
+delta 108
+zcmbOv`%QMkB)$}-B%uT@<;>jT_@dOr;{3eKytMrI+{A){%)IpY;*uf|l~`1iSZQR*
+zrD$qsP~)7KlcSKFpIeZVT9TTgkeXARTAq<wlv-nGU}(a{X=rRzqg7*QV#dX3Yzk!p
+E09G(0EC2ui
+
+delta 7
+Ocmew+J4trKBt8HQ{{s^M
+
+diff --git a/carriersettings/configs/vodafone_qa.pb b/carriersettings/configs/vodafone_qa.pb
+index 9d0e842ff4577fef6082dabe9495cbf72cf61964..22848b47df01d55d3028a66983a4028ac8886323 100644
+GIT binary patch
+delta 130
+zcmcb}ewt&$Mdm7{3ZXJC<;>jT_@dOr;{3eKytMrI+{A){%)IpY;*uf|l~`1iSZU<X
+zrD$qsP~)7KlcSKFpIeZVT9TTgkeXARTAq<wlv-nGU}(a{X=rRzqg7*QV#dX3jKnlG
+Kgo~O&6#xL)%PDdI
+
+delta 7
+OcmX@jaglw)MP>jEssk_p
+
+diff --git a/carriersettings/configs/vodafone_tr.pb b/carriersettings/configs/vodafone_tr.pb
+index bbf06aab71e7b563ee24cfd66e2cf04f43eb160e..930f861706bf383aa352ae372d59ff0c89dfdd46 100644
+GIT binary patch
+delta 119
+zcmZn^`XID{kuzT@S16lHIWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvNi*
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$n;IgR
+GP*DJ?FeUx~
+
+delta 7
+Ocmew$)F`xpkrMz5>jF>!
+
+diff --git a/carriersettings/configs/vodafonelab_de.pb b/carriersettings/configs/vodafonelab_de.pb
+index 9bf42c3fdf9146284ca2e46b98b4220cd1286fac..bf0360257532b8e7e1b5c37518b31bb73b53f31d 100644
+GIT binary patch
+delta 108
+zcmbO#`%`wqRK66YB%uT@<;>jT_@dOr;{3eKytMrI+{A){%)IpY;*uf|l~`1iSZQR*
+zrD$qsP~)7KlcSKFpIeZVT9TTgkeXARTAq<wlv-nGU}(a{X=rRzqg7*QV#dX3Yzk!p
+E09ofGH2?qr
+
+delta 7
+Ocmew<J5_eWR6YO>DFYk;
+
+diff --git a/carriersettings/configs/vodafonepng_nz.pb b/carriersettings/configs/vodafonepng_nz.pb
+index f24010036546fb8adb2236ffd1a9c0b1d853408a..1cdff2b70efa0ada48c5ab8e6ee5ea12f63ea43d 100644
+GIT binary patch
+delta 142
+zcma!g$T%UYUa5sqsF9INIWxC7z9==ZI6p5lFD*YlH?g1~GcP^9xTFX~B^DJWRvJZd
+zDViD@)Ho;R<R~QP=N9ComZYXAq~;W-mS?0ErPdf47@BZ#8X6nbXw?{+m~n9$8=E4S
+PW^ksdA)Lu!3RMgMVE`)$
+
+delta 5
+McmaFJ7&RdZ00#B~CjbBd
+
+diff --git a/carriersettings/configs/we_eg.pb b/carriersettings/configs/we_eg.pb
+index 617accb3322b169810bcaac8203177fed2ff9b0d..72931145cef1680d6d7059f189ae355f9627fbc6 100644
+GIT binary patch
+delta 129
+zcmeyy_<?D{w<@Iyp)xMz%-rJmqSVCV{JhM(wEXzo#Dap%y!80uk|Ge5SX7i)Y2?qP
+zXliIs<D8h2qmZ1RTac4llA5BBnp2!wo{?IVT4QKnXu`#5XlzuYRbyyk#>Huj#56U8
+Ji<&|e008!aDY5_n
+
+delta 6
+Ncmeys^o?=CHvkKv18@KU
+
+diff --git a/carriersettings/configs/zain_kw.pb b/carriersettings/configs/zain_kw.pb
+index d4d65b1a8eb11b9aa1a9902a4e8bbc53cda800f2..2bda57d40f522cfde5d91c92cbbad07b2c627ea8 100644
+GIT binary patch
+delta 144
+zcmZ3+zLsOdGUj@v7Dk~)MlR*d+~WA6)WqWayv)3`{P^6&f`ZJv^!VbEA`q2WRFqh0
+z6vd@zYG_d7oS2iNker`ekds=Hnxc@JQ=D3!ky?~mV`yM#!o_K5Y*eFFV`yT=#c6D6
+Qh+ra#8pB07Oidtc0JS<Ro&W#<
+
+delta 7
+OcmZ3>v5bAgGG+h^s{*_L
+
+-- 
+2.56.0
+

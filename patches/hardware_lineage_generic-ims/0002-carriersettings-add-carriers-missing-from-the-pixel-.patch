@@ -1,0 +1,1374 @@
+From 75458c87a2d19c39a0491f40ddb0488b404a8ae8 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 17 Nov 2026 01:17:08 +0300
+Subject: [PATCH 2/3] carriersettings: add carriers missing from the pixel list
+
+samsung's ims profiles cover 160 plain mcc/mnc codes that have no
+entry in carrier_list.pb, so those sims only ever get the default
+config and never enable volte, vowifi or vt.
+
+add a config per samsung operator with its ims switches and call
+timers, and map mcc/mnc codes of operators the pixel list already
+knows under another code to the existing config.
+---
+ carriersettings/configs/3_at.pb               | Bin 0 -> 200 bytes
+ carriersettings/configs/3_hk.pb               | Bin 0 -> 200 bytes
+ carriersettings/configs/acmoss_fr.pb          | Bin 0 -> 174 bytes
+ carriersettings/configs/airtel_cd.pb          | Bin 0 -> 60 bytes
+ carriersettings/configs/airtel_gb.pb          | Bin 0 -> 54 bytes
+ carriersettings/configs/airtel_tz.pb          | Bin 0 -> 85 bytes
+ .../configs/americanet_br_blockgc.pb          | Bin 0 -> 72 bytes
+ carriersettings/configs/atheer_ae.pb          | Bin 0 -> 143 bytes
+ carriersettings/configs/att_ius_mx.pb         | Bin 0 -> 175 bytes
+ carriersettings/configs/att_us_blockgc.pb     | Bin 0 -> 65 bytes
+ .../configs/att_us_softphone_blockgc.pb       | Bin 0 -> 75 bytes
+ carriersettings/configs/banglalink_bd.pb      | Bin 0 -> 89 bytes
+ carriersettings/configs/btc_bs.pb             | Bin 0 -> 211 bytes
+ carriersettings/configs/carrier_list.pb       | Bin 83469 -> 87383 bytes
+ carriersettings/configs/cbn_cn_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/cellc_za.pb           | Bin 0 -> 89 bytes
+ carriersettings/configs/cellone_bm.pb         | Bin 0 -> 55 bytes
+ carriersettings/configs/claro_br_blockgc.pb   | Bin 0 -> 67 bytes
+ carriersettings/configs/claro_cl_blockgc.pb   | Bin 0 -> 67 bytes
+ carriersettings/configs/clo_il.pb             | Bin 0 -> 57 bytes
+ carriersettings/configs/cmcc_cn_blockgc.pb    | Bin 0 -> 66 bytes
+ carriersettings/configs/cmhk_hk.pb            | Bin 0 -> 203 bytes
+ carriersettings/configs/ctc_cn_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/ctg_hk.pb             | Bin 0 -> 166 bytes
+ carriersettings/configs/cu_cn_blockgc.pb      | Bin 0 -> 64 bytes
+ carriersettings/configs/cuhk_hk.pb            | Bin 0 -> 167 bytes
+ carriersettings/configs/dauphin_mf.pb         | Bin 0 -> 95 bytes
+ carriersettings/configs/edf_fr.pb             | Bin 0 -> 82 bytes
+ carriersettings/configs/emtel_mu.pb           | Bin 0 -> 53 bytes
+ carriersettings/configs/enel_es.pb            | Bin 0 -> 52 bytes
+ carriersettings/configs/erillisverkot_fi.pb   | Bin 0 -> 190 bytes
+ carriersettings/configs/esk_ca.pb             | Bin 0 -> 92 bytes
+ carriersettings/configs/free_fr_blockgc.pb    | Bin 0 -> 66 bytes
+ .../configs/genericir92_us_bravado_blockgc.pb | Bin 0 -> 81 bytes
+ .../configs/genericir92_us_choice_blockgc.pb  | Bin 0 -> 80 bytes
+ .../configs/genericir92_us_cspire_blockgc.pb  | Bin 0 -> 80 bytes
+ .../genericir92_us_googlegc_blockgc.pb        | Bin 0 -> 82 bytes
+ .../configs/genericir92_us_nemont_blockgc.pb  | Bin 0 -> 80 bytes
+ .../configs/genericir92_us_pioneer_blockgc.pb | Bin 0 -> 81 bytes
+ .../genericir92_us_southernlinc_blockgc.pb    | Bin 0 -> 86 bytes
+ .../configs/geoverse_us_blockgc.pb            | Bin 0 -> 70 bytes
+ carriersettings/configs/gmobile_mn.pb         | Bin 0 -> 126 bytes
+ .../configs/googlegc_all_blockgc.pb           | Bin 0 -> 71 bytes
+ carriersettings/configs/hubone_fr.pb          | Bin 0 -> 54 bytes
+ carriersettings/configs/imagine_bn.pb         | Bin 0 -> 122 bytes
+ carriersettings/configs/inwi_ma.pb            | Bin 0 -> 128 bytes
+ carriersettings/configs/ite_us_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/jambotel_ke.pb        | Bin 0 -> 62 bytes
+ carriersettings/configs/kpn_nl_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/kt_kr_lter_blockgc.pb | Bin 0 -> 69 bytes
+ .../configs/kt_kr_pslte_blockgc.pb            | Bin 0 -> 70 bytes
+ carriersettings/configs/labsim.pb             | Bin 0 -> 57 bytes
+ carriersettings/configs/mascom_bw.pb          | Bin 0 -> 169 bytes
+ carriersettings/configs/mectel_mm.pb          | Bin 0 -> 60 bytes
+ carriersettings/configs/mobifone_vn_mvno.pb   | Bin 0 -> 67 bytes
+ carriersettings/configs/mod_qa.pb             | Bin 0 -> 57 bytes
+ carriersettings/configs/moi_qa.pb             | Bin 0 -> 202 bytes
+ carriersettings/configs/motiv_ru_blockgc.pb   | Bin 0 -> 67 bytes
+ carriersettings/configs/mtml_mu.pb            | Bin 0 -> 58 bytes
+ carriersettings/configs/mts_am.pb             | Bin 0 -> 87 bytes
+ carriersettings/configs/mytel_mm.pb           | Bin 0 -> 170 bytes
+ carriersettings/configs/nedaa_ae.pb           | Bin 0 -> 59 bytes
+ carriersettings/configs/ntel_ng.pb            | Bin 0 -> 58 bytes
+ carriersettings/configs/nviodt_.pb            | Bin 0 -> 141 bytes
+ carriersettings/configs/ooredoo_mm.pb         | Bin 0 -> 113 bytes
+ carriersettings/configs/orange_cd_blockgc.pb  | Bin 0 -> 68 bytes
+ carriersettings/configs/outremer_fr.pb        | Bin 0 -> 56 bytes
+ carriersettings/configs/paratus_na.pb         | Bin 0 -> 61 bytes
+ carriersettings/configs/redbull_sa.pb         | Bin 0 -> 55 bytes
+ carriersettings/configs/rwc_ca_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/salam_sa.pb           | Bin 0 -> 131 bytes
+ .../configs/samsung_open_blockgc.pb           | Bin 0 -> 71 bytes
+ carriersettings/configs/sbb_ch.pb             | Bin 0 -> 51 bytes
+ carriersettings/configs/sfr_fr_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/skt_kr_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/smile_ng.pb           | Bin 0 -> 59 bytes
+ carriersettings/configs/smile_tz.pb           | Bin 0 -> 59 bytes
+ carriersettings/configs/smile_ug.pb           | Bin 0 -> 59 bytes
+ .../configs/tattelecom_ru_blockgc.pb          | Bin 0 -> 72 bytes
+ carriersettings/configs/telefonica_de.pb      | Bin 0 -> 209 bytes
+ .../configs/telefonica_es_blockgc.pb          | Bin 0 -> 72 bytes
+ carriersettings/configs/telenor_mm.pb         | Bin 0 -> 86 bytes
+ carriersettings/configs/telma_mg.pb           | Bin 0 -> 142 bytes
+ carriersettings/configs/tmobile_us_inbound.pb | Bin 0 -> 146 bytes
+ .../configs/tmobile_us_lab_blockgc.pb         | Bin 0 -> 73 bytes
+ carriersettings/configs/tunisietelecom_tn.pb  | Bin 0 -> 93 bytes
+ carriersettings/configs/tuvalu_nz.pb          | Bin 0 -> 143 bytes
+ carriersettings/configs/unn_bn.pb             | Bin 0 -> 118 bytes
+ carriersettings/configs/upc_ch.pb             | Bin 0 -> 171 bytes
+ carriersettings/configs/uts_cw.pb             | Bin 0 -> 51 bytes
+ carriersettings/configs/uztelecom_uz.pb       | Bin 0 -> 253 bytes
+ carriersettings/configs/vgr_se.pb             | Bin 0 -> 51 bytes
+ .../configs/videotron_ca_blockgc.pb           | Bin 0 -> 71 bytes
+ carriersettings/configs/virgin_sa.pb          | Bin 0 -> 105 bytes
+ carriersettings/configs/vivo_br_blockgc.pb    | Bin 0 -> 66 bytes
+ carriersettings/configs/vodafonepng_nz.pb     | Bin 0 -> 90 bytes
+ carriersettings/configs/vzw_us_blockgc.pb     | Bin 0 -> 65 bytes
+ carriersettings/configs/we_eg.pb              | Bin 0 -> 246 bytes
+ carriersettings/configs/xplore_ca.pb          | Bin 0 -> 143 bytes
+ carriersettings/configs/zantel_tz.pb          | Bin 0 -> 121 bytes
+ 100 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 carriersettings/configs/3_at.pb
+ create mode 100644 carriersettings/configs/3_hk.pb
+ create mode 100644 carriersettings/configs/acmoss_fr.pb
+ create mode 100644 carriersettings/configs/airtel_cd.pb
+ create mode 100644 carriersettings/configs/airtel_gb.pb
+ create mode 100644 carriersettings/configs/airtel_tz.pb
+ create mode 100644 carriersettings/configs/americanet_br_blockgc.pb
+ create mode 100644 carriersettings/configs/atheer_ae.pb
+ create mode 100644 carriersettings/configs/att_ius_mx.pb
+ create mode 100644 carriersettings/configs/att_us_blockgc.pb
+ create mode 100644 carriersettings/configs/att_us_softphone_blockgc.pb
+ create mode 100644 carriersettings/configs/banglalink_bd.pb
+ create mode 100644 carriersettings/configs/btc_bs.pb
+ create mode 100644 carriersettings/configs/cbn_cn_blockgc.pb
+ create mode 100644 carriersettings/configs/cellc_za.pb
+ create mode 100644 carriersettings/configs/cellone_bm.pb
+ create mode 100644 carriersettings/configs/claro_br_blockgc.pb
+ create mode 100644 carriersettings/configs/claro_cl_blockgc.pb
+ create mode 100644 carriersettings/configs/clo_il.pb
+ create mode 100644 carriersettings/configs/cmcc_cn_blockgc.pb
+ create mode 100644 carriersettings/configs/cmhk_hk.pb
+ create mode 100644 carriersettings/configs/ctc_cn_blockgc.pb
+ create mode 100644 carriersettings/configs/ctg_hk.pb
+ create mode 100644 carriersettings/configs/cu_cn_blockgc.pb
+ create mode 100644 carriersettings/configs/cuhk_hk.pb
+ create mode 100644 carriersettings/configs/dauphin_mf.pb
+ create mode 100644 carriersettings/configs/edf_fr.pb
+ create mode 100644 carriersettings/configs/emtel_mu.pb
+ create mode 100644 carriersettings/configs/enel_es.pb
+ create mode 100644 carriersettings/configs/erillisverkot_fi.pb
+ create mode 100644 carriersettings/configs/esk_ca.pb
+ create mode 100644 carriersettings/configs/free_fr_blockgc.pb
+ create mode 100644 carriersettings/configs/genericir92_us_bravado_blockgc.pb
+ create mode 100644 carriersettings/configs/genericir92_us_choice_blockgc.pb
+ create mode 100644 carriersettings/configs/genericir92_us_cspire_blockgc.pb
+ create mode 100644 carriersettings/configs/genericir92_us_googlegc_blockgc.pb
+ create mode 100644 carriersettings/configs/genericir92_us_nemont_blockgc.pb
+ create mode 100644 carriersettings/configs/genericir92_us_pioneer_blockgc.pb
+ create mode 100644 carriersettings/configs/genericir92_us_southernlinc_blockgc.pb
+ create mode 100644 carriersettings/configs/geoverse_us_blockgc.pb
+ create mode 100644 carriersettings/configs/gmobile_mn.pb
+ create mode 100644 carriersettings/configs/googlegc_all_blockgc.pb
+ create mode 100644 carriersettings/configs/hubone_fr.pb
+ create mode 100644 carriersettings/configs/imagine_bn.pb
+ create mode 100644 carriersettings/configs/inwi_ma.pb
+ create mode 100644 carriersettings/configs/ite_us_blockgc.pb
+ create mode 100644 carriersettings/configs/jambotel_ke.pb
+ create mode 100644 carriersettings/configs/kpn_nl_blockgc.pb
+ create mode 100644 carriersettings/configs/kt_kr_lter_blockgc.pb
+ create mode 100644 carriersettings/configs/kt_kr_pslte_blockgc.pb
+ create mode 100644 carriersettings/configs/labsim.pb
+ create mode 100644 carriersettings/configs/mascom_bw.pb
+ create mode 100644 carriersettings/configs/mectel_mm.pb
+ create mode 100644 carriersettings/configs/mobifone_vn_mvno.pb
+ create mode 100644 carriersettings/configs/mod_qa.pb
+ create mode 100644 carriersettings/configs/moi_qa.pb
+ create mode 100644 carriersettings/configs/motiv_ru_blockgc.pb
+ create mode 100644 carriersettings/configs/mtml_mu.pb
+ create mode 100644 carriersettings/configs/mts_am.pb
+ create mode 100644 carriersettings/configs/mytel_mm.pb
+ create mode 100644 carriersettings/configs/nedaa_ae.pb
+ create mode 100644 carriersettings/configs/ntel_ng.pb
+ create mode 100644 carriersettings/configs/nviodt_.pb
+ create mode 100644 carriersettings/configs/ooredoo_mm.pb
+ create mode 100644 carriersettings/configs/orange_cd_blockgc.pb
+ create mode 100644 carriersettings/configs/outremer_fr.pb
+ create mode 100644 carriersettings/configs/paratus_na.pb
+ create mode 100644 carriersettings/configs/redbull_sa.pb
+ create mode 100644 carriersettings/configs/rwc_ca_blockgc.pb
+ create mode 100644 carriersettings/configs/salam_sa.pb
+ create mode 100644 carriersettings/configs/samsung_open_blockgc.pb
+ create mode 100644 carriersettings/configs/sbb_ch.pb
+ create mode 100644 carriersettings/configs/sfr_fr_blockgc.pb
+ create mode 100644 carriersettings/configs/skt_kr_blockgc.pb
+ create mode 100644 carriersettings/configs/smile_ng.pb
+ create mode 100644 carriersettings/configs/smile_tz.pb
+ create mode 100644 carriersettings/configs/smile_ug.pb
+ create mode 100644 carriersettings/configs/tattelecom_ru_blockgc.pb
+ create mode 100644 carriersettings/configs/telefonica_de.pb
+ create mode 100644 carriersettings/configs/telefonica_es_blockgc.pb
+ create mode 100644 carriersettings/configs/telenor_mm.pb
+ create mode 100644 carriersettings/configs/telma_mg.pb
+ create mode 100644 carriersettings/configs/tmobile_us_inbound.pb
+ create mode 100644 carriersettings/configs/tmobile_us_lab_blockgc.pb
+ create mode 100644 carriersettings/configs/tunisietelecom_tn.pb
+ create mode 100644 carriersettings/configs/tuvalu_nz.pb
+ create mode 100644 carriersettings/configs/unn_bn.pb
+ create mode 100644 carriersettings/configs/upc_ch.pb
+ create mode 100644 carriersettings/configs/uts_cw.pb
+ create mode 100644 carriersettings/configs/uztelecom_uz.pb
+ create mode 100644 carriersettings/configs/vgr_se.pb
+ create mode 100644 carriersettings/configs/videotron_ca_blockgc.pb
+ create mode 100644 carriersettings/configs/virgin_sa.pb
+ create mode 100644 carriersettings/configs/vivo_br_blockgc.pb
+ create mode 100644 carriersettings/configs/vodafonepng_nz.pb
+ create mode 100644 carriersettings/configs/vzw_us_blockgc.pb
+ create mode 100644 carriersettings/configs/we_eg.pb
+ create mode 100644 carriersettings/configs/xplore_ca.pb
+ create mode 100644 carriersettings/configs/zantel_tz.pb
+
+diff --git a/carriersettings/configs/3_at.pb b/carriersettings/configs/3_at.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..7bb26e4af213b08a11c560cc333d93b14d42e8f5
+GIT binary patch
+literal 200
+zcmd;LF^*3x5okW}r)d?F(hf!;1umK7#G<0i)S~#Z{G5{1_{6fr%$&reoYeTF{QMjZ
+zMj=@)Nw|s<Olc)9Ihb^LT5^15ZZW1B4K5|1cv*gCa;jcYW?p(yVsdtTNoFq4(%j6P
+aoXq0*%)Anb11s5u)VUN<R00)aRR{pVL`aGN
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/3_hk.pb b/carriersettings/configs/3_hk.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..daa474f089fca14fe04ea2a7c1f9454e98048ad7
+GIT binary patch
+literal 200
+zcmd;LF^<p37HB^3r)d?F(hf!;1umK7#G<0i)S~#Z{G5{1_{6fr%$&reoYeTF{QMjZ
+zMj=@)Nw|s<Olc)9Ihb^LT5^15ZZW1B4K5|1cv*gCa;jcYW?p(yVsdtTNoFq4(%j6P
+aoXq0*%)Anb2UnPd)VUN<R00)aRR{pgh)EUz
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/acmoss_fr.pb b/carriersettings/configs/acmoss_fr.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..37c2f6b97bccb910eab023615beca2aaf09e7746
+GIT binary patch
+literal 174
+zcmd<$Oia$rFD{NxD-viv@TX}NlhRB^Aq6g(<iw()%+#XzvizKq)cC}*#LS$;q@2|F
+zr2PCG4Mrg)E;*Qr^0egm%-mv3H5yz>K=HEt%;Z$PqRhPXq{QUx_>#<ApsBf;IXRid
+X@tJug5)ZC03#oG{qNoHa#;OnigkeCP
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/airtel_cd.pb b/carriersettings/configs/airtel_cd.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b59b985fc677f6cce43febcaaeafde1d63998320
+GIT binary patch
+literal 60
+zcmd<$Ow24QNzI8*P7!E6@TX}Nlahvz8kbULZgFvLu^te|=a;1x#RK{A#ia!W`9Q@f
+L@k#mlIT{QAnfVqz
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/airtel_gb.pb b/carriersettings/configs/airtel_gb.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..1a4276b473f6bfb00b4b8929522fbb082e7fa3c2
+GIT binary patch
+literal 54
+zcmd<$Ow24QNzI8*PZDT8@TX}Nlai8<0+&p3Vo_0MYEgVyeojehd}3K*W=>*KPHKEo
+JetwPyBLEWb6MFyv
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/airtel_tz.pb b/carriersettings/configs/airtel_tz.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..3904c335e0bf498bf9911e979c5078effae171c7
+GIT binary patch
+literal 85
+zcmd<$Ow24QNzI8bsS;>D@TX}Nlaiy50+&p3Vo_0MYEgVyeojehd}3K*W=>*KPHKEo
+SetwPyqmV3@BwR%ahBN>rj~;da
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/americanet_br_blockgc.pb b/carriersettings/configs/americanet_br_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..658d2df16dc096d3d1dc220ee407a0918dba63cb
+GIT binary patch
+literal 72
+zcmd-QP0UR#%1lnoOD%~{DvD3a$xqHsPZnrC@TX}Nlahvz8kbULZgFvLu^te|=a;1x
+Y#RK{A#ia!W`9&qEDe+19`8gU40M`i{BLDyZ
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/atheer_ae.pb b/carriersettings/configs/atheer_ae.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..f58c2f75e29ea52a48d7866f102b48a1e0c2e8c6
+GIT binary patch
+literal 143
+zcmd<$Of1PrO)ZK~OciK8@TX}NlTx*i8kbULZgFvLu^te|=a&Jcf&BR5(t?8gqLS2<
+z_@w;&91R8`4Y0bh{LJK3y`s##^rXb(?D&$*T%h{g%$%Ie;`q$G5{VP{nS|826oDon
+KR00)aRR{p_$TmX&
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/att_ius_mx.pb b/carriersettings/configs/att_ius_mx.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..e6ab478f3bdba05913648f4826683bd004f6bcda
+GIT binary patch
+literal 175
+zcmd<$N-Qaf&nzvD&#e$>KJce$6_e6TMj-_*ndHQxqRiBy__F+*lGOObvc$}s#H5_m
+z_@w;&91TVxB`!Ibit@DN_{`j5Of?!@N<i_l{LJK3y`s##^rXb(?D&$*T%f7BnK?O`
+Y#qpVWB@z#=Fbk=3DWa$ZD#of10NXf09smFU
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/att_us_blockgc.pb b/carriersettings/configs/att_us_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..6904564a788b38a4380c2569e928ee814fcebdc6
+GIT binary patch
+literal 65
+zcmd<$ODrjgFD;Hw%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;-N$7+?SZ
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/att_us_softphone_blockgc.pb b/carriersettings/configs/att_us_softphone_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..3435ce1fa161c15eaf46c1c8bab2b5ea90d3df2c
+GIT binary patch
+literal 75
+zcmd;*NGvIdFD;HQ&QB{T$jHx2jZezSPtHzH7HB^3r)d?Fl7^5Pmr`bKadB?39uUXp
+bm!%fP1NrgAr3D4~MJ1^z@k#mlIT{QAK;Rso
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/banglalink_bd.pb b/carriersettings/configs/banglalink_bd.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..1594d28be8d3606f059599689c38a2a647b78ca3
+GIT binary patch
+literal 89
+zcmd<$O-js5&q>V5%*&2XN)c#2@TX}Nlaiy50+&p3Vo_0MYEgVyeojehd}3K*W=>*K
+WPHKEoetwPyqmV3@BwR%ahBN@7&mZIf
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/btc_bs.pb b/carriersettings/configs/btc_bs.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..c83a80931f7922d6192e742850f65ca120d1aaa1
+GIT binary patch
+literal 211
+zcmZw9K@I^i6vlBwV$qd!Wg$Wr%xbRm(pJff*Ljn+YR_$)f;%{XgIFjc7A(HamtX#3
+zXp#jJN5}L1aO$f|C1+w{bqMGJWTxamXN{x{IWWvrS5k@TN9@-Y(8pi15UTvq$EFN8
+ym)g_CUDt6)ZuM^UWc_lP(YhvJyD{2sA)zncBN0ZxHjQuBfn17tDSTzYf8hg_UrsIn
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/carrier_list.pb b/carriersettings/configs/carrier_list.pb
+index 136cefb2e41452e8f353864b29e18b6c7ee02ddd..97231664defef392a6d1deb205635d4c207f2116 100644
+GIT binary patch
+delta 3891
+zcmai1%a+_U5Iu0n1BH-eCK<vbj{|Ig1+x6!v0}$J=*Vu3TWQ<s_|cQh#(V&*@)xZ6
+z5I8LO9d60fZg)>l=w+!~DplQktNQofZvFemtzZBA;Qr48d%!;OrRq-Zuv@|xUOF0<
+zD>4LO;05dn`&i|bZCiQXoZMx%1y8)hKW+|>n`8DEK}^%>QsxT^9r>IK_IQ}gMK-1o
+zaDV39T{`E0^N>Aax0PvSw<J?2co<wW#Q}TCo~TMUCRerYWY);6wE3#Y>7!T#B688Y
+zrPhs9dLVNk0*@ncrn*j=zLnJ*GW&jjThI2)cs`k9&OT?Kk~_R-7l<$kJ@zeodUe#=
+z^KQMgwVs?PfXCA`Wl!1tObvBWs?yXenYpqAF~|Gy(yYs6*19yJz)$JAJga41Pmw6`
+zh<hPBWp{I3mbtuC<R670Pbh6Nx~nVdnjdofD0IH;WOv~n9u1M_u`k)fyi|?7UM+ku
+z9p>fy>e%PPC7PF3n$krRp>SQ=GliUe!5-vQo*zk`5AQkjZ$1<63F>op!tUhNawR7e
+z!$t)}O%Dn<pn~FtvxtYOt5;XdB6-xfygv*SaUQvQ`}w^*CRi<0zh0VJR_Cst0CNJ@
+z+j?;>hlx^X4|P&k#F46Zo%CYh@|4}tHEg<d<nsU#pSl8!m!)Ypx>?yyo*Vi?1VIqK
+z?=U(z9QHnqU0Ur*=E^~ai!^nWK5w)J`{w{46^PjP?0JFgKsVE*!m*)I8?^wIu4v}~
+z?{hrlJNE3rH(w6c<Ok&NcyQFWU7P066)M7hU@s2B7S<M}E<m7p4j#SbFo&U)wXSRp
+zrI`DQAmK;ewl?4sbYtIF!1qV?%|Q~a?IAKv4RRkOB4WVz1v@RY-3+>E^;|^8az!Ws
+zfKya9Go_YQJ@P97#$K|=)B9Ap<K!qT0&j%WF8hp_4{#AEc#@<P&Qz)}q(v@Vh`hal
+zFl*`yBdbw7Q2Y?Q`_y#T)8Zbwc*gF%QdMRNrYr4W>ZcG9#91vCM!s6RTmf=I)1i%k
+zKer75?(+|fWDAej9KrT4fe`Np#JBO0WMXl|5BCmx+0e(q5yvCR#K)33^5XdL#dJqH
+z-7!q%N{%?9ZHKS(#?iA{*RtL<-*uUW*fVyr>g1}CWjDhqj)Rc<K6}ni$K!Pi2jF;^
+zW+ORJF>jYDYmFNj9IWM3%mW+lxo$h(w+YOq#3T8<is#fRf@$y50mIPusX1FehhvY6
+zgm7G`Hn)|`+_Z`?^F3$Pxf99CA<d(W0eVPWIVaR_ptPIXx<h>82EHTGTiH60r%{C6
+zfx_DX{F<91%DA!%`Pz8~A_k0|$;?bnMJwBxjcoc!4d{g^V#q#Y_bR(FZKtqexRogu
+zf_4Tpv+Amuyz{}$(5h>ta<37I5B^~eRB!j6n3A#93#G8NxTj%haX_!hu`b9K2^52F
+zsW-+hI!QJWkv@U_);4-!t*oZ9h3u<=J+h6e3yrmG{tyUj5)s#-VvWW=b)_ZPeXzD6
+z+FCWL!}3#)vJs@*5oev}7rS8zokKE>!t9%N6A%oaBbBU&dfgj45}>pE-Rr+jhnR+O
+zbAdsv=J{aT0EJP4R+Xx{>Lb45DU|eatE#rI3u)JSZ$FCZN9}8~Oy+KH6sSf-ceEI1
+z*C*QG-FOzb#9LDrRPfdn91Bl6MjL6h9So>D_yk;1#uZ8U)F2V>jMH|DPL7@fT>G(?
+zfd|5p6{TLu+AYGNkJWKB_HDmg+rbv>y&bkrU20;?HCT?<(y@@O1CYQ59@8>IMi2)Z
+zvs?`05rE|OocYoA1Qn&bb|2~e71#^>gj!4<wQXj2izsuL4K8y3FN6=cUl}VUtK#G?
+zp%~H;yz~BfG9ZcP?4-Mzf<T+8Guzh-T25j=At-*$&SvM(nh7=IK=j4``y_z+SL{*O
+z*QPa^@}?4Ywfl2`Ef9b?cI+63Q>Rp2zfonsZ4>(Bw6D8BoU2tkN*&ktO>Qpt+cE!^
+zLWUdzn?TzSHPAfGYWH=&1~axm#^5A3h)3@3@FS6WP@hlw%k3k22b%!2bs;xJv+aJs
+zBTmc2#w@h$8jJrHJH}D%xcDW+ZVZ{+m<D^pjC8aiJlL4ck$(&rSx}9QT_~r;yMJ}@
+zyT4zYeaNGC>Zh{-UZCLCYYpmd@f|})uzqYVFRpDxp1?4@`7FKZOvI4hhwRpcmU^TX
+d#tW{&|Jpa}5~{dccRj!n5581RR400J|3AuZ$f5uM
+
+delta 11
+Scmcb<inX_gwP6b*uNwd!CIl@2
+
+diff --git a/carriersettings/configs/cbn_cn_blockgc.pb b/carriersettings/configs/cbn_cn_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b8d9727d00e6fed51baa1de42bc9e20d6d84797c
+GIT binary patch
+literal 65
+zcmd<$OHRs*PtJ=^%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;+??7&8C>
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/cellc_za.pb b/carriersettings/configs/cellc_za.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..6d5e7d7a7767f8f86130c22eeb8ccba57f1a2156
+GIT binary patch
+literal 89
+zcmd<$NKVbkNsg~d6lgy1r)d?FlADkMmrQbEQBh`UQG8i`PDyHfVp(ElPGV9{YJ5_D
+XevSsCkP??1OhtKGa(rfPF@_odm$x7B
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/cellone_bm.pb b/carriersettings/configs/cellone_bm.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..bfcc2e54fe995167409e3ff92a009fe1ac79e407
+GIT binary patch
+literal 55
+zcmd<$N>0tm$<IrTPs$Z&KJce$6_b*ZkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQVvjA
+JetwPyBLFCB6XO5?
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/claro_br_blockgc.pb b/carriersettings/configs/claro_br_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..4f03ce5c9ef5e6a68fa78d6bdb5e123dfb880864
+GIT binary patch
+literal 67
+zcmd-QNX|(t%8ySficiYPPtHzH7HB^3r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgA
+Tr3D4~MJ1^z@k#mlIT{QAO8yxZ
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/claro_cl_blockgc.pb b/carriersettings/configs/claro_cl_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..7597685ab70664117e8ea61b6e8b914dfcb46b78
+GIT binary patch
+literal 67
+zcmd-QNX|(t%8yUZiBHPOPtHzH7HB^3r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgA
+Tr3D4~MJ1^z@k#mlIT{QAN!=L{
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/clo_il.pb b/carriersettings/configs/clo_il.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..fcbe6d74a30ca46a17cf40e26dbd5a4b7677e64a
+GIT binary patch
+literal 57
+zcmd;LOU}uU&&&~MKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD1^GoKsVVVE
+J`T02-3;<L96$StR
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/cmcc_cn_blockgc.pb b/carriersettings/configs/cmcc_cn_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..07b458277557f9bff06f7209cca81c9df3b34df9
+GIT binary patch
+literal 66
+zcmd<$PtHwFj!({uPs+(p&Q4DjXg=_#X%&-_hL9SUQf6*(ac;355Xa}2r542l`SHc2
+S1qJy<C8;U#N%{FX8Vmp{2pE?D
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/cmhk_hk.pb b/carriersettings/configs/cmhk_hk.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..618560f04c870858ceb5a72fa31e7d5c28b6e592
+GIT binary patch
+literal 203
+zcmd;LPtMKAj?c&zXg=_#X%&;w4n`pbE}7)SqN2>yqWH4>oRZY|#InT9oW!J@)cB<Q
+z{2UENAz3a-xQY@?X(cW>m~?qsa(rfPF{T;~E+wFNS$<}6s$NlMUV2hua&~-4W-idu
+d+{~Pu%;NaWyb_5ASD1y=xfD@U0u^Ib2mtOaN{Ijf
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/ctc_cn_blockgc.pb b/carriersettings/configs/ctc_cn_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..5c6df1d948cb278b919e71cc04d3885671d72a00
+GIT binary patch
+literal 65
+zcmd<$OD;){PtJ=^%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;+|B7&-s|
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/ctg_hk.pb b/carriersettings/configs/ctg_hk.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..809ad3ff91957ea0728a1c5a2efa0615a0026e81
+GIT binary patch
+literal 166
+zcmd;LOD;)|&&U>NKJce$6_e5wMj-_*ndHQxqRiBy__F+*lGOObvc$}s#H5_m_@w;&
+z91TVxSuRPqiV{p|4KAh3+~TtQ%;Z$PqRhPXq{QUx_>#<Apn<uWIXRid@tJug5)ZC0
+P3#oG{qNoHa#;OniTaZ0K
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/cu_cn_blockgc.pb b/carriersettings/configs/cu_cn_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..4154dc80283c6df8014b6358549dc5191e42b8ca
+GIT binary patch
+literal 64
+zcmd<$O)ia3&WlgV$xqHsPZnrC@TX}Nlahvz8kbULZgFvLu^te|=a;1x#RK{A#ia!W
+Q`9&qEDe+19`8gU40Q&wH*8l(j
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/cuhk_hk.pb b/carriersettings/configs/cuhk_hk.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..7a2bb559306c6ed4a63dee9cf65751c6badfc7df
+GIT binary patch
+literal 167
+zcmd;LPcF^Kj?c&zXg=_#X%&;w6h<KhE}7)SqN2>yqWH4>oRZY|#InT9oW!J@)cB<Q
+z{2UENAz3a-xQY@?X$>x=%-rI#{LJK3y`s##^rXb(?D&$*T%duunK?O`#qpVWB@z#=
+QFbk=3DWa$ZD#of10HT6Dt^fc4
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/dauphin_mf.pb b/carriersettings/configs/dauphin_mf.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..91299f5370499bf6cb7521c1f8383fb0213f9337
+GIT binary patch
+literal 95
+zcmd<$N=Ym&$jHo#&rK6(KJce$6_b*ekOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}o
+qQht7p2BVM~mr`bKadB?39uUXpmjP7*`SHc21qJy<C8;S8bqoM@+al5c
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/edf_fr.pb b/carriersettings/configs/edf_fr.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..4e316fb07fe0020027bf9d2f2065357c23b2aed0
+GIT binary patch
+literal 82
+zcmd;LOHE0OPb(5=KJce$6_b*qkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}oQht7p
+P2BVNHmn2+835GNPvDY07
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/emtel_mu.pb b/carriersettings/configs/emtel_mu.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..2e249276091a2f8e3b2f93ef6c987edd81e1cab8
+GIT binary patch
+literal 53
+zcmd<$NX;!t&56$~6=**2r)d?Fl9G@DmrQbEQBh`UQG8i`PDyHfVp(ElPGV9{YJ5_D
+IevSqs00Dm!DF6Tf
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/enel_es.pb b/carriersettings/configs/enel_es.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..c90653681c81eedfd73d12a699b312f1a6b54c15
+GIT binary patch
+literal 52
+zcmd;LPt8lsiBBySXg=_#X%&-_l8^$IOmbpTQD$mUd|7@@NosszSz=~RVp2|Od{TaX
+Hjs_zD=#>(y
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/erillisverkot_fi.pb b/carriersettings/configs/erillisverkot_fi.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..edb35dc914391571888522a4efc58be532593eeb
+GIT binary patch
+literal 190
+zcmZw9u?oU45P)IoB4jF=92~TR76f1ENWv*clb+m#;H+=rrccpF@j)CcMFhe9`+rlT
+zP>iGnrQ-|-s;|TA@|ZQZ%C5{ZI1xgD!Z9Pb;wU;F5j=BjE8Ciek`|_bd!hd5UFaZF
+p8jCb-f%?1{?sK~}>mNDd|8QqEU#O@`+ykCZB&eT2F-+U1eFIX!M~eUe
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/esk_ca.pb b/carriersettings/configs/esk_ca.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..20348459310c3ce8a7621f10fc5f257326523b3c
+GIT binary patch
+literal 92
+zcmd;LOD)chPfiqQKJce$6_b*;kOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}oQht7p
+t2BVNVmttmaaan$5a;jcYW?niF#g}B}0yX4j=Hz4+$7kl1NL*-R1_1X+A;ACu
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/free_fr_blockgc.pb b/carriersettings/configs/free_fr_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..cf982e145d2ce058e3429df7eef07b993ae6db39
+GIT binary patch
+literal 66
+zcmd<$Pb*4IjZZ6zPs+(p&Q4DjXg=_#X%&-_hL9SUQf6*(ac;355Xa}2r542l`SHc2
+S1qJy<C8;U#N%{FX8Vmq0k{GH0
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/genericir92_us_bravado_blockgc.pb b/carriersettings/configs/genericir92_us_bravado_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..f2af15aff6d6e3ba3793c5b2ac5ad7ad73a6ad60
+GIT binary patch
+literal 81
+zcmd;*OHa*9Ey_&JEV49;FD;HwDoQL%Ov#T=%E?d8PEQtSKJce$6_b*NkQ$d#W^QqD
+hZm}K^$LE)&7R3Yk@x`SD1^GoKsVVVE`T02-3;@`&9*6({
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/genericir92_us_choice_blockgc.pb b/carriersettings/configs/genericir92_us_choice_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..2b4fcc8713842fdcea0619026aee5ae9cfad5566
+GIT binary patch
+literal 80
+zcmd;*O;62BEy_&JEV49;FD;Hw&dAS9PK{5>$xqHsPZnrC@TX}Nlahvz8kbULZgFvL
+gu^te|=a;1x#RK{A#ia!W`9&qEDe+19`8gU40JW$d6951J
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/genericir92_us_cspire_blockgc.pb b/carriersettings/configs/genericir92_us_cspire_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..0a4af7377a1ec4740b2d9999d2a1eab94dadceca
+GIT binary patch
+literal 80
+zcmd;*O;62BEy_&JEV49;FD;HwE-uI{N{vs-$xqHsPZnrC@TX}Nlahvz8kbULZgFvL
+gu^te|=a;1x#RK{A#ia!W`9&qEDe+19`8gU40K5bqE&u=k
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/genericir92_us_googlegc_blockgc.pb b/carriersettings/configs/genericir92_us_googlegc_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..d4e338cd73ef9bd52fe79f9f068669912b587fbe
+GIT binary patch
+literal 82
+zcmd;*PfyKDEy_&JEV49;FD;Hw&(BZKNlj0VPs+(p&Q4DjXg=_#X%&-_hL9SUQf6*(
+iac;355Xa}2r542l`SHc21qJy<C8;U#N%{FX8VmsWnjY~0
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/genericir92_us_nemont_blockgc.pb b/carriersettings/configs/genericir92_us_nemont_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..f2703257951bd0bd828d96f3e37d7393da3190b4
+GIT binary patch
+literal 80
+zcmd;*O;62BEy_&JEV49;FD;JGOU=#CD~V6a$xqHsPZnrC@TX}Nlahvz8kbULZgFvL
+gu^te|=a;1x#RK{A#ia!W`9&qEDe+19`8gU40KR}8IRF3v
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/genericir92_us_pioneer_blockgc.pb b/carriersettings/configs/genericir92_us_pioneer_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..842a4724ff21ef1bf3cdf43af945b27561be72aa
+GIT binary patch
+literal 81
+zcmd;*OHa*9Ey_&JEV49;FD;HQ$jr}6O)ZK~%E?d8PEQtSKJce$6_b*NkQ$d#W^QqD
+gZm}K^$LE&;)d2bN#ia!W`9&qEDe+19`8gU40Nqd?n*aa+
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/genericir92_us_southernlinc_blockgc.pb b/carriersettings/configs/genericir92_us_southernlinc_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..2f7ce289ced0d9efd71c899fe84069751604ca89
+GIT binary patch
+literal 86
+zcmd;5PEXBCEy_&JEV49;FD;HQ&Mz&=NG;0C$;?ZRPs+(p&Q4DjXg=_#X%&-_hL9SU
+mQf6*(ac;355Xa}2r542l`SHc21qJy<C8;U#N%{FX8VmrAh#<@W
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/geoverse_us_blockgc.pb b/carriersettings/configs/geoverse_us_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..4990030d9cbb2c26fc071bbcc6c706eb2b3ac0d6
+GIT binary patch
+literal 70
+zcmd-QPEXA*OD!r+jV~>ZPs+(p&Q4DjXg=_#X%&-_hL9SUQf6*(ac;355XXZQ#sm5B
+U#ia!W`9&qEDe+19`8gU40H{D3d;kCd
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/gmobile_mn.pb b/carriersettings/configs/gmobile_mn.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..76983dd71ad944477d0eb838888d33a6975269a2
+GIT binary patch
+literal 126
+zcmd<$O3%$t%FIcP&&?BPKJce$6_Zk?kOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWa5>Q!E
+yetwPyqmV3@BwR%arnDNDQf6*(ac;355Xa}20SyB3<BLlR3i69eQd1ztFaQ8S_bsLX
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/googlegc_all_blockgc.pb b/carriersettings/configs/googlegc_all_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d4b60ad5e8e8e86aea5f8fc3b1287436ec1c65b
+GIT binary patch
+literal 71
+zcmd-QNzczu&q+;Bj!(?ViBHPOPtHzH7HB^3r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP
+X1NrgAr3D4~MJ1^z@k#mlIT{QAxmOys
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/hubone_fr.pb b/carriersettings/configs/hubone_fr.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..11b90a3066e4762b45b468e975c89a371703ef53
+GIT binary patch
+literal 54
+zcmd<$%qUID&r6L@D-viv@TX}Nlai8<0+&p3Vo_0MYEgVyeojehd}3K*W=>*KPHKEo
+JetwPyBLEeo6N&%;
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/imagine_bn.pb b/carriersettings/configs/imagine_bn.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..a38f402c3231f6e7167dcf8da1828fc61a4c215f
+GIT binary patch
+literal 122
+zcmd<$%FInn&&*4WPs$T$KJce$6_Zk`kOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQVvjA
+getwPyqmV3@BwR%arnC~5989`AEjd0jw-`eW0DW95l>h($
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/inwi_ma.pb b/carriersettings/configs/inwi_ma.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..fd3ce4d775e1fa08822593398e27cef193f86c79
+GIT binary patch
+literal 128
+zcmd;L&&(^&jL%IJXg=_#X%&-Fo{$2UOmbpTQD$mUd|7@@NosszSz=~RVp2|Od{TaX
+zjs~NUESDr)MG2;~HkVpvZgE+DW^$@tacXgKW`16LYDGb2QEG8~NoFq4+~U;a_{_W#
+Hi57MMlg=)C
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/ite_us_blockgc.pb b/carriersettings/configs/ite_us_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..da78de417a1888c009263b1837ca93e18b7aad70
+GIT binary patch
+literal 65
+zcmd<$%PdKaFD;Hw%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;-I^7+C-S
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/jambotel_ke.pb b/carriersettings/configs/jambotel_ke.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..60a319bc838f962144982ce14888325ace4efa45
+GIT binary patch
+literal 62
+zcmd<$&PvQp$}dUHiO)_IXg=_#X%&-_hL9SUQf6*(ac;355Xa}2r542l`SHc21qJy<
+OC8;U#N%{FX8Vmr;85b4+
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/kpn_nl_blockgc.pb b/carriersettings/configs/kpn_nl_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..58cec6f908d5d18bea4ff958e3e7af8952e43809
+GIT binary patch
+literal 65
+zcmd<$%Pz=^&&!EV%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;-EQ7*YTL
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/kt_kr_lter_blockgc.pb b/carriersettings/configs/kt_kr_lter_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..7255cd52e4ca79ce11f77a737ec842cf17f4559c
+GIT binary patch
+literal 69
+zcmd-Q$}Wk|E{e}7NiB*`%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE&;)d2bN
+U#ia!W`9&qEDe+19`8gU40EpZg1poj5
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/kt_kr_pslte_blockgc.pb b/carriersettings/configs/kt_kr_pslte_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..4520b7254d90fdf890916ff4d3ab21bdb4b6106e
+GIT binary patch
+literal 70
+zcmd-Q&Mt}1E{ZQG&M8TaPs+(p&Q4DjXg=_#X%&-_hL9SUQf6*(ac;355Xa}2r542l
+W`SHc21qJy<C8;U#N%{FX8VmrZCK`7D
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/labsim.pb b/carriersettings/configs/labsim.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..0491e53d42f8ed52f4e5cdf5977c9944d187ac3c
+GIT binary patch
+literal 57
+zcmd;L%SlWs&de2PKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD1^GoKsVVVE
+J`T02-3;<Ou6$}6X
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/mascom_bw.pb b/carriersettings/configs/mascom_bw.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..d66b8c190ae75a98bf83696556993c13260a305b
+GIT binary patch
+literal 169
+zcmd<$%uOs#&d-fcDi>%z@TX}NlhPDMAq6g(<iw()%+#XzvizKq)cC}*#LS$;q@2|F
+zr2PCG4MrhZE=jnG5=?0gE~U)e;<EhA<W#+)%)IoZ#N_PwlFVG7fw`GEIhn=rnRz7=
+S53Vo^sdFi!s01p;st^D&J3fm5
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/mectel_mm.pb b/carriersettings/configs/mectel_mm.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..4d0e96c20840360860b8fae81c89f93e3e796985
+GIT binary patch
+literal 60
+zcmd<$%uP)$NzIAR%@t@q@TX}Nlahvz8kbULZgFvLu^te|=a;1x#RK{A#ia!W`9&qE
+MDe+19`8gU40Gve@N&o-=
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/mobifone_vn_mvno.pb b/carriersettings/configs/mobifone_vn_mvno.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..3d1cc90e364bd1e2b00e149dc7e98b9b1e7f13f5
+GIT binary patch
+literal 67
+zcmd-Q$jwj6Ov}$pjW5fK&n?T#7id24r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgA
+Tr3D4~MJ1^z@k#mlIT{QAS3em~
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/mod_qa.pb b/carriersettings/configs/mod_qa.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..9b81e27bcf0bfcf92924b2bbf0617d7917ff4df4
+GIT binary patch
+literal 57
+zcmd;L%gs-TFH96@KJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD1^GoKsVVVE
+J`T02-3;<K{6$JnQ
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/moi_qa.pb b/carriersettings/configs/moi_qa.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..0281b5c6ce59d6c0262feb830703934dc9f5a1cf
+GIT binary patch
+literal 202
+zcmd;L%gxV>FH96@KJce$6_e5qMj-_*ndHQxqRiBy__F+*lGOObvc$}s#H5_m_@w;&
+z91TVxSuRPqiV{p|B`!Ibba`5Gd}eMjrWy?{C7^g&er9s2UQuRVdQxI?c6>=@F3{54
+c%$%Ie;`q$G5{VP{nS|826j4+H6=PKh0H7X94FCWD
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/motiv_ru_blockgc.pb b/carriersettings/configs/motiv_ru_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..f97d1b2b9a1363559a0c1a998acb938393ab4744
+GIT binary patch
+literal 67
+zcmd-Q$jvXwEQ>EHjZezSPtHzH7HB^3r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgA
+Tr3D4~MJ1^z@k#mlIT{QAR?rzo
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/mtml_mu.pb b/carriersettings/configs/mtml_mu.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..e1ae47e002c7b366c601e79e528035f2e1de459e
+GIT binary patch
+literal 58
+zcmd;L&n?N#iO($+Xg=_#X%&-_hL9SUQf6*(ac;355Xa}2r542l`SHc21qJy<C8;U#
+KN%{FX8Vmq&>=lpz
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/mts_am.pb b/carriersettings/configs/mts_am.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b0fac5c0548e4e407f1fbb26e8d45bc052e1f482
+GIT binary patch
+literal 87
+zcmd;L%PlF6Ps|l)KJce$6_b*ikOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}oQht7p
+W2BVM?mmEw*d0KLOW-ibGG&KNMP9HM>
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/mytel_mm.pb b/carriersettings/configs/mytel_mm.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..7896d42a7bee965efa61744fc07d16212fd28d5c
+GIT binary patch
+literal 170
+zcmZXMJqiLb5QSYEC6%O7P>?N_1!1o=WaAVAnVpb{L0k0<9>P<2Fbe~Mjm0b8-)EM5
+z$rylnb$h+9&w2Z3?A~m>ONlT+k&qEwaTMGb5Jr*EH+E+>zeWD9JJS-YvJO=srGlyl
+nJ;f*~<ME4`*@Nk7UW7ajimD_N;5kx4g-l#;iXLdn>-*vZX97Lp
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/nedaa_ae.pb b/carriersettings/configs/nedaa_ae.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbd9a1d9115b3aa98e36553787ba1973577ebf69
+GIT binary patch
+literal 59
+zcmd<$$V*L0OpH%V6=**2r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgAr3D4~MJ1^z
+L@k#mlIT{QAdovZZ
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/ntel_ng.pb b/carriersettings/configs/ntel_ng.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..c581f49288c0d650d3701e187098b965cbbcd1d5
+GIT binary patch
+literal 58
+zcmd;L&nrpIiO)+HXg=_#X%&-_hL9SUQf6*(ac;355Xa}2r542l`SHc21qJy<C8;U#
+KN%{FX8Vmq!>lJ(e
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/nviodt_.pb b/carriersettings/configs/nviodt_.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..3527286e77912a809ee19be5a87b07af34fc1d67
+GIT binary patch
+literal 141
+zcmd;L&nwH!PbrBPXg=_#X%&-FwU8Q@Qf6*(ac;355Xa}2r542l`SHc21qJy<C8;U#
+zN%{FX8Vo`jV0C5rnaQboMVWc&Nr}nX@g<qLK=rwqIXRid@tJug5*NO+3#oG{0!=`u
+J1S-a=5CE8=HQ)dM
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/ooredoo_mm.pb b/carriersettings/configs/ooredoo_mm.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..c47a61ae62e066707056dae27aaf2054b24cd773
+GIT binary patch
+literal 113
+zcmd<$%Fi!KP07!X&&?HRKJce$6_ZkokOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}o
+mQht7p2BVNHmn2+838u6pmuO~gv0i#nX=!|F9!O&fR3`uiXD8MG
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/orange_cd_blockgc.pb b/carriersettings/configs/orange_cd_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cc7db45e21cbb88db2b95cc6f86f252a8110137
+GIT binary patch
+literal 68
+zcmd-Q%r8pJOHYkYPKi&-$xqHsPZnrC@TX}Nlahvz8kbULZgFvLu^te|=a;1x#RK{A
+T#ia!W`9&qEKppw{IT{QAWIq{o
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/outremer_fr.pb b/carriersettings/configs/outremer_fr.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..de1bb0f71b9bfb32e4f39b8c8db4fbef8937a405
+GIT binary patch
+literal 56
+zcmd<$&Mz$~O3h6zicc#NXg=_#X%&-_l8^$IOmbpTQ6^BhEI+3tH9oN{F*7GIDJL~P
+KDL+3)gAo8on-qQk
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/paratus_na.pb b/carriersettings/configs/paratus_na.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..210ac238c15f8d7ee12dcd0a975aa5b669655b5b
+GIT binary patch
+literal 61
+zcmd<$Do89!EGaFH&r1|&KJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD1^GoK
+NsVVVE`T02-3;?*$7RCSo
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/redbull_sa.pb b/carriersettings/configs/redbull_sa.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b1cafe0b68647912cbac5bc78a8402a4d6e408c1
+GIT binary patch
+literal 55
+zcmd<$DoRaBD$U7>FHRI_KJce$6_b*ZkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}o
+KQht7p1|t9}^%L*_
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/rwc_ca_blockgc.pb b/carriersettings/configs/rwc_ca_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b6ec600edc0bba53c0b1a538349201fdc73027d1
+GIT binary patch
+literal 65
+zcmd<$D=JTpPfm<a%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;-1m7(W02
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/salam_sa.pb b/carriersettings/configs/salam_sa.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..e4e4f51a515816205a324be2bd59a58c1171d597
+GIT binary patch
+literal 131
+zcmd<$C{D~t%#ANj6lgy1r)d?FQh|^HmrQbEQBh`UQG8i`PDyHfVp(ElPGV9{YJ5_D
+zevSsCkP??1OhtKGa(rfPF{T;~E+wFNS$<}6s$NlMUV2hua&~-4W-idw+{~Pu%;NaW
+Kyb_5GuNVO*X)qZ8
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/samsung_open_blockgc.pb b/carriersettings/configs/samsung_open_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..3cccc8fe9f1b8f7f2dec85ad5f5404cac3bbb37f
+GIT binary patch
+literal 71
+zcmd-QDNf8SF3n4i&o4;Li%-hQPtHzH7HB^3r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP
+X1NrgAr3D4~MJ1^z@k#mlIT{QA#VH!)
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/sbb_ch.pb b/carriersettings/configs/sbb_ch.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..ea675578823cc9491f3b8e7bdbfadb777f57f4a1
+GIT binary patch
+literal 51
+zcmd;LD^5y^PtFi%KJce$6_b*ZkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}oQht7p
+G1|tB_=n^mh
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/sfr_fr_blockgc.pb b/carriersettings/configs/sfr_fr_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..cee3e009a8888b11eace46601d9626f386338ba1
+GIT binary patch
+literal 65
+zcmd<$D^4ql2co2${N(KPWP#=bf0|Y?DQO6)aVcfy78mCh>j80mepzZ!Jdht>Tv||&
+QUsRHs5}%ZxpQFJ502xjgQUCw|
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/skt_kr_blockgc.pb b/carriersettings/configs/skt_kr_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..9d83654b506eac4bc545edfa51f1c7cd0b23c669
+GIT binary patch
+literal 65
+zcmd<$E6y&7&n}8j%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;-M@7+wGX
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/smile_ng.pb b/carriersettings/configs/smile_ng.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..d8baa731ff78c50ac6061daaa61a7f0d5bd1357c
+GIT binary patch
+literal 59
+zcmd<$D9+8yNsZ4-7id24r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgAr3D4~MJ1^z
+L@k#mlIT{QAg+vwP
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/smile_tz.pb b/carriersettings/configs/smile_tz.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..905d0119432b07b6db042eab03061192fc8d0401
+GIT binary patch
+literal 59
+zcmd<$D9+8yNsTY55@<f~r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgAr3D4~MJ1^z
+L@k#mlIT{QAiYyiV
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/smile_ug.pb b/carriersettings/configs/smile_ug.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..53bb62d5d04c3fe257add9bd51042a21aa98689c
+GIT binary patch
+literal 59
+zcmd<$D9+8yNsTW}7id24r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP1NrgAr3D4~MJ1^z
+L@k#mlIT{QAhN%_n
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/tattelecom_ru_blockgc.pb b/carriersettings/configs/tattelecom_ru_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b5585e7b4801c5a9ecff7e5ca30e078db8a6df53
+GIT binary patch
+literal 72
+zcmd-QElDgXNzF-3&d-f6DveLd$xqHsPZnrC@TX}Nlahvz8kbULZgFvLu^te|=a;1x
+Y#RK{A#ia!W`9&qEDe+19`8gU40OBkgPXGV_
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/telefonica_de.pb b/carriersettings/configs/telefonica_de.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..3d52ba46fdfeac11b4248a6ea99961ee895d88bb
+GIT binary patch
+literal 209
+zcmd<$ElJHuP0P>AOiqkXNfl^5@TX}NlhO`GAq6g(<iw()%+#XzvizKq)cC}*#LS$;
+zq@2|Fr2PCG4MrhZE=jnG5=?0&E;*QVd0KLOW^OU28VxQbpm<q+W^$@tQD$CxQetv;
+jd`V_5(9+z@oSe+!_{_W#i3R_-gw(kdQB(pIV^s(M;VMkt
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/telefonica_es_blockgc.pb b/carriersettings/configs/telefonica_es_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..1805e9dbccc73c4ef7a7a6329fbd198b889cb217
+GIT binary patch
+literal 72
+zcmd-QElJHuP0P>AOiqkXEsjsh$xqHsPZnrC@TX}Nlahvz8kbULZgFvLu^te|=a;1x
+Y#RK{A#ia!W`9&qEDe+19`8gU40NA@5C;$Ke
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/telenor_mm.pb b/carriersettings/configs/telenor_mm.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..f16f817dd9d02b29215911e395f1f1d87f27a263
+GIT binary patch
+literal 86
+zcmd<$DoM>r&C4%}&&?HRKJce$6_b*qkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}o
+TQht7p2BVNHmn2+835GNPM^ql$
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/telma_mg.pb b/carriersettings/configs/telma_mg.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..05bdca2859f1c76ba0f8d18847e0e9ff857e6874
+GIT binary patch
+literal 142
+zcmd<$C`rx9O^nY?7id24r)d?FQnip8mr`bKadB?39uUXpm!%fP1NrgAr3D4~MJ1^z
+z@k#mlIT{Q?8eny0`I*V7dPSLe=}C#n+3_Wrxj^-~nK?O`#qpVWB@zc#vJ0tmDFRJE
+Ns01p;RCr@8GXS=pHIM)R
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/tmobile_us_inbound.pb b/carriersettings/configs/tmobile_us_inbound.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd642ce30333f050dd5e5253aeb253c7f40f63a4
+GIT binary patch
+literal 146
+zcmd-QD#^`H%FIcPFD;JG%uC8I%}WtzKJce$6_Zk_kOG%Xa$-?YW@=G<S$<AQYJ6f@
+zVrEWa5>R<ketwPyqmTxdQf6*(S$<}6s$NlMUV2hua&~-4W-d@iZe~tSCdkkdi32Oy
+Sh19teQB(pIV=CNmn+*V+m^T>!
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/tmobile_us_lab_blockgc.pb b/carriersettings/configs/tmobile_us_lab_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..a124db4713dadb3c2095abf9a4aad682fea8e2dd
+GIT binary patch
+literal 73
+zcmd-QE6L4I%FIcPFD;JGNlc1Q%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&
+Z7R3Yk@x`SD1^GoKsVVVE`T02-3;_6D8<_wA
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/tunisietelecom_tn.pb b/carriersettings/configs/tunisietelecom_tn.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..69865dbb766f455fde71a4624c1d76c2ddf9c741
+GIT binary patch
+literal 93
+zcmd-QEGf;)EY3_VNzF-3&d-f6$rETk@TX}Nlaiy50+&p3Vo_0MYEgVyeojehd}3K*
+aW=>*KPHKEoetwPyqmV3@BwR%ahBN?Bdm-BZ
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/tuvalu_nz.pb b/carriersettings/configs/tuvalu_nz.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b4108b064092d49edc1a6044992d35ebebe50b36
+GIT binary patch
+literal 143
+zcmd<$EGaEZ%qfk}s}g8F@TX}NlTx*i8kbULZgFvLu^te|=a;1x#RK{A#ia!W`9&qE
+zDe+19`8gU4LK<LoW%-%Osd`13dFe@s$=UHGnYlpqxtTdRnZ@y$c_k7Db}$L4b14E%
+LK&S*N#;Oni5eGIe
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/unn_bn.pb b/carriersettings/configs/unn_bn.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..73548669a3b040cd0bac9aabcc48778e039720da
+GIT binary patch
+literal 118
+zcmd;LE6vM`Ps$T$KJce$6_Zk`kOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}oQht7p
+d2BVNHmn2+838u6XmmEyGJS{msGq)H+4FJUJDhL1o
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/upc_ch.pb b/carriersettings/configs/upc_ch.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..bde94e2420d641ad7484bd6a36381f0cc088273c
+GIT binary patch
+literal 171
+zcmd;LD=kQlPtFi%KJce$6_e6TMj-_*ndHQxqRiBy__F+*lGOObvc$}s#H5_m_@w;&
+z91TVxB`!Ibit@DN_{`j5Of?!@N<i_l{LJK3y`s##^rXb(?D&$*T%f7BnK?O`#qpVW
+UB@zq%aS5q&DWa$ZD#of10HSX{F#rGn
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/uts_cw.pb b/carriersettings/configs/uts_cw.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..47c01c9f131ddec559d10ed7e0466c65b0895f6f
+GIT binary patch
+literal 51
+zcmd;LD=jIGPc9c|KJce$6_b*ZkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}oQht7p
+G1|tC4T@qvf
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/uztelecom_uz.pb b/carriersettings/configs/uztelecom_uz.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..33b644091a2dfc6d09315dd4ba11b3f61110aa16
+GIT binary patch
+literal 253
+zcmd<$DXl6=%}Gtp&y6pw5@<f~r)d?F(o;qu1umK7#G<0i)S~#Z{G5{1_{6fr%$&re
+zoYeTF{QMjZMj=@)Nw|s<Olc)9Ihb^LT5^15ZZW1B4K5|1cv*gCa;jcYW?p(yVsdtT
+zNoFq4(%j6PoXq0*%)Anb13Q?6)VUN<R00)aSE$XU23J^|T3no&pBJB6QIJ`bS`5`t
+MoC<Ue(AWtw0LxchcK`qY
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/vgr_se.pb b/carriersettings/configs/vgr_se.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..81aece08e8a48293da7d01d8d16e9172e9870c86
+GIT binary patch
+literal 51
+zcmd;LD@!kmFHRL`KJce$6_b*ZkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWaQch}oQht7p
+G1|tC1rxH~F
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/videotron_ca_blockgc.pb b/carriersettings/configs/videotron_ca_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..cba0bd4621a6272a552fcd5d128cf99405b21e0c
+GIT binary patch
+literal 71
+zcmd-QDa%Yr%`Yj+&x=n^j8DqRPtHzH7HB^3r)d?Fl7^5Pmr`bKadB?39uUXpm!%fP
+X1NrgAr3D4~MJ1^z@k#mlIT{QA!4DeK
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/virgin_sa.pb b/carriersettings/configs/virgin_sa.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..f3a27b25a090f6de1464b829f9eb65810862358c
+GIT binary patch
+literal 105
+zcmd<$EXyoP&&-Q2P84W9@TX}NlTxUV8kbULZgFvLu^te|=a;1x#RK{A#ia!W`9&qE
+zDe+19`8gU4LfTwvK=HEt%;Z$P;?&~e%>2Cg)QW=4qSWH}lFVG7w&K*}_{_W#i57MM
+D5oRY!
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/vivo_br_blockgc.pb b/carriersettings/configs/vivo_br_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..c91c868641a3b14c7c53a9ca4237e8e657870d30
+GIT binary patch
+literal 66
+zcmd<$FUu^;k54L!Ps+(p&Q4DjXg=_#X%&-_hL9SUQf6*(ac;355Xa}2r542l`SHc2
+S1qJy<C8;U#N%{FX8Vmq7?-<Ac
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/vodafonepng_nz.pb b/carriersettings/configs/vodafonepng_nz.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..f24010036546fb8adb2236ffd1a9c0b1d853408a
+GIT binary patch
+literal 90
+zcmd<$E6YzwOv}$pEyzoc&#Mw>KJce$6_b*qkOG%Xa$-?YW@=G<S$<AQYJ6f@VrEWa
+XQch}oQht7p2BVNHmn2+835GNP*?u64
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/vzw_us_blockgc.pb b/carriersettings/configs/vzw_us_blockgc.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..e071ddf06b1439f436fa0622f41983c0c17e9e47
+GIT binary patch
+literal 65
+zcmd<$E2}DxFD;Hw%E?d8PEQtSKJce$6_b*NkQ$d#W^QqDZm}K^$LE)&7R3Yk@x`SD
+R1^GoKsVVVE`T02-3;-j;7=8c%
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/we_eg.pb b/carriersettings/configs/we_eg.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..617accb3322b169810bcaac8203177fed2ff9b0d
+GIT binary patch
+literal 246
+zcmd;LEl-V4O&4fB@TX}NlhRX0Aq6g(<iw()%+#XzvizKq)cC}*#LS$;q@2|Fr2PCG
+z4MrhZE=jnG5=?0&E;*QVd0KLOW^OU28VxQbpm<q+W^$@tQD$CxQetv;d`V_5(9+z@
+zoSe+!_{_W#i5I__h19teQB(pIV^^rnr3P16oLXF*nV%P*T2YW$lv)hcP@D>M4ba#Y
+Fb^!N_TL=IE
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/xplore_ca.pb b/carriersettings/configs/xplore_ca.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..86a69d97e6a420d216eb7e760367186f2d0d4dce
+GIT binary patch
+literal 143
+zcmd<$tSHFIFG`J1P84W9@TX}NlTx*i8kbULZgFvLu^te|=a;1x#RK{A#ia!W`9&qE
+zDe+19`8gU4LK<LoW%-%Osd`13dFe@s$=UHGnYlpqxtTdRnZ@y$c_k7H{&5MZb14E%
+OK&S*N##DIXJ`(@}j5c8a
+
+literal 0
+HcmV?d00001
+
+diff --git a/carriersettings/configs/zantel_tz.pb b/carriersettings/configs/zantel_tz.pb
+new file mode 100644
+index 0000000000000000000000000000000000000000..b480ec0d3ac3e03fd74032accb21d2c0c29a1c9c
+GIT binary patch
+literal 121
+zcmd<$tV+x)NzI8bsS;>D@TX}NlTxaX0+&p3Vo_0MYEgVyeojehd}3K*W=>*KPHKEo
+getwPyqmV3@BwR%arnC~5989`AEjd0jw-`eW0A=_qW&i*H
+
+literal 0
+HcmV?d00001
+
+-- 
+2.56.0
+
