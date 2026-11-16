@@ -6,4 +6,3 @@ set_prop(hal_thermal_default, vendor_thermal_prop)
 
 allow hal_thermal_default fwk_stats_service:service_manager find;
 binder_call(hal_thermal_default, stats_service_server)
-allow hal_thermal_default kmsg_device:chr_file { getattr w_file_perms };
