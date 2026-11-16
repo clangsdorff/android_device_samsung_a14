@@ -1,4 +1,4 @@
-From a54b97817ee5fbf8de1030b306af9c9b7c72b891 Mon Sep 17 00:00:00 2001
+From b088d4fa57553eae88708e23b5385c1d6ff171dd Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 09:31:23 +0000
 Subject: [PATCH] pif: auto-fetch Pixel Canary identity for DroidGuard
@@ -10,12 +10,12 @@ Change-Id: I14654ee5f6026c8e11a0844419691e3627b15c33
  core/java/android/app/ActivityThread.java     |   3 +-
  core/java/android/app/IActivityManager.aidl   |  15 +
  core/java/android/os/SystemProperties.java    |  10 +
- .../com/android/internal/util/PifHooks.java   | 225 +++++
+ .../com/android/internal/util/PifHooks.java   | 230 +++++
  core/jni/android_os_SystemProperties.cpp      |  20 +-
  .../security/AndroidKeyStoreMaintenance.java  |  45 +
- .../server/am/ActivityManagerService.java     |  98 +-
+ .../server/am/ActivityManagerService.java     | 103 ++-
  .../com/android/server/am/PifAutoUpdater.java | 843 ++++++++++++++++++
- 8 files changed, 1256 insertions(+), 3 deletions(-)
+ 8 files changed, 1266 insertions(+), 3 deletions(-)
  create mode 100644 core/java/com/android/internal/util/PifHooks.java
  create mode 100644 services/core/java/com/android/server/am/PifAutoUpdater.java
 
@@ -94,10 +94,10 @@ index 18b207a42f75..a52ae87656d1 100644
       *
 diff --git a/core/java/com/android/internal/util/PifHooks.java b/core/java/com/android/internal/util/PifHooks.java
 new file mode 100644
-index 000000000000..d01c384332bb
+index 000000000000..bd99b6a47a08
 --- /dev/null
 +++ b/core/java/com/android/internal/util/PifHooks.java
-@@ -0,0 +1,225 @@
+@@ -0,0 +1,230 @@
 +/*
 + * SPDX-FileCopyrightText: The LineageOS Project
 + * SPDX-License-Identifier: Apache-2.0
@@ -259,6 +259,11 @@ index 000000000000..d01c384332bb
 +        }
 +        if (securityPatch != null) {
 +            SystemProperties.setProcessOverride("ro.build.version.security_patch", securityPatch);
++            SystemProperties.setProcessOverride("ro.vendor.build.security_patch", securityPatch);
++            SystemProperties.setProcessOverride("ro.system.build.version.security_patch",
++                    securityPatch);
++            SystemProperties.setProcessOverride("ro.product.build.version.security_patch",
++                    securityPatch);
 +        }
 +        if (firstApi != null) {
 +            SystemProperties.setProcessOverride("ro.product.first_api_level", firstApi);
@@ -425,7 +430,7 @@ index ecf4eb4502df..cb9b9e76229b 100644
 +    }
  }
 diff --git a/services/core/java/com/android/server/am/ActivityManagerService.java b/services/core/java/com/android/server/am/ActivityManagerService.java
-index e63c7c7b97b5..90ce7c657923 100644
+index e63c7c7b97b5..7ce8caa6f33d 100644
 --- a/services/core/java/com/android/server/am/ActivityManagerService.java
 +++ b/services/core/java/com/android/server/am/ActivityManagerService.java
 @@ -5965,7 +5965,7 @@ public class ActivityManagerService extends IActivityManager.Stub
@@ -437,7 +442,7 @@ index e63c7c7b97b5..90ce7c657923 100644
          synchronized (mGlobalLock) {
              // Ensure that any processes we had put on hold are now started
              // up.
-@@ -21239,4 +21239,100 @@ public class ActivityManagerService extends IActivityManager.Stub
+@@ -21239,4 +21239,105 @@ public class ActivityManagerService extends IActivityManager.Stub
          mAnrWarningController.notifyAnrWarning(
                  uid, anrId, errorId, anrType, consumedTimeMs, timeoutMs, description);
      }
@@ -457,9 +462,14 @@ index e63c7c7b97b5..90ce7c657923 100644
 +        synchronized (mPidsSelfLocked) {
 +            proc = mPidsSelfLocked.get(callingPid);
 +        }
-+        if (proc == null || proc.uid != callingUid || proc.info == null
-+                || !"com.google.android.gms".equals(proc.info.packageName)
-+                || !"com.google.android.gms.unstable".equals(proc.processName)) {
++        if (proc == null || proc.uid != callingUid || proc.info == null) {
++            return null;
++        }
++        final boolean isDroidGuard = "com.google.android.gms".equals(proc.info.packageName)
++                && "com.google.android.gms.unstable".equals(proc.processName);
++        final boolean isVending = "com.android.vending".equals(proc.info.packageName)
++                && "com.android.vending".equals(proc.processName);
++        if (!isDroidGuard && !isVending) {
 +            return null;
 +        }
 +        return PifAutoUpdater.getCurrentFlatPairs();
