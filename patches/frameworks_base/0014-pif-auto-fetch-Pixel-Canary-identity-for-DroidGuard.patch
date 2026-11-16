@@ -1,4 +1,4 @@
-From d993348cc9b3bcddbcea4d0b5374618ffd44ab4e Mon Sep 17 00:00:00 2001
+From a54b97817ee5fbf8de1030b306af9c9b7c72b891 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 09:31:23 +0000
 Subject: [PATCH] pif: auto-fetch Pixel Canary identity for DroidGuard
@@ -10,12 +10,12 @@ Change-Id: I14654ee5f6026c8e11a0844419691e3627b15c33
  core/java/android/app/ActivityThread.java     |   3 +-
  core/java/android/app/IActivityManager.aidl   |  15 +
  core/java/android/os/SystemProperties.java    |  10 +
- .../com/android/internal/util/PifHooks.java   | 187 ++++
+ .../com/android/internal/util/PifHooks.java   | 225 +++++
  core/jni/android_os_SystemProperties.cpp      |  20 +-
  .../security/AndroidKeyStoreMaintenance.java  |  45 +
  .../server/am/ActivityManagerService.java     |  98 +-
  .../com/android/server/am/PifAutoUpdater.java | 843 ++++++++++++++++++
- 8 files changed, 1218 insertions(+), 3 deletions(-)
+ 8 files changed, 1256 insertions(+), 3 deletions(-)
  create mode 100644 core/java/com/android/internal/util/PifHooks.java
  create mode 100644 services/core/java/com/android/server/am/PifAutoUpdater.java
 
@@ -94,10 +94,10 @@ index 18b207a42f75..a52ae87656d1 100644
       *
 diff --git a/core/java/com/android/internal/util/PifHooks.java b/core/java/com/android/internal/util/PifHooks.java
 new file mode 100644
-index 000000000000..169e7494a95e
+index 000000000000..d01c384332bb
 --- /dev/null
 +++ b/core/java/com/android/internal/util/PifHooks.java
-@@ -0,0 +1,187 @@
+@@ -0,0 +1,225 @@
 +/*
 + * SPDX-FileCopyrightText: The LineageOS Project
 + * SPDX-License-Identifier: Apache-2.0
@@ -107,6 +107,7 @@ index 000000000000..169e7494a95e
 +
 +import android.app.ActivityManager;
 +import android.os.Build;
++import android.os.Process;
 +import android.os.SystemProperties;
 +import android.util.Log;
 +
@@ -122,11 +123,17 @@ index 000000000000..169e7494a95e
 +public final class PifHooks {
 +    private static final String TAG = "PifHooks";
 +    private static final String DROIDGUARD_PROCESS = "com.google.android.gms.unstable";
++    private static final String VENDING_PROCESS = "com.android.vending";
 +
 +    private PifHooks() {}
 +
 +    public static void setProps(String processName) {
-+        if (!DROIDGUARD_PROCESS.equals(processName)) {
++        if (Process.isIsolated()) {
++            return;
++        }
++        final boolean isDroidGuard = DROIDGUARD_PROCESS.equals(processName);
++        final boolean isVending = VENDING_PROCESS.equals(processName);
++        if (!isDroidGuard && !isVending) {
 +            return;
 +        }
 +        final String[] kv;
@@ -177,6 +184,19 @@ index 000000000000..169e7494a95e
 +                default: break;
 +            }
 +        }
++        if (isVending) {
++            if (fingerprint != null) {
++                SystemProperties.setProcessOverride("ro.build.fingerprint", fingerprint);
++                setSingleBuildField(Build.class, "FINGERPRINT", fingerprint);
++            }
++            return;
++        }
++
++        if ("CANARY".equalsIgnoreCase(release)) {
++            String ownRelease = Build.VERSION.RELEASE;
++            release = (ownRelease != null && !ownRelease.isEmpty()) ? ownRelease : null;
++        }
++
 +
 +        // Override bionic system properties first so both Java SystemProperties and native
 +        // __system_property_get / __system_property_read_callback see the spoofed values.
@@ -191,6 +211,7 @@ index 000000000000..169e7494a95e
 +        }
 +        if (id != null) {
 +            SystemProperties.setProcessOverride("ro.build.id", id);
++            SystemProperties.setProcessOverride("ro.build.display.id", id);
 +        }
 +        if (type != null) {
 +            SystemProperties.setProcessOverride("ro.build.type", type);
@@ -261,6 +282,7 @@ index 000000000000..169e7494a95e
 +            setBuildField(unsafe, offsetOf, baseOf, putRef, Build.class, "DEVICE", device);
 +            setBuildField(unsafe, offsetOf, baseOf, putRef, Build.class, "PRODUCT", product);
 +            setBuildField(unsafe, offsetOf, baseOf, putRef, Build.class, "ID", id);
++            setBuildField(unsafe, offsetOf, baseOf, putRef, Build.class, "DISPLAY", id);
 +            setBuildField(unsafe, offsetOf, baseOf, putRef, Build.class, "FINGERPRINT", fingerprint);
 +            setBuildField(unsafe, offsetOf, baseOf, putRef, Build.class, "TYPE", type);
 +            setBuildField(unsafe, offsetOf, baseOf, putRef, Build.class, "TAGS", tags);
@@ -282,6 +304,22 @@ index 000000000000..169e7494a95e
 +            putRef.invoke(unsafe, baseOf.invoke(unsafe, f), offsetOf.invoke(unsafe, f), value);
 +        } catch (ReflectiveOperationException ex) {
 +            Log.e(TAG, "failed to set " + target.getSimpleName() + "." + name, ex);
++        }
++    }
++
++    private static void setSingleBuildField(Class<?> target, String name, String value) {
++        try {
++            Class<?> unsafeClass = Class.forName("jdk.internal.misc.Unsafe");
++            Field theOne = unsafeClass.getDeclaredField("THE_ONE");
++            theOne.setAccessible(true);
++            Object unsafe = theOne.get(null);
++            Method offsetOf = unsafeClass.getMethod("staticFieldOffset", Field.class);
++            Method baseOf = unsafeClass.getMethod("staticFieldBase", Field.class);
++            Method putRef = unsafeClass.getMethod("putReference",
++                    Object.class, long.class, Object.class);
++            setBuildField(unsafe, offsetOf, baseOf, putRef, target, name, value);
++        } catch (ReflectiveOperationException ex) {
++            Log.e(TAG, "failed to update " + target.getSimpleName() + "." + name, ex);
 +        }
 +    }
 +}
