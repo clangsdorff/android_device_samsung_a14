@@ -4,11 +4,6 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <!-- The stock fingerprint HAL is HIDL, it has to be listed here to be picked up -->
-    <string-array name="config_biometric_sensors" translatable="false">
-        <item>0:2:15</item>
-    </string-array>
-
     <bool name="config_is_powerbutton_fps">true</bool>
     <string name="config_cameraLightService" translatable="false">com.android.attention/.CameraLightService</string>
 </resources>
