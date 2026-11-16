@@ -358,7 +358,6 @@ vendor/etc/plmn_delta_ltn.bin
 vendor/etc/plmn_delta_usagsm.bin
 vendor/etc/plmn_se13_prebuilt.bin
 vendor/etc/vintf/manifest/vendor.samsung.hardware.radio_manifest_2_202404.xml
-vendor/etc/vintf/manifest/vendor.samsung.hardware.sehradio_manifest_2_202404.xml
 vendor/lib/libsecril-client.so
 vendor/lib64/libril_sem.so
 vendor/lib64/libsec-ril.so
