@@ -10,4 +10,5 @@
     </string-array>
 
     <bool name="config_is_powerbutton_fps">true</bool>
+    <bool name="config_automatic_brightness_available">false</bool>
 </resources>
