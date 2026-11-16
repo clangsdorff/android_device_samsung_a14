@@ -10,5 +10,5 @@
     </string-array>
 
     <bool name="config_is_powerbutton_fps">true</bool>
-    <bool name="config_automatic_brightness_available">false</bool>
+    <string name="config_cameraLightService" translatable="false">com.android.attention/.CameraLightService</string>
 </resources>

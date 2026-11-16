@@ -18,5 +18,10 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name=".CameraLightService"
+            android:exported="true"
+            android:permission="android.permission.DEVICE_POWER" />
+
     </application>
 </manifest>
