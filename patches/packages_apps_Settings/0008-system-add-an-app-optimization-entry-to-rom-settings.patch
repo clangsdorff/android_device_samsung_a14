@@ -1,0 +1,121 @@
+From 7959ad15fc1cc0e2ec1b2a17658d0a22b6bf1acd Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 17 Nov 2026 00:48:02 +0300
+Subject: [PATCH] system: add an app optimization entry to rom settings
+
+Background dexopt waits for the device to be idle and charging, which
+some users rarely hit, so apps keep running on verify or old profiles.
+
+Add an entry that asks the system server to start the background
+dexopt job right away. Progress and the result are shown by the
+framework in a notification.
+---
+ res/values-tr/rom_settings_strings.xml           |  5 ++++-
+ res/values/rom_settings_strings.xml              |  5 ++++-
+ res/xml/rom_settings.xml                         |  5 +++++
+ .../settings/system/RomSettingsFragment.java     | 16 ++++++++++++++++
+ 4 files changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/res/values-tr/rom_settings_strings.xml b/res/values-tr/rom_settings_strings.xml
+index 7ffd3c2..1cefa93 100644
+--- a/res/values-tr/rom_settings_strings.xml
++++ b/res/values-tr/rom_settings_strings.xml
+@@ -5,9 +5,12 @@
+ -->
+ <resources>
+     <string name="rom_settings_title">ROM ayarları</string>
+-    <string name="rom_settings_summary">Güvenli ekran görüntüsü, ses paketi</string>
++    <string name="rom_settings_summary">Güvenli ekran görüntüsü, ses paketi, uygulama optimizasyonu</string>
+     <string name="rom_settings_ignore_secure_title">Güvenli uygulamalarda ekran görüntüsü</string>
+     <string name="rom_settings_ignore_secure_summary">FLAG_SECURE yok sayılır, her uygulamada ekran görüntüsü, ekran kaydı ve yansıtma çalışır. DRM videolar siyah kalır.</string>
+     <string name="rom_settings_sound_pack_title">Ses paketi</string>
+     <string name="rom_settings_sound_pack_applied">Varsayılan zil, bildirim, alarm ve sistem sesleri değişti</string>
++    <string name="rom_settings_dexopt_title">Uygulamaları şimdi optimize et</string>
++    <string name="rom_settings_dexopt_summary">Uygulamalar boşta bakım zamanı beklenmeden kullanım profillerine göre derlenir. İlerleme bildirimde gösterilir.</string>
++    <string name="rom_settings_dexopt_started">Uygulama optimizasyonu başladı</string>
+ </resources>
+diff --git a/res/values/rom_settings_strings.xml b/res/values/rom_settings_strings.xml
+index 53280df..c8320dd 100644
+--- a/res/values/rom_settings_strings.xml
++++ b/res/values/rom_settings_strings.xml
+@@ -5,13 +5,16 @@
+ -->
+ <resources>
+     <string name="rom_settings_title">ROM settings</string>
+-    <string name="rom_settings_summary">Secure screenshots, sound pack</string>
++    <string name="rom_settings_summary">Secure screenshots, sound pack, app optimization</string>
+     <string name="rom_settings_ignore_secure_title">Allow screenshots in secure apps</string>
+     <string name="rom_settings_ignore_secure_summary">Ignore FLAG_SECURE so screenshots, screen recording and casting work in every app. DRM video stays black.</string>
+     <string name="rom_settings_sound_pack_title">Sound pack</string>
+     <string name="rom_settings_sound_pack_lineage">LineageOS</string>
+     <string name="rom_settings_sound_pack_samsung">Samsung</string>
+     <string name="rom_settings_sound_pack_applied">Default ringtone, notification, alarm and system sounds changed</string>
++    <string name="rom_settings_dexopt_title">Optimize apps now</string>
++    <string name="rom_settings_dexopt_summary">Compile apps with their usage profiles instead of waiting for the idle maintenance window. Progress is shown in a notification.</string>
++    <string name="rom_settings_dexopt_started">App optimization started</string>
+     <string-array name="rom_settings_sound_pack_entries" translatable="false">
+         <item>@string/rom_settings_sound_pack_lineage</item>
+         <item>@string/rom_settings_sound_pack_samsung</item>
+diff --git a/res/xml/rom_settings.xml b/res/xml/rom_settings.xml
+index 56803ad..89174a5 100644
+--- a/res/xml/rom_settings.xml
++++ b/res/xml/rom_settings.xml
+@@ -21,4 +21,9 @@
+         android:entries="@array/rom_settings_sound_pack_entries"
+         android:entryValues="@array/rom_settings_sound_pack_values"
+         android:persistent="false" />
++
++    <Preference
++        android:key="rom_dexopt"
++        android:title="@string/rom_settings_dexopt_title"
++        android:summary="@string/rom_settings_dexopt_summary" />
+ </PreferenceScreen>
+diff --git a/src/com/android/settings/system/RomSettingsFragment.java b/src/com/android/settings/system/RomSettingsFragment.java
+index aaaf5a7..248076f 100644
+--- a/src/com/android/settings/system/RomSettingsFragment.java
++++ b/src/com/android/settings/system/RomSettingsFragment.java
+@@ -10,11 +10,13 @@ import android.app.settings.SettingsEnums;
+ import android.content.ContentResolver;
+ import android.content.ContentUris;
+ import android.content.Context;
++import android.content.Intent;
+ import android.database.Cursor;
+ import android.media.RingtoneManager;
+ import android.net.Uri;
+ import android.os.Bundle;
+ import android.os.SystemProperties;
++import android.os.UserHandle;
+ import android.provider.MediaStore;
+ import android.provider.Settings;
+ import android.util.Log;
+@@ -38,6 +40,8 @@ public class RomSettingsFragment extends DashboardFragment
+     private static final String TAG = "RomSettings";
+     private static final String KEY_IGNORE_SECURE = "window_ignore_secure";
+     private static final String KEY_SOUND_PACK = "rom_sound_pack";
++    private static final String KEY_DEXOPT = "rom_dexopt";
++    private static final String ACTION_DEXOPT = "com.android.server.pm.action.ROM_DEXOPT_START";
+     private static final String PACK_LINEAGE = "lineage";
+     private static final String PACK_SAMSUNG = "samsung";
+ 
+@@ -87,6 +91,18 @@ public class RomSettingsFragment extends DashboardFragment
+         }
+     }
+ 
++    @Override
++    public boolean onPreferenceTreeClick(Preference preference) {
++        if (KEY_DEXOPT.equals(preference.getKey())) {
++            Context ctx = getContext();
++            ctx.sendBroadcastAsUser(new Intent(ACTION_DEXOPT).setPackage("android"),
++                    UserHandle.SYSTEM);
++            Toast.makeText(ctx, R.string.rom_settings_dexopt_started, Toast.LENGTH_SHORT).show();
++            return true;
++        }
++        return super.onPreferenceTreeClick(preference);
++    }
++
+     @Override
+     public void onDestroy() {
+         super.onDestroy();
+-- 
+2.56.0
+
