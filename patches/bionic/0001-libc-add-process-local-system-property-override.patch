@@ -1,4 +1,4 @@
-From 8de1b1439d18707eb468367acedbe7dc8853f782 Mon Sep 17 00:00:00 2001
+From dd43d24330229561595dca5dad2d270e8349e414 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 09:31:18 +0000
 Subject: [PATCH] libc: add process-local system property override
@@ -14,7 +14,7 @@ Change-Id: If081ab2bf42b9b4c2f92f316b588bd53eaa3cee3
  4 files changed, 131 insertions(+), 1 deletion(-)
 
 diff --git a/libc/bionic/system_property_api.cpp b/libc/bionic/system_property_api.cpp
-index 34438e7af..e271193c0 100644
+index 34438e7af..46cee2aea 100644
 --- a/libc/bionic/system_property_api.cpp
 +++ b/libc/bionic/system_property_api.cpp
 @@ -135,3 +135,8 @@ int __system_properties_zygote_reload(void) {
@@ -22,7 +22,7 @@ index 34438e7af..e271193c0 100644
    return system_properties.EnableOverrides() ? 0 : -1;
  }
 +
-+__BIONIC_WEAK_FOR_NATIVE_BRIDGE
++extern "C" __BIONIC_WEAK_FOR_NATIVE_BRIDGE
 +int __system_property_set_process_override(const char* name, const char* value) {
 +  return system_properties.SetProcessOverride(name, value);
 +}
