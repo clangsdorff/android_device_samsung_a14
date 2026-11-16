@@ -1,0 +1,1676 @@
+From 416d312618f29b4a83ce80c6a89717930d822dfb Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Tue, 17 Nov 2026 00:59:57 +0300
+Subject: [PATCH] pm: translate the app optimization notification
+
+The notification for an on demand dexopt run only had english and
+turkish text.
+
+Add translations for the same locales the rom settings screen
+covers.
+---
+ core/res/res/values-af/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-am/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ar/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-as/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-az/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-b+sr+Latn/rom_strings.xml | 12 ++++++++++++
+ core/res/res/values-be/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-bg/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-bn/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-bs/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ca/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-cs/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-da/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-de/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-el/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-en-rAU/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-en-rCA/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-en-rGB/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-en-rIN/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-es-rUS/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-es/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-et/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-eu/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-fa/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-fi/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-fr-rCA/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-fr/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-gl/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-gu/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-hi/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-hr/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-hu/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-hy/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-in/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-is/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-it/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-iw/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ja/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ka/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-kk/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-km/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-kn/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ko/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ky/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-lo/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-lt/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-lv/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-mk/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ml/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-mn/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-mr/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ms/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-my/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-nb/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ne/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-nl/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-or/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-pa/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-pl/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-pt-rBR/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-pt-rPT/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-pt/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ro/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ru/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-si/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-sk/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-sl/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-sq/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-sr/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-sv/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-sw/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ta/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-te/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-th/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-tl/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-uk/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-ur/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-uz/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-vi/rom_strings.xml        | 12 ++++++++++++
+ core/res/res/values-zh-rCN/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-zh-rHK/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-zh-rTW/rom_strings.xml    | 12 ++++++++++++
+ core/res/res/values-zu/rom_strings.xml        | 12 ++++++++++++
+ 83 files changed, 996 insertions(+)
+ create mode 100644 core/res/res/values-af/rom_strings.xml
+ create mode 100644 core/res/res/values-am/rom_strings.xml
+ create mode 100644 core/res/res/values-ar/rom_strings.xml
+ create mode 100644 core/res/res/values-as/rom_strings.xml
+ create mode 100644 core/res/res/values-az/rom_strings.xml
+ create mode 100644 core/res/res/values-b+sr+Latn/rom_strings.xml
+ create mode 100644 core/res/res/values-be/rom_strings.xml
+ create mode 100644 core/res/res/values-bg/rom_strings.xml
+ create mode 100644 core/res/res/values-bn/rom_strings.xml
+ create mode 100644 core/res/res/values-bs/rom_strings.xml
+ create mode 100644 core/res/res/values-ca/rom_strings.xml
+ create mode 100644 core/res/res/values-cs/rom_strings.xml
+ create mode 100644 core/res/res/values-da/rom_strings.xml
+ create mode 100644 core/res/res/values-de/rom_strings.xml
+ create mode 100644 core/res/res/values-el/rom_strings.xml
+ create mode 100644 core/res/res/values-en-rAU/rom_strings.xml
+ create mode 100644 core/res/res/values-en-rCA/rom_strings.xml
+ create mode 100644 core/res/res/values-en-rGB/rom_strings.xml
+ create mode 100644 core/res/res/values-en-rIN/rom_strings.xml
+ create mode 100644 core/res/res/values-es-rUS/rom_strings.xml
+ create mode 100644 core/res/res/values-es/rom_strings.xml
+ create mode 100644 core/res/res/values-et/rom_strings.xml
+ create mode 100644 core/res/res/values-eu/rom_strings.xml
+ create mode 100644 core/res/res/values-fa/rom_strings.xml
+ create mode 100644 core/res/res/values-fi/rom_strings.xml
+ create mode 100644 core/res/res/values-fr-rCA/rom_strings.xml
+ create mode 100644 core/res/res/values-fr/rom_strings.xml
+ create mode 100644 core/res/res/values-gl/rom_strings.xml
+ create mode 100644 core/res/res/values-gu/rom_strings.xml
+ create mode 100644 core/res/res/values-hi/rom_strings.xml
+ create mode 100644 core/res/res/values-hr/rom_strings.xml
+ create mode 100644 core/res/res/values-hu/rom_strings.xml
+ create mode 100644 core/res/res/values-hy/rom_strings.xml
+ create mode 100644 core/res/res/values-in/rom_strings.xml
+ create mode 100644 core/res/res/values-is/rom_strings.xml
+ create mode 100644 core/res/res/values-it/rom_strings.xml
+ create mode 100644 core/res/res/values-iw/rom_strings.xml
+ create mode 100644 core/res/res/values-ja/rom_strings.xml
+ create mode 100644 core/res/res/values-ka/rom_strings.xml
+ create mode 100644 core/res/res/values-kk/rom_strings.xml
+ create mode 100644 core/res/res/values-km/rom_strings.xml
+ create mode 100644 core/res/res/values-kn/rom_strings.xml
+ create mode 100644 core/res/res/values-ko/rom_strings.xml
+ create mode 100644 core/res/res/values-ky/rom_strings.xml
+ create mode 100644 core/res/res/values-lo/rom_strings.xml
+ create mode 100644 core/res/res/values-lt/rom_strings.xml
+ create mode 100644 core/res/res/values-lv/rom_strings.xml
+ create mode 100644 core/res/res/values-mk/rom_strings.xml
+ create mode 100644 core/res/res/values-ml/rom_strings.xml
+ create mode 100644 core/res/res/values-mn/rom_strings.xml
+ create mode 100644 core/res/res/values-mr/rom_strings.xml
+ create mode 100644 core/res/res/values-ms/rom_strings.xml
+ create mode 100644 core/res/res/values-my/rom_strings.xml
+ create mode 100644 core/res/res/values-nb/rom_strings.xml
+ create mode 100644 core/res/res/values-ne/rom_strings.xml
+ create mode 100644 core/res/res/values-nl/rom_strings.xml
+ create mode 100644 core/res/res/values-or/rom_strings.xml
+ create mode 100644 core/res/res/values-pa/rom_strings.xml
+ create mode 100644 core/res/res/values-pl/rom_strings.xml
+ create mode 100644 core/res/res/values-pt-rBR/rom_strings.xml
+ create mode 100644 core/res/res/values-pt-rPT/rom_strings.xml
+ create mode 100644 core/res/res/values-pt/rom_strings.xml
+ create mode 100644 core/res/res/values-ro/rom_strings.xml
+ create mode 100644 core/res/res/values-ru/rom_strings.xml
+ create mode 100644 core/res/res/values-si/rom_strings.xml
+ create mode 100644 core/res/res/values-sk/rom_strings.xml
+ create mode 100644 core/res/res/values-sl/rom_strings.xml
+ create mode 100644 core/res/res/values-sq/rom_strings.xml
+ create mode 100644 core/res/res/values-sr/rom_strings.xml
+ create mode 100644 core/res/res/values-sv/rom_strings.xml
+ create mode 100644 core/res/res/values-sw/rom_strings.xml
+ create mode 100644 core/res/res/values-ta/rom_strings.xml
+ create mode 100644 core/res/res/values-te/rom_strings.xml
+ create mode 100644 core/res/res/values-th/rom_strings.xml
+ create mode 100644 core/res/res/values-tl/rom_strings.xml
+ create mode 100644 core/res/res/values-uk/rom_strings.xml
+ create mode 100644 core/res/res/values-ur/rom_strings.xml
+ create mode 100644 core/res/res/values-uz/rom_strings.xml
+ create mode 100644 core/res/res/values-vi/rom_strings.xml
+ create mode 100644 core/res/res/values-zh-rCN/rom_strings.xml
+ create mode 100644 core/res/res/values-zh-rHK/rom_strings.xml
+ create mode 100644 core/res/res/values-zh-rTW/rom_strings.xml
+ create mode 100644 core/res/res/values-zu/rom_strings.xml
+
+diff --git a/core/res/res/values-af/rom_strings.xml b/core/res/res/values-af/rom_strings.xml
+new file mode 100644
+index 0000000..25cfb1a
+--- /dev/null
++++ b/core/res/res/values-af/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Programme word geoptimeer</string>
++    <string name="rom_dexopt_running_text">Programme kan stadiger wees totdat dit klaar is</string>
++    <string name="rom_dexopt_done_title">Programoptimering voltooi</string>
++    <string name="rom_dexopt_cancelled_title">Programoptimering gekanselleer</string>
++    <string name="rom_dexopt_done_text">Programme geoptimeer: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-am/rom_strings.xml b/core/res/res/values-am/rom_strings.xml
+new file mode 100644
+index 0000000..3229ae6
+--- /dev/null
++++ b/core/res/res/values-am/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">መተግበሪያዎች በመሻሻል ላይ ናቸው</string>
++    <string name="rom_dexopt_running_text">ይህ እስኪጠናቀቅ መተግበሪያዎች ቀርፋፋ ሊሆኑ ይችላሉ</string>
++    <string name="rom_dexopt_done_title">የመተግበሪያ ማሻሻያ ተጠናቅቋል</string>
++    <string name="rom_dexopt_cancelled_title">የመተግበሪያ ማሻሻያ ተሰርዟል</string>
++    <string name="rom_dexopt_done_text">የተሻሻሉ መተግበሪያዎች፡ <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ar/rom_strings.xml b/core/res/res/values-ar/rom_strings.xml
+new file mode 100644
+index 0000000..773773d
+--- /dev/null
++++ b/core/res/res/values-ar/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">جارٍ تحسين التطبيقات</string>
++    <string name="rom_dexopt_running_text">قد تكون التطبيقات أبطأ إلى أن تنتهي العملية</string>
++    <string name="rom_dexopt_done_title">اكتمل تحسين التطبيقات</string>
++    <string name="rom_dexopt_cancelled_title">تم إلغاء تحسين التطبيقات</string>
++    <string name="rom_dexopt_done_text">التطبيقات المحسَّنة: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-as/rom_strings.xml b/core/res/res/values-as/rom_strings.xml
+new file mode 100644
+index 0000000..2ed96f8
+--- /dev/null
++++ b/core/res/res/values-as/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">এপ অপ্টিমাইজ কৰা হৈছে</string>
++    <string name="rom_dexopt_running_text">ই শেষ নোহোৱালৈকে এপবোৰ লেহেমীয়া হ’ব পাৰে</string>
++    <string name="rom_dexopt_done_title">এপ অপ্টিমাইজেশ্বন সম্পূৰ্ণ হ’ল</string>
++    <string name="rom_dexopt_cancelled_title">এপ অপ্টিমাইজেশ্বন বাতিল কৰা হ’ল</string>
++    <string name="rom_dexopt_done_text">অপ্টিমাইজ কৰা এপ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-az/rom_strings.xml b/core/res/res/values-az/rom_strings.xml
+new file mode 100644
+index 0000000..834c89c
+--- /dev/null
++++ b/core/res/res/values-az/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Tətbiqlər optimallaşdırılır</string>
++    <string name="rom_dexopt_running_text">Bu bitənə qədər tətbiqlər yavaş ola bilər</string>
++    <string name="rom_dexopt_done_title">Tətbiq optimallaşdırması tamamlandı</string>
++    <string name="rom_dexopt_cancelled_title">Tətbiq optimallaşdırması ləğv edildi</string>
++    <string name="rom_dexopt_done_text">Optimallaşdırılan tətbiqlər: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-b+sr+Latn/rom_strings.xml b/core/res/res/values-b+sr+Latn/rom_strings.xml
+new file mode 100644
+index 0000000..63d2ac2
+--- /dev/null
++++ b/core/res/res/values-b+sr+Latn/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizacija aplikacija je u toku</string>
++    <string name="rom_dexopt_running_text">Aplikacije mogu biti sporije dok se ovo ne završi</string>
++    <string name="rom_dexopt_done_title">Optimizacija aplikacija je završena</string>
++    <string name="rom_dexopt_cancelled_title">Optimizacija aplikacija je otkazana</string>
++    <string name="rom_dexopt_done_text">Optimizovano aplikacija: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-be/rom_strings.xml b/core/res/res/values-be/rom_strings.xml
+new file mode 100644
+index 0000000..e35054f
+--- /dev/null
++++ b/core/res/res/values-be/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Праграмы аптымізуюцца</string>
++    <string name="rom_dexopt_running_text">Праграмы могуць працаваць павольней, пакуль гэта не завершыцца</string>
++    <string name="rom_dexopt_done_title">Аптымізацыя праграм завершана</string>
++    <string name="rom_dexopt_cancelled_title">Аптымізацыя праграм скасавана</string>
++    <string name="rom_dexopt_done_text">Аптымізавана праграм: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-bg/rom_strings.xml b/core/res/res/values-bg/rom_strings.xml
+new file mode 100644
+index 0000000..c8d5e8f
+--- /dev/null
++++ b/core/res/res/values-bg/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Приложенията се оптимизират</string>
++    <string name="rom_dexopt_running_text">Приложенията може да са по-бавни, докато това приключи</string>
++    <string name="rom_dexopt_done_title">Оптимизирането на приложенията завърши</string>
++    <string name="rom_dexopt_cancelled_title">Оптимизирането на приложенията е отказано</string>
++    <string name="rom_dexopt_done_text">Оптимизирани приложения: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-bn/rom_strings.xml b/core/res/res/values-bn/rom_strings.xml
+new file mode 100644
+index 0000000..e275479
+--- /dev/null
++++ b/core/res/res/values-bn/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">অ্যাপ অপ্টিমাইজ করা হচ্ছে</string>
++    <string name="rom_dexopt_running_text">এটি শেষ না হওয়া পর্যন্ত অ্যাপ ধীর হতে পারে</string>
++    <string name="rom_dexopt_done_title">অ্যাপ অপ্টিমাইজেশন সম্পন্ন হয়েছে</string>
++    <string name="rom_dexopt_cancelled_title">অ্যাপ অপ্টিমাইজেশন বাতিল করা হয়েছে</string>
++    <string name="rom_dexopt_done_text">অপ্টিমাইজ করা অ্যাপ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-bs/rom_strings.xml b/core/res/res/values-bs/rom_strings.xml
+new file mode 100644
+index 0000000..53fa4fb
+--- /dev/null
++++ b/core/res/res/values-bs/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizacija aplikacija je u toku</string>
++    <string name="rom_dexopt_running_text">Aplikacije mogu biti sporije dok se ovo ne završi</string>
++    <string name="rom_dexopt_done_title">Optimizacija aplikacija je završena</string>
++    <string name="rom_dexopt_cancelled_title">Optimizacija aplikacija je otkazana</string>
++    <string name="rom_dexopt_done_text">Optimizirano aplikacija: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ca/rom_strings.xml b/core/res/res/values-ca/rom_strings.xml
+new file mode 100644
+index 0000000..771d26e
+--- /dev/null
++++ b/core/res/res/values-ca/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">S\'estan optimitzant les aplicacions</string>
++    <string name="rom_dexopt_running_text">Les aplicacions poden anar més lentes fins que acabi</string>
++    <string name="rom_dexopt_done_title">S\'ha completat l\'optimització d\'aplicacions</string>
++    <string name="rom_dexopt_cancelled_title">S\'ha cancel·lat l\'optimització d\'aplicacions</string>
++    <string name="rom_dexopt_done_text">Aplicacions optimitzades: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-cs/rom_strings.xml b/core/res/res/values-cs/rom_strings.xml
+new file mode 100644
+index 0000000..e44a997
+--- /dev/null
++++ b/core/res/res/values-cs/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimalizace aplikací</string>
++    <string name="rom_dexopt_running_text">Aplikace mohou být do dokončení pomalejší</string>
++    <string name="rom_dexopt_done_title">Optimalizace aplikací dokončena</string>
++    <string name="rom_dexopt_cancelled_title">Optimalizace aplikací zrušena</string>
++    <string name="rom_dexopt_done_text">Optimalizované aplikace: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-da/rom_strings.xml b/core/res/res/values-da/rom_strings.xml
+new file mode 100644
+index 0000000..b5964e2
+--- /dev/null
++++ b/core/res/res/values-da/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimerer apps</string>
++    <string name="rom_dexopt_running_text">Apps kan være langsommere, indtil det er færdigt</string>
++    <string name="rom_dexopt_done_title">Appoptimering er færdig</string>
++    <string name="rom_dexopt_cancelled_title">Appoptimering er annulleret</string>
++    <string name="rom_dexopt_done_text">Optimerede apps: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-de/rom_strings.xml b/core/res/res/values-de/rom_strings.xml
+new file mode 100644
+index 0000000..72246fc
+--- /dev/null
++++ b/core/res/res/values-de/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Apps werden optimiert</string>
++    <string name="rom_dexopt_running_text">Apps können langsamer sein, bis der Vorgang abgeschlossen ist</string>
++    <string name="rom_dexopt_done_title">App-Optimierung abgeschlossen</string>
++    <string name="rom_dexopt_cancelled_title">App-Optimierung abgebrochen</string>
++    <string name="rom_dexopt_done_text">Optimierte Apps: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-el/rom_strings.xml b/core/res/res/values-el/rom_strings.xml
+new file mode 100644
+index 0000000..2bbc97a
+--- /dev/null
++++ b/core/res/res/values-el/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Βελτιστοποίηση εφαρμογών</string>
++    <string name="rom_dexopt_running_text">Οι εφαρμογές μπορεί να είναι πιο αργές μέχρι να ολοκληρωθεί</string>
++    <string name="rom_dexopt_done_title">Η βελτιστοποίηση εφαρμογών ολοκληρώθηκε</string>
++    <string name="rom_dexopt_cancelled_title">Η βελτιστοποίηση εφαρμογών ακυρώθηκε</string>
++    <string name="rom_dexopt_done_text">Βελτιστοποιημένες εφαρμογές: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-en-rAU/rom_strings.xml b/core/res/res/values-en-rAU/rom_strings.xml
+new file mode 100644
+index 0000000..6b1f3a8
+--- /dev/null
++++ b/core/res/res/values-en-rAU/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimising apps</string>
++    <string name="rom_dexopt_running_text">Apps may be slower until this finishes</string>
++    <string name="rom_dexopt_done_title">App optimisation finished</string>
++    <string name="rom_dexopt_cancelled_title">App optimisation cancelled</string>
++    <string name="rom_dexopt_done_text">Apps optimised: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-en-rCA/rom_strings.xml b/core/res/res/values-en-rCA/rom_strings.xml
+new file mode 100644
+index 0000000..68fd7c2
+--- /dev/null
++++ b/core/res/res/values-en-rCA/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizing apps</string>
++    <string name="rom_dexopt_running_text">Apps may be slower until this finishes</string>
++    <string name="rom_dexopt_done_title">App optimization finished</string>
++    <string name="rom_dexopt_cancelled_title">App optimization cancelled</string>
++    <string name="rom_dexopt_done_text">Apps optimized: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-en-rGB/rom_strings.xml b/core/res/res/values-en-rGB/rom_strings.xml
+new file mode 100644
+index 0000000..6b1f3a8
+--- /dev/null
++++ b/core/res/res/values-en-rGB/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimising apps</string>
++    <string name="rom_dexopt_running_text">Apps may be slower until this finishes</string>
++    <string name="rom_dexopt_done_title">App optimisation finished</string>
++    <string name="rom_dexopt_cancelled_title">App optimisation cancelled</string>
++    <string name="rom_dexopt_done_text">Apps optimised: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-en-rIN/rom_strings.xml b/core/res/res/values-en-rIN/rom_strings.xml
+new file mode 100644
+index 0000000..6b1f3a8
+--- /dev/null
++++ b/core/res/res/values-en-rIN/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimising apps</string>
++    <string name="rom_dexopt_running_text">Apps may be slower until this finishes</string>
++    <string name="rom_dexopt_done_title">App optimisation finished</string>
++    <string name="rom_dexopt_cancelled_title">App optimisation cancelled</string>
++    <string name="rom_dexopt_done_text">Apps optimised: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-es-rUS/rom_strings.xml b/core/res/res/values-es-rUS/rom_strings.xml
+new file mode 100644
+index 0000000..ccefed5
+--- /dev/null
++++ b/core/res/res/values-es-rUS/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizando apps</string>
++    <string name="rom_dexopt_running_text">Las apps pueden ir más lentas hasta que termine</string>
++    <string name="rom_dexopt_done_title">Optimización de apps completada</string>
++    <string name="rom_dexopt_cancelled_title">Optimización de apps cancelada</string>
++    <string name="rom_dexopt_done_text">Apps optimizadas: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-es/rom_strings.xml b/core/res/res/values-es/rom_strings.xml
+new file mode 100644
+index 0000000..ccefed5
+--- /dev/null
++++ b/core/res/res/values-es/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizando apps</string>
++    <string name="rom_dexopt_running_text">Las apps pueden ir más lentas hasta que termine</string>
++    <string name="rom_dexopt_done_title">Optimización de apps completada</string>
++    <string name="rom_dexopt_cancelled_title">Optimización de apps cancelada</string>
++    <string name="rom_dexopt_done_text">Apps optimizadas: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-et/rom_strings.xml b/core/res/res/values-et/rom_strings.xml
+new file mode 100644
+index 0000000..0a1bdb7
+--- /dev/null
++++ b/core/res/res/values-et/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Rakendusi optimeeritakse</string>
++    <string name="rom_dexopt_running_text">Rakendused võivad olla aeglasemad, kuni see lõpeb</string>
++    <string name="rom_dexopt_done_title">Rakenduste optimeerimine lõppes</string>
++    <string name="rom_dexopt_cancelled_title">Rakenduste optimeerimine tühistati</string>
++    <string name="rom_dexopt_done_text">Optimeeritud rakendusi: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-eu/rom_strings.xml b/core/res/res/values-eu/rom_strings.xml
+new file mode 100644
+index 0000000..2cd5a44
+--- /dev/null
++++ b/core/res/res/values-eu/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Aplikazioak optimizatzen</string>
++    <string name="rom_dexopt_running_text">Aplikazioak mantsoagoak izan daitezke amaitu arte</string>
++    <string name="rom_dexopt_done_title">Aplikazioen optimizazioa amaitu da</string>
++    <string name="rom_dexopt_cancelled_title">Aplikazioen optimizazioa bertan behera utzi da</string>
++    <string name="rom_dexopt_done_text">Optimizatutako aplikazioak: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-fa/rom_strings.xml b/core/res/res/values-fa/rom_strings.xml
+new file mode 100644
+index 0000000..73ca2f2
+--- /dev/null
++++ b/core/res/res/values-fa/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">در حال بهینه‌سازی برنامه‌ها</string>
++    <string name="rom_dexopt_running_text">تا پایان این کار ممکن است برنامه‌ها کندتر باشند</string>
++    <string name="rom_dexopt_done_title">بهینه‌سازی برنامه‌ها تمام شد</string>
++    <string name="rom_dexopt_cancelled_title">بهینه‌سازی برنامه‌ها لغو شد</string>
++    <string name="rom_dexopt_done_text">برنامه‌های بهینه‌شده: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-fi/rom_strings.xml b/core/res/res/values-fi/rom_strings.xml
+new file mode 100644
+index 0000000..7c389ef
+--- /dev/null
++++ b/core/res/res/values-fi/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimoidaan sovelluksia</string>
++    <string name="rom_dexopt_running_text">Sovellukset voivat olla hitaampia, kunnes tämä on valmis</string>
++    <string name="rom_dexopt_done_title">Sovellusten optimointi valmis</string>
++    <string name="rom_dexopt_cancelled_title">Sovellusten optimointi peruttu</string>
++    <string name="rom_dexopt_done_text">Optimoidut sovellukset: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-fr-rCA/rom_strings.xml b/core/res/res/values-fr-rCA/rom_strings.xml
+new file mode 100644
+index 0000000..203ddd9
+--- /dev/null
++++ b/core/res/res/values-fr-rCA/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimisation des applications en cours</string>
++    <string name="rom_dexopt_running_text">Les applications peuvent être plus lentes jusqu\'à la fin</string>
++    <string name="rom_dexopt_done_title">Optimisation des applications terminée</string>
++    <string name="rom_dexopt_cancelled_title">Optimisation des applications annulée</string>
++    <string name="rom_dexopt_done_text">Applications optimisées : <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-fr/rom_strings.xml b/core/res/res/values-fr/rom_strings.xml
+new file mode 100644
+index 0000000..203ddd9
+--- /dev/null
++++ b/core/res/res/values-fr/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimisation des applications en cours</string>
++    <string name="rom_dexopt_running_text">Les applications peuvent être plus lentes jusqu\'à la fin</string>
++    <string name="rom_dexopt_done_title">Optimisation des applications terminée</string>
++    <string name="rom_dexopt_cancelled_title">Optimisation des applications annulée</string>
++    <string name="rom_dexopt_done_text">Applications optimisées : <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-gl/rom_strings.xml b/core/res/res/values-gl/rom_strings.xml
+new file mode 100644
+index 0000000..cc2fe0a
+--- /dev/null
++++ b/core/res/res/values-gl/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizando aplicacións</string>
++    <string name="rom_dexopt_running_text">As aplicacións poden ir máis lentas ata que remate</string>
++    <string name="rom_dexopt_done_title">Rematou a optimización de aplicacións</string>
++    <string name="rom_dexopt_cancelled_title">Cancelouse a optimización de aplicacións</string>
++    <string name="rom_dexopt_done_text">Aplicacións optimizadas: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-gu/rom_strings.xml b/core/res/res/values-gu/rom_strings.xml
+new file mode 100644
+index 0000000..6289531
+--- /dev/null
++++ b/core/res/res/values-gu/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ઍપ ઑપ્ટિમાઇઝ થઈ રહી છે</string>
++    <string name="rom_dexopt_running_text">આ પૂર્ણ ન થાય ત્યાં સુધી ઍપ ધીમી હોઈ શકે છે</string>
++    <string name="rom_dexopt_done_title">ઍપ ઑપ્ટિમાઇઝેશન પૂર્ણ થયું</string>
++    <string name="rom_dexopt_cancelled_title">ઍપ ઑપ્ટિમાઇઝેશન રદ કર્યું</string>
++    <string name="rom_dexopt_done_text">ઑપ્ટિમાઇઝ કરેલી ઍપ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-hi/rom_strings.xml b/core/res/res/values-hi/rom_strings.xml
+new file mode 100644
+index 0000000..1f1dc73
+--- /dev/null
++++ b/core/res/res/values-hi/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ऐप ऑप्टिमाइज़ किए जा रहे हैं</string>
++    <string name="rom_dexopt_running_text">इसके पूरा होने तक ऐप धीमे चल सकते हैं</string>
++    <string name="rom_dexopt_done_title">ऐप ऑप्टिमाइज़ेशन पूरा हुआ</string>
++    <string name="rom_dexopt_cancelled_title">ऐप ऑप्टिमाइज़ेशन रद्द किया गया</string>
++    <string name="rom_dexopt_done_text">ऑप्टिमाइज़ किए गए ऐप: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-hr/rom_strings.xml b/core/res/res/values-hr/rom_strings.xml
+new file mode 100644
+index 0000000..858cc38
+--- /dev/null
++++ b/core/res/res/values-hr/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizacija aplikacija u tijeku</string>
++    <string name="rom_dexopt_running_text">Aplikacije mogu biti sporije dok se ovo ne završi</string>
++    <string name="rom_dexopt_done_title">Optimizacija aplikacija je završena</string>
++    <string name="rom_dexopt_cancelled_title">Optimizacija aplikacija je otkazana</string>
++    <string name="rom_dexopt_done_text">Optimizirano aplikacija: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-hu/rom_strings.xml b/core/res/res/values-hu/rom_strings.xml
+new file mode 100644
+index 0000000..e3cc837
+--- /dev/null
++++ b/core/res/res/values-hu/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Alkalmazások optimalizálása</string>
++    <string name="rom_dexopt_running_text">Az alkalmazások lassabbak lehetnek, amíg ez be nem fejeződik</string>
++    <string name="rom_dexopt_done_title">Az alkalmazásoptimalizálás befejeződött</string>
++    <string name="rom_dexopt_cancelled_title">Az alkalmazásoptimalizálás megszakítva</string>
++    <string name="rom_dexopt_done_text">Optimalizált alkalmazások: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-hy/rom_strings.xml b/core/res/res/values-hy/rom_strings.xml
+new file mode 100644
+index 0000000..b7f409e
+--- /dev/null
++++ b/core/res/res/values-hy/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Հավելվածները օպտիմալացվում են</string>
++    <string name="rom_dexopt_running_text">Մինչև ավարտը հավելվածները կարող են դանդաղ աշխատել</string>
++    <string name="rom_dexopt_done_title">Հավելվածների օպտիմալացումն ավարտվեց</string>
++    <string name="rom_dexopt_cancelled_title">Հավելվածների օպտիմալացումը չեղարկվեց</string>
++    <string name="rom_dexopt_done_text">Օպտիմալացված հավելվածներ՝ <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-in/rom_strings.xml b/core/res/res/values-in/rom_strings.xml
+new file mode 100644
+index 0000000..1f9be32
+--- /dev/null
++++ b/core/res/res/values-in/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Mengoptimalkan aplikasi</string>
++    <string name="rom_dexopt_running_text">Aplikasi mungkin lebih lambat sampai selesai</string>
++    <string name="rom_dexopt_done_title">Pengoptimalan aplikasi selesai</string>
++    <string name="rom_dexopt_cancelled_title">Pengoptimalan aplikasi dibatalkan</string>
++    <string name="rom_dexopt_done_text">Aplikasi yang dioptimalkan: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-is/rom_strings.xml b/core/res/res/values-is/rom_strings.xml
+new file mode 100644
+index 0000000..4c7e07b
+--- /dev/null
++++ b/core/res/res/values-is/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Fínstilli forrit</string>
++    <string name="rom_dexopt_running_text">Forrit gætu verið hægari þar til þessu lýkur</string>
++    <string name="rom_dexopt_done_title">Fínstillingu forrita lokið</string>
++    <string name="rom_dexopt_cancelled_title">Hætt við fínstillingu forrita</string>
++    <string name="rom_dexopt_done_text">Fínstillt forrit: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-it/rom_strings.xml b/core/res/res/values-it/rom_strings.xml
+new file mode 100644
+index 0000000..91df171
+--- /dev/null
++++ b/core/res/res/values-it/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Ottimizzazione delle app in corso</string>
++    <string name="rom_dexopt_running_text">Le app potrebbero essere più lente fino al termine</string>
++    <string name="rom_dexopt_done_title">Ottimizzazione delle app completata</string>
++    <string name="rom_dexopt_cancelled_title">Ottimizzazione delle app annullata</string>
++    <string name="rom_dexopt_done_text">App ottimizzate: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-iw/rom_strings.xml b/core/res/res/values-iw/rom_strings.xml
+new file mode 100644
+index 0000000..ad3867e
+--- /dev/null
++++ b/core/res/res/values-iw/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">מתבצעת אופטימיזציה של אפליקציות</string>
++    <string name="rom_dexopt_running_text">ייתכן שאפליקציות יפעלו לאט יותר עד לסיום</string>
++    <string name="rom_dexopt_done_title">אופטימיזציית האפליקציות הסתיימה</string>
++    <string name="rom_dexopt_cancelled_title">אופטימיזציית האפליקציות בוטלה</string>
++    <string name="rom_dexopt_done_text">אפליקציות שעברו אופטימיזציה: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ja/rom_strings.xml b/core/res/res/values-ja/rom_strings.xml
+new file mode 100644
+index 0000000..d863920
+--- /dev/null
++++ b/core/res/res/values-ja/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">アプリを最適化しています</string>
++    <string name="rom_dexopt_running_text">完了するまでアプリの動作が遅くなることがあります</string>
++    <string name="rom_dexopt_done_title">アプリの最適化が完了しました</string>
++    <string name="rom_dexopt_cancelled_title">アプリの最適化をキャンセルしました</string>
++    <string name="rom_dexopt_done_text">最適化したアプリ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ka/rom_strings.xml b/core/res/res/values-ka/rom_strings.xml
+new file mode 100644
+index 0000000..30bef3f
+--- /dev/null
++++ b/core/res/res/values-ka/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">მიმდინარეობს აპების ოპტიმიზაცია</string>
++    <string name="rom_dexopt_running_text">დასრულებამდე აპები შეიძლება უფრო ნელა მუშაობდეს</string>
++    <string name="rom_dexopt_done_title">აპების ოპტიმიზაცია დასრულდა</string>
++    <string name="rom_dexopt_cancelled_title">აპების ოპტიმიზაცია გაუქმდა</string>
++    <string name="rom_dexopt_done_text">ოპტიმიზირებული აპები: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-kk/rom_strings.xml b/core/res/res/values-kk/rom_strings.xml
+new file mode 100644
+index 0000000..e2b2ef3
+--- /dev/null
++++ b/core/res/res/values-kk/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Қолданбалар оңтайландырылуда</string>
++    <string name="rom_dexopt_running_text">Бұл аяқталғанша қолданбалар баяу жұмыс істеуі мүмкін</string>
++    <string name="rom_dexopt_done_title">Қолданбаларды оңтайландыру аяқталды</string>
++    <string name="rom_dexopt_cancelled_title">Қолданбаларды оңтайландыру тоқтатылды</string>
++    <string name="rom_dexopt_done_text">Оңтайландырылған қолданбалар: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-km/rom_strings.xml b/core/res/res/values-km/rom_strings.xml
+new file mode 100644
+index 0000000..098def9
+--- /dev/null
++++ b/core/res/res/values-km/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">កំពុងបង្កើនប្រសិទ្ធភាពកម្មវិធី</string>
++    <string name="rom_dexopt_running_text">កម្មវិធីអាចយឺតរហូតដល់ដំណើរការនេះបញ្ចប់</string>
++    <string name="rom_dexopt_done_title">ការបង្កើនប្រសិទ្ធភាពកម្មវិធីបានបញ្ចប់</string>
++    <string name="rom_dexopt_cancelled_title">ការបង្កើនប្រសិទ្ធភាពកម្មវិធីត្រូវបានបោះបង់</string>
++    <string name="rom_dexopt_done_text">កម្មវិធីដែលបានបង្កើនប្រសិទ្ធភាព៖ <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-kn/rom_strings.xml b/core/res/res/values-kn/rom_strings.xml
+new file mode 100644
+index 0000000..3e06a17
+--- /dev/null
++++ b/core/res/res/values-kn/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ಆ್ಯಪ್‌ಗಳನ್ನು ಆಪ್ಟಿಮೈಸ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
++    <string name="rom_dexopt_running_text">ಇದು ಮುಗಿಯುವವರೆಗೆ ಆ್ಯಪ್‌ಗಳು ನಿಧಾನವಾಗಿರಬಹುದು</string>
++    <string name="rom_dexopt_done_title">ಆ್ಯಪ್ ಆಪ್ಟಿಮೈಸೇಶನ್ ಪೂರ್ಣಗೊಂಡಿದೆ</string>
++    <string name="rom_dexopt_cancelled_title">ಆ್ಯಪ್ ಆಪ್ಟಿಮೈಸೇಶನ್ ರದ್ದುಗೊಂಡಿದೆ</string>
++    <string name="rom_dexopt_done_text">ಆಪ್ಟಿಮೈಸ್ ಮಾಡಿದ ಆ್ಯಪ್‌ಗಳು: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ko/rom_strings.xml b/core/res/res/values-ko/rom_strings.xml
+new file mode 100644
+index 0000000..7ab424c
+--- /dev/null
++++ b/core/res/res/values-ko/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">앱 최적화 중</string>
++    <string name="rom_dexopt_running_text">완료될 때까지 앱이 느려질 수 있습니다</string>
++    <string name="rom_dexopt_done_title">앱 최적화 완료</string>
++    <string name="rom_dexopt_cancelled_title">앱 최적화 취소됨</string>
++    <string name="rom_dexopt_done_text">최적화된 앱: <xliff:g id="count" example="12">%1$d</xliff:g>개</string>
++</resources>
+diff --git a/core/res/res/values-ky/rom_strings.xml b/core/res/res/values-ky/rom_strings.xml
+new file mode 100644
+index 0000000..89e3c06
+--- /dev/null
++++ b/core/res/res/values-ky/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Колдонмолор оптималдаштырылууда</string>
++    <string name="rom_dexopt_running_text">Бул аяктамайынча колдонмолор жайыраак иштеши мүмкүн</string>
++    <string name="rom_dexopt_done_title">Колдонмолорду оптималдаштыруу аяктады</string>
++    <string name="rom_dexopt_cancelled_title">Колдонмолорду оптималдаштыруу жокко чыгарылды</string>
++    <string name="rom_dexopt_done_text">Оптималдаштырылган колдонмолор: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-lo/rom_strings.xml b/core/res/res/values-lo/rom_strings.xml
+new file mode 100644
+index 0000000..31ad306
+--- /dev/null
++++ b/core/res/res/values-lo/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ກຳລັງເພີ່ມປະສິດທິພາບແອັບ</string>
++    <string name="rom_dexopt_running_text">ແອັບອາດຊ້າລົງຈົນກວ່າຈະສຳເລັດ</string>
++    <string name="rom_dexopt_done_title">ການເພີ່ມປະສິດທິພາບແອັບສຳເລັດແລ້ວ</string>
++    <string name="rom_dexopt_cancelled_title">ຍົກເລີກການເພີ່ມປະສິດທິພາບແອັບແລ້ວ</string>
++    <string name="rom_dexopt_done_text">ແອັບທີ່ເພີ່ມປະສິດທິພາບແລ້ວ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-lt/rom_strings.xml b/core/res/res/values-lt/rom_strings.xml
+new file mode 100644
+index 0000000..c3a1b90
+--- /dev/null
++++ b/core/res/res/values-lt/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimizuojamos programos</string>
++    <string name="rom_dexopt_running_text">Kol tai nebaigta, programos gali veikti lėčiau</string>
++    <string name="rom_dexopt_done_title">Programų optimizavimas baigtas</string>
++    <string name="rom_dexopt_cancelled_title">Programų optimizavimas atšauktas</string>
++    <string name="rom_dexopt_done_text">Optimizuota programų: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-lv/rom_strings.xml b/core/res/res/values-lv/rom_strings.xml
+new file mode 100644
+index 0000000..4064044
+--- /dev/null
++++ b/core/res/res/values-lv/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Notiek lietotņu optimizēšana</string>
++    <string name="rom_dexopt_running_text">Līdz beigām lietotnes var darboties lēnāk</string>
++    <string name="rom_dexopt_done_title">Lietotņu optimizēšana pabeigta</string>
++    <string name="rom_dexopt_cancelled_title">Lietotņu optimizēšana atcelta</string>
++    <string name="rom_dexopt_done_text">Optimizētas lietotnes: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-mk/rom_strings.xml b/core/res/res/values-mk/rom_strings.xml
+new file mode 100644
+index 0000000..a45b94b
+--- /dev/null
++++ b/core/res/res/values-mk/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Апликациите се оптимизираат</string>
++    <string name="rom_dexopt_running_text">Апликациите може да бидат побавни додека не заврши</string>
++    <string name="rom_dexopt_done_title">Оптимизацијата на апликациите заврши</string>
++    <string name="rom_dexopt_cancelled_title">Оптимизацијата на апликациите е откажана</string>
++    <string name="rom_dexopt_done_text">Оптимизирани апликации: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ml/rom_strings.xml b/core/res/res/values-ml/rom_strings.xml
+new file mode 100644
+index 0000000..c445668
+--- /dev/null
++++ b/core/res/res/values-ml/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ആപ്പുകൾ ഒപ്റ്റിമൈസ് ചെയ്യുന്നു</string>
++    <string name="rom_dexopt_running_text">ഇത് പൂർത്തിയാകുന്നതുവരെ ആപ്പുകൾ വേഗത കുറഞ്ഞേക്കാം</string>
++    <string name="rom_dexopt_done_title">ആപ്പ് ഒപ്റ്റിമൈസേഷൻ പൂർത്തിയായി</string>
++    <string name="rom_dexopt_cancelled_title">ആപ്പ് ഒപ്റ്റിമൈസേഷൻ റദ്ദാക്കി</string>
++    <string name="rom_dexopt_done_text">ഒപ്റ്റിമൈസ് ചെയ്ത ആപ്പുകൾ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-mn/rom_strings.xml b/core/res/res/values-mn/rom_strings.xml
+new file mode 100644
+index 0000000..51fe595
+--- /dev/null
++++ b/core/res/res/values-mn/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Аппуудыг оновчилж байна</string>
++    <string name="rom_dexopt_running_text">Энэ дуустал аппууд удаан ажиллаж магадгүй</string>
++    <string name="rom_dexopt_done_title">Аппын оновчлол дууслаа</string>
++    <string name="rom_dexopt_cancelled_title">Аппын оновчлолыг цуцаллаа</string>
++    <string name="rom_dexopt_done_text">Оновчилсон аппууд: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-mr/rom_strings.xml b/core/res/res/values-mr/rom_strings.xml
+new file mode 100644
+index 0000000..d5b6b80
+--- /dev/null
++++ b/core/res/res/values-mr/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">अ‍ॅप्स ऑप्टिमाइझ केली जात आहेत</string>
++    <string name="rom_dexopt_running_text">हे पूर्ण होईपर्यंत अ‍ॅप्स हळू चालू शकतात</string>
++    <string name="rom_dexopt_done_title">अ‍ॅप ऑप्टिमायझेशन पूर्ण झाले</string>
++    <string name="rom_dexopt_cancelled_title">अ‍ॅप ऑप्टिमायझेशन रद्द केले</string>
++    <string name="rom_dexopt_done_text">ऑप्टिमाइझ केलेली अ‍ॅप्स: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ms/rom_strings.xml b/core/res/res/values-ms/rom_strings.xml
+new file mode 100644
+index 0000000..c80839c
+--- /dev/null
++++ b/core/res/res/values-ms/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Mengoptimumkan apl</string>
++    <string name="rom_dexopt_running_text">Apl mungkin lebih perlahan sehingga ini selesai</string>
++    <string name="rom_dexopt_done_title">Pengoptimuman apl selesai</string>
++    <string name="rom_dexopt_cancelled_title">Pengoptimuman apl dibatalkan</string>
++    <string name="rom_dexopt_done_text">Apl dioptimumkan: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-my/rom_strings.xml b/core/res/res/values-my/rom_strings.xml
+new file mode 100644
+index 0000000..eab6123
+--- /dev/null
++++ b/core/res/res/values-my/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">အက်ပ်များကို ကောင်းမွန်အောင်လုပ်နေသည်</string>
++    <string name="rom_dexopt_running_text">ဤလုပ်ငန်းမပြီးမချင်း အက်ပ်များ နှေးနိုင်သည်</string>
++    <string name="rom_dexopt_done_title">အက်ပ်ကောင်းမွန်အောင်လုပ်ခြင်း ပြီးဆုံးပြီ</string>
++    <string name="rom_dexopt_cancelled_title">အက်ပ်ကောင်းမွန်အောင်လုပ်ခြင်းကို ပယ်ဖျက်လိုက်ပြီ</string>
++    <string name="rom_dexopt_done_text">ကောင်းမွန်အောင်လုပ်ထားသော အက်ပ်များ- <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-nb/rom_strings.xml b/core/res/res/values-nb/rom_strings.xml
+new file mode 100644
+index 0000000..4d9742b
+--- /dev/null
++++ b/core/res/res/values-nb/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimaliserer apper</string>
++    <string name="rom_dexopt_running_text">Apper kan gå tregere til dette er ferdig</string>
++    <string name="rom_dexopt_done_title">Appoptimalisering er ferdig</string>
++    <string name="rom_dexopt_cancelled_title">Appoptimalisering er avbrutt</string>
++    <string name="rom_dexopt_done_text">Optimaliserte apper: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ne/rom_strings.xml b/core/res/res/values-ne/rom_strings.xml
+new file mode 100644
+index 0000000..a2c3706
+--- /dev/null
++++ b/core/res/res/values-ne/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">एपहरू अप्टिमाइज गरिँदै छन्</string>
++    <string name="rom_dexopt_running_text">यो सकिनेसम्म एपहरू ढिला हुन सक्छन्</string>
++    <string name="rom_dexopt_done_title">एप अप्टिमाइजेसन सकियो</string>
++    <string name="rom_dexopt_cancelled_title">एप अप्टिमाइजेसन रद्द गरियो</string>
++    <string name="rom_dexopt_done_text">अप्टिमाइज गरिएका एपहरू: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-nl/rom_strings.xml b/core/res/res/values-nl/rom_strings.xml
+new file mode 100644
+index 0000000..124401d
+--- /dev/null
++++ b/core/res/res/values-nl/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Apps optimaliseren</string>
++    <string name="rom_dexopt_running_text">Apps kunnen trager zijn totdat dit klaar is</string>
++    <string name="rom_dexopt_done_title">App-optimalisatie voltooid</string>
++    <string name="rom_dexopt_cancelled_title">App-optimalisatie geannuleerd</string>
++    <string name="rom_dexopt_done_text">Geoptimaliseerde apps: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-or/rom_strings.xml b/core/res/res/values-or/rom_strings.xml
+new file mode 100644
+index 0000000..ff5e11d
+--- /dev/null
++++ b/core/res/res/values-or/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ଆପଗୁଡ଼ିକୁ ଅପ୍ଟିମାଇଜ କରାଯାଉଛି</string>
++    <string name="rom_dexopt_running_text">ଏହା ସମାପ୍ତ ନହେବା ପର୍ଯ୍ୟନ୍ତ ଆପଗୁଡ଼ିକ ମନ୍ଥର ହୋଇପାରେ</string>
++    <string name="rom_dexopt_done_title">ଆପ ଅପ୍ଟିମାଇଜେସନ ସମାପ୍ତ ହେଲା</string>
++    <string name="rom_dexopt_cancelled_title">ଆପ ଅପ୍ଟିମାଇଜେସନ ବାତିଲ ହେଲା</string>
++    <string name="rom_dexopt_done_text">ଅପ୍ଟିମାଇଜ ହୋଇଥିବା ଆପ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-pa/rom_strings.xml b/core/res/res/values-pa/rom_strings.xml
+new file mode 100644
+index 0000000..9d4d4ab
+--- /dev/null
++++ b/core/res/res/values-pa/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ਐਪਾਂ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ</string>
++    <string name="rom_dexopt_running_text">ਇਹ ਪੂਰਾ ਹੋਣ ਤੱਕ ਐਪਾਂ ਹੌਲੀ ਹੋ ਸਕਦੀਆਂ ਹਨ</string>
++    <string name="rom_dexopt_done_title">ਐਪ ਅਨੁਕੂਲਨ ਪੂਰਾ ਹੋਇਆ</string>
++    <string name="rom_dexopt_cancelled_title">ਐਪ ਅਨੁਕੂਲਨ ਰੱਦ ਕੀਤਾ ਗਿਆ</string>
++    <string name="rom_dexopt_done_text">ਅਨੁਕੂਲ ਬਣਾਈਆਂ ਐਪਾਂ: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-pl/rom_strings.xml b/core/res/res/values-pl/rom_strings.xml
+new file mode 100644
+index 0000000..fd89ed7
+--- /dev/null
++++ b/core/res/res/values-pl/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optymalizowanie aplikacji</string>
++    <string name="rom_dexopt_running_text">Do czasu zakończenia aplikacje mogą działać wolniej</string>
++    <string name="rom_dexopt_done_title">Zakończono optymalizację aplikacji</string>
++    <string name="rom_dexopt_cancelled_title">Anulowano optymalizację aplikacji</string>
++    <string name="rom_dexopt_done_text">Zoptymalizowane aplikacje: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-pt-rBR/rom_strings.xml b/core/res/res/values-pt-rBR/rom_strings.xml
+new file mode 100644
+index 0000000..1d800b2
+--- /dev/null
++++ b/core/res/res/values-pt-rBR/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Otimizando apps</string>
++    <string name="rom_dexopt_running_text">Os apps podem ficar mais lentos até a conclusão</string>
++    <string name="rom_dexopt_done_title">Otimização de apps concluída</string>
++    <string name="rom_dexopt_cancelled_title">Otimização de apps cancelada</string>
++    <string name="rom_dexopt_done_text">Apps otimizados: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-pt-rPT/rom_strings.xml b/core/res/res/values-pt-rPT/rom_strings.xml
+new file mode 100644
+index 0000000..f624d2e
+--- /dev/null
++++ b/core/res/res/values-pt-rPT/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">A otimizar aplicações</string>
++    <string name="rom_dexopt_running_text">As aplicações podem ficar mais lentas até à conclusão</string>
++    <string name="rom_dexopt_done_title">Otimização de aplicações concluída</string>
++    <string name="rom_dexopt_cancelled_title">Otimização de aplicações cancelada</string>
++    <string name="rom_dexopt_done_text">Aplicações otimizadas: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-pt/rom_strings.xml b/core/res/res/values-pt/rom_strings.xml
+new file mode 100644
+index 0000000..1d800b2
+--- /dev/null
++++ b/core/res/res/values-pt/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Otimizando apps</string>
++    <string name="rom_dexopt_running_text">Os apps podem ficar mais lentos até a conclusão</string>
++    <string name="rom_dexopt_done_title">Otimização de apps concluída</string>
++    <string name="rom_dexopt_cancelled_title">Otimização de apps cancelada</string>
++    <string name="rom_dexopt_done_text">Apps otimizados: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ro/rom_strings.xml b/core/res/res/values-ro/rom_strings.xml
+new file mode 100644
+index 0000000..549891a
+--- /dev/null
++++ b/core/res/res/values-ro/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Se optimizează aplicațiile</string>
++    <string name="rom_dexopt_running_text">Aplicațiile pot fi mai lente până se termină</string>
++    <string name="rom_dexopt_done_title">Optimizarea aplicațiilor s-a încheiat</string>
++    <string name="rom_dexopt_cancelled_title">Optimizarea aplicațiilor a fost anulată</string>
++    <string name="rom_dexopt_done_text">Aplicații optimizate: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ru/rom_strings.xml b/core/res/res/values-ru/rom_strings.xml
+new file mode 100644
+index 0000000..8e3c2f3
+--- /dev/null
++++ b/core/res/res/values-ru/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Оптимизация приложений</string>
++    <string name="rom_dexopt_running_text">Пока процесс не завершится, приложения могут работать медленнее</string>
++    <string name="rom_dexopt_done_title">Оптимизация приложений завершена</string>
++    <string name="rom_dexopt_cancelled_title">Оптимизация приложений отменена</string>
++    <string name="rom_dexopt_done_text">Оптимизировано приложений: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-si/rom_strings.xml b/core/res/res/values-si/rom_strings.xml
+new file mode 100644
+index 0000000..0fd6114
+--- /dev/null
++++ b/core/res/res/values-si/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">යෙදුම් ප්‍රශස්ත කරමින්</string>
++    <string name="rom_dexopt_running_text">මෙය අවසන් වන තෙක් යෙදුම් මන්දගාමී විය හැක</string>
++    <string name="rom_dexopt_done_title">යෙදුම් ප්‍රශස්තකරණය අවසන් විය</string>
++    <string name="rom_dexopt_cancelled_title">යෙදුම් ප්‍රශස්තකරණය අවලංගු කරන ලදි</string>
++    <string name="rom_dexopt_done_text">ප්‍රශස්ත කළ යෙදුම්: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-sk/rom_strings.xml b/core/res/res/values-sk/rom_strings.xml
+new file mode 100644
+index 0000000..36bc0e2
+--- /dev/null
++++ b/core/res/res/values-sk/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimalizujú sa aplikácie</string>
++    <string name="rom_dexopt_running_text">Aplikácie môžu byť do dokončenia pomalšie</string>
++    <string name="rom_dexopt_done_title">Optimalizácia aplikácií sa dokončila</string>
++    <string name="rom_dexopt_cancelled_title">Optimalizácia aplikácií sa zrušila</string>
++    <string name="rom_dexopt_done_text">Optimalizované aplikácie: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-sl/rom_strings.xml b/core/res/res/values-sl/rom_strings.xml
+new file mode 100644
+index 0000000..b470cc9
+--- /dev/null
++++ b/core/res/res/values-sl/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimiziranje aplikacij</string>
++    <string name="rom_dexopt_running_text">Aplikacije so lahko počasnejše, dokler se ne konča</string>
++    <string name="rom_dexopt_done_title">Optimizacija aplikacij je končana</string>
++    <string name="rom_dexopt_cancelled_title">Optimizacija aplikacij je preklicana</string>
++    <string name="rom_dexopt_done_text">Optimizirane aplikacije: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-sq/rom_strings.xml b/core/res/res/values-sq/rom_strings.xml
+new file mode 100644
+index 0000000..72343d6
+--- /dev/null
++++ b/core/res/res/values-sq/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Aplikacionet po optimizohen</string>
++    <string name="rom_dexopt_running_text">Aplikacionet mund të jenë më të ngadalta deri sa të përfundojë</string>
++    <string name="rom_dexopt_done_title">Optimizimi i aplikacioneve përfundoi</string>
++    <string name="rom_dexopt_cancelled_title">Optimizimi i aplikacioneve u anulua</string>
++    <string name="rom_dexopt_done_text">Aplikacione të optimizuara: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-sr/rom_strings.xml b/core/res/res/values-sr/rom_strings.xml
+new file mode 100644
+index 0000000..91e6c15
+--- /dev/null
++++ b/core/res/res/values-sr/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Оптимизација апликација је у току</string>
++    <string name="rom_dexopt_running_text">Апликације могу бити спорије док се ово не заврши</string>
++    <string name="rom_dexopt_done_title">Оптимизација апликација је завршена</string>
++    <string name="rom_dexopt_cancelled_title">Оптимизација апликација је отказана</string>
++    <string name="rom_dexopt_done_text">Оптимизовано апликација: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-sv/rom_strings.xml b/core/res/res/values-sv/rom_strings.xml
+new file mode 100644
+index 0000000..082e5db
+--- /dev/null
++++ b/core/res/res/values-sv/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Optimerar appar</string>
++    <string name="rom_dexopt_running_text">Appar kan vara långsammare tills det är klart</string>
++    <string name="rom_dexopt_done_title">Appoptimeringen är klar</string>
++    <string name="rom_dexopt_cancelled_title">Appoptimeringen avbröts</string>
++    <string name="rom_dexopt_done_text">Optimerade appar: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-sw/rom_strings.xml b/core/res/res/values-sw/rom_strings.xml
+new file mode 100644
+index 0000000..2a64733
+--- /dev/null
++++ b/core/res/res/values-sw/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Inaboresha programu</string>
++    <string name="rom_dexopt_running_text">Programu zinaweza kuwa polepole hadi hili likamilike</string>
++    <string name="rom_dexopt_done_title">Uboreshaji wa programu umekamilika</string>
++    <string name="rom_dexopt_cancelled_title">Uboreshaji wa programu umeghairiwa</string>
++    <string name="rom_dexopt_done_text">Programu zilizoboreshwa: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ta/rom_strings.xml b/core/res/res/values-ta/rom_strings.xml
+new file mode 100644
+index 0000000..e36a100
+--- /dev/null
++++ b/core/res/res/values-ta/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ஆப்ஸ் மேம்படுத்தப்படுகிறது</string>
++    <string name="rom_dexopt_running_text">இது முடியும் வரை ஆப்ஸ் மெதுவாக இருக்கலாம்</string>
++    <string name="rom_dexopt_done_title">ஆப்ஸ் மேம்படுத்தல் முடிந்தது</string>
++    <string name="rom_dexopt_cancelled_title">ஆப்ஸ் மேம்படுத்தல் ரத்துசெய்யப்பட்டது</string>
++    <string name="rom_dexopt_done_text">மேம்படுத்தப்பட்ட ஆப்ஸ்: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-te/rom_strings.xml b/core/res/res/values-te/rom_strings.xml
+new file mode 100644
+index 0000000..7cd7157
+--- /dev/null
++++ b/core/res/res/values-te/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">యాప్‌లను ఆప్టిమైజ్ చేస్తోంది</string>
++    <string name="rom_dexopt_running_text">ఇది పూర్తయ్యే వరకు యాప్‌లు నెమ్మదిగా ఉండవచ్చు</string>
++    <string name="rom_dexopt_done_title">యాప్ ఆప్టిమైజేషన్ పూర్తయింది</string>
++    <string name="rom_dexopt_cancelled_title">యాప్ ఆప్టిమైజేషన్ రద్దు చేయబడింది</string>
++    <string name="rom_dexopt_done_text">ఆప్టిమైజ్ చేసిన యాప్‌లు: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-th/rom_strings.xml b/core/res/res/values-th/rom_strings.xml
+new file mode 100644
+index 0000000..d3d536f
+--- /dev/null
++++ b/core/res/res/values-th/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">กำลังเพิ่มประสิทธิภาพแอป</string>
++    <string name="rom_dexopt_running_text">แอปอาจช้าลงจนกว่าจะเสร็จ</string>
++    <string name="rom_dexopt_done_title">เพิ่มประสิทธิภาพแอปเสร็จแล้ว</string>
++    <string name="rom_dexopt_cancelled_title">ยกเลิกการเพิ่มประสิทธิภาพแอปแล้ว</string>
++    <string name="rom_dexopt_done_text">แอปที่เพิ่มประสิทธิภาพแล้ว: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-tl/rom_strings.xml b/core/res/res/values-tl/rom_strings.xml
+new file mode 100644
+index 0000000..b3e8d84
+--- /dev/null
++++ b/core/res/res/values-tl/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Ino-optimize ang mga app</string>
++    <string name="rom_dexopt_running_text">Maaaring mas mabagal ang mga app hanggang matapos ito</string>
++    <string name="rom_dexopt_done_title">Tapos na ang pag-optimize ng app</string>
++    <string name="rom_dexopt_cancelled_title">Kinansela ang pag-optimize ng app</string>
++    <string name="rom_dexopt_done_text">Mga na-optimize na app: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-uk/rom_strings.xml b/core/res/res/values-uk/rom_strings.xml
+new file mode 100644
+index 0000000..a274644
+--- /dev/null
++++ b/core/res/res/values-uk/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Оптимізація додатків</string>
++    <string name="rom_dexopt_running_text">Доки це не завершиться, додатки можуть працювати повільніше</string>
++    <string name="rom_dexopt_done_title">Оптимізацію додатків завершено</string>
++    <string name="rom_dexopt_cancelled_title">Оптимізацію додатків скасовано</string>
++    <string name="rom_dexopt_done_text">Оптимізовано додатків: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-ur/rom_strings.xml b/core/res/res/values-ur/rom_strings.xml
+new file mode 100644
+index 0000000..89c2e53
+--- /dev/null
++++ b/core/res/res/values-ur/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">ایپس آپٹیمائز ہو رہی ہیں</string>
++    <string name="rom_dexopt_running_text">اس کے مکمل ہونے تک ایپس سست ہو سکتی ہیں</string>
++    <string name="rom_dexopt_done_title">ایپ آپٹیمائزیشن مکمل ہو گئی</string>
++    <string name="rom_dexopt_cancelled_title">ایپ آپٹیمائزیشن منسوخ کر دی گئی</string>
++    <string name="rom_dexopt_done_text">آپٹیمائز کی گئی ایپس: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-uz/rom_strings.xml b/core/res/res/values-uz/rom_strings.xml
+new file mode 100644
+index 0000000..b91ac08
+--- /dev/null
++++ b/core/res/res/values-uz/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Ilovalar optimallashtirilmoqda</string>
++    <string name="rom_dexopt_running_text">Bu tugamaguncha ilovalar sekinroq ishlashi mumkin</string>
++    <string name="rom_dexopt_done_title">Ilovalarni optimallashtirish tugadi</string>
++    <string name="rom_dexopt_cancelled_title">Ilovalarni optimallashtirish bekor qilindi</string>
++    <string name="rom_dexopt_done_text">Optimallashtirilgan ilovalar: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-vi/rom_strings.xml b/core/res/res/values-vi/rom_strings.xml
+new file mode 100644
+index 0000000..77c66a4
+--- /dev/null
++++ b/core/res/res/values-vi/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Đang tối ưu hóa ứng dụng</string>
++    <string name="rom_dexopt_running_text">Ứng dụng có thể chậm hơn cho đến khi hoàn tất</string>
++    <string name="rom_dexopt_done_title">Đã tối ưu hóa xong ứng dụng</string>
++    <string name="rom_dexopt_cancelled_title">Đã hủy tối ưu hóa ứng dụng</string>
++    <string name="rom_dexopt_done_text">Số ứng dụng đã tối ưu hóa: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+diff --git a/core/res/res/values-zh-rCN/rom_strings.xml b/core/res/res/values-zh-rCN/rom_strings.xml
+new file mode 100644
+index 0000000..36a42fc
+--- /dev/null
++++ b/core/res/res/values-zh-rCN/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">正在优化应用</string>
++    <string name="rom_dexopt_running_text">完成前应用可能会变慢</string>
++    <string name="rom_dexopt_done_title">应用优化已完成</string>
++    <string name="rom_dexopt_cancelled_title">应用优化已取消</string>
++    <string name="rom_dexopt_done_text">已优化的应用：<xliff:g id="count" example="12">%1$d</xliff:g> 个</string>
++</resources>
+diff --git a/core/res/res/values-zh-rHK/rom_strings.xml b/core/res/res/values-zh-rHK/rom_strings.xml
+new file mode 100644
+index 0000000..36e7ad2
+--- /dev/null
++++ b/core/res/res/values-zh-rHK/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">正在最佳化應用程式</string>
++    <string name="rom_dexopt_running_text">完成前應用程式可能會變慢</string>
++    <string name="rom_dexopt_done_title">應用程式最佳化已完成</string>
++    <string name="rom_dexopt_cancelled_title">應用程式最佳化已取消</string>
++    <string name="rom_dexopt_done_text">已最佳化的應用程式：<xliff:g id="count" example="12">%1$d</xliff:g> 個</string>
++</resources>
+diff --git a/core/res/res/values-zh-rTW/rom_strings.xml b/core/res/res/values-zh-rTW/rom_strings.xml
+new file mode 100644
+index 0000000..36e7ad2
+--- /dev/null
++++ b/core/res/res/values-zh-rTW/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">正在最佳化應用程式</string>
++    <string name="rom_dexopt_running_text">完成前應用程式可能會變慢</string>
++    <string name="rom_dexopt_done_title">應用程式最佳化已完成</string>
++    <string name="rom_dexopt_cancelled_title">應用程式最佳化已取消</string>
++    <string name="rom_dexopt_done_text">已最佳化的應用程式：<xliff:g id="count" example="12">%1$d</xliff:g> 個</string>
++</resources>
+diff --git a/core/res/res/values-zu/rom_strings.xml b/core/res/res/values-zu/rom_strings.xml
+new file mode 100644
+index 0000000..9a63a0c
+--- /dev/null
++++ b/core/res/res/values-zu/rom_strings.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2026 Langsdorff
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="rom_dexopt_running_title">Kuthuthukiswa izinhlelo zokusebenza</string>
++    <string name="rom_dexopt_running_text">Izinhlelo zokusebenza zingase zihambe kancane kuze kuphele lokhu</string>
++    <string name="rom_dexopt_done_title">Ukuthuthukiswa kwezinhlelo zokusebenza kuphelile</string>
++    <string name="rom_dexopt_cancelled_title">Ukuthuthukiswa kwezinhlelo zokusebenza kukhanselwe</string>
++    <string name="rom_dexopt_done_text">Izinhlelo zokusebenza ezithuthukisiwe: <xliff:g id="count" example="12">%1$d</xliff:g></string>
++</resources>
+-- 
+2.56.0
+
