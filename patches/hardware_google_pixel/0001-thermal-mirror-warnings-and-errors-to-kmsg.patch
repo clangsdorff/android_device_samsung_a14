@@ -1,0 +1,38 @@
+From f9f496e57c318ff6bd416a21269ec371beef2d9c Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 16 Nov 2026 16:08:03 +0000
+Subject: [PATCH] thermal: mirror warnings and errors to kmsg
+
+the thermal hal aborts during early boot before adb is available, and
+user builds drop its logcat output with no way to read it afterwards.
+send warning and higher messages to kmsg as well, so the failing step
+ends up in last_kmsg.
+
+Change-Id: I1defe46c821271b659de2013b5cf1b1e1d1b62b6
+---
+ thermal/service.cpp | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/thermal/service.cpp b/thermal/service.cpp
+index c8fb6a61..622076c7 100644
+--- a/thermal/service.cpp
++++ b/thermal/service.cpp
+@@ -35,6 +35,15 @@ int main(int /* argc */, char ** /* argv */) {
+     // ignore broken pipe signal to avoid Thermal HAL being killed when dumpsys timeout
+     signal(SIGPIPE, SIG_IGN);
+     android::base::SetDefaultTag(kThermalLogTag.data());
++    android::base::SetLogger([logd = android::base::LogdLogger()](
++                                     android::base::LogId id, android::base::LogSeverity severity,
++                                     const char *tag, const char *file, unsigned int line,
++                                     const char *message) mutable {
++        logd(id, severity, tag, file, line, message);
++        if (severity >= android::base::WARNING) {
++            android::base::KernelLogger(id, severity, tag, file, line, message);
++        }
++    });
+ 
+     auto svc = ndk::SharedRefBase::make<Thermal>();
+     const auto svcName = std::string() + svc->descriptor + "/" + THERMAL_INSTANCE_NAME;
+-- 
+2.43.0
+
