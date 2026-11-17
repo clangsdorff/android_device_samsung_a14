@@ -13,5 +13,6 @@ def IncrementalOTA_InstallEnd(info):
 
 def OTA_InstallEnd(info):
     import common
-    common.ZipWriteStr(info.output_zip, "dtbo.img", info.input_zip.read("IMAGES/dtbo.img"))
-    info.script.AppendExtra('package_extract_file("dtbo.img", "/dev/block/by-name/dtbo");')
+    for name in ("dtbo.img", "vbmeta.img"):
+        common.ZipWriteStr(info.output_zip, name, info.input_zip.read("IMAGES/" + name))
+        info.script.AppendExtra('package_extract_file("%s", "/dev/block/by-name/%s");' % (name, name.split(".")[0]))
