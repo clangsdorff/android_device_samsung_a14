@@ -323,6 +323,9 @@ endif
 # OTA
 AB_OTA_UPDATER := false
 
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    lineage.updater.uri=https://raw.githubusercontent.com/clangsdorff/ota/main/{device}/{incr}.json
+
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
