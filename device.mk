@@ -182,7 +182,6 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     cbd \
-    libsec-ril \
     secril_config_svc
 
 # Sensors

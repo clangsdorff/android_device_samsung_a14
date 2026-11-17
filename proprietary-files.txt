@@ -368,7 +368,7 @@ vendor/etc/plmn_se13_prebuilt.bin
 vendor/etc/vintf/manifest/vendor.samsung.hardware.radio_manifest_2_202404.xml
 vendor/lib/libsecril-client.so
 vendor/lib64/libril_sem.so
-vendor/lib64/libsec-ril.so:vendor/lib64/libsec-ril-impl.so;FIX_SONAME
+vendor/lib64/libsec-ril.so
 vendor/lib64/libsecril-client.so
 vendor/lib64/vendor.samsung.hardware.radio-V1-ndk.so
 vendor/lib64/vendor.samsung.hardware.radio.bridge-V1-ndk.so

@@ -61,7 +61,7 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/etc/init/vendor.samsung.hardware.camera.provider-service_64.rc': blob_fixup()
         .regex_replace('(?m)^(    task_profiles .*)$', '\\1\n    onrestart write /sys/devices/platform/ems/emstune/req_mode 0'),
     # drop the error level log for every netlink message
-    'vendor/lib64/libsec-ril-impl.so': blob_fixup()
+    'vendor/lib64/libsec-ril.so': blob_fixup()
         .binary_regex_replace(b'\xe3\x03\x14\xaa\xe4\x03\x15\xaa\xc2\x40\x04\x94\x61\x0b\x40\x79', b'\xe3\x03\x14\xaa\xe4\x03\x15\xaa\x1f\x20\x03\xd5\x61\x0b\x40\x79'),
     # skip the verify callback logging that reads the X509 struct layout directly
     'vendor/bin/hw/gpsd': blob_fixup()
