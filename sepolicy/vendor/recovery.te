@@ -1,0 +1,8 @@
+#
+# SPDX-FileCopyrightText: 2026 Langsdorff
+# SPDX-License-Identifier: Apache-2.0
+#
+
+recovery_only(`
+  r_dir_file(recovery, sysfs_battery)
+')
