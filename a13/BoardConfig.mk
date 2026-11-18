@@ -23,16 +23,13 @@ BOARD_BOOTCONFIG :=
 BOARD_BOOTIMAGE_PARTITION_SIZE := 46137344
 BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE :=
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE :=
-BOARD_RECOVERYIMAGE_PARTITION_SIZE :=
-BOARD_INCLUDE_RECOVERY_DTBO :=
+
+# Recovery partition takes a self-contained v2 image: kernel, dtb, recovery_dtbo and modules
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 55574528
 BOARD_RECOVERY_MKBOOTIMG_ARGS :=
-BOARD_USES_FULL_RECOVERY_IMAGE :=
-TARGET_RECOVERY_PIXEL_FORMAT :=
-BOARD_AVB_RECOVERY_ALGORITHM :=
-BOARD_AVB_RECOVERY_KEY_PATH :=
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX :=
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION :=
-TARGET_NO_RECOVERY := true
+# sboot verifies the recovery footer like stock, vbmeta flags 3 skip the key check
+BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 
 BOARD_DTB_CFG := device/samsung/a14/a13/dts/s5e3830.cfg
 BOARD_DTBO_CFG := device/samsung/a14/a13/dts/a13.cfg
@@ -44,8 +41,15 @@ TARGET_KERNEL_SOURCE := kernel/samsung/a13
 # No vendor_boot or vendor_dlkm, first stage init loads every module from the boot ramdisk
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat device/samsung/a14/a13/modules.load))
 BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD)
-BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD :=
-RECOVERY_KERNEL_MODULES :=
+# camera, gpu, codecs, wifi/bt, audio, modem, sensors and debug modules overflow the recovery partition
+A13_RECOVERY_MODULE_EXCLUDE := \
+    fimc-is% is-% camerapp% mali_kbase% exynos_mfc% smfc% gdc% votf% scaler% \
+    scsc_% fm_s610% snd-soc-% sec_audio_% cpif% dev_ril_bridge% gnss% shm_ipc% \
+    cdc-wdm% cdc_mbim% sensor_core% nanohub% shub% nfc_sec% hid-% acecad% aiptek% \
+    hanwang% kbtab% debug-snapshot-% sec_debug_% dropdump% exynos-bcm_dbg% \
+    exynos-flexpmu-dbg% exynos-pd-dbg% exynos-coresight% exynos-debug-test% xperf%
+BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD := $(filter-out $(A13_RECOVERY_MODULE_EXCLUDE),$(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD))
+RECOVERY_KERNEL_MODULES := $(BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD)
 BOARD_VENDOR_KERNEL_MODULES_LOAD :=
 BOARD_VENDOR_RAMDISK_FRAGMENTS :=
 
