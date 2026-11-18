@@ -1,4 +1,4 @@
-From a3b6d596c15bb0130c4b43f264543d37e59dc6df Mon Sep 17 00:00:00 2001
+From 071a7ad4b7586ce058199c706ab152ef16958353 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 11 Nov 2026 22:46:22 +0300
 Subject: [PATCH 2/2] releasetools: build the non-ab ota package without a
@@ -13,12 +13,14 @@ silently skips writing boot.img, so ship TARGET_RECOVERY_FSTAB in
 META and load it from there. also honor the --backup value, since
 --backup=false still enabled backuptool, and only unpack install
 tools when backuptool is enabled.
+
+Change-Id: Iff2535036e585832e27aaa1b2ed7c9c307dcc38a
 ---
- core/Makefile                               | 13 ++++++++---
+ core/Makefile                               | 13 +++++++--
  tools/releasetools/common.py                |  5 ++++
- tools/releasetools/non_ab_ota.py            | 26 +++++++++------------
+ tools/releasetools/non_ab_ota.py            | 31 ++++++++++-----------
  tools/releasetools/ota_from_target_files.py |  2 +-
- 4 files changed, 27 insertions(+), 19 deletions(-)
+ 4 files changed, 30 insertions(+), 21 deletions(-)
 
 diff --git a/core/Makefile b/core/Makefile
 index 65c45cb835..86d9dee3cb 100644
@@ -68,7 +70,7 @@ index fef646f3ae..0c6058d0f4 100644
  
  
 diff --git a/tools/releasetools/non_ab_ota.py b/tools/releasetools/non_ab_ota.py
-index 2d1075eb81..d83dfb28a7 100644
+index 2d1075eb81..fd77dcef07 100644
 --- a/tools/releasetools/non_ab_ota.py
 +++ b/tools/releasetools/non_ab_ota.py
 @@ -149,7 +149,8 @@ def WriteFullOTAPackage(input_zip, output_file):
@@ -114,7 +116,19 @@ index 2d1075eb81..d83dfb28a7 100644
      script.RunBackup("backup", target_info.get('use_dynamic_partitions') == "true")
  
    # All other partitions as well as the data wipe use 10% of the progress, and
-@@ -573,11 +574,6 @@ endif;
+@@ -361,8 +362,9 @@ def WriteBlockIncrementalOTAPackage(target_zip, source_zip, output_file):
+   updating_boot = (not OPTIONS.two_step and
+                    (source_boot.data != target_boot.data))
+ 
+-  target_recovery = common.GetBootableImage(
+-      "/tmp/recovery.img", "recovery.img", OPTIONS.target_tmp, "RECOVERY")
++  if target_info.get("no_recovery") != "true":
++    target_recovery = common.GetBootableImage(
++        "/tmp/recovery.img", "recovery.img", OPTIONS.target_tmp, "RECOVERY")
+ 
+   block_diff_dict = GetBlockDifferences(target_zip=target_zip,
+                                         source_zip=source_zip,
+@@ -573,11 +575,6 @@ endif;
  
  def GenerateNonAbOtaPackage(target_file, output_file, source_file=None):
    """Generates a non-A/B OTA package."""
@@ -141,3 +155,4 @@ index aaace2b638..f83772786e 100755
      elif o == "--no_signing":
 -- 
 2.43.0
+
