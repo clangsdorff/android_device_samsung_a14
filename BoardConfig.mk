@@ -183,7 +183,6 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     hardware/samsung/vintf/samsung_framework_compatibility_matrix.xml
 
 # Wi-Fi
-BOARD_WLAN_DEVICE := slsi
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_slsi
