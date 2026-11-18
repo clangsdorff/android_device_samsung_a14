@@ -1,7 +1,7 @@
-From 071a7ad4b7586ce058199c706ab152ef16958353 Mon Sep 17 00:00:00 2001
+From 88487f432dd2a7a088f27e1446c0c04ca02cf128 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 11 Nov 2026 22:46:22 +0300
-Subject: [PATCH 2/2] releasetools: build the non-ab ota package without a
+Subject: [PATCH 2/3] releasetools: build the non-ab ota package without a
  recovery
 
 the a13 keeps the stock recovery and sets TARGET_NO_RECOVERY, so the

@@ -1,0 +1,38 @@
+From 5ac7a3cbbddce112cd28139f4e1c7ba264d6c72f Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Wed, 18 Nov 2026 15:26:47 +0000
+Subject: [PATCH 3/3] build: allow zstd for the recovery ramdisk
+
+the a13 recovery partition is ~53 MB and the lz4 recovery ramdisk does
+not fit next to the kernel and modules. add
+BOARD_RECOVERY_RAMDISK_USE_ZSTD to compress only the recovery ramdisk
+with zstd -19, the boot ramdisk keeps the board compression.
+
+Change-Id: If4e076ee752a4cd7aa567b86ac69d3f655903be5
+---
+ core/Makefile | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/core/Makefile b/core/Makefile
+index 86d9dee3cb..5b436b6e18 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -2785,9 +2785,15 @@ $(recovery_uncompressed_ramdisk): $(INTERNAL_RECOVERY_RAMDISK_FILES_TIMESTAMP)
+ 	@echo ----- Making uncompressed recovery ramdisk ------
+ 	$(MKBOOTFS) -d $(TARGET_OUT) $(TARGET_RECOVERY_ROOT_OUT) > $@
+ 
++ifeq ($(BOARD_RECOVERY_RAMDISK_USE_ZSTD),true)
++$(recovery_ramdisk): $(recovery_uncompressed_ramdisk) $(ZSTD)
++	@echo ----- Making compressed recovery ramdisk ------
++	$(ZSTD) -19 -T0 -f -c < $(recovery_uncompressed_ramdisk) > $@
++else
+ $(recovery_ramdisk): $(recovery_uncompressed_ramdisk) $(COMPRESSION_COMMAND_DEPS)
+ 	@echo ----- Making compressed recovery ramdisk ------
+ 	$(COMPRESSION_COMMAND) < $(recovery_uncompressed_ramdisk) > $@
++endif
+ 
+ # $(1): output file
+ # $(2): optional kernel file
+-- 
+2.43.0
+

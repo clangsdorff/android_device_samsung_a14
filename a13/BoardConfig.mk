@@ -26,6 +26,7 @@ BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE :=
 
 # Recovery partition takes a self-contained v2 image: kernel, dtb, recovery_dtbo and modules
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 55574528
+BOARD_RECOVERY_RAMDISK_USE_ZSTD := true
 BOARD_RECOVERY_MKBOOTIMG_ARGS :=
 # sboot verifies the recovery footer like stock, vbmeta flags 3 skip the key check
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
