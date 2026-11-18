@@ -1,0 +1,112 @@
+From 4ac06b2405dcd4e7ec4f5a62ba8c39bd19219d46 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Wed, 18 Nov 2026 12:53:23 +0300
+Subject: [PATCH] health: report charging speed from hv_charger_status
+
+samsung sec_battery exposes only online on ac/usb power supplies without current_max or voltage_max, leaving maxChargingCurrentMicroamps at 0. read /sys/class/power_supply/battery/hv_charger_status in UpdateHealthInfo when no max charging current is reported and map it to voltage/current.
+---
+ aidl/health/Health.cpp | 73 +++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 72 insertions(+), 1 deletion(-)
+
+diff --git a/aidl/health/Health.cpp b/aidl/health/Health.cpp
+index 860bd1b..d502798 100644
+--- a/aidl/health/Health.cpp
++++ b/aidl/health/Health.cpp
+@@ -15,7 +15,10 @@
+  * limitations under the License.
+  */
+ 
++#include <android-base/file.h>
+ #include <android-base/logging.h>
++#include <android-base/parseint.h>
++#include <android-base/strings.h>
+ #include <android/binder_interface_utils.h>
+ #include <health-impl/Health.h>
+ #include <health/utils.h>
+@@ -38,6 +41,73 @@ using aidl::android::hardware::health::charger::ChargerModeMain;
+ 
+ static constexpr const char* gInstanceName = "default";
+ static constexpr std::string_view gChargerArg{"--charger"};
++static constexpr const char* kHvChargerStatusPath =
++        "/sys/class/power_supply/battery/hv_charger_status";
++
++namespace aidl::android::hardware::health {
++
++class SamsungHealth : public Health {
++  public:
++    using Health::Health;
++
++  protected:
++    void UpdateHealthInfo(HealthInfo* health_info) override {
++        if (health_info->maxChargingCurrentMicroamps > 0) {
++            return;
++        }
++        if (!health_info->chargerAcOnline && !health_info->chargerUsbOnline &&
++            !health_info->chargerWirelessOnline) {
++            return;
++        }
++
++        std::string content;
++        if (!android::base::ReadFileToString(kHvChargerStatusPath, &content, true)) {
++            return;
++        }
++
++        int hv_status = 0;
++        if (!android::base::ParseInt(android::base::Trim(content), &hv_status)) {
++            return;
++        }
++
++        int32_t voltage_uv = 0;
++        int32_t current_ua = 0;
++        switch (hv_status) {
++            case 1:  // AFC_9V_OR_15W
++                voltage_uv = 9000000;
++                current_ua = 1670000;
++                break;
++            case 2:  // AFC_12V_OR_20W
++                voltage_uv = 12000000;
++                current_ua = 1670000;
++                break;
++            case 3:  // SFC_25W
++                voltage_uv = 9000000;
++                current_ua = 2770000;
++                break;
++            case 4:  // SFC_45W
++                voltage_uv = 10000000;
++                current_ua = 4500000;
++                break;
++            default:
++                if (health_info->chargerAcOnline) {
++                    voltage_uv = 5000000;
++                    current_ua = 1550000;
++                } else if (health_info->chargerUsbOnline) {
++                    voltage_uv = 5000000;
++                    current_ua = 500000;
++                } else {
++                    return;
++                }
++                break;
++        }
++
++        health_info->maxChargingVoltageMicrovolts = voltage_uv;
++        health_info->maxChargingCurrentMicroamps = current_ua;
++    }
++};
++
++}  // namespace aidl::android::hardware::health
+ 
+ #if !CHARGER_FORCE_NO_UI
+ namespace aidl::android::hardware::health {
+@@ -57,7 +127,8 @@ int main(int argc, char** argv) {
+     // make a default health service
+     auto config = std::make_unique<healthd_config>();
+     ::android::hardware::health::InitHealthdConfig(config.get());
+-    auto binder = ndk::SharedRefBase::make<Health>(gInstanceName, std::move(config));
++    auto binder = ndk::SharedRefBase::make<aidl::android::hardware::health::SamsungHealth>(
++            gInstanceName, std::move(config));
+ 
+     if (argc >= 2 && argv[1] == gChargerArg) {
+ #if !CHARGER_FORCE_NO_UI
+-- 
+2.56.0
+
