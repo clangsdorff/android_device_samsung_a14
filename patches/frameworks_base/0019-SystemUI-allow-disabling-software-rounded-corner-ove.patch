@@ -1,0 +1,51 @@
+From a4fbb5dde1236d2350ec9442360b8d7682cb429a Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Wed, 18 Nov 2026 12:42:09 +0300
+Subject: [PATCH] SystemUI: allow disabling software rounded corner overlays
+
+displays with physical rounded corners still need non-zero
+rounded_corner_radius resources for window insets and launch/recents
+animations, yet ScreenDecorations draws two permanent software
+overlay windows whenever a radius is configured. on hwcomposer targets
+with few hardware layers, those extra windows push composition to gpu.
+
+add config_drawRoundedCornerOverlay so devices can keep the framework
+corner radii for layout and animations while skipping the software
+corner overlay windows.
+---
+ packages/SystemUI/res/values/lineage_config.xml             | 3 +++
+ .../com/android/systemui/decor/RoundedCornerResDelegate.kt  | 6 ++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/packages/SystemUI/res/values/lineage_config.xml b/packages/SystemUI/res/values/lineage_config.xml
+index 39a6955..c496400 100644
+--- a/packages/SystemUI/res/values/lineage_config.xml
++++ b/packages/SystemUI/res/values/lineage_config.xml
+@@ -79,4 +79,7 @@
+ 
+     <!-- Whether to force notifications to take up the full width of the screen in landscape -->
+     <bool name="config_fullWidthNotificationsInLandscape">false</bool>
++
++    <!-- Whether ScreenDecorations draws software rounded corner overlays -->
++    <bool name="config_drawRoundedCornerOverlay">true</bool>
+ </resources>
+diff --git a/packages/SystemUI/src/com/android/systemui/decor/RoundedCornerResDelegate.kt b/packages/SystemUI/src/com/android/systemui/decor/RoundedCornerResDelegate.kt
+index 0314b0f..9720ffc 100644
+--- a/packages/SystemUI/src/com/android/systemui/decor/RoundedCornerResDelegate.kt
++++ b/packages/SystemUI/src/com/android/systemui/decor/RoundedCornerResDelegate.kt
+@@ -100,6 +100,12 @@ class RoundedCornerResDelegateImpl(
+     }
+ 
+     private fun reloadRes() {
++        if (!res.getBoolean(R.bool.config_drawRoundedCornerOverlay)) {
++            hasTop = false
++            hasBottom = false
++            return
++        }
++
+         val configIdx = DisplayUtils.getDisplayUniqueIdConfigIndex(res, displayUniqueId)
+ 
+         val hasDefaultRadius = RoundedCorners.getRoundedCornerRadius(res, displayUniqueId) > 0
+-- 
+2.56.0
+
