@@ -41,14 +41,8 @@ TARGET_KERNEL_SOURCE := kernel/samsung/a13
 # No vendor_boot or vendor_dlkm, first stage init loads every module from the boot ramdisk
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat device/samsung/a14/a13/modules.load))
 BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD)
-# camera, gpu, codecs, wifi/bt, audio, modem, sensors and debug modules overflow the recovery partition
-A13_RECOVERY_MODULE_EXCLUDE := \
-    fimc-is% is-% camerapp% mali_kbase% exynos_mfc% smfc% gdc% votf% scaler% \
-    scsc_% fm_s610% snd-soc-% sec_audio_% cpif% dev_ril_bridge% gnss% shm_ipc% \
-    cdc-wdm% cdc_mbim% sensor_core% nanohub% shub% nfc_sec% hid-% acecad% aiptek% \
-    hanwang% kbtab% debug-snapshot-% sec_debug_% dropdump% exynos-bcm_dbg% \
-    exynos-flexpmu-dbg% exynos-pd-dbg% exynos-coresight% exynos-debug-test% xperf%
-BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD := $(filter-out $(A13_RECOVERY_MODULE_EXCLUDE),$(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD))
+# boot list minus camera, codecs, wifi/bt, audio, modem, sensors and debug, plus their dependencies
+BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat device/samsung/a14/a13/modules.recovery.load))
 RECOVERY_KERNEL_MODULES := $(BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD)
 BOARD_VENDOR_KERNEL_MODULES_LOAD :=
 BOARD_VENDOR_RAMDISK_FRAGMENTS :=
