@@ -7,6 +7,9 @@ TARGET_EXCLUDE_ADB_ROOT := true
 TARGET_EXCLUDE_LOS_EXTRA_CLI_UTILS := true
 TARGET_SKIP_BACKUPTOOL := true
 
+PRODUCT_PACKAGES += \
+    GameSpace
+
 # Inherit some common Lineage stuff
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_system.mk)
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
