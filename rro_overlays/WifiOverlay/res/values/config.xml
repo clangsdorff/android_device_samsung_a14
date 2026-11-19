@@ -33,7 +33,7 @@
     <integer name="config_wifiHardwareSoftapMaxClientCount">16</integer>
 
     <!-- Enable ACS (auto channel selection) for Wifi hotspot (SAP) -->
-    <bool name="config_wifi_softap_acs_supported">true</bool>
+    <bool name="config_wifi_softap_acs_supported">false</bool>
 
     <!-- Wifi Hal supports force client disconnect for softap -->
     <bool name="config_wifiSofapClientForceDisconnectSupported">true</bool>
