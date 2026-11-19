@@ -26,6 +26,9 @@
     <!-- boolean indicating whether the WiFi chipset has 5GHz band support. -->
     <bool name="config_wifi5ghzSupport">true</bool>
 
+    <!-- Wifi driver supports 5GHz band for softap -->
+    <bool name="config_wifiSoftap5ghzSupported">true</bool>
+
     <!-- Integer indicating maximum hardware supported client number of soft ap -->
     <integer name="config_wifiHardwareSoftapMaxClientCount">16</integer>
 

@@ -206,6 +206,9 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.rc
 
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.vendor.wifi.sap.interface=swlan0
+
 # NFC
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)/nfc
