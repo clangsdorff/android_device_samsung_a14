@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2026 Langsdorff
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="menu_changelog_url" translatable="false">https://github.com/clangsdorff/ota/releases</string>
+    <string name="report_issue_url" translatable="false">https://github.com/clangsdorff/android_device_samsung_a14/issues</string>
+    <string name="menu_downloads_url" translatable="false">https://github.com/clangsdorff/ota/releases</string>
+</resources>
