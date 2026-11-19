@@ -32,6 +32,8 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
     'vendor/lib/libalsautils_sec.so': blob_fixup()
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
+    'vendor/lib/lib_SoundAlive_play_plus_ver400.so': blob_fixup()
+        .add_needed('liblog.so'),
     'vendor/lib/libaudioparamupdate.so': blob_fixup()
         .replace_needed('libaudioroute.so', 'libaudioroute_sec.so')
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
