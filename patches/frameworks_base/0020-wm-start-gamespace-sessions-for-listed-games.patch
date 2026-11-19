@@ -1,0 +1,414 @@
+From 62e2705c728038566638acdb133dd717fb064d2a Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Thu, 19 Nov 2026 17:08:53 +0000
+Subject: [PATCH] wm: start gamespace sessions for listed games
+
+GameSpace waits for a session start, but lineage has no code that
+sends it, so the game bar never shows up. Add a system service that
+watches the focused app, starts the GameSpace session service when an
+app from gamespace_game_list comes to front and stops it when the game
+leaves or the keyguard shows. Ported from crDroid without its charge
+bypass and perf boost bits.
+---
+ .../server/wm/ActivityTaskSupervisor.java     |   5 +
+ .../com/android/server/wm/DisplayContent.java |   8 +
+ .../android/server/wm/GameListManager.java    |  72 +++++++++
+ .../android/server/wm/GameSpaceService.java   | 146 ++++++++++++++++++
+ .../server/wm/GameStateDispatcher.java        |  59 +++++++
+ .../android/server/wm/KeyguardController.java |   9 ++
+ .../java/com/android/server/SystemServer.java |   5 +
+ 7 files changed, 304 insertions(+)
+ create mode 100644 services/core/java/com/android/server/wm/GameListManager.java
+ create mode 100644 services/core/java/com/android/server/wm/GameSpaceService.java
+ create mode 100644 services/core/java/com/android/server/wm/GameStateDispatcher.java
+
+diff --git a/services/core/java/com/android/server/wm/ActivityTaskSupervisor.java b/services/core/java/com/android/server/wm/ActivityTaskSupervisor.java
+index 3a483eeb6140..75a810181b56 100644
+--- a/services/core/java/com/android/server/wm/ActivityTaskSupervisor.java
++++ b/services/core/java/com/android/server/wm/ActivityTaskSupervisor.java
+@@ -1903,6 +1903,11 @@ public class ActivityTaskSupervisor implements RecentTasks.Callbacks {
+             }
+             mBalController.checkActivityAllowedToClearTask(
+                             task, callingUid, callingPid, callerActivityClassName);
++            final GameSpaceService gameSpaceService =
++                    LocalServices.getService(GameSpaceService.class);
++            if (gameSpaceService != null) {
++                gameSpaceService.removeTask(task);
++            }
+         } finally {
+             task.mInRemoveTask = false;
+             mService.mChainTracker.endPartial();
+diff --git a/services/core/java/com/android/server/wm/DisplayContent.java b/services/core/java/com/android/server/wm/DisplayContent.java
+index c55085d3e416..abcde6defb30 100644
+--- a/services/core/java/com/android/server/wm/DisplayContent.java
++++ b/services/core/java/com/android/server/wm/DisplayContent.java
+@@ -271,6 +271,7 @@ import com.android.internal.protolog.ProtoLog;
+ import com.android.internal.util.ToBooleanFunction;
+ import com.android.internal.util.function.pooled.PooledLambda;
+ import com.android.internal.util.function.pooled.PooledPredicate;
++import com.android.server.LocalServices;
+ import com.android.server.input.InputManagerService;
+ import com.android.server.inputmethod.InputMethodManagerInternal;
+ import com.android.server.policy.WindowManagerPolicy;
+@@ -4523,6 +4524,13 @@ class DisplayContent extends RootDisplayArea implements WindowManagerPolicy.Disp
+             if (newTask != null) newTask.onAppFocusChanged(true);
+         }
+ 
++        if (newFocus != null && isDefaultDisplay) {
++            final GameSpaceService gameSpaceService =
++                    LocalServices.getService(GameSpaceService.class);
++            if (gameSpaceService != null) {
++                gameSpaceService.onAppFocusChanged(newFocus, newTask);
++            }
++        }
+         getInputMonitor().setFocusedAppLw(newFocus);
+         return true;
+     }
+diff --git a/services/core/java/com/android/server/wm/GameListManager.java b/services/core/java/com/android/server/wm/GameListManager.java
+new file mode 100644
+index 000000000000..0e094bf72d25
+--- /dev/null
++++ b/services/core/java/com/android/server/wm/GameListManager.java
+@@ -0,0 +1,72 @@
++/*
++ * Copyright (C) 2025-2026 AxionOS
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package com.android.server.wm;
++
++import android.content.Context;
++import android.database.ContentObserver;
++import android.os.Handler;
++import android.os.UserHandle;
++import android.provider.Settings;
++
++import java.util.HashSet;
++import java.util.Set;
++
++class GameListManager {
++    private static final String GAME_LIST_KEY = "gamespace_game_list";
++
++    private final Context mContext;
++    private final Set<String> mGames = new HashSet<>();
++
++    GameListManager(Context context) {
++        mContext = context;
++    }
++
++    void registerGameListObserver(Handler handler) {
++        mContext.getContentResolver().registerContentObserver(
++                Settings.System.getUriFor(GAME_LIST_KEY), false,
++                new ContentObserver(handler) {
++                    @Override
++                    public void onChange(boolean selfChange) {
++                        loadGameList();
++                    }
++                }, UserHandle.USER_ALL);
++        loadGameList();
++    }
++
++    void loadGameList() {
++        final String raw = Settings.System.getStringForUser(mContext.getContentResolver(),
++                GAME_LIST_KEY, UserHandle.USER_CURRENT);
++        final Set<String> parsed = new HashSet<>();
++        if (raw != null) {
++            for (String entry : raw.split(";")) {
++                final String name = entry.split("=", 2)[0].trim();
++                if (!name.isEmpty()) {
++                    parsed.add(name);
++                }
++            }
++        }
++        synchronized (mGames) {
++            mGames.clear();
++            mGames.addAll(parsed);
++        }
++    }
++
++    boolean isGame(String packageName) {
++        synchronized (mGames) {
++            return mGames.contains(packageName);
++        }
++    }
++}
+diff --git a/services/core/java/com/android/server/wm/GameSpaceService.java b/services/core/java/com/android/server/wm/GameSpaceService.java
+new file mode 100644
+index 000000000000..d49dfc762f7f
+--- /dev/null
++++ b/services/core/java/com/android/server/wm/GameSpaceService.java
+@@ -0,0 +1,146 @@
++/*
++ * Copyright (C) 2025-2026 AxionOS
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package com.android.server.wm;
++
++import static android.app.WindowConfiguration.WINDOWING_MODE_FREEFORM;
++
++import android.content.ComponentName;
++import android.content.Context;
++import android.content.Intent;
++import android.os.Handler;
++import android.os.Process;
++import android.util.Slog;
++
++import com.android.server.LocalServices;
++import com.android.server.ServiceThread;
++import com.android.server.SystemService;
++
++public final class GameSpaceService extends SystemService {
++    private static final String TAG = "GameSpaceService";
++
++    private final GameListManager mGameListManager;
++    private final GameStateDispatcher mGameStateDispatcher;
++    private final Handler mHandler;
++
++    private boolean mStarted;
++    private String mCurrentGame;
++
++    public GameSpaceService(Context context) {
++        super(context);
++        final ServiceThread thread =
++                new ServiceThread(TAG, Process.THREAD_PRIORITY_BACKGROUND, true);
++        thread.start();
++        mHandler = new Handler(thread.getLooper());
++        mGameListManager = new GameListManager(context);
++        mGameStateDispatcher = new GameStateDispatcher(context);
++    }
++
++    @Override
++    public void onStart() {
++        publishLocalService(GameSpaceService.class, this);
++    }
++
++    @Override
++    public void onBootPhase(int phase) {
++        if (phase == PHASE_ACTIVITY_MANAGER_READY) {
++            mHandler.post(() -> {
++                mGameListManager.registerGameListObserver(mHandler);
++                mStarted = true;
++                Slog.i(TAG, "GameSpaceService initialized");
++            });
++        }
++    }
++
++    @Override
++    public void onUserSwitching(TargetUser from, TargetUser to) {
++        mHandler.post(() -> {
++            mGameListManager.loadGameList();
++            if (mCurrentGame != null) {
++                mCurrentGame = null;
++                mGameStateDispatcher.dispatchGameState(false, null);
++            }
++        });
++    }
++
++    public void onAppFocusChanged(ActivityRecord record, Task task) {
++        if (record == null || record.packageName == null) {
++            return;
++        }
++        final String packageName = record.packageName;
++        final boolean freeformTask = task != null
++                && task.getWindowingMode() == WINDOWING_MODE_FREEFORM;
++        mHandler.post(() -> updateFocusedPackage(packageName, freeformTask));
++    }
++
++    public void removeTask(Task task) {
++        if (task == null) {
++            return;
++        }
++        final String packageName = getTaskPackageName(task);
++        if (packageName == null) {
++            return;
++        }
++        mHandler.post(() -> {
++            if (packageName.equals(mCurrentGame)) {
++                mCurrentGame = null;
++                mGameStateDispatcher.dispatchGameState(false, null);
++            }
++        });
++    }
++
++    public void onKeyguardChanged(boolean showing) {
++        mHandler.post(() -> {
++            if (mCurrentGame != null) {
++                mGameStateDispatcher.dispatchGameState(!showing, mCurrentGame);
++            }
++        });
++    }
++
++    private String getTaskPackageName(Task task) {
++        final ActivityRecord top = task.getTopMostActivity();
++        if (top != null && top.packageName != null) {
++            return top.packageName;
++        }
++        final Intent baseIntent = task.getBaseIntent();
++        final ComponentName component = baseIntent != null ? baseIntent.getComponent() : null;
++        return component != null ? component.getPackageName() : null;
++    }
++
++    private void updateFocusedPackage(String packageName, boolean freeformTask) {
++        if (!mStarted || packageName.equals(mCurrentGame)) {
++            return;
++        }
++        if (freeformTask && mCurrentGame != null && isCurrentGameTopApp()) {
++            return;
++        }
++        final boolean isGame = mGameListManager.isGame(packageName);
++        if (mCurrentGame != null) {
++            mCurrentGame = null;
++            mGameStateDispatcher.dispatchGameState(false, null);
++        }
++        if (isGame) {
++            mCurrentGame = packageName;
++            mGameStateDispatcher.dispatchGameState(true, packageName);
++        }
++    }
++
++    private boolean isCurrentGameTopApp() {
++        final ActivityTaskManagerInternal atm =
++                LocalServices.getService(ActivityTaskManagerInternal.class);
++        final WindowProcessController topApp = atm != null ? atm.getTopApp() : null;
++        return topApp != null && topApp.containsPackage(mCurrentGame);
++    }
++}
+diff --git a/services/core/java/com/android/server/wm/GameStateDispatcher.java b/services/core/java/com/android/server/wm/GameStateDispatcher.java
+new file mode 100644
+index 000000000000..c1c8891d0556
+--- /dev/null
++++ b/services/core/java/com/android/server/wm/GameStateDispatcher.java
+@@ -0,0 +1,59 @@
++/*
++ * Copyright (C) 2025-2026 AxionOS
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package com.android.server.wm;
++
++import android.app.ActivityManager;
++import android.content.ComponentName;
++import android.content.Context;
++import android.content.Intent;
++import android.os.RemoteException;
++import android.os.UserHandle;
++import android.util.Slog;
++
++class GameStateDispatcher {
++    private static final String TAG = "GameStateDispatcher";
++    private static final ComponentName SESSION_SERVICE = new ComponentName(
++            "io.chaldeaprjkt.gamespace", "io.chaldeaprjkt.gamespace.gamebar.SessionService");
++    private static final String ACTION_GAME_START = "game_start";
++    private static final String EXTRA_PACKAGE_NAME = "package_name";
++
++    private final Context mContext;
++
++    GameStateDispatcher(Context context) {
++        mContext = context;
++    }
++
++    void dispatchGameState(boolean active, String packageName) {
++        try {
++            if (active) {
++                final Intent intent = new Intent(ACTION_GAME_START)
++                        .setComponent(SESSION_SERVICE)
++                        .putExtra(EXTRA_PACKAGE_NAME, packageName);
++                if (ActivityManager.getService().startService(null, intent, null, false,
++                        mContext.getOpPackageName(), mContext.getAttributionTag(),
++                        UserHandle.USER_CURRENT) == null) {
++                    Slog.w(TAG, "GameSpace session service not found");
++                }
++            } else {
++                ActivityManager.getService().stopService(null,
++                        new Intent().setComponent(SESSION_SERVICE), null,
++                        UserHandle.USER_CURRENT);
++            }
++        } catch (RemoteException | RuntimeException e) {
++            Slog.w(TAG, "Failed to update GameSpace session", e);
++        }
++    }
++}
+diff --git a/services/core/java/com/android/server/wm/KeyguardController.java b/services/core/java/com/android/server/wm/KeyguardController.java
+index e9294c09736f..21a4f97a9164 100644
+--- a/services/core/java/com/android/server/wm/KeyguardController.java
++++ b/services/core/java/com/android/server/wm/KeyguardController.java
+@@ -61,6 +61,7 @@ import android.util.proto.ProtoOutputStream;
+ import android.view.Display;
+ 
+ import com.android.internal.policy.IKeyguardDismissCallback;
++import com.android.server.LocalServices;
+ import com.android.server.inputmethod.InputMethodManagerInternal;
+ import com.android.server.policy.WindowManagerPolicy;
+ import com.android.window.flags.Flags;
+@@ -240,6 +241,14 @@ class KeyguardController {
+         state.mAodShowing = aodShowing;
+         state.writeEventLog("setKeyguardShown");
+ 
++        if (displayId == DEFAULT_DISPLAY && keyguardChanged) {
++            final GameSpaceService gameSpaceService =
++                    LocalServices.getService(GameSpaceService.class);
++            if (gameSpaceService != null) {
++                gameSpaceService.onKeyguardChanged(keyguardShowing);
++            }
++        }
++
+         if (keyguardChanged || (Flags.aodTransition() && aodChanged)) {
+             if (keyguardChanged) {
+                 // Irrelevant to AOD.
+diff --git a/services/java/com/android/server/SystemServer.java b/services/java/com/android/server/SystemServer.java
+index 532be9b73c29..96c8ff888e44 100644
+--- a/services/java/com/android/server/SystemServer.java
++++ b/services/java/com/android/server/SystemServer.java
+@@ -320,6 +320,7 @@ import com.android.server.wallpapereffectsgeneration.WallpaperEffectsGenerationM
+ import com.android.server.wearable.WearableSensingManagerService;
+ import com.android.server.webkit.WebViewUpdateService;
+ import com.android.server.wm.ActivityTaskManagerService;
++import com.android.server.wm.GameSpaceService;
+ import com.android.server.wm.WindowManagerGlobalLock;
+ import com.android.server.wm.WindowManagerService;
+ 
+@@ -1761,6 +1762,10 @@ public final class SystemServer implements Dumpable {
+             wm.onInitReady();
+             t.traceEnd();
+ 
++            t.traceBegin("StartGameSpaceService");
++            mSystemServiceManager.startService(GameSpaceService.class);
++            t.traceEnd();
++
+             // Start receiving calls from SensorManager services. Start in a separate thread
+             // because it need to connect to SensorManager. This has to start
+             // after PHASE_WAIT_FOR_SENSOR_SERVICE is done.
+-- 
+2.43.0
+
