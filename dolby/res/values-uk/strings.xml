@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dolby_summary">Обробка звуку Dolby Atmos</string>
+    <string name="dolby_enable">Використовувати Dolby Atmos</string>
+</resources>

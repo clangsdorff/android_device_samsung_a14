@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dolby_summary">Dolby Atmos ध्वनी प्रक्रिया</string>
+    <string name="dolby_enable">Dolby Atmos वापरा</string>
+</resources>
