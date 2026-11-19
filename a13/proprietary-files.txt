@@ -276,6 +276,17 @@ vendor/lib64/libExynosC2Vp8Enc.so
 vendor/lib64/libsec2lsi_conversion.so
 vendor/lib64/libstagefright_foundation_vendor.so
 
+# Media / Dolby
+vendor/bin/hw/samsung.software.media.c2@1.0-service
+vendor/etc/init/samsung.software.media.c2@1.0-service.rc
+vendor/etc/media_codecs_dolby_audio.xml
+vendor/etc/seccomp_policy/samsung.software.media.c2-base-policy
+vendor/etc/seccomp_policy/samsung.software.media.c2-ext-policy
+vendor/lib64/libSecC2ComponentStore.so
+vendor/lib64/libcodec2_soft_ac4dec.so
+vendor/lib64/libcodec2_soft_eac3dec.so
+vendor/lib64/libdeccfg.so
+
 # Misc
 vendor/bin/hw/vendor.samsung.hardware.sysinput-service
 vendor/etc/floating_feature.xml
@@ -359,6 +370,7 @@ vendor/lib/libaudioroute.so:vendor/lib/libaudioroute_sec.so;FIX_SONAME
 vendor/lib/libsensorndkbridge.so:vendor/lib/libsensorndkbridge_sec.so;FIX_SONAME
 vendor/lib/libtinyalsa.so:vendor/lib/libtinyalsa_sec.so;FIX_SONAME
 vendor/lib64/libalsautils.so:vendor/lib64/libalsautils_sec.so;FIX_SONAME
+vendor/lib64/libcodec2_soft_common.so:vendor/lib64/libcodec2_soft_common_sec.so;FIX_SONAME
 vendor/lib64/libomp.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libsensorndkbridge.so:vendor/lib64/libsensorndkbridge_sec.so;FIX_SONAME
 vendor/lib64/libtinyalsa.so:vendor/lib64/libtinyalsa_sec.so;FIX_SONAME

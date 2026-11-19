@@ -45,6 +45,10 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
     'vendor/lib/libsensorlistener.so': blob_fixup()
         .replace_needed('libsensorndkbridge.so', 'libsensorndkbridge_sec.so'),
+    'vendor/lib64/libcodec2_soft_ac4dec.so': blob_fixup()
+        .replace_needed('libcodec2_soft_common.so', 'libcodec2_soft_common_sec.so'),
+    'vendor/lib64/libcodec2_soft_eac3dec.so': blob_fixup()
+        .replace_needed('libcodec2_soft_common.so', 'libcodec2_soft_common_sec.so'),
     'vendor/lib/soundfx/libaudioeffectoffload.so': blob_fixup()
         .replace_needed('libtinyalsa.so', 'libtinyalsa_sec.so'),
     'vendor/lib64/libalsautils_sec.so': blob_fixup()
