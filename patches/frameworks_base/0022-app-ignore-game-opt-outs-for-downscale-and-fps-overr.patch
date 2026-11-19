@@ -1,0 +1,32 @@
+From 4b2697d2bf8c394d7ee0d8dd01b7c8317fc7ff61 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Thu, 19 Nov 2026 19:04:35 +0000
+Subject: [PATCH] app: ignore game opt-outs for downscale and fps override
+
+Games like PUBG set allowGameDownscaling and allowGameFpsOverride to
+false in their game mode config, so the custom mode resolution and
+frame rate options are greyed out and never applied. Always allow both
+so the user choice wins. ANGLE opt-out is left as is.
+
+Change-Id: I8140b26a3645ac4641fec7a81ed45af7a2e2c023
+---
+ .../core/java/com/android/server/app/GameManagerService.java   | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/services/core/java/com/android/server/app/GameManagerService.java b/services/core/java/com/android/server/app/GameManagerService.java
+index e14b5acb4384..99d3becee421 100644
+--- a/services/core/java/com/android/server/app/GameManagerService.java
++++ b/services/core/java/com/android/server/app/GameManagerService.java
+@@ -577,6 +577,9 @@ public final class GameManagerService extends IGameManagerService.Stub {
+                 // Not all packages are installed, hence ignore those that are not installed yet.
+                 Slog.v(TAG, "Failed to get package metadata");
+             }
++            // games opting out of downscale or fps override are forced anyway
++            mAllowDownscale = true;
++            mAllowFpsOverride = true;
+             final String configString = DeviceConfig.getProperty(
+                     DeviceConfig.NAMESPACE_GAME_OVERLAY, packageName);
+             if (configString != null) {
+-- 
+2.43.0
+
