@@ -1,0 +1,23 @@
+//
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+android_app {
+    name: "DolbySettings",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    manifest: "AndroidManifest.xml",
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    static_libs: [
+        "SettingsLib",
+        "androidx.preference_preference",
+    ],
+    optimize: {
+        enabled: false,
+    },
+}
+

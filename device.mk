@@ -43,6 +43,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_PACKAGES += \
     ScreenAttention
 
+# Dolby
+PRODUCT_PACKAGES += \
+    DolbySettings
+
 # Init
 PRODUCT_PACKAGES += \
     init.a14.rc \

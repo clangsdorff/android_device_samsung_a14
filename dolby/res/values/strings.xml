@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dolby_title">Dolby Atmos</string>
+    <string name="dolby_summary">Dolby Atmos sound processing</string>
+    <string name="dolby_enable">Use Dolby Atmos</string>
+</resources>
