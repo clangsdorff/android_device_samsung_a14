@@ -1,7 +1,7 @@
-From ad1f887498deb776d8db18fee7938ee1cbd92d67 Mon Sep 17 00:00:00 2001
+From 0d2e1cd5ec05da5eaa18235b365fe51776cb8114 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 18 Nov 2026 15:26:47 +0000
-Subject: [PATCH 3/3] build: allow zstd for the recovery ramdisk
+Subject: [PATCH 3/4] build: allow zstd for the recovery ramdisk
 
 the a13 recovery partition is ~53 MB and the lz4 recovery ramdisk does
 not fit next to the kernel and modules. add

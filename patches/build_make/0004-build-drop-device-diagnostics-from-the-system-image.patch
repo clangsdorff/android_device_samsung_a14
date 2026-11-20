@@ -1,0 +1,29 @@
+From 7a75d4148028262cefbbee266c7cd88f5fe157ae Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Fri, 20 Nov 2026 22:00:57 +0000
+Subject: [PATCH 4/4] build: drop device diagnostics from the system image
+
+the settings entry only shows up when the diagnostics app resolves,
+so dropping the package from the handheld system list removes both
+the app and the menu.
+
+Change-Id: I7ccaf43beb23bb2db1bd3473cb13b174ed02c518
+---
+ target/product/handheld_system.mk | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/target/product/handheld_system.mk b/target/product/handheld_system.mk
+index 6bd76e6582..b154e3fc70 100644
+--- a/target/product/handheld_system.mk
++++ b/target/product/handheld_system.mk
+@@ -47,7 +47,6 @@ PRODUCT_PACKAGES += \
+     CertInstaller \
+     CredentialManager \
+     DeviceAsWebcam \
+-    DeviceDiagnostics \
+     DocumentsUI \
+     DownloadProviderUi \
+     EasterEgg \
+-- 
+2.43.0
+
