@@ -1,0 +1,420 @@
+From 2e68f3ba2f4588159dfcd1234c9f9823f0bbd95d Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Fri, 20 Nov 2026 22:11:32 +0000
+Subject: [PATCH 10/11] gestures: add torch and app targets to double tap power
+
+the double tap power screen only lists camera and wallet, so there is
+no way to pick the torch or app targets the framework now handles.
+
+add flashlight and open an app selectors, the latter with a launcher
+app picker, and show the chosen target in the gestures summary.
+---
+ res/values-tr/double_tap_power_strings.xml    |  13 ++
+ res/values/double_tap_power_strings.xml       |  13 ++
+ res/xml/double_tap_power_settings.xml         |   8 +
+ ...werForExtraActionPreferenceController.java | 190 ++++++++++++++++++
+ ...TapPowerForWalletPreferenceController.java |  13 +-
+ .../DoubleTapPowerPreferenceController.java   |  15 +-
+ .../gestures/DoubleTapPowerSettingsUtils.java |  46 ++++-
+ 7 files changed, 285 insertions(+), 13 deletions(-)
+ create mode 100644 res/values-tr/double_tap_power_strings.xml
+ create mode 100644 res/values/double_tap_power_strings.xml
+ create mode 100644 src/com/android/settings/gestures/DoubleTapPowerForExtraActionPreferenceController.java
+
+diff --git a/res/values-tr/double_tap_power_strings.xml b/res/values-tr/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..4d91bb151e4
+--- /dev/null
++++ b/res/values-tr/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">El feneri</string>
++    <string name="double_tap_power_torch_action_summary">El fenerini aç/kapat</string>
++    <string name="double_tap_power_app_action_title">Uygulama aç</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Haritalar">%1$s</xliff:g> uygulamasını aç</string>
++    <string name="double_tap_power_app_action_none">Uygulama seçilmedi</string>
++    <string name="double_tap_power_app_action_picker_title">Uygulama seç</string>
++</resources>
+diff --git a/res/values/double_tap_power_strings.xml b/res/values/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..bd9d51f1efc
+--- /dev/null
++++ b/res/values/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Flashlight</string>
++    <string name="double_tap_power_torch_action_summary">Toggle flashlight</string>
++    <string name="double_tap_power_app_action_title">Open an app</string>
++    <string name="double_tap_power_app_action_summary">Open <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No app selected</string>
++    <string name="double_tap_power_app_action_picker_title">Choose an app</string>
++</resources>
+diff --git a/res/xml/double_tap_power_settings.xml b/res/xml/double_tap_power_settings.xml
+index 97eb30add32..501c972554e 100644
+--- a/res/xml/double_tap_power_settings.xml
++++ b/res/xml/double_tap_power_settings.xml
+@@ -44,6 +44,14 @@
+             android:enabled="false"
+             settings:keywords="@string/keywords_double_tap_power_wallet_action"
+             settings:controller="com.android.settings.gestures.DoubleTapPowerForWalletPreferenceController"/>
++        <com.android.settingslib.widget.SelectorWithWidgetPreference
++            android:key="gesture_double_power_tap_torch"
++            android:title="@string/double_tap_power_torch_action_title"
++            settings:controller="com.android.settings.gestures.DoubleTapPowerForExtraActionPreferenceController"/>
++        <com.android.settingslib.widget.SelectorWithWidgetPreference
++            android:key="gesture_double_power_tap_app"
++            android:title="@string/double_tap_power_app_action_title"
++            settings:controller="com.android.settings.gestures.DoubleTapPowerForExtraActionPreferenceController"/>
+     </PreferenceCategory>
+     <com.android.settingslib.widget.CardPreference
+         android:key="gesture_double_tap_power_lockscreen_shortcut_tip"
+diff --git a/src/com/android/settings/gestures/DoubleTapPowerForExtraActionPreferenceController.java b/src/com/android/settings/gestures/DoubleTapPowerForExtraActionPreferenceController.java
+new file mode 100644
+index 00000000000..e6e3ad4482d
+--- /dev/null
++++ b/src/com/android/settings/gestures/DoubleTapPowerForExtraActionPreferenceController.java
+@@ -0,0 +1,190 @@
++/*
++ * SPDX-FileCopyrightText: 2026 Langsdorff
++ * SPDX-License-Identifier: Apache-2.0
++ */
++
++package com.android.settings.gestures;
++
++import android.content.Context;
++import android.content.Intent;
++import android.content.pm.ApplicationInfo;
++import android.content.pm.PackageManager;
++import android.content.pm.ResolveInfo;
++import android.database.ContentObserver;
++import android.net.Uri;
++import android.os.Handler;
++import android.os.Looper;
++import android.text.TextUtils;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AlertDialog;
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++
++import com.android.settings.R;
++import com.android.settings.core.BasePreferenceController;
++import com.android.settingslib.core.lifecycle.LifecycleObserver;
++import com.android.settingslib.core.lifecycle.events.OnStart;
++import com.android.settingslib.core.lifecycle.events.OnStop;
++import com.android.settingslib.widget.SelectorWithWidgetPreference;
++
++import java.text.Collator;
++import java.util.ArrayList;
++import java.util.Comparator;
++import java.util.List;
++
++/** Torch and app targets of the double tap power button gesture. */
++public class DoubleTapPowerForExtraActionPreferenceController extends BasePreferenceController
++        implements LifecycleObserver, OnStart, OnStop {
++
++    private static final String KEY_TORCH = "gesture_double_power_tap_torch";
++
++    private final int mAction;
++    @Nullable private SelectorWithWidgetPreference mPreference;
++
++    private final ContentObserver mSettingsObserver =
++            new ContentObserver(new Handler(Looper.getMainLooper())) {
++                @Override
++                public void onChange(boolean selfChange, @Nullable Uri uri) {
++                    if (mPreference != null) {
++                        updateState(mPreference);
++                    }
++                }
++            };
++
++    public DoubleTapPowerForExtraActionPreferenceController(
++            @NonNull Context context, @NonNull String preferenceKey) {
++        super(context, preferenceKey);
++        mAction = KEY_TORCH.equals(preferenceKey)
++                ? DoubleTapPowerSettingsUtils.DOUBLE_TAP_POWER_BUTTON_TORCH_VALUE
++                : DoubleTapPowerSettingsUtils.DOUBLE_TAP_POWER_BUTTON_APP_LAUNCH_VALUE;
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        if (!DoubleTapPowerSettingsUtils
++                .isMultiTargetDoubleTapPowerButtonGestureAvailable(mContext)) {
++            return UNSUPPORTED_ON_DEVICE;
++        }
++        if (mAction == DoubleTapPowerSettingsUtils.DOUBLE_TAP_POWER_BUTTON_TORCH_VALUE
++                && !mContext.getPackageManager()
++                        .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
++            return UNSUPPORTED_ON_DEVICE;
++        }
++        return DoubleTapPowerSettingsUtils.isDoubleTapPowerButtonGestureEnabled(mContext)
++                ? AVAILABLE
++                : DISABLED_DEPENDENT_SETTING;
++    }
++
++    @Override
++    public void displayPreference(@NonNull PreferenceScreen screen) {
++        super.displayPreference(screen);
++        mPreference = screen.findPreference(getPreferenceKey());
++        if (mPreference != null && isAppAction()) {
++            mPreference.setExtraWidgetOnClickListener(v -> showAppPicker());
++        }
++    }
++
++    @Override
++    public void updateState(@NonNull Preference preference) {
++        super.updateState(preference);
++        preference.setEnabled(
++                DoubleTapPowerSettingsUtils.isDoubleTapPowerButtonGestureEnabled(mContext));
++        if (preference instanceof SelectorWithWidgetPreference) {
++            ((SelectorWithWidgetPreference) preference).setChecked(
++                    DoubleTapPowerSettingsUtils.getDoubleTapPowerButtonTargetAction(mContext)
++                            == mAction);
++        }
++        if (isAppAction()) {
++            CharSequence label = getAppLabel(mContext);
++            preference.setSummary(label != null
++                    ? label : mContext.getText(R.string.double_tap_power_app_action_none));
++        }
++    }
++
++    @Override
++    public boolean handlePreferenceTreeClick(@NonNull Preference preference) {
++        if (!getPreferenceKey().equals(preference.getKey())) {
++            return false;
++        }
++        if (isAppAction() && getAppLabel(mContext) == null) {
++            showAppPicker();
++            return true;
++        }
++        DoubleTapPowerSettingsUtils.setDoubleTapPowerButtonTargetAction(mContext, mAction);
++        return true;
++    }
++
++    @Override
++    public void onStart() {
++        DoubleTapPowerSettingsUtils.registerObserver(mContext, mSettingsObserver);
++    }
++
++    @Override
++    public void onStop() {
++        DoubleTapPowerSettingsUtils.unregisterObserver(mContext, mSettingsObserver);
++    }
++
++    private boolean isAppAction() {
++        return mAction == DoubleTapPowerSettingsUtils.DOUBLE_TAP_POWER_BUTTON_APP_LAUNCH_VALUE;
++    }
++
++    private void showAppPicker() {
++        if (mPreference == null) {
++            return;
++        }
++        final Context context = mPreference.getContext();
++        final PackageManager pm = context.getPackageManager();
++        final Intent launcher =
++                new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER);
++        final List<ResolveInfo> apps = new ArrayList<>();
++        final List<String> seen = new ArrayList<>();
++        for (ResolveInfo info : pm.queryIntentActivities(launcher, 0)) {
++            if (!seen.contains(info.activityInfo.packageName)) {
++                seen.add(info.activityInfo.packageName);
++                apps.add(info);
++            }
++        }
++        final Collator collator = Collator.getInstance();
++        apps.sort(Comparator.comparing(i -> i.loadLabel(pm).toString(), collator));
++        final CharSequence[] labels = new CharSequence[apps.size()];
++        for (int i = 0; i < labels.length; i++) {
++            labels[i] = apps.get(i).loadLabel(pm);
++        }
++        new AlertDialog.Builder(context)
++                .setTitle(R.string.double_tap_power_app_action_picker_title)
++                .setItems(labels, (dialog, which) -> {
++                    DoubleTapPowerSettingsUtils.setDoubleTapPowerButtonApp(
++                            mContext, apps.get(which).activityInfo.packageName);
++                    DoubleTapPowerSettingsUtils.setDoubleTapPowerButtonTargetAction(
++                            mContext, mAction);
++                })
++                .setNegativeButton(android.R.string.cancel, null)
++                .show();
++    }
++
++    @Nullable
++    private static CharSequence getAppLabel(@NonNull Context context) {
++        final String packageName = DoubleTapPowerSettingsUtils.getDoubleTapPowerButtonApp(context);
++        if (TextUtils.isEmpty(packageName)) {
++            return null;
++        }
++        try {
++            final PackageManager pm = context.getPackageManager();
++            final ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
++            return pm.getApplicationLabel(info);
++        } catch (PackageManager.NameNotFoundException e) {
++            return null;
++        }
++    }
++
++    /** Summary of the app target for the gestures list. */
++    @NonNull
++    static CharSequence getAppSummary(@NonNull Context context) {
++        final CharSequence label = getAppLabel(context);
++        return label != null
++                ? context.getString(R.string.double_tap_power_app_action_summary, label)
++                : context.getText(R.string.double_tap_power_app_action_none);
++    }
++}
+diff --git a/src/com/android/settings/gestures/DoubleTapPowerForWalletPreferenceController.java b/src/com/android/settings/gestures/DoubleTapPowerForWalletPreferenceController.java
+index 04e56859c7c..9ff55e4a893 100644
+--- a/src/com/android/settings/gestures/DoubleTapPowerForWalletPreferenceController.java
++++ b/src/com/android/settings/gestures/DoubleTapPowerForWalletPreferenceController.java
+@@ -64,9 +64,10 @@ public class DoubleTapPowerForWalletPreferenceController extends BasePreferenceC
+                             DoubleTapPowerSettingsUtils
+                                     .DOUBLE_TAP_POWER_BUTTON_GESTURE_TARGET_ACTION_URI)) {
+                         mPreference.setChecked(
+-                                !DoubleTapPowerSettingsUtils
+-                                       .isDoubleTapPowerButtonGestureForCameraLaunchEnabled(
+-                                               mContext));
++                                DoubleTapPowerSettingsUtils
++                                       .getDoubleTapPowerButtonTargetAction(mContext)
++                                       == DoubleTapPowerSettingsUtils
++                                       .DOUBLE_TAP_POWER_BUTTON_WALLET_LAUNCH_VALUE);
+                     }
+                 }
+             };
+@@ -124,8 +125,10 @@ public class DoubleTapPowerForWalletPreferenceController extends BasePreferenceC
+         if (preference instanceof SelectorWithWidgetPreference) {
+             ((SelectorWithWidgetPreference) preference)
+                     .setChecked(
+-                            !DoubleTapPowerSettingsUtils
+-                                    .isDoubleTapPowerButtonGestureForCameraLaunchEnabled(mContext));
++                            DoubleTapPowerSettingsUtils
++                                    .getDoubleTapPowerButtonTargetAction(mContext)
++                                    == DoubleTapPowerSettingsUtils
++                                            .DOUBLE_TAP_POWER_BUTTON_WALLET_LAUNCH_VALUE);
+         }
+     }
+ 
+diff --git a/src/com/android/settings/gestures/DoubleTapPowerPreferenceController.java b/src/com/android/settings/gestures/DoubleTapPowerPreferenceController.java
+index 89b7eaa182f..2e2226ebbaf 100644
+--- a/src/com/android/settings/gestures/DoubleTapPowerPreferenceController.java
++++ b/src/com/android/settings/gestures/DoubleTapPowerPreferenceController.java
+@@ -94,11 +94,16 @@ public class DoubleTapPowerPreferenceController extends BasePreferenceController
+         if (DoubleTapPowerSettingsUtils.isDoubleTapPowerButtonGestureEnabled(mContext)) {
+             final CharSequence onString =
+                     mContext.getText(com.android.settings.R.string.gesture_setting_on);
+-            final CharSequence actionString =
+-                    DoubleTapPowerSettingsUtils.isDoubleTapPowerButtonGestureForCameraLaunchEnabled(
+-                            mContext)
+-                            ? mContext.getText(R.string.double_tap_power_camera_action_summary)
+-                            : mContext.getText(R.string.double_tap_power_wallet_action_summary);
++            final CharSequence actionString = switch (
++                    DoubleTapPowerSettingsUtils.getDoubleTapPowerButtonTargetAction(mContext)) {
++                case DoubleTapPowerSettingsUtils.DOUBLE_TAP_POWER_BUTTON_WALLET_LAUNCH_VALUE ->
++                        mContext.getText(R.string.double_tap_power_wallet_action_summary);
++                case DoubleTapPowerSettingsUtils.DOUBLE_TAP_POWER_BUTTON_TORCH_VALUE ->
++                        mContext.getText(R.string.double_tap_power_torch_action_summary);
++                case DoubleTapPowerSettingsUtils.DOUBLE_TAP_POWER_BUTTON_APP_LAUNCH_VALUE ->
++                        DoubleTapPowerForExtraActionPreferenceController.getAppSummary(mContext);
++                default -> mContext.getText(R.string.double_tap_power_camera_action_summary);
++            };
+             return mContext.getString(R.string.double_tap_power_summary, onString, actionString);
+         }
+         return mContext.getText(com.android.settings.R.string.gesture_setting_off);
+diff --git a/src/com/android/settings/gestures/DoubleTapPowerSettingsUtils.java b/src/com/android/settings/gestures/DoubleTapPowerSettingsUtils.java
+index 88a7607b061..62d51dbbde8 100644
+--- a/src/com/android/settings/gestures/DoubleTapPowerSettingsUtils.java
++++ b/src/com/android/settings/gestures/DoubleTapPowerSettingsUtils.java
+@@ -24,6 +24,7 @@ import android.net.Uri;
+ import android.provider.Settings;
+ 
+ import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
+ 
+ import com.android.internal.R;
+ import com.android.settings.overlay.FeatureFactory;
+@@ -57,7 +58,14 @@ final class DoubleTapPowerSettingsUtils {
+             Settings.Secure.getUriFor(DOUBLE_TAP_POWER_BUTTON_GESTURE_TARGET_ACTION);
+ 
+     private static final int DOUBLE_TAP_POWER_BUTTON_CAMERA_LAUNCH_VALUE = 0;
+-    private static final int DOUBLE_TAP_POWER_BUTTON_WALLET_LAUNCH_VALUE = 1;
++    static final int DOUBLE_TAP_POWER_BUTTON_WALLET_LAUNCH_VALUE = 1;
++    static final int DOUBLE_TAP_POWER_BUTTON_TORCH_VALUE = 2;
++    static final int DOUBLE_TAP_POWER_BUTTON_APP_LAUNCH_VALUE = 3;
++
++    private static final String DOUBLE_TAP_POWER_BUTTON_GESTURE_APP =
++            Settings.Secure.DOUBLE_TAP_POWER_BUTTON_GESTURE_APP;
++    static final Uri DOUBLE_TAP_POWER_BUTTON_GESTURE_APP_URI =
++            Settings.Secure.getUriFor(DOUBLE_TAP_POWER_BUTTON_GESTURE_APP);
+ 
+     static final int ON = 1;
+     static final int OFF = 0;
+@@ -109,14 +117,44 @@ final class DoubleTapPowerSettingsUtils {
+      */
+     public static boolean isDoubleTapPowerButtonGestureForCameraLaunchEnabled(
+             @NonNull Context context) {
++        return getDoubleTapPowerButtonTargetAction(context)
++                == DOUBLE_TAP_POWER_BUTTON_CAMERA_LAUNCH_VALUE;
++    }
++
++    /** Returns the selected target action of the double tap power button gesture. */
++    public static int getDoubleTapPowerButtonTargetAction(@NonNull Context context) {
+         return Settings.Secure.getInt(
+                 context.getContentResolver(),
+                 DOUBLE_TAP_POWER_BUTTON_GESTURE_TARGET_ACTION,
+                 context.getResources()
+                         .getInteger(
+                                 com.android.internal.R.integer
+-                                        .config_doubleTapPowerGestureMultiTargetDefaultAction))
+-                == DOUBLE_TAP_POWER_BUTTON_CAMERA_LAUNCH_VALUE;
++                                        .config_doubleTapPowerGestureMultiTargetDefaultAction));
++    }
++
++    /** Sets the double tap power button gesture to the torch or app target action. */
++    public static boolean setDoubleTapPowerButtonTargetAction(
++            @NonNull Context context, int action) {
++        getMetricsFeatureProvider().action(
++                context, SettingsEnums.ACTION_DOUBLE_TAP_POWER_BUTTON_BEHAVIOR, action);
++        return Settings.Secure.putInt(
++                context.getContentResolver(),
++                DOUBLE_TAP_POWER_BUTTON_GESTURE_TARGET_ACTION,
++                action);
++    }
++
++    /** Returns the package launched by the double tap power button gesture, or null. */
++    @Nullable
++    public static String getDoubleTapPowerButtonApp(@NonNull Context context) {
++        return Settings.Secure.getString(
++                context.getContentResolver(), DOUBLE_TAP_POWER_BUTTON_GESTURE_APP);
++    }
++
++    /** Stores the package launched by the double tap power button gesture. */
++    public static boolean setDoubleTapPowerButtonApp(
++            @NonNull Context context, @NonNull String packageName) {
++        return Settings.Secure.putString(
++                context.getContentResolver(), DOUBLE_TAP_POWER_BUTTON_GESTURE_APP, packageName);
+     }
+ 
+     /**
+@@ -163,6 +201,8 @@ final class DoubleTapPowerSettingsUtils {
+                 DOUBLE_TAP_POWER_BUTTON_GESTURE_ENABLED_URI, true, observer);
+         resolver.registerContentObserver(
+                 DOUBLE_TAP_POWER_BUTTON_GESTURE_TARGET_ACTION_URI, true, observer);
++        resolver.registerContentObserver(
++                DOUBLE_TAP_POWER_BUTTON_GESTURE_APP_URI, true, observer);
+     }
+ 
+     /** Unregisters observer. */
+-- 
+2.43.0
+
