@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos آواز کی پروسیسنگ</string>
     <string name="dolby_enable">Dolby Atmos استعمال کریں</string>
+    <string name="dolby_profile">موڈ</string>
+    <string name="dolby_profile_auto">خودکار</string>
+    <string name="dolby_profile_movie">فلم</string>
+    <string name="dolby_profile_music">موسیقی</string>
+    <string name="dolby_profile_voice">آواز</string>
+    <string name="eq_title">ایکولائزر</string>
+    <string name="eq_enable">ایکولائزر استعمال کریں</string>
+    <string name="eq_preset">پری سیٹ</string>
+    <string name="eq_preset_balanced">متوازن</string>
+    <string name="eq_preset_bass_boost">باس بوسٹ</string>
+    <string name="eq_preset_smooth">ہموار</string>
+    <string name="eq_preset_dynamic">ڈائنامک</string>
+    <string name="eq_preset_clear">واضح</string>
+    <string name="eq_preset_treble_boost">ٹریبل بوسٹ</string>
+    <string name="eq_preset_custom">حسب ضرورت</string>
+    <string name="eq_custom_bands">حسب ضرورت بینڈز</string>
 </resources>

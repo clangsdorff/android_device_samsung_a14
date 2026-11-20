@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Spracovanie zvuku Dolby Atmos</string>
     <string name="dolby_enable">Používať Dolby Atmos</string>
+    <string name="dolby_profile">Režim</string>
+    <string name="dolby_profile_auto">Automaticky</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Hudba</string>
+    <string name="dolby_profile_voice">Hlas</string>
+    <string name="eq_title">Ekvalizér</string>
+    <string name="eq_enable">Použiť ekvalizér</string>
+    <string name="eq_preset">Predvoľba</string>
+    <string name="eq_preset_balanced">Vyvážený</string>
+    <string name="eq_preset_bass_boost">Zosilnenie basov</string>
+    <string name="eq_preset_smooth">Jemný</string>
+    <string name="eq_preset_dynamic">Dynamický</string>
+    <string name="eq_preset_clear">Čistý</string>
+    <string name="eq_preset_treble_boost">Zosilnenie výšok</string>
+    <string name="eq_preset_custom">Vlastný</string>
+    <string name="eq_custom_bands">Vlastné pásma</string>
 </resources>

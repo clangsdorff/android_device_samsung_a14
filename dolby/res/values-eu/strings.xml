@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos soinu-prozesamendua</string>
     <string name="dolby_enable">Erabili Dolby Atmos</string>
+    <string name="dolby_profile">Modua</string>
+    <string name="dolby_profile_auto">Automatikoa</string>
+    <string name="dolby_profile_movie">Filma</string>
+    <string name="dolby_profile_music">Musika</string>
+    <string name="dolby_profile_voice">Ahotsa</string>
+    <string name="eq_title">Ekualizadorea</string>
+    <string name="eq_enable">Erabili ekualizadorea</string>
+    <string name="eq_preset">Aurrezarpena</string>
+    <string name="eq_preset_balanced">Orekatua</string>
+    <string name="eq_preset_bass_boost">Baxuen indartzea</string>
+    <string name="eq_preset_smooth">Leuna</string>
+    <string name="eq_preset_dynamic">Dinamikoa</string>
+    <string name="eq_preset_clear">Argia</string>
+    <string name="eq_preset_treble_boost">Agudoen indartzea</string>
+    <string name="eq_preset_custom">Pertsonalizatua</string>
+    <string name="eq_custom_bands">Banda pertsonalizatuak</string>
 </resources>

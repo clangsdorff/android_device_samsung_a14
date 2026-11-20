@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Апрацоўка гуку Dolby Atmos</string>
     <string name="dolby_enable">Выкарыстоўваць Dolby Atmos</string>
+    <string name="dolby_profile">Рэжым</string>
+    <string name="dolby_profile_auto">Аўта</string>
+    <string name="dolby_profile_movie">Фільм</string>
+    <string name="dolby_profile_music">Музыка</string>
+    <string name="dolby_profile_voice">Голас</string>
+    <string name="eq_title">Эквалайзер</string>
+    <string name="eq_enable">Выкарыстоўваць эквалайзер</string>
+    <string name="eq_preset">Пераднастройка</string>
+    <string name="eq_preset_balanced">Збалансавана</string>
+    <string name="eq_preset_bass_boost">Узмацненне басоў</string>
+    <string name="eq_preset_smooth">Плаўна</string>
+    <string name="eq_preset_dynamic">Дынамічна</string>
+    <string name="eq_preset_clear">Выразна</string>
+    <string name="eq_preset_treble_boost">Узмацненне высокіх</string>
+    <string name="eq_preset_custom">Карыстальніцкі</string>
+    <string name="eq_custom_bands">Карыстальніцкія дыяпазоны</string>
 </resources>

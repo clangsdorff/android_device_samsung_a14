@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos-geluidsverwerking</string>
     <string name="dolby_enable">Dolby Atmos gebruiken</string>
+    <string name="dolby_profile">Modus</string>
+    <string name="dolby_profile_auto">Automatisch</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Muziek</string>
+    <string name="dolby_profile_voice">Spraak</string>
+    <string name="eq_title">Equalizer</string>
+    <string name="eq_enable">Equalizer gebruiken</string>
+    <string name="eq_preset">Voorinstelling</string>
+    <string name="eq_preset_balanced">Gebalanceerd</string>
+    <string name="eq_preset_bass_boost">Basversterking</string>
+    <string name="eq_preset_smooth">Zacht</string>
+    <string name="eq_preset_dynamic">Dynamisch</string>
+    <string name="eq_preset_clear">Helder</string>
+    <string name="eq_preset_treble_boost">Hogetonenversterking</string>
+    <string name="eq_preset_custom">Aangepast</string>
+    <string name="eq_custom_bands">Aangepaste banden</string>
 </resources>

@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos səs emalı</string>
     <string name="dolby_enable">Dolby Atmos istifadə edin</string>
+    <string name="dolby_profile">Rejim</string>
+    <string name="dolby_profile_auto">Avto</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Musiqi</string>
+    <string name="dolby_profile_voice">Səs</string>
+    <string name="eq_title">Ekvalayzer</string>
+    <string name="eq_enable">Ekvalayzerdən istifadə edin</string>
+    <string name="eq_preset">Ön ayar</string>
+    <string name="eq_preset_balanced">Balanslı</string>
+    <string name="eq_preset_bass_boost">Bas gücləndirmə</string>
+    <string name="eq_preset_smooth">Yumşaq</string>
+    <string name="eq_preset_dynamic">Dinamik</string>
+    <string name="eq_preset_clear">Aydın</string>
+    <string name="eq_preset_treble_boost">Yüksək tezlik gücləndirmə</string>
+    <string name="eq_preset_custom">Fərdi</string>
+    <string name="eq_custom_bands">Fərdi zolaqlar</string>
 </resources>

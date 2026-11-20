@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">ដំណើរការសំឡេង Dolby Atmos</string>
     <string name="dolby_enable">ប្រើ Dolby Atmos</string>
+    <string name="dolby_profile">ម៉ូដ</string>
+    <string name="dolby_profile_auto">ស្វ័យប្រវត្តិ</string>
+    <string name="dolby_profile_movie">ខ្សែភាពយន្ត</string>
+    <string name="dolby_profile_music">តន្ត្រី</string>
+    <string name="dolby_profile_voice">សំឡេង</string>
+    <string name="eq_title">ឧបករណ៍ស្មើសំឡេង</string>
+    <string name="eq_enable">ប្រើឧបករណ៍ស្មើសំឡេង</string>
+    <string name="eq_preset">ការកំណត់ជាមុន</string>
+    <string name="eq_preset_balanced">សមតុល្យ</string>
+    <string name="eq_preset_bass_boost">បង្កើនបាស</string>
+    <string name="eq_preset_smooth">រលូន</string>
+    <string name="eq_preset_dynamic">ថាមវន្ត</string>
+    <string name="eq_preset_clear">ច្បាស់</string>
+    <string name="eq_preset_treble_boost">បង្កើនត្រែបល</string>
+    <string name="eq_preset_custom">ផ្ទាល់ខ្លួន</string>
+    <string name="eq_custom_bands">ប្រេកង់ផ្ទាល់ខ្លួន</string>
 </resources>

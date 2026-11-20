@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Pagpoproseso ng tunog ng Dolby Atmos</string>
     <string name="dolby_enable">Gamitin ang Dolby Atmos</string>
+    <string name="dolby_profile">Mode</string>
+    <string name="dolby_profile_auto">Awtomatiko</string>
+    <string name="dolby_profile_movie">Pelikula</string>
+    <string name="dolby_profile_music">Musika</string>
+    <string name="dolby_profile_voice">Boses</string>
+    <string name="eq_title">Equalizer</string>
+    <string name="eq_enable">Gamitin ang equalizer</string>
+    <string name="eq_preset">Preset</string>
+    <string name="eq_preset_balanced">Balanse</string>
+    <string name="eq_preset_bass_boost">Bass boost</string>
+    <string name="eq_preset_smooth">Makinis</string>
+    <string name="eq_preset_dynamic">Dynamic</string>
+    <string name="eq_preset_clear">Malinaw</string>
+    <string name="eq_preset_treble_boost">Treble boost</string>
+    <string name="eq_preset_custom">Custom</string>
+    <string name="eq_custom_bands">Custom na banda</string>
 </resources>

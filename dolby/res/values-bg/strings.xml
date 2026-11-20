@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Обработка на звука с Dolby Atmos</string>
     <string name="dolby_enable">Използване на Dolby Atmos</string>
+    <string name="dolby_profile">Режим</string>
+    <string name="dolby_profile_auto">Автоматичен</string>
+    <string name="dolby_profile_movie">Филм</string>
+    <string name="dolby_profile_music">Музика</string>
+    <string name="dolby_profile_voice">Глас</string>
+    <string name="eq_title">Еквалайзер</string>
+    <string name="eq_enable">Използване на еквалайзер</string>
+    <string name="eq_preset">Предварителна настройка</string>
+    <string name="eq_preset_balanced">Балансиран</string>
+    <string name="eq_preset_bass_boost">Усилване на баса</string>
+    <string name="eq_preset_smooth">Плавен</string>
+    <string name="eq_preset_dynamic">Динамичен</string>
+    <string name="eq_preset_clear">Чист</string>
+    <string name="eq_preset_treble_boost">Усилване на високите</string>
+    <string name="eq_preset_custom">Персонализиран</string>
+    <string name="eq_custom_bands">Персонализирани честотни ленти</string>
 </resources>

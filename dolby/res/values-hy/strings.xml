@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos ձայնի մշակում</string>
     <string name="dolby_enable">Օգտագործել Dolby Atmos</string>
+    <string name="dolby_profile">Ռեժիմ</string>
+    <string name="dolby_profile_auto">Ավտոմատ</string>
+    <string name="dolby_profile_movie">Ֆիլմ</string>
+    <string name="dolby_profile_music">Երաժշտություն</string>
+    <string name="dolby_profile_voice">Խոսք</string>
+    <string name="eq_title">Էքվալայզեր</string>
+    <string name="eq_enable">Օգտագործել էքվալայզերը</string>
+    <string name="eq_preset">Նախադրված</string>
+    <string name="eq_preset_balanced">Հավասարակշռված</string>
+    <string name="eq_preset_bass_boost">Բասերի ուժեղացում</string>
+    <string name="eq_preset_smooth">Փափուկ</string>
+    <string name="eq_preset_dynamic">Դինամիկ</string>
+    <string name="eq_preset_clear">Պարզ</string>
+    <string name="eq_preset_treble_boost">Բարձր հաճախությունների ուժեղացում</string>
+    <string name="eq_preset_custom">Հատուկ</string>
+    <string name="eq_custom_bands">Հատուկ շերտեր</string>
 </resources>

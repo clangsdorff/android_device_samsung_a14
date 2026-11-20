@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">ການປະມວນຜົນສຽງ Dolby Atmos</string>
     <string name="dolby_enable">ໃຊ້ Dolby Atmos</string>
+    <string name="dolby_profile">ໂໝດ</string>
+    <string name="dolby_profile_auto">ອັດຕະໂນມັດ</string>
+    <string name="dolby_profile_movie">ໜັງ</string>
+    <string name="dolby_profile_music">ດົນຕີ</string>
+    <string name="dolby_profile_voice">ສຽງເວົ້າ</string>
+    <string name="eq_title">ອີຄວໍໄລເຊີ</string>
+    <string name="eq_enable">ໃຊ້ອີຄວໍໄລເຊີ</string>
+    <string name="eq_preset">ຄ່າກຳນົດລ່ວງໜ້າ</string>
+    <string name="eq_preset_balanced">ສົມດຸນ</string>
+    <string name="eq_preset_bass_boost">ເພີ່ມເບສ</string>
+    <string name="eq_preset_smooth">ນຸ່ມນວນ</string>
+    <string name="eq_preset_dynamic">ໄດນາມິກ</string>
+    <string name="eq_preset_clear">ຊັດເຈນ</string>
+    <string name="eq_preset_treble_boost">ເພີ່ມແຫຼມ</string>
+    <string name="eq_preset_custom">ກຳນົດເອງ</string>
+    <string name="eq_custom_bands">ແຖບກຳນົດເອງ</string>
 </resources>

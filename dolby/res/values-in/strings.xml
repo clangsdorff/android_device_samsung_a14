@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Pemrosesan suara Dolby Atmos</string>
     <string name="dolby_enable">Gunakan Dolby Atmos</string>
+    <string name="dolby_profile">Mode</string>
+    <string name="dolby_profile_auto">Otomatis</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Musik</string>
+    <string name="dolby_profile_voice">Suara</string>
+    <string name="eq_title">Ekualiser</string>
+    <string name="eq_enable">Gunakan ekualiser</string>
+    <string name="eq_preset">Prasetel</string>
+    <string name="eq_preset_balanced">Seimbang</string>
+    <string name="eq_preset_bass_boost">Penguat bass</string>
+    <string name="eq_preset_smooth">Halus</string>
+    <string name="eq_preset_dynamic">Dinamis</string>
+    <string name="eq_preset_clear">Jernih</string>
+    <string name="eq_preset_treble_boost">Penguat treble</string>
+    <string name="eq_preset_custom">Kustom</string>
+    <string name="eq_custom_bands">Pita kustom</string>
 </resources>

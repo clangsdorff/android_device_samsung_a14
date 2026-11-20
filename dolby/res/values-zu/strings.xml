@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Ukucubungula umsindo we-Dolby Atmos</string>
     <string name="dolby_enable">Sebenzisa i-Dolby Atmos</string>
+    <string name="dolby_profile">Imodi</string>
+    <string name="dolby_profile_auto">Okuzenzakalelayo</string>
+    <string name="dolby_profile_movie">Imuvi</string>
+    <string name="dolby_profile_music">Umculo</string>
+    <string name="dolby_profile_voice">Izwi</string>
+    <string name="eq_title">Ikhwalayza</string>
+    <string name="eq_enable">Sebenzisa ikhwalayza</string>
+    <string name="eq_preset">Okusetshenziswa kuqala</string>
+    <string name="eq_preset_balanced">Okulinganiselwe</string>
+    <string name="eq_preset_bass_boost">Ukuthuthukisa i-bass</string>
+    <string name="eq_preset_smooth">Okuthambile</string>
+    <string name="eq_preset_dynamic">Okuguquguqukayo</string>
+    <string name="eq_preset_clear">Okucacile</string>
+    <string name="eq_preset_treble_boost">Ukuthuthukisa i-treble</string>
+    <string name="eq_preset_custom">Okwezifiso</string>
+    <string name="eq_custom_bands">Amabhendi ezifiso</string>
 </resources>

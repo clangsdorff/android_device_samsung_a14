@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">پردازش صدای Dolby Atmos</string>
     <string name="dolby_enable">استفاده از Dolby Atmos</string>
+    <string name="dolby_profile">حالت</string>
+    <string name="dolby_profile_auto">خودکار</string>
+    <string name="dolby_profile_movie">فیلم</string>
+    <string name="dolby_profile_music">موسیقی</string>
+    <string name="dolby_profile_voice">صدا</string>
+    <string name="eq_title">اکولایزر</string>
+    <string name="eq_enable">استفاده از اکولایزر</string>
+    <string name="eq_preset">پیش‌تنظیم</string>
+    <string name="eq_preset_balanced">متعادل</string>
+    <string name="eq_preset_bass_boost">تقویت باس</string>
+    <string name="eq_preset_smooth">نرم</string>
+    <string name="eq_preset_dynamic">پویا</string>
+    <string name="eq_preset_clear">شفاف</string>
+    <string name="eq_preset_treble_boost">تقویت زیر</string>
+    <string name="eq_preset_custom">سفارشی</string>
+    <string name="eq_custom_bands">باندهای سفارشی</string>
 </resources>

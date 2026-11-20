@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos 音效處理</string>
     <string name="dolby_enable">使用 Dolby Atmos</string>
+    <string name="dolby_profile">模式</string>
+    <string name="dolby_profile_auto">自動</string>
+    <string name="dolby_profile_movie">電影</string>
+    <string name="dolby_profile_music">音樂</string>
+    <string name="dolby_profile_voice">人聲</string>
+    <string name="eq_title">均衡器</string>
+    <string name="eq_enable">使用均衡器</string>
+    <string name="eq_preset">預設</string>
+    <string name="eq_preset_balanced">平衡</string>
+    <string name="eq_preset_bass_boost">低音增強</string>
+    <string name="eq_preset_smooth">柔和</string>
+    <string name="eq_preset_dynamic">動態</string>
+    <string name="eq_preset_clear">清晰</string>
+    <string name="eq_preset_treble_boost">高音增強</string>
+    <string name="eq_preset_custom">自訂</string>
+    <string name="eq_custom_bands">自訂頻段</string>
 </resources>

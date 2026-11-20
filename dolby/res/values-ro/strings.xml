@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Procesare audio Dolby Atmos</string>
     <string name="dolby_enable">Folosește Dolby Atmos</string>
+    <string name="dolby_profile">Mod</string>
+    <string name="dolby_profile_auto">Automat</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Muzică</string>
+    <string name="dolby_profile_voice">Voce</string>
+    <string name="eq_title">Egalizator</string>
+    <string name="eq_enable">Folosește egalizatorul</string>
+    <string name="eq_preset">Presetare</string>
+    <string name="eq_preset_balanced">Echilibrat</string>
+    <string name="eq_preset_bass_boost">Accentuare bas</string>
+    <string name="eq_preset_smooth">Lin</string>
+    <string name="eq_preset_dynamic">Dinamic</string>
+    <string name="eq_preset_clear">Clar</string>
+    <string name="eq_preset_treble_boost">Accentuare înalte</string>
+    <string name="eq_preset_custom">Personalizat</string>
+    <string name="eq_custom_bands">Benzi personalizate</string>
 </resources>

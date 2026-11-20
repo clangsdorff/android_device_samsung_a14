@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos skaņas apstrāde</string>
     <string name="dolby_enable">Izmantot Dolby Atmos</string>
+    <string name="dolby_profile">Režīms</string>
+    <string name="dolby_profile_auto">Automātiski</string>
+    <string name="dolby_profile_movie">Filma</string>
+    <string name="dolby_profile_music">Mūzika</string>
+    <string name="dolby_profile_voice">Balss</string>
+    <string name="eq_title">Ekvalaizers</string>
+    <string name="eq_enable">Izmantot ekvalaizeru</string>
+    <string name="eq_preset">Iepriekš iestatīts</string>
+    <string name="eq_preset_balanced">Līdzsvarots</string>
+    <string name="eq_preset_bass_boost">Basa pastiprinājums</string>
+    <string name="eq_preset_smooth">Maigs</string>
+    <string name="eq_preset_dynamic">Dinamisks</string>
+    <string name="eq_preset_clear">Skaidrs</string>
+    <string name="eq_preset_treble_boost">Augstu toņu pastiprinājums</string>
+    <string name="eq_preset_custom">Pielāgots</string>
+    <string name="eq_custom_bands">Pielāgotas joslas</string>
 </resources>

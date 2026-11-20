@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos obrada zvuka</string>
     <string name="dolby_enable">Koristi Dolby Atmos</string>
+    <string name="dolby_profile">Režim</string>
+    <string name="dolby_profile_auto">Automatski</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Muzika</string>
+    <string name="dolby_profile_voice">Glas</string>
+    <string name="eq_title">Ekvalizator</string>
+    <string name="eq_enable">Koristi ekvalizator</string>
+    <string name="eq_preset">Unaprijed podešeno</string>
+    <string name="eq_preset_balanced">Uravnoteženo</string>
+    <string name="eq_preset_bass_boost">Pojačanje basa</string>
+    <string name="eq_preset_smooth">Glatko</string>
+    <string name="eq_preset_dynamic">Dinamično</string>
+    <string name="eq_preset_clear">Jasno</string>
+    <string name="eq_preset_treble_boost">Pojačanje visokih tonova</string>
+    <string name="eq_preset_custom">Prilagođeno</string>
+    <string name="eq_custom_bands">Prilagođeni opsezi</string>
 </resources>

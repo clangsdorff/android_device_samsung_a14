@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Elaborazione audio Dolby Atmos</string>
     <string name="dolby_enable">Usa Dolby Atmos</string>
+    <string name="dolby_profile">Modalità</string>
+    <string name="dolby_profile_auto">Automatica</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Musica</string>
+    <string name="dolby_profile_voice">Voce</string>
+    <string name="eq_title">Equalizzatore</string>
+    <string name="eq_enable">Usa equalizzatore</string>
+    <string name="eq_preset">Preimpostazione</string>
+    <string name="eq_preset_balanced">Bilanciato</string>
+    <string name="eq_preset_bass_boost">Potenziamento bassi</string>
+    <string name="eq_preset_smooth">Morbido</string>
+    <string name="eq_preset_dynamic">Dinamico</string>
+    <string name="eq_preset_clear">Chiaro</string>
+    <string name="eq_preset_treble_boost">Potenziamento acuti</string>
+    <string name="eq_preset_custom">Personalizzato</string>
+    <string name="eq_custom_bands">Bande personalizzate</string>
 </resources>

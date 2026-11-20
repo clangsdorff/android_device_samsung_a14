@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos ସାଉଣ୍ଡ ପ୍ରୋସେସିଂ</string>
     <string name="dolby_enable">Dolby Atmos ବ୍ୟବହାର କରନ୍ତୁ</string>
+    <string name="dolby_profile">ମୋଡ୍</string>
+    <string name="dolby_profile_auto">ସ୍ୱଚାଳିତ</string>
+    <string name="dolby_profile_movie">ଚଳଚ୍ଚିତ୍ର</string>
+    <string name="dolby_profile_music">ସଙ୍ଗୀତ</string>
+    <string name="dolby_profile_voice">ଭଏସ୍</string>
+    <string name="eq_title">ଇକ୍ୱାଲାଇଜର୍</string>
+    <string name="eq_enable">ଇକ୍ୱାଲାଇଜର୍ ବ୍ୟବହାର କରନ୍ତୁ</string>
+    <string name="eq_preset">ପ୍ରିସେଟ୍</string>
+    <string name="eq_preset_balanced">ବ୍ୟାଲାନ୍ସଡ୍</string>
+    <string name="eq_preset_bass_boost">ବାସ୍ ବୁଷ୍ଟ</string>
+    <string name="eq_preset_smooth">ସ୍ମୁଥ୍</string>
+    <string name="eq_preset_dynamic">ଡାଇନାମିକ୍</string>
+    <string name="eq_preset_clear">କ୍ଲିୟର୍</string>
+    <string name="eq_preset_treble_boost">ଟ୍ରେବଲ୍ ବୁଷ୍ଟ</string>
+    <string name="eq_preset_custom">କଷ୍ଟମ୍</string>
+    <string name="eq_custom_bands">କଷ୍ଟମ୍ ବ୍ୟାଣ୍ଡ</string>
 </resources>

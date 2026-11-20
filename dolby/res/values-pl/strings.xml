@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Przetwarzanie dźwięku Dolby Atmos</string>
     <string name="dolby_enable">Używaj Dolby Atmos</string>
+    <string name="dolby_profile">Tryb</string>
+    <string name="dolby_profile_auto">Automatyczny</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Muzyka</string>
+    <string name="dolby_profile_voice">Głos</string>
+    <string name="eq_title">Korektor</string>
+    <string name="eq_enable">Używaj korektora</string>
+    <string name="eq_preset">Ustawienie wstępne</string>
+    <string name="eq_preset_balanced">Zrównoważony</string>
+    <string name="eq_preset_bass_boost">Wzmocnienie basu</string>
+    <string name="eq_preset_smooth">Łagodny</string>
+    <string name="eq_preset_dynamic">Dynamiczny</string>
+    <string name="eq_preset_clear">Czysty</string>
+    <string name="eq_preset_treble_boost">Wzmocnienie wysokich tonów</string>
+    <string name="eq_preset_custom">Niestandardowy</string>
+    <string name="eq_custom_bands">Niestandardowe pasma</string>
 </resources>

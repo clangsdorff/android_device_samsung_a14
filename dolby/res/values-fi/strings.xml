@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos -äänenkäsittely</string>
     <string name="dolby_enable">Käytä Dolby Atmosia</string>
+    <string name="dolby_profile">Tila</string>
+    <string name="dolby_profile_auto">Automaattinen</string>
+    <string name="dolby_profile_movie">Elokuva</string>
+    <string name="dolby_profile_music">Musiikki</string>
+    <string name="dolby_profile_voice">Puhe</string>
+    <string name="eq_title">Taajuuskorjain</string>
+    <string name="eq_enable">Käytä taajuuskorjainta</string>
+    <string name="eq_preset">Esiasetus</string>
+    <string name="eq_preset_balanced">Tasapainotettu</string>
+    <string name="eq_preset_bass_boost">Basson korostus</string>
+    <string name="eq_preset_smooth">Pehmeä</string>
+    <string name="eq_preset_dynamic">Dynaaminen</string>
+    <string name="eq_preset_clear">Selkeä</string>
+    <string name="eq_preset_treble_boost">Diskantin korostus</string>
+    <string name="eq_preset_custom">Mukautettu</string>
+    <string name="eq_custom_bands">Mukautetut taajuusalueet</string>
 </resources>

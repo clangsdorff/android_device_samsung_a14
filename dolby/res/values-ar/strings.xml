@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">معالجة الصوت بتقنية Dolby Atmos</string>
     <string name="dolby_enable">استخدام Dolby Atmos</string>
+    <string name="dolby_profile">الوضع</string>
+    <string name="dolby_profile_auto">تلقائي</string>
+    <string name="dolby_profile_movie">فيلم</string>
+    <string name="dolby_profile_music">موسيقى</string>
+    <string name="dolby_profile_voice">صوت</string>
+    <string name="eq_title">المعادل</string>
+    <string name="eq_enable">استخدام المعادل</string>
+    <string name="eq_preset">الإعداد المسبق</string>
+    <string name="eq_preset_balanced">متوازن</string>
+    <string name="eq_preset_bass_boost">تعزيز الجهير</string>
+    <string name="eq_preset_smooth">ناعم</string>
+    <string name="eq_preset_dynamic">ديناميكي</string>
+    <string name="eq_preset_clear">واضح</string>
+    <string name="eq_preset_treble_boost">تعزيز الترددات العالية</string>
+    <string name="eq_preset_custom">مخصص</string>
+    <string name="eq_custom_bands">نطاقات مخصصة</string>
 </resources>

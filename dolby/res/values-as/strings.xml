@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos ধ্বনি প্ৰক্ৰিয়াকৰণ</string>
     <string name="dolby_enable">Dolby Atmos ব্যৱহাৰ কৰক</string>
+    <string name="dolby_profile">মোড</string>
+    <string name="dolby_profile_auto">স্বয়ংক্ৰিয়</string>
+    <string name="dolby_profile_movie">চলচ্চিত্ৰ</string>
+    <string name="dolby_profile_music">সংগীত</string>
+    <string name="dolby_profile_voice">কণ্ঠ</string>
+    <string name="eq_title">ইক্বালাইজাৰ</string>
+    <string name="eq_enable">ইক্বালাইজাৰ ব্যৱহাৰ কৰক</string>
+    <string name="eq_preset">পূৰ্বনির্ধাৰিত</string>
+    <string name="eq_preset_balanced">সমতুল্য</string>
+    <string name="eq_preset_bass_boost">বেছ বৃদ্ধি</string>
+    <string name="eq_preset_smooth">মসৃণ</string>
+    <string name="eq_preset_dynamic">ডায়নামিক</string>
+    <string name="eq_preset_clear">স্পষ্ট</string>
+    <string name="eq_preset_treble_boost">ট্ৰেবল বৃদ্ধি</string>
+    <string name="eq_preset_custom">কাষ্টম</string>
+    <string name="eq_custom_bands">কাষ্টম বেণ্ড</string>
 </resources>

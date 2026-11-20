@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos-lydbehandling</string>
     <string name="dolby_enable">Brug Dolby Atmos</string>
+    <string name="dolby_profile">Tilstand</string>
+    <string name="dolby_profile_auto">Auto</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Musik</string>
+    <string name="dolby_profile_voice">Tale</string>
+    <string name="eq_title">Equalizer</string>
+    <string name="eq_enable">Brug equalizer</string>
+    <string name="eq_preset">Forudindstilling</string>
+    <string name="eq_preset_balanced">Balanceret</string>
+    <string name="eq_preset_bass_boost">Bassforstærkning</string>
+    <string name="eq_preset_smooth">Blød</string>
+    <string name="eq_preset_dynamic">Dynamisk</string>
+    <string name="eq_preset_clear">Klar</string>
+    <string name="eq_preset_treble_boost">Diskantforstærkning</string>
+    <string name="eq_preset_custom">Tilpasset</string>
+    <string name="eq_custom_bands">Tilpassede bånd</string>
 </resources>

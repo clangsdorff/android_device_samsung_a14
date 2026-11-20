@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">การประมวลผลเสียง Dolby Atmos</string>
     <string name="dolby_enable">ใช้ Dolby Atmos</string>
+    <string name="dolby_profile">โหมด</string>
+    <string name="dolby_profile_auto">อัตโนมัติ</string>
+    <string name="dolby_profile_movie">ภาพยนตร์</string>
+    <string name="dolby_profile_music">เพลง</string>
+    <string name="dolby_profile_voice">เสียงพูด</string>
+    <string name="eq_title">ตัวปรับสมดุลเสียง</string>
+    <string name="eq_enable">ใช้ตัวปรับสมดุลเสียง</string>
+    <string name="eq_preset">ค่าที่ตั้งไว้ล่วงหน้า</string>
+    <string name="eq_preset_balanced">สมดุล</string>
+    <string name="eq_preset_bass_boost">เสริมเบส</string>
+    <string name="eq_preset_smooth">นุ่มนวล</string>
+    <string name="eq_preset_dynamic">ไดนามิก</string>
+    <string name="eq_preset_clear">ชัดเจน</string>
+    <string name="eq_preset_treble_boost">เสริมเสียงแหลม</string>
+    <string name="eq_preset_custom">กำหนดเอง</string>
+    <string name="eq_custom_bands">แบนด์ที่กำหนดเอง</string>
 </resources>

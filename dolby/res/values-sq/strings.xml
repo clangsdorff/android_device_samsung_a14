@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Përpunim zëri Dolby Atmos</string>
     <string name="dolby_enable">Përdor Dolby Atmos</string>
+    <string name="dolby_profile">Modaliteti</string>
+    <string name="dolby_profile_auto">Automatik</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Muzikë</string>
+    <string name="dolby_profile_voice">Zë</string>
+    <string name="eq_title">Ekualizuesi</string>
+    <string name="eq_enable">Përdor ekualizuesin</string>
+    <string name="eq_preset">Paracaktim</string>
+    <string name="eq_preset_balanced">Të balancuar</string>
+    <string name="eq_preset_bass_boost">Përforcim basi</string>
+    <string name="eq_preset_smooth">Të butë</string>
+    <string name="eq_preset_dynamic">Dinamik</string>
+    <string name="eq_preset_clear">E qartë</string>
+    <string name="eq_preset_treble_boost">Përforcim i zërave të larta</string>
+    <string name="eq_preset_custom">Personalizuar</string>
+    <string name="eq_custom_bands">Brez të personalizuar</string>
 </resources>

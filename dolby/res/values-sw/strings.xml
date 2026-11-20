@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Uchakataji wa sauti wa Dolby Atmos</string>
     <string name="dolby_enable">Tumia Dolby Atmos</string>
+    <string name="dolby_profile">Hali</string>
+    <string name="dolby_profile_auto">Otomatiki</string>
+    <string name="dolby_profile_movie">Filamu</string>
+    <string name="dolby_profile_music">Muziki</string>
+    <string name="dolby_profile_voice">Sauti</string>
+    <string name="eq_title">Kisawazishi sauti</string>
+    <string name="eq_enable">Tumia kisawazishi sauti</string>
+    <string name="eq_preset">Mipangilio ya awali</string>
+    <string name="eq_preset_balanced">Yenye usawa</string>
+    <string name="eq_preset_bass_boost">Kuongeza besi</string>
+    <string name="eq_preset_smooth">Laini</string>
+    <string name="eq_preset_dynamic">Inayobadilika</string>
+    <string name="eq_preset_clear">Wazi</string>
+    <string name="eq_preset_treble_boost">Kuongeza treble</string>
+    <string name="eq_preset_custom">Maalum</string>
+    <string name="eq_custom_bands">Bendi maalum</string>
 </resources>

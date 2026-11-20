@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos ஒலி செயலாக்கம்</string>
     <string name="dolby_enable">Dolby Atmos ஐப் பயன்படுத்து</string>
+    <string name="dolby_profile">பயன்முறை</string>
+    <string name="dolby_profile_auto">தானியங்கி</string>
+    <string name="dolby_profile_movie">திரைப்படம்</string>
+    <string name="dolby_profile_music">இசை</string>
+    <string name="dolby_profile_voice">குரல்</string>
+    <string name="eq_title">ஈக்வலைசர்</string>
+    <string name="eq_enable">ஈக்வலைசரைப் பயன்படுத்து</string>
+    <string name="eq_preset">முன்னமைவு</string>
+    <string name="eq_preset_balanced">சமநிலை</string>
+    <string name="eq_preset_bass_boost">பேஸ் பூஸ்ட்</string>
+    <string name="eq_preset_smooth">மென்மை</string>
+    <string name="eq_preset_dynamic">டைனமிக்</string>
+    <string name="eq_preset_clear">தெளிவு</string>
+    <string name="eq_preset_treble_boost">ட்ரெபிள் பூஸ்ட்</string>
+    <string name="eq_preset_custom">தனிப்பயன்</string>
+    <string name="eq_custom_bands">தனிப்பயன் பட்டைகள்</string>
 </resources>

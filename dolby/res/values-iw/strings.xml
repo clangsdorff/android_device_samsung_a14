@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">עיבוד שמע של Dolby Atmos</string>
     <string name="dolby_enable">שימוש ב-Dolby Atmos</string>
+    <string name="dolby_profile">מצב</string>
+    <string name="dolby_profile_auto">אוטומטי</string>
+    <string name="dolby_profile_movie">סרט</string>
+    <string name="dolby_profile_music">מוזיקה</string>
+    <string name="dolby_profile_voice">קול</string>
+    <string name="eq_title">אקולייזר</string>
+    <string name="eq_enable">השתמש באקולייזר</string>
+    <string name="eq_preset">הגדרה מוגדרת מראש</string>
+    <string name="eq_preset_balanced">מאוזן</string>
+    <string name="eq_preset_bass_boost">הגברת בס</string>
+    <string name="eq_preset_smooth">חלק</string>
+    <string name="eq_preset_dynamic">דינמי</string>
+    <string name="eq_preset_clear">בהיר</string>
+    <string name="eq_preset_treble_boost">הגברת צלילים גבוהים</string>
+    <string name="eq_preset_custom">מותאם אישית</string>
+    <string name="eq_custom_bands">פסי תדר מותאמים אישית</string>
 </resources>

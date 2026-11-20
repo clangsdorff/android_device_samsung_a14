@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos ශ්‍රව්‍ය සැකසුම</string>
     <string name="dolby_enable">Dolby Atmos භාවිතා කරන්න</string>
+    <string name="dolby_profile">මාදිලිය</string>
+    <string name="dolby_profile_auto">ස්වයංක්‍රීය</string>
+    <string name="dolby_profile_movie">චිත්‍රපටය</string>
+    <string name="dolby_profile_music">සංගීතය</string>
+    <string name="dolby_profile_voice">හඬ</string>
+    <string name="eq_title">සමකාරකය</string>
+    <string name="eq_enable">සමකාරකය භාවිතා කරන්න</string>
+    <string name="eq_preset">පෙරසැකසුම</string>
+    <string name="eq_preset_balanced">සමබර</string>
+    <string name="eq_preset_bass_boost">බාස් වැඩි කිරීම</string>
+    <string name="eq_preset_smooth">සිනිඳු</string>
+    <string name="eq_preset_dynamic">ගතික</string>
+    <string name="eq_preset_clear">පැහැදිලි</string>
+    <string name="eq_preset_treble_boost">ට්‍රෙබල් වැඩි කිරීම</string>
+    <string name="eq_preset_custom">අභිරුචි</string>
+    <string name="eq_custom_bands">අභිරුචි කලාප</string>
 </resources>

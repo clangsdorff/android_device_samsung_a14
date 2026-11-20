@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos үн иштетүү</string>
     <string name="dolby_enable">Dolby Atmos колдонуу</string>
+    <string name="dolby_profile">Режим</string>
+    <string name="dolby_profile_auto">Авто</string>
+    <string name="dolby_profile_movie">Кино</string>
+    <string name="dolby_profile_music">Музыка</string>
+    <string name="dolby_profile_voice">Үн</string>
+    <string name="eq_title">Эквалайзер</string>
+    <string name="eq_enable">Эквалайзерди колдонуу</string>
+    <string name="eq_preset">Алдын ала коюу</string>
+    <string name="eq_preset_balanced">Тең салмактуу</string>
+    <string name="eq_preset_bass_boost">Бас күчөтүү</string>
+    <string name="eq_preset_smooth">Жумшак</string>
+    <string name="eq_preset_dynamic">Динамикалык</string>
+    <string name="eq_preset_clear">Таза</string>
+    <string name="eq_preset_treble_boost">Үстүңкү жыштыкты күчөтүү</string>
+    <string name="eq_preset_custom">Ыңгайлаштырылган</string>
+    <string name="eq_custom_bands">Ыңгайлаштырылган жыштык тилкелери</string>
 </resources>

@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos ધ્વનિ પ્રોસેસિંગ</string>
     <string name="dolby_enable">Dolby Atmos નો ઉપયોગ કરો</string>
+    <string name="dolby_profile">મોડ</string>
+    <string name="dolby_profile_auto">આપમેળે</string>
+    <string name="dolby_profile_movie">મૂવી</string>
+    <string name="dolby_profile_music">સંગીત</string>
+    <string name="dolby_profile_voice">વૉઇસ</string>
+    <string name="eq_title">ઇક્વલાઇઝર</string>
+    <string name="eq_enable">ઇક્વલાઇઝરનો ઉપયોગ કરો</string>
+    <string name="eq_preset">પ્રીસેટ</string>
+    <string name="eq_preset_balanced">સંતુલિત</string>
+    <string name="eq_preset_bass_boost">બાસ બૂસ્ટ</string>
+    <string name="eq_preset_smooth">સ્મૂધ</string>
+    <string name="eq_preset_dynamic">ડાયનેમિક</string>
+    <string name="eq_preset_clear">ક્લિયર</string>
+    <string name="eq_preset_treble_boost">ટ્રબલ બૂસ્ટ</string>
+    <string name="eq_preset_custom">કસ્ટમ</string>
+    <string name="eq_custom_bands">કસ્ટમ બેન્ડ</string>
 </resources>

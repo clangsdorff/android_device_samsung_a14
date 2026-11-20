@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos hljóðvinnsla</string>
     <string name="dolby_enable">Nota Dolby Atmos</string>
+    <string name="dolby_profile">Stilling</string>
+    <string name="dolby_profile_auto">Sjálfvirkt</string>
+    <string name="dolby_profile_movie">Kvikmynd</string>
+    <string name="dolby_profile_music">Tónlist</string>
+    <string name="dolby_profile_voice">Rödd</string>
+    <string name="eq_title">Tónjafnari</string>
+    <string name="eq_enable">Nota tónjafnara</string>
+    <string name="eq_preset">Forstilling</string>
+    <string name="eq_preset_balanced">Jafnvægi</string>
+    <string name="eq_preset_bass_boost">Bassaaukning</string>
+    <string name="eq_preset_smooth">Mjúkt</string>
+    <string name="eq_preset_dynamic">Kraftmikið</string>
+    <string name="eq_preset_clear">Skýrt</string>
+    <string name="eq_preset_treble_boost">Diskantaukning</string>
+    <string name="eq_preset_custom">Sérsniðið</string>
+    <string name="eq_custom_bands">Sérsniðin tíðnisvið</string>
 </resources>

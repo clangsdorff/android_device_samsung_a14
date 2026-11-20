@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Xử lý âm thanh Dolby Atmos</string>
     <string name="dolby_enable">Sử dụng Dolby Atmos</string>
+    <string name="dolby_profile">Chế độ</string>
+    <string name="dolby_profile_auto">Tự động</string>
+    <string name="dolby_profile_movie">Phim</string>
+    <string name="dolby_profile_music">Nhạc</string>
+    <string name="dolby_profile_voice">Giọng nói</string>
+    <string name="eq_title">Bộ cân bằng âm</string>
+    <string name="eq_enable">Sử dụng bộ cân bằng âm</string>
+    <string name="eq_preset">Cài sẵn</string>
+    <string name="eq_preset_balanced">Cân bằng</string>
+    <string name="eq_preset_bass_boost">Tăng bass</string>
+    <string name="eq_preset_smooth">Mượt</string>
+    <string name="eq_preset_dynamic">Động</string>
+    <string name="eq_preset_clear">Rõ</string>
+    <string name="eq_preset_treble_boost">Tăng treble</string>
+    <string name="eq_preset_custom">Tùy chỉnh</string>
+    <string name="eq_custom_bands">Dải tùy chỉnh</string>
 </resources>

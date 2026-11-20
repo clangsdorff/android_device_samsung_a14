@@ -2,4 +2,20 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos サウンド処理</string>
     <string name="dolby_enable">Dolby Atmos を使用</string>
+    <string name="dolby_profile">モード</string>
+    <string name="dolby_profile_auto">自動</string>
+    <string name="dolby_profile_movie">映画</string>
+    <string name="dolby_profile_music">音楽</string>
+    <string name="dolby_profile_voice">ボイス</string>
+    <string name="eq_title">イコライザー</string>
+    <string name="eq_enable">イコライザーを使用</string>
+    <string name="eq_preset">プリセット</string>
+    <string name="eq_preset_balanced">バランス</string>
+    <string name="eq_preset_bass_boost">ベースブースト</string>
+    <string name="eq_preset_smooth">スムーズ</string>
+    <string name="eq_preset_dynamic">ダイナミック</string>
+    <string name="eq_preset_clear">クリア</string>
+    <string name="eq_preset_treble_boost">トレブルブースト</string>
+    <string name="eq_preset_custom">カスタム</string>
+    <string name="eq_custom_bands">カスタムバンド</string>
 </resources>
