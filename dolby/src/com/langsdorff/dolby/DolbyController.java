@@ -21,6 +21,12 @@ public final class DolbyController {
     // profile ids from vendor etc/dolby/dax-default.xml, stock boots with none selected (-1)
     private static final int PARAM_PROFILE = 0;
 
+    // stock libcorefx DolbyHandleAction, sent by stock audioflinger for apps without a dolby callback
+    private static final int PARAM_REVERT_VOLUME_LEVELER = 12;
+    private static final int PARAM_PROFILE_ENABLE = 19;
+    private static final int PARAM_CONTENT_PROC_ENABLE = 21;
+    private static final int PARAM_CONTENT_TYPE = 26;
+
     // dap_proxy in vendor audio_effects.xml
     private static final UUID DAP_UUID = UUID.fromString("9d4921da-8225-4f29-aefa-39537a04bcaa");
 
@@ -77,13 +83,21 @@ public final class DolbyController {
             Log.e(TAG, "setEnabled(" + enabled + ") failed: " + ret);
         }
         if (enabled) {
-            ret = mEffect.setParameter(PARAM_PROFILE, getProfile());
-            if (ret != AudioEffect.SUCCESS) {
-                Log.e(TAG, "setProfile(" + getProfile() + ") failed: " + ret);
-            }
+            set(PARAM_PROFILE_ENABLE, 1);
+            set(PARAM_PROFILE, getProfile());
+            set(PARAM_REVERT_VOLUME_LEVELER, 0);
+            set(PARAM_CONTENT_PROC_ENABLE, 1);
+            set(PARAM_CONTENT_TYPE, 0);
         } else {
             mEffect.release();
             mEffect = null;
+        }
+    }
+
+    private void set(int param, int value) {
+        int ret = mEffect.setParameter(param, value);
+        if (ret != AudioEffect.SUCCESS) {
+            Log.e(TAG, "setParameter(" + param + ", " + value + ") failed: " + ret);
         }
     }
 }
