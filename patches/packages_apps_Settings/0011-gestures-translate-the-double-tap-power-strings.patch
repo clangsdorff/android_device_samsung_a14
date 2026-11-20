@@ -1,0 +1,1759 @@
+From 8d3150abebd3e3b50b314b191aa53f4b85179a36 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Fri, 20 Nov 2026 22:14:28 +0000
+Subject: [PATCH 11/11] gestures: translate the double tap power strings
+
+the flashlight and app target strings only shipped in english and
+turkish, so every other locale fell back to english.
+
+add translations for the same locales the rom settings strings
+cover.
+---
+ res/values-af/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-am/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ar/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-as/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-az/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-b+sr+Latn/double_tap_power_strings.xml | 13 +++++++++++++
+ res/values-be/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-bg/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-bn/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-bs/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ca/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-cs/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-da/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-de/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-el/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-en-rAU/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-en-rCA/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-en-rGB/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-en-rIN/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-es-rUS/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-es/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-et/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-eu/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-fa/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-fi/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-fr-rCA/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-fr/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-gl/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-gu/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-hi/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-hr/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-hu/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-hy/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-in/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-is/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-it/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-iw/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ja/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ka/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-kk/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-km/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-kn/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ko/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ky/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-lo/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-lt/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-lv/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-mk/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ml/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-mn/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-mr/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ms/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-my/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-nb/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ne/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-nl/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-or/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-pa/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-pl/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-pt-rBR/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-pt-rPT/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-pt/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ro/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ru/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-si/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-sk/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-sl/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-sq/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-sr/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-sv/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-sw/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ta/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-te/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-th/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-tl/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-uk/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-ur/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-uz/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-vi/double_tap_power_strings.xml        | 13 +++++++++++++
+ res/values-zh-rCN/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-zh-rHK/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-zh-rTW/double_tap_power_strings.xml    | 13 +++++++++++++
+ res/values-zu/double_tap_power_strings.xml        | 13 +++++++++++++
+ 83 files changed, 1079 insertions(+)
+ create mode 100644 res/values-af/double_tap_power_strings.xml
+ create mode 100644 res/values-am/double_tap_power_strings.xml
+ create mode 100644 res/values-ar/double_tap_power_strings.xml
+ create mode 100644 res/values-as/double_tap_power_strings.xml
+ create mode 100644 res/values-az/double_tap_power_strings.xml
+ create mode 100644 res/values-b+sr+Latn/double_tap_power_strings.xml
+ create mode 100644 res/values-be/double_tap_power_strings.xml
+ create mode 100644 res/values-bg/double_tap_power_strings.xml
+ create mode 100644 res/values-bn/double_tap_power_strings.xml
+ create mode 100644 res/values-bs/double_tap_power_strings.xml
+ create mode 100644 res/values-ca/double_tap_power_strings.xml
+ create mode 100644 res/values-cs/double_tap_power_strings.xml
+ create mode 100644 res/values-da/double_tap_power_strings.xml
+ create mode 100644 res/values-de/double_tap_power_strings.xml
+ create mode 100644 res/values-el/double_tap_power_strings.xml
+ create mode 100644 res/values-en-rAU/double_tap_power_strings.xml
+ create mode 100644 res/values-en-rCA/double_tap_power_strings.xml
+ create mode 100644 res/values-en-rGB/double_tap_power_strings.xml
+ create mode 100644 res/values-en-rIN/double_tap_power_strings.xml
+ create mode 100644 res/values-es-rUS/double_tap_power_strings.xml
+ create mode 100644 res/values-es/double_tap_power_strings.xml
+ create mode 100644 res/values-et/double_tap_power_strings.xml
+ create mode 100644 res/values-eu/double_tap_power_strings.xml
+ create mode 100644 res/values-fa/double_tap_power_strings.xml
+ create mode 100644 res/values-fi/double_tap_power_strings.xml
+ create mode 100644 res/values-fr-rCA/double_tap_power_strings.xml
+ create mode 100644 res/values-fr/double_tap_power_strings.xml
+ create mode 100644 res/values-gl/double_tap_power_strings.xml
+ create mode 100644 res/values-gu/double_tap_power_strings.xml
+ create mode 100644 res/values-hi/double_tap_power_strings.xml
+ create mode 100644 res/values-hr/double_tap_power_strings.xml
+ create mode 100644 res/values-hu/double_tap_power_strings.xml
+ create mode 100644 res/values-hy/double_tap_power_strings.xml
+ create mode 100644 res/values-in/double_tap_power_strings.xml
+ create mode 100644 res/values-is/double_tap_power_strings.xml
+ create mode 100644 res/values-it/double_tap_power_strings.xml
+ create mode 100644 res/values-iw/double_tap_power_strings.xml
+ create mode 100644 res/values-ja/double_tap_power_strings.xml
+ create mode 100644 res/values-ka/double_tap_power_strings.xml
+ create mode 100644 res/values-kk/double_tap_power_strings.xml
+ create mode 100644 res/values-km/double_tap_power_strings.xml
+ create mode 100644 res/values-kn/double_tap_power_strings.xml
+ create mode 100644 res/values-ko/double_tap_power_strings.xml
+ create mode 100644 res/values-ky/double_tap_power_strings.xml
+ create mode 100644 res/values-lo/double_tap_power_strings.xml
+ create mode 100644 res/values-lt/double_tap_power_strings.xml
+ create mode 100644 res/values-lv/double_tap_power_strings.xml
+ create mode 100644 res/values-mk/double_tap_power_strings.xml
+ create mode 100644 res/values-ml/double_tap_power_strings.xml
+ create mode 100644 res/values-mn/double_tap_power_strings.xml
+ create mode 100644 res/values-mr/double_tap_power_strings.xml
+ create mode 100644 res/values-ms/double_tap_power_strings.xml
+ create mode 100644 res/values-my/double_tap_power_strings.xml
+ create mode 100644 res/values-nb/double_tap_power_strings.xml
+ create mode 100644 res/values-ne/double_tap_power_strings.xml
+ create mode 100644 res/values-nl/double_tap_power_strings.xml
+ create mode 100644 res/values-or/double_tap_power_strings.xml
+ create mode 100644 res/values-pa/double_tap_power_strings.xml
+ create mode 100644 res/values-pl/double_tap_power_strings.xml
+ create mode 100644 res/values-pt-rBR/double_tap_power_strings.xml
+ create mode 100644 res/values-pt-rPT/double_tap_power_strings.xml
+ create mode 100644 res/values-pt/double_tap_power_strings.xml
+ create mode 100644 res/values-ro/double_tap_power_strings.xml
+ create mode 100644 res/values-ru/double_tap_power_strings.xml
+ create mode 100644 res/values-si/double_tap_power_strings.xml
+ create mode 100644 res/values-sk/double_tap_power_strings.xml
+ create mode 100644 res/values-sl/double_tap_power_strings.xml
+ create mode 100644 res/values-sq/double_tap_power_strings.xml
+ create mode 100644 res/values-sr/double_tap_power_strings.xml
+ create mode 100644 res/values-sv/double_tap_power_strings.xml
+ create mode 100644 res/values-sw/double_tap_power_strings.xml
+ create mode 100644 res/values-ta/double_tap_power_strings.xml
+ create mode 100644 res/values-te/double_tap_power_strings.xml
+ create mode 100644 res/values-th/double_tap_power_strings.xml
+ create mode 100644 res/values-tl/double_tap_power_strings.xml
+ create mode 100644 res/values-uk/double_tap_power_strings.xml
+ create mode 100644 res/values-ur/double_tap_power_strings.xml
+ create mode 100644 res/values-uz/double_tap_power_strings.xml
+ create mode 100644 res/values-vi/double_tap_power_strings.xml
+ create mode 100644 res/values-zh-rCN/double_tap_power_strings.xml
+ create mode 100644 res/values-zh-rHK/double_tap_power_strings.xml
+ create mode 100644 res/values-zh-rTW/double_tap_power_strings.xml
+ create mode 100644 res/values-zu/double_tap_power_strings.xml
+
+diff --git a/res/values-af/double_tap_power_strings.xml b/res/values-af/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..05ef24f2971
+--- /dev/null
++++ b/res/values-af/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Flitslig</string>
++    <string name="double_tap_power_torch_action_summary">Wissel flitslig</string>
++    <string name="double_tap_power_app_action_title">Maak \'n program oop</string>
++    <string name="double_tap_power_app_action_summary">Maak <xliff:g id="app_name" example="Maps">%1$s</xliff:g> oop</string>
++    <string name="double_tap_power_app_action_none">Geen program gekies nie</string>
++    <string name="double_tap_power_app_action_picker_title">Kies \'n program</string>
++</resources>
+diff --git a/res/values-am/double_tap_power_strings.xml b/res/values-am/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..45ea83338e4
+--- /dev/null
++++ b/res/values-am/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">የእጅ ባትሪ</string>
++    <string name="double_tap_power_torch_action_summary">የእጅ ባትሪን ቀያይር</string>
++    <string name="double_tap_power_app_action_title">መተግበሪያ ክፈት</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ክፈት</string>
++    <string name="double_tap_power_app_action_none">ምንም መተግበሪያ አልተመረጠም</string>
++    <string name="double_tap_power_app_action_picker_title">መተግበሪያ ይምረጡ</string>
++</resources>
+diff --git a/res/values-ar/double_tap_power_strings.xml b/res/values-ar/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..5ee7e7baef1
+--- /dev/null
++++ b/res/values-ar/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">مصباح يدوي</string>
++    <string name="double_tap_power_torch_action_summary">تبديل المصباح اليدوي</string>
++    <string name="double_tap_power_app_action_title">فتح تطبيق</string>
++    <string name="double_tap_power_app_action_summary">فتح <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">لم يتم اختيار أي تطبيق</string>
++    <string name="double_tap_power_app_action_picker_title">اختيار تطبيق</string>
++</resources>
+diff --git a/res/values-as/double_tap_power_strings.xml b/res/values-as/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..6fd85c162d9
+--- /dev/null
++++ b/res/values-as/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ফ্লাশ্বলাইট</string>
++    <string name="double_tap_power_torch_action_summary">ফ্লাশ্বলাইট অন/অফ কৰক</string>
++    <string name="double_tap_power_app_action_title">এটা এপ্ খোলক</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> খোলক</string>
++    <string name="double_tap_power_app_action_none">কোনো এপ্ বাছনি কৰা হোৱা নাই</string>
++    <string name="double_tap_power_app_action_picker_title">এটা এপ্ বাছনি কৰক</string>
++</resources>
+diff --git a/res/values-az/double_tap_power_strings.xml b/res/values-az/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..4514d713143
+--- /dev/null
++++ b/res/values-az/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Fənər</string>
++    <string name="double_tap_power_torch_action_summary">Fənəri aç/bağla</string>
++    <string name="double_tap_power_app_action_title">Tətbiq açın</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> tətbiqini açın</string>
++    <string name="double_tap_power_app_action_none">Heç bir tətbiq seçilməyib</string>
++    <string name="double_tap_power_app_action_picker_title">Tətbiq seçin</string>
++</resources>
+diff --git a/res/values-b+sr+Latn/double_tap_power_strings.xml b/res/values-b+sr+Latn/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..7f82fcb2526
+--- /dev/null
++++ b/res/values-b+sr+Latn/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lampa</string>
++    <string name="double_tap_power_torch_action_summary">Uključi/isključi lampu</string>
++    <string name="double_tap_power_app_action_title">Otvori aplikaciju</string>
++    <string name="double_tap_power_app_action_summary">Otvori: <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nijedna aplikacija nije izabrana</string>
++    <string name="double_tap_power_app_action_picker_title">Izaberite aplikaciju</string>
++</resources>
+diff --git a/res/values-be/double_tap_power_strings.xml b/res/values-be/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..1fa79f8f5e0
+--- /dev/null
++++ b/res/values-be/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Ліхтарык</string>
++    <string name="double_tap_power_torch_action_summary">Уключыць/выключыць ліхтарык</string>
++    <string name="double_tap_power_app_action_title">Адкрыць праграму</string>
++    <string name="double_tap_power_app_action_summary">Адкрыць <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Праграма не выбрана</string>
++    <string name="double_tap_power_app_action_picker_title">Выберыце праграму</string>
++</resources>
+diff --git a/res/values-bg/double_tap_power_strings.xml b/res/values-bg/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..4717751d65d
+--- /dev/null
++++ b/res/values-bg/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Фенерче</string>
++    <string name="double_tap_power_torch_action_summary">Включване/изключване на фенерчето</string>
++    <string name="double_tap_power_app_action_title">Отваряне на приложение</string>
++    <string name="double_tap_power_app_action_summary">Отваряне на <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Няма избрано приложение</string>
++    <string name="double_tap_power_app_action_picker_title">Изберете приложение</string>
++</resources>
+diff --git a/res/values-bn/double_tap_power_strings.xml b/res/values-bn/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..3656bb6b757
+--- /dev/null
++++ b/res/values-bn/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ফ্ল্যাশলাইট</string>
++    <string name="double_tap_power_torch_action_summary">ফ্ল্যাশলাইট চালু/বন্ধ করুন</string>
++    <string name="double_tap_power_app_action_title">অ্যাপ খুলুন</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> খুলুন</string>
++    <string name="double_tap_power_app_action_none">কোনও অ্যাপ বেছে নেওয়া হয়নি</string>
++    <string name="double_tap_power_app_action_picker_title">একটি অ্যাপ বেছে নিন</string>
++</resources>
+diff --git a/res/values-bs/double_tap_power_strings.xml b/res/values-bs/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..aa00daebe82
+--- /dev/null
++++ b/res/values-bs/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Baterijska lampa</string>
++    <string name="double_tap_power_torch_action_summary">Uključi/isključi baterijsku lampu</string>
++    <string name="double_tap_power_app_action_title">Otvori aplikaciju</string>
++    <string name="double_tap_power_app_action_summary">Otvori aplikaciju <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nije odabrana nijedna aplikacija</string>
++    <string name="double_tap_power_app_action_picker_title">Odaberite aplikaciju</string>
++</resources>
+diff --git a/res/values-ca/double_tap_power_strings.xml b/res/values-ca/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..2db99b9b6ea
+--- /dev/null
++++ b/res/values-ca/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Llanterna</string>
++    <string name="double_tap_power_torch_action_summary">Activa o desactiva la llanterna</string>
++    <string name="double_tap_power_app_action_title">Obre una aplicació</string>
++    <string name="double_tap_power_app_action_summary">Obre <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No s\'ha seleccionat cap aplicació</string>
++    <string name="double_tap_power_app_action_picker_title">Tria una aplicació</string>
++</resources>
+diff --git a/res/values-cs/double_tap_power_strings.xml b/res/values-cs/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..cd09f1ed7df
+--- /dev/null
++++ b/res/values-cs/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Svítilna</string>
++    <string name="double_tap_power_torch_action_summary">Zapnout/vypnout svítilnu</string>
++    <string name="double_tap_power_app_action_title">Otevřít aplikaci</string>
++    <string name="double_tap_power_app_action_summary">Otevřít aplikaci <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Není vybrána žádná aplikace</string>
++    <string name="double_tap_power_app_action_picker_title">Vyberte aplikaci</string>
++</resources>
+diff --git a/res/values-da/double_tap_power_strings.xml b/res/values-da/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..6049bea9f9c
+--- /dev/null
++++ b/res/values-da/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lommelygte</string>
++    <string name="double_tap_power_torch_action_summary">Slå lommelygten til/fra</string>
++    <string name="double_tap_power_app_action_title">Åbn en app</string>
++    <string name="double_tap_power_app_action_summary">Åbn <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Ingen app er valgt</string>
++    <string name="double_tap_power_app_action_picker_title">Vælg en app</string>
++</resources>
+diff --git a/res/values-de/double_tap_power_strings.xml b/res/values-de/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..7cec0da8b3e
+--- /dev/null
++++ b/res/values-de/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Taschenlampe</string>
++    <string name="double_tap_power_torch_action_summary">Taschenlampe ein-/ausschalten</string>
++    <string name="double_tap_power_app_action_title">App öffnen</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> öffnen</string>
++    <string name="double_tap_power_app_action_none">Keine App ausgewählt</string>
++    <string name="double_tap_power_app_action_picker_title">App auswählen</string>
++</resources>
+diff --git a/res/values-el/double_tap_power_strings.xml b/res/values-el/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..656cf1a7011
+--- /dev/null
++++ b/res/values-el/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Φακός</string>
++    <string name="double_tap_power_torch_action_summary">Εναλλαγή φακού</string>
++    <string name="double_tap_power_app_action_title">Άνοιγμα εφαρμογής</string>
++    <string name="double_tap_power_app_action_summary">Άνοιγμα της εφαρμογής <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Δεν έχει επιλεγεί εφαρμογή</string>
++    <string name="double_tap_power_app_action_picker_title">Επιλέξτε μια εφαρμογή</string>
++</resources>
+diff --git a/res/values-en-rAU/double_tap_power_strings.xml b/res/values-en-rAU/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..57154992779
+--- /dev/null
++++ b/res/values-en-rAU/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Torch</string>
++    <string name="double_tap_power_torch_action_summary">Toggle torch</string>
++    <string name="double_tap_power_app_action_title">Open an app</string>
++    <string name="double_tap_power_app_action_summary">Open <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No app selected</string>
++    <string name="double_tap_power_app_action_picker_title">Choose an app</string>
++</resources>
+diff --git a/res/values-en-rCA/double_tap_power_strings.xml b/res/values-en-rCA/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..bd9d51f1efc
+--- /dev/null
++++ b/res/values-en-rCA/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Flashlight</string>
++    <string name="double_tap_power_torch_action_summary">Toggle flashlight</string>
++    <string name="double_tap_power_app_action_title">Open an app</string>
++    <string name="double_tap_power_app_action_summary">Open <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No app selected</string>
++    <string name="double_tap_power_app_action_picker_title">Choose an app</string>
++</resources>
+diff --git a/res/values-en-rGB/double_tap_power_strings.xml b/res/values-en-rGB/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..57154992779
+--- /dev/null
++++ b/res/values-en-rGB/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Torch</string>
++    <string name="double_tap_power_torch_action_summary">Toggle torch</string>
++    <string name="double_tap_power_app_action_title">Open an app</string>
++    <string name="double_tap_power_app_action_summary">Open <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No app selected</string>
++    <string name="double_tap_power_app_action_picker_title">Choose an app</string>
++</resources>
+diff --git a/res/values-en-rIN/double_tap_power_strings.xml b/res/values-en-rIN/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..57154992779
+--- /dev/null
++++ b/res/values-en-rIN/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Torch</string>
++    <string name="double_tap_power_torch_action_summary">Toggle torch</string>
++    <string name="double_tap_power_app_action_title">Open an app</string>
++    <string name="double_tap_power_app_action_summary">Open <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No app selected</string>
++    <string name="double_tap_power_app_action_picker_title">Choose an app</string>
++</resources>
+diff --git a/res/values-es-rUS/double_tap_power_strings.xml b/res/values-es-rUS/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..e975a833434
+--- /dev/null
++++ b/res/values-es-rUS/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Linterna</string>
++    <string name="double_tap_power_torch_action_summary">Activar o desactivar la linterna</string>
++    <string name="double_tap_power_app_action_title">Abrir una app</string>
++    <string name="double_tap_power_app_action_summary">Abrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No se seleccionó ninguna app</string>
++    <string name="double_tap_power_app_action_picker_title">Elige una app</string>
++</resources>
+diff --git a/res/values-es/double_tap_power_strings.xml b/res/values-es/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..4862c7b568a
+--- /dev/null
++++ b/res/values-es/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Linterna</string>
++    <string name="double_tap_power_torch_action_summary">Activar o desactivar la linterna</string>
++    <string name="double_tap_power_app_action_title">Abrir una aplicación</string>
++    <string name="double_tap_power_app_action_summary">Abrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">No hay ninguna aplicación seleccionada</string>
++    <string name="double_tap_power_app_action_picker_title">Elige una aplicación</string>
++</resources>
+diff --git a/res/values-et/double_tap_power_strings.xml b/res/values-et/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..922f8ab8dd8
+--- /dev/null
++++ b/res/values-et/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Taskulamp</string>
++    <string name="double_tap_power_torch_action_summary">Lülita taskulamp sisse/välja</string>
++    <string name="double_tap_power_app_action_title">Ava rakendus</string>
++    <string name="double_tap_power_app_action_summary">Ava <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Rakendust pole valitud</string>
++    <string name="double_tap_power_app_action_picker_title">Valige rakendus</string>
++</resources>
+diff --git a/res/values-eu/double_tap_power_strings.xml b/res/values-eu/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..7282cfd25f3
+--- /dev/null
++++ b/res/values-eu/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Linterna</string>
++    <string name="double_tap_power_torch_action_summary">Aktibatu edo desaktibatu linterna</string>
++    <string name="double_tap_power_app_action_title">Ireki aplikazio bat</string>
++    <string name="double_tap_power_app_action_summary">Ireki <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Ez da aplikaziorik hautatu</string>
++    <string name="double_tap_power_app_action_picker_title">Aukeratu aplikazio bat</string>
++</resources>
+diff --git a/res/values-fa/double_tap_power_strings.xml b/res/values-fa/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..370a90f015e
+--- /dev/null
++++ b/res/values-fa/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">چراغ‌قوه</string>
++    <string name="double_tap_power_torch_action_summary">روشن/خاموش کردن چراغ‌قوه</string>
++    <string name="double_tap_power_app_action_title">باز کردن برنامه</string>
++    <string name="double_tap_power_app_action_summary">باز کردن <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">برنامه‌ای انتخاب نشده است</string>
++    <string name="double_tap_power_app_action_picker_title">انتخاب برنامه</string>
++</resources>
+diff --git a/res/values-fi/double_tap_power_strings.xml b/res/values-fi/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..e27e95e4dfb
+--- /dev/null
++++ b/res/values-fi/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Taskulamppu</string>
++    <string name="double_tap_power_torch_action_summary">Ota taskulamppu käyttöön tai poista se käytöstä</string>
++    <string name="double_tap_power_app_action_title">Avaa sovellus</string>
++    <string name="double_tap_power_app_action_summary">Avaa <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Sovellusta ei ole valittu</string>
++    <string name="double_tap_power_app_action_picker_title">Valitse sovellus</string>
++</resources>
+diff --git a/res/values-fr-rCA/double_tap_power_strings.xml b/res/values-fr-rCA/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..ce53ad467d5
+--- /dev/null
++++ b/res/values-fr-rCA/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lampe de poche</string>
++    <string name="double_tap_power_torch_action_summary">Activer ou désactiver la lampe de poche</string>
++    <string name="double_tap_power_app_action_title">Ouvrir une application</string>
++    <string name="double_tap_power_app_action_summary">Ouvrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Aucune application sélectionnée</string>
++    <string name="double_tap_power_app_action_picker_title">Choisir une application</string>
++</resources>
+diff --git a/res/values-fr/double_tap_power_strings.xml b/res/values-fr/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..3f140299f11
+--- /dev/null
++++ b/res/values-fr/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lampe de poche</string>
++    <string name="double_tap_power_torch_action_summary">Activer/Désactiver la lampe de poche</string>
++    <string name="double_tap_power_app_action_title">Ouvrir une application</string>
++    <string name="double_tap_power_app_action_summary">Ouvrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Aucune application sélectionnée</string>
++    <string name="double_tap_power_app_action_picker_title">Choisir une application</string>
++</resources>
+diff --git a/res/values-gl/double_tap_power_strings.xml b/res/values-gl/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..ea72592d5e9
+--- /dev/null
++++ b/res/values-gl/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lanterna</string>
++    <string name="double_tap_power_torch_action_summary">Activar ou desactivar a lanterna</string>
++    <string name="double_tap_power_app_action_title">Abrir unha aplicación</string>
++    <string name="double_tap_power_app_action_summary">Abrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Non se seleccionou ningunha aplicación</string>
++    <string name="double_tap_power_app_action_picker_title">Escolle unha aplicación</string>
++</resources>
+diff --git a/res/values-gu/double_tap_power_strings.xml b/res/values-gu/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..1c2d8147fc2
+--- /dev/null
++++ b/res/values-gu/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ફ્લેશલાઇટ</string>
++    <string name="double_tap_power_torch_action_summary">ફ્લેશલાઇટ ચાલુ/બંધ કરો</string>
++    <string name="double_tap_power_app_action_title">ઍપ ખોલો</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ખોલો</string>
++    <string name="double_tap_power_app_action_none">કોઈ ઍપ પસંદ કરી નથી</string>
++    <string name="double_tap_power_app_action_picker_title">કોઈ ઍપ પસંદ કરો</string>
++</resources>
+diff --git a/res/values-hi/double_tap_power_strings.xml b/res/values-hi/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..a58b4bb4b13
+--- /dev/null
++++ b/res/values-hi/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">फ़्लैशलाइट</string>
++    <string name="double_tap_power_torch_action_summary">फ़्लैशलाइट चालू/बंद करें</string>
++    <string name="double_tap_power_app_action_title">कोई ऐप्लिकेशन खोलें</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> खोलें</string>
++    <string name="double_tap_power_app_action_none">कोई ऐप्लिकेशन नहीं चुना गया</string>
++    <string name="double_tap_power_app_action_picker_title">कोई ऐप्लिकेशन चुनें</string>
++</resources>
+diff --git a/res/values-hr/double_tap_power_strings.xml b/res/values-hr/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..9b641be27ba
+--- /dev/null
++++ b/res/values-hr/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Svjetiljka</string>
++    <string name="double_tap_power_torch_action_summary">Uključi/isključi svjetiljku</string>
++    <string name="double_tap_power_app_action_title">Otvori aplikaciju</string>
++    <string name="double_tap_power_app_action_summary">Otvori aplikaciju <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nije odabrana nijedna aplikacija</string>
++    <string name="double_tap_power_app_action_picker_title">Odaberite aplikaciju</string>
++</resources>
+diff --git a/res/values-hu/double_tap_power_strings.xml b/res/values-hu/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..ec71a8dd2a1
+--- /dev/null
++++ b/res/values-hu/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Zseblámpa</string>
++    <string name="double_tap_power_torch_action_summary">Zseblámpa be- és kikapcsolása</string>
++    <string name="double_tap_power_app_action_title">Alkalmazás megnyitása</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> megnyitása</string>
++    <string name="double_tap_power_app_action_none">Nincs kiválasztott alkalmazás</string>
++    <string name="double_tap_power_app_action_picker_title">Válasszon alkalmazást</string>
++</resources>
+diff --git a/res/values-hy/double_tap_power_strings.xml b/res/values-hy/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..15a4f608de7
+--- /dev/null
++++ b/res/values-hy/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Լապտեր</string>
++    <string name="double_tap_power_torch_action_summary">Միացնել/անջատել լապտերը</string>
++    <string name="double_tap_power_app_action_title">Բացել հավելված</string>
++    <string name="double_tap_power_app_action_summary">Բացել <xliff:g id="app_name" example="Maps">%1$s</xliff:g> հավելվածը</string>
++    <string name="double_tap_power_app_action_none">Հավելված ընտրված չէ</string>
++    <string name="double_tap_power_app_action_picker_title">Ընտրեք հավելված</string>
++</resources>
+diff --git a/res/values-in/double_tap_power_strings.xml b/res/values-in/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..0d78e2d29be
+--- /dev/null
++++ b/res/values-in/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Senter</string>
++    <string name="double_tap_power_torch_action_summary">Aktifkan/nonaktifkan senter</string>
++    <string name="double_tap_power_app_action_title">Buka aplikasi</string>
++    <string name="double_tap_power_app_action_summary">Buka <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Tidak ada aplikasi yang dipilih</string>
++    <string name="double_tap_power_app_action_picker_title">Pilih aplikasi</string>
++</resources>
+diff --git a/res/values-is/double_tap_power_strings.xml b/res/values-is/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..f3b323d20ac
+--- /dev/null
++++ b/res/values-is/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Vasaljós</string>
++    <string name="double_tap_power_torch_action_summary">Kveikja/slökkva á vasaljósi</string>
++    <string name="double_tap_power_app_action_title">Opna forrit</string>
++    <string name="double_tap_power_app_action_summary">Opna <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Ekkert forrit valið</string>
++    <string name="double_tap_power_app_action_picker_title">Veldu forrit</string>
++</resources>
+diff --git a/res/values-it/double_tap_power_strings.xml b/res/values-it/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..0e326168c34
+--- /dev/null
++++ b/res/values-it/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Torcia</string>
++    <string name="double_tap_power_torch_action_summary">Attiva/disattiva la torcia</string>
++    <string name="double_tap_power_app_action_title">Apri un\'app</string>
++    <string name="double_tap_power_app_action_summary">Apri <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nessuna app selezionata</string>
++    <string name="double_tap_power_app_action_picker_title">Scegli un\'app</string>
++</resources>
+diff --git a/res/values-iw/double_tap_power_strings.xml b/res/values-iw/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..bb5db21ee21
+--- /dev/null
++++ b/res/values-iw/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">פנס</string>
++    <string name="double_tap_power_torch_action_summary">הפעלה/כיבוי של הפנס</string>
++    <string name="double_tap_power_app_action_title">פתיחת אפליקציה</string>
++    <string name="double_tap_power_app_action_summary">פתיחת <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">לא נבחרה אפליקציה</string>
++    <string name="double_tap_power_app_action_picker_title">בחירת אפליקציה</string>
++</resources>
+diff --git a/res/values-ja/double_tap_power_strings.xml b/res/values-ja/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..880f5663709
+--- /dev/null
++++ b/res/values-ja/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">懐中電灯</string>
++    <string name="double_tap_power_torch_action_summary">懐中電灯を切り替える</string>
++    <string name="double_tap_power_app_action_title">アプリを開く</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> を開く</string>
++    <string name="double_tap_power_app_action_none">アプリが選択されていません</string>
++    <string name="double_tap_power_app_action_picker_title">アプリを選択</string>
++</resources>
+diff --git a/res/values-ka/double_tap_power_strings.xml b/res/values-ka/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..d2f5f910b82
+--- /dev/null
++++ b/res/values-ka/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ფანარი</string>
++    <string name="double_tap_power_torch_action_summary">ფანრის ჩართვა/გამორთვა</string>
++    <string name="double_tap_power_app_action_title">აპის გახსნა</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g>-ის გახსნა</string>
++    <string name="double_tap_power_app_action_none">აპი არ არის არჩეული</string>
++    <string name="double_tap_power_app_action_picker_title">აირჩიეთ აპი</string>
++</resources>
+diff --git a/res/values-kk/double_tap_power_strings.xml b/res/values-kk/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..0b33be98dc7
+--- /dev/null
++++ b/res/values-kk/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Қол шам</string>
++    <string name="double_tap_power_torch_action_summary">Қол шамды қосу/өшіру</string>
++    <string name="double_tap_power_app_action_title">Қолданбаны ашу</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> қолданбасын ашу</string>
++    <string name="double_tap_power_app_action_none">Қолданба таңдалмаған</string>
++    <string name="double_tap_power_app_action_picker_title">Қолданбаны таңдау</string>
++</resources>
+diff --git a/res/values-km/double_tap_power_strings.xml b/res/values-km/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..8eed37ac7f0
+--- /dev/null
++++ b/res/values-km/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ពិល</string>
++    <string name="double_tap_power_torch_action_summary">បើក/បិទពិល</string>
++    <string name="double_tap_power_app_action_title">បើកកម្មវិធី</string>
++    <string name="double_tap_power_app_action_summary">បើក <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">មិនបានជ្រើសរើសកម្មវិធីទេ</string>
++    <string name="double_tap_power_app_action_picker_title">ជ្រើសរើសកម្មវិធី</string>
++</resources>
+diff --git a/res/values-kn/double_tap_power_strings.xml b/res/values-kn/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..37983332cac
+--- /dev/null
++++ b/res/values-kn/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ಫ್ಲ್ಯಾಶ್‌ಲೈಟ್</string>
++    <string name="double_tap_power_torch_action_summary">ಫ್ಲ್ಯಾಶ್‌ಲೈಟ್ ಆನ್/ಆಫ್ ಮಾಡಿ</string>
++    <string name="double_tap_power_app_action_title">ಆ್ಯಪ್ ತೆರೆಯಿರಿ</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ತೆರೆಯಿರಿ</string>
++    <string name="double_tap_power_app_action_none">ಯಾವುದೇ ಆ್ಯಪ್ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ</string>
++    <string name="double_tap_power_app_action_picker_title">ಆ್ಯಪ್ ಆಯ್ಕೆಮಾಡಿ</string>
++</resources>
+diff --git a/res/values-ko/double_tap_power_strings.xml b/res/values-ko/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..1a3f3cfc1d8
+--- /dev/null
++++ b/res/values-ko/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">손전등</string>
++    <string name="double_tap_power_torch_action_summary">손전등 켜기/끄기</string>
++    <string name="double_tap_power_app_action_title">앱 열기</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> 열기</string>
++    <string name="double_tap_power_app_action_none">선택된 앱 없음</string>
++    <string name="double_tap_power_app_action_picker_title">앱 선택</string>
++</resources>
+diff --git a/res/values-ky/double_tap_power_strings.xml b/res/values-ky/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..4c46b97f775
+--- /dev/null
++++ b/res/values-ky/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Чырак</string>
++    <string name="double_tap_power_torch_action_summary">Чыракты күйгүзүү/өчүрүү</string>
++    <string name="double_tap_power_app_action_title">Колдонмону ачуу</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> колдонмосун ачуу</string>
++    <string name="double_tap_power_app_action_none">Колдонмо тандалган жок</string>
++    <string name="double_tap_power_app_action_picker_title">Колдонмону тандаңыз</string>
++</resources>
+diff --git a/res/values-lo/double_tap_power_strings.xml b/res/values-lo/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..567c17c640d
+--- /dev/null
++++ b/res/values-lo/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ໄຟສາຍ</string>
++    <string name="double_tap_power_torch_action_summary">ເປີດ/ປິດໄຟສາຍ</string>
++    <string name="double_tap_power_app_action_title">ເປີດແອັບ</string>
++    <string name="double_tap_power_app_action_summary">ເປີດ <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">ບໍ່ໄດ້ເລືອກແອັບ</string>
++    <string name="double_tap_power_app_action_picker_title">ເລືອກແອັບ</string>
++</resources>
+diff --git a/res/values-lt/double_tap_power_strings.xml b/res/values-lt/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..7e9f724dcc5
+--- /dev/null
++++ b/res/values-lt/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Žibintuvėlis</string>
++    <string name="double_tap_power_torch_action_summary">Įjungti arba išjungti žibintuvėlį</string>
++    <string name="double_tap_power_app_action_title">Atidaryti programą</string>
++    <string name="double_tap_power_app_action_summary">Atidaryti „<xliff:g id="app_name" example="Maps">%1$s</xliff:g>“</string>
++    <string name="double_tap_power_app_action_none">Nepasirinkta jokia programa</string>
++    <string name="double_tap_power_app_action_picker_title">Pasirinkite programą</string>
++</resources>
+diff --git a/res/values-lv/double_tap_power_strings.xml b/res/values-lv/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..c80587a0cdc
+--- /dev/null
++++ b/res/values-lv/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lukturītis</string>
++    <string name="double_tap_power_torch_action_summary">Ieslēgt/izslēgt lukturīti</string>
++    <string name="double_tap_power_app_action_title">Atvērt lietotni</string>
++    <string name="double_tap_power_app_action_summary">Atvērt lietotni <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nav atlasīta neviena lietotne</string>
++    <string name="double_tap_power_app_action_picker_title">Izvēlieties lietotni</string>
++</resources>
+diff --git a/res/values-mk/double_tap_power_strings.xml b/res/values-mk/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..b426fced897
+--- /dev/null
++++ b/res/values-mk/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Ламба</string>
++    <string name="double_tap_power_torch_action_summary">Вклучи/исклучи ламба</string>
++    <string name="double_tap_power_app_action_title">Отворете апликација</string>
++    <string name="double_tap_power_app_action_summary">Отворете <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Нема избрана апликација</string>
++    <string name="double_tap_power_app_action_picker_title">Изберете апликација</string>
++</resources>
+diff --git a/res/values-ml/double_tap_power_strings.xml b/res/values-ml/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..0365f9aa1f9
+--- /dev/null
++++ b/res/values-ml/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ഫ്ലാഷ്‌ലൈറ്റ്</string>
++    <string name="double_tap_power_torch_action_summary">ഫ്ലാഷ്‌ലൈറ്റ് ഓണാക്കുക/ഓഫാക്കുക</string>
++    <string name="double_tap_power_app_action_title">ഒരു ആപ്പ് തുറക്കുക</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> തുറക്കുക</string>
++    <string name="double_tap_power_app_action_none">ആപ്പൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല</string>
++    <string name="double_tap_power_app_action_picker_title">ഒരു ആപ്പ് തിരഞ്ഞെടുക്കുക</string>
++</resources>
+diff --git a/res/values-mn/double_tap_power_strings.xml b/res/values-mn/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..163dca7adde
+--- /dev/null
++++ b/res/values-mn/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Гар чийдэн</string>
++    <string name="double_tap_power_torch_action_summary">Гар чийдэнг асаах/унтраах</string>
++    <string name="double_tap_power_app_action_title">Апп нээх</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> нээх</string>
++    <string name="double_tap_power_app_action_none">Апп сонгоогүй байна</string>
++    <string name="double_tap_power_app_action_picker_title">Апп сонгох</string>
++</resources>
+diff --git a/res/values-mr/double_tap_power_strings.xml b/res/values-mr/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..d684b8ac618
+--- /dev/null
++++ b/res/values-mr/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">फ्लॅशलाइट</string>
++    <string name="double_tap_power_torch_action_summary">फ्लॅशलाइट सुरू/बंद करा</string>
++    <string name="double_tap_power_app_action_title">अ‍ॅप उघडा</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> उघडा</string>
++    <string name="double_tap_power_app_action_none">कोणतेही अ‍ॅप निवडलेले नाही</string>
++    <string name="double_tap_power_app_action_picker_title">अ‍ॅप निवडा</string>
++</resources>
+diff --git a/res/values-ms/double_tap_power_strings.xml b/res/values-ms/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..f5ddd8a4d5b
+--- /dev/null
++++ b/res/values-ms/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lampu suluh</string>
++    <string name="double_tap_power_torch_action_summary">Togol lampu suluh</string>
++    <string name="double_tap_power_app_action_title">Buka apl</string>
++    <string name="double_tap_power_app_action_summary">Buka <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Tiada apl dipilih</string>
++    <string name="double_tap_power_app_action_picker_title">Pilih apl</string>
++</resources>
+diff --git a/res/values-my/double_tap_power_strings.xml b/res/values-my/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..f3d5eb37a04
+--- /dev/null
++++ b/res/values-my/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ဓာတ်မီး</string>
++    <string name="double_tap_power_torch_action_summary">ဓာတ်မီး ဖွင့်/ပိတ်ရန်</string>
++    <string name="double_tap_power_app_action_title">အက်ပ်ဖွင့်ရန်</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ကို ဖွင့်ရန်</string>
++    <string name="double_tap_power_app_action_none">အက်ပ် ရွေးထားခြင်း မရှိပါ</string>
++    <string name="double_tap_power_app_action_picker_title">အက်ပ်ရွေးရန်</string>
++</resources>
+diff --git a/res/values-nb/double_tap_power_strings.xml b/res/values-nb/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..25b4c57793e
+--- /dev/null
++++ b/res/values-nb/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lommelykt</string>
++    <string name="double_tap_power_torch_action_summary">Slå lommelykten av/på</string>
++    <string name="double_tap_power_app_action_title">Åpne en app</string>
++    <string name="double_tap_power_app_action_summary">Åpne <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Ingen app er valgt</string>
++    <string name="double_tap_power_app_action_picker_title">Velg en app</string>
++</resources>
+diff --git a/res/values-ne/double_tap_power_strings.xml b/res/values-ne/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..df7f7d6bdf6
+--- /dev/null
++++ b/res/values-ne/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">फ्ल्यासलाइट</string>
++    <string name="double_tap_power_torch_action_summary">फ्ल्यासलाइट अन/अफ गर्नुहोस्</string>
++    <string name="double_tap_power_app_action_title">एप खोल्नुहोस्</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> खोल्नुहोस्</string>
++    <string name="double_tap_power_app_action_none">कुनै पनि एप चयन गरिएको छैन</string>
++    <string name="double_tap_power_app_action_picker_title">एप छनौट गर्नुहोस्</string>
++</resources>
+diff --git a/res/values-nl/double_tap_power_strings.xml b/res/values-nl/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..629a421e298
+--- /dev/null
++++ b/res/values-nl/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Zaklamp</string>
++    <string name="double_tap_power_torch_action_summary">Zaklamp in- of uitschakelen</string>
++    <string name="double_tap_power_app_action_title">Een app openen</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> openen</string>
++    <string name="double_tap_power_app_action_none">Geen app geselecteerd</string>
++    <string name="double_tap_power_app_action_picker_title">Een app kiezen</string>
++</resources>
+diff --git a/res/values-or/double_tap_power_strings.xml b/res/values-or/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..ccbd2827aca
+--- /dev/null
++++ b/res/values-or/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ଫ୍ଲାସଲାଇଟ୍</string>
++    <string name="double_tap_power_torch_action_summary">ଫ୍ଲାସଲାଇଟ୍ ଚାଲୁ/ବନ୍ଦ କରନ୍ତୁ</string>
++    <string name="double_tap_power_app_action_title">ଏକ ଆପ ଖୋଲନ୍ତୁ</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ଖୋଲନ୍ତୁ</string>
++    <string name="double_tap_power_app_action_none">କୌଣସି ଆପ ଚୟନ କରାଯାଇନାହିଁ</string>
++    <string name="double_tap_power_app_action_picker_title">ଏକ ଆପ ବାଛନ୍ତୁ</string>
++</resources>
+diff --git a/res/values-pa/double_tap_power_strings.xml b/res/values-pa/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..02d7f838204
+--- /dev/null
++++ b/res/values-pa/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ਫਲੈਸ਼ਲਾਈਟ</string>
++    <string name="double_tap_power_torch_action_summary">ਫਲੈਸ਼ਲਾਈਟ ਚਾਲੂ/ਬੰਦ ਕਰੋ</string>
++    <string name="double_tap_power_app_action_title">ਕੋਈ ਐਪ ਖੋਲ੍ਹੋ</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ਖੋਲ੍ਹੋ</string>
++    <string name="double_tap_power_app_action_none">ਕੋਈ ਐਪ ਨਹੀਂ ਚੁਣੀ ਗਈ</string>
++    <string name="double_tap_power_app_action_picker_title">ਕੋਈ ਐਪ ਚੁਣੋ</string>
++</resources>
+diff --git a/res/values-pl/double_tap_power_strings.xml b/res/values-pl/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..0bc73ff01a6
+--- /dev/null
++++ b/res/values-pl/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Latarka</string>
++    <string name="double_tap_power_torch_action_summary">Włącz/wyłącz latarkę</string>
++    <string name="double_tap_power_app_action_title">Otwórz aplikację</string>
++    <string name="double_tap_power_app_action_summary">Otwórz aplikację <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nie wybrano aplikacji</string>
++    <string name="double_tap_power_app_action_picker_title">Wybierz aplikację</string>
++</resources>
+diff --git a/res/values-pt-rBR/double_tap_power_strings.xml b/res/values-pt-rBR/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..155fc0cb1d4
+--- /dev/null
++++ b/res/values-pt-rBR/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lanterna</string>
++    <string name="double_tap_power_torch_action_summary">Ativar/desativar a lanterna</string>
++    <string name="double_tap_power_app_action_title">Abrir um app</string>
++    <string name="double_tap_power_app_action_summary">Abrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nenhum app selecionado</string>
++    <string name="double_tap_power_app_action_picker_title">Escolher um app</string>
++</resources>
+diff --git a/res/values-pt-rPT/double_tap_power_strings.xml b/res/values-pt-rPT/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..2b568f08638
+--- /dev/null
++++ b/res/values-pt-rPT/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lanterna</string>
++    <string name="double_tap_power_torch_action_summary">Ativar/desativar a lanterna</string>
++    <string name="double_tap_power_app_action_title">Abrir uma app</string>
++    <string name="double_tap_power_app_action_summary">Abrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nenhuma app selecionada</string>
++    <string name="double_tap_power_app_action_picker_title">Escolher uma app</string>
++</resources>
+diff --git a/res/values-pt/double_tap_power_strings.xml b/res/values-pt/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..155fc0cb1d4
+--- /dev/null
++++ b/res/values-pt/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lanterna</string>
++    <string name="double_tap_power_torch_action_summary">Ativar/desativar a lanterna</string>
++    <string name="double_tap_power_app_action_title">Abrir um app</string>
++    <string name="double_tap_power_app_action_summary">Abrir <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nenhum app selecionado</string>
++    <string name="double_tap_power_app_action_picker_title">Escolher um app</string>
++</resources>
+diff --git a/res/values-ro/double_tap_power_strings.xml b/res/values-ro/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..5e5b770b623
+--- /dev/null
++++ b/res/values-ro/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Lanternă</string>
++    <string name="double_tap_power_torch_action_summary">Activează/dezactivează lanterna</string>
++    <string name="double_tap_power_app_action_title">Deschide o aplicație</string>
++    <string name="double_tap_power_app_action_summary">Deschide <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nicio aplicație selectată</string>
++    <string name="double_tap_power_app_action_picker_title">Alege o aplicație</string>
++</resources>
+diff --git a/res/values-ru/double_tap_power_strings.xml b/res/values-ru/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..24258b72daa
+--- /dev/null
++++ b/res/values-ru/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Фонарик</string>
++    <string name="double_tap_power_torch_action_summary">Включить/выключить фонарик</string>
++    <string name="double_tap_power_app_action_title">Открыть приложение</string>
++    <string name="double_tap_power_app_action_summary">Открыть приложение «<xliff:g id="app_name" example="Maps">%1$s</xliff:g>»</string>
++    <string name="double_tap_power_app_action_none">Приложение не выбрано</string>
++    <string name="double_tap_power_app_action_picker_title">Выберите приложение</string>
++</resources>
+diff --git a/res/values-si/double_tap_power_strings.xml b/res/values-si/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..3e39e371bcd
+--- /dev/null
++++ b/res/values-si/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ෆ්ලෑෂ්ලයිට්</string>
++    <string name="double_tap_power_torch_action_summary">ෆ්ලෑෂ්ලයිට් ටොගල් කරන්න</string>
++    <string name="double_tap_power_app_action_title">යෙදුමක් විවෘත කරන්න</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> විවෘත කරන්න</string>
++    <string name="double_tap_power_app_action_none">කිසිදු යෙදුමක් තෝරා නැත</string>
++    <string name="double_tap_power_app_action_picker_title">යෙදුමක් තෝරන්න</string>
++</resources>
+diff --git a/res/values-sk/double_tap_power_strings.xml b/res/values-sk/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..b1982988c93
+--- /dev/null
++++ b/res/values-sk/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Baterka</string>
++    <string name="double_tap_power_torch_action_summary">Zapnúť/vypnúť baterku</string>
++    <string name="double_tap_power_app_action_title">Otvoriť aplikáciu</string>
++    <string name="double_tap_power_app_action_summary">Otvoriť aplikáciu <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nie je vybratá žiadna aplikácia</string>
++    <string name="double_tap_power_app_action_picker_title">Vyberte aplikáciu</string>
++</resources>
+diff --git a/res/values-sl/double_tap_power_strings.xml b/res/values-sl/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..9fb9f3229f9
+--- /dev/null
++++ b/res/values-sl/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Svetilka</string>
++    <string name="double_tap_power_torch_action_summary">Vklop/izklop svetilke</string>
++    <string name="double_tap_power_app_action_title">Odpri aplikacijo</string>
++    <string name="double_tap_power_app_action_summary">Odpri aplikacijo <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nobena aplikacija ni izbrana</string>
++    <string name="double_tap_power_app_action_picker_title">Izberite aplikacijo</string>
++</resources>
+diff --git a/res/values-sq/double_tap_power_strings.xml b/res/values-sq/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..772e0ab2dc9
+--- /dev/null
++++ b/res/values-sq/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Elektroliza</string>
++    <string name="double_tap_power_torch_action_summary">Ndiz/fik elektrolizën</string>
++    <string name="double_tap_power_app_action_title">Hap një aplikacion</string>
++    <string name="double_tap_power_app_action_summary">Hap <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Nuk është zgjedhur asnjë aplikacion</string>
++    <string name="double_tap_power_app_action_picker_title">Zgjidh një aplikacion</string>
++</resources>
+diff --git a/res/values-sr/double_tap_power_strings.xml b/res/values-sr/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..b821143767c
+--- /dev/null
++++ b/res/values-sr/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Лампа</string>
++    <string name="double_tap_power_torch_action_summary">Укључи/искључи лампу</string>
++    <string name="double_tap_power_app_action_title">Отвори апликацију</string>
++    <string name="double_tap_power_app_action_summary">Отвори: <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Ниједна апликација није изабрана</string>
++    <string name="double_tap_power_app_action_picker_title">Изаберите апликацију</string>
++</resources>
+diff --git a/res/values-sv/double_tap_power_strings.xml b/res/values-sv/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..3b490272711
+--- /dev/null
++++ b/res/values-sv/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Ficklampa</string>
++    <string name="double_tap_power_torch_action_summary">Slå på/av ficklampan</string>
++    <string name="double_tap_power_app_action_title">Öppna en app</string>
++    <string name="double_tap_power_app_action_summary">Öppna <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Ingen app har valts</string>
++    <string name="double_tap_power_app_action_picker_title">Välj en app</string>
++</resources>
+diff --git a/res/values-sw/double_tap_power_strings.xml b/res/values-sw/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..b66d4142d93
+--- /dev/null
++++ b/res/values-sw/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Tochi</string>
++    <string name="double_tap_power_torch_action_summary">Washa/zima tochi</string>
++    <string name="double_tap_power_app_action_title">Fungua programu</string>
++    <string name="double_tap_power_app_action_summary">Fungua <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Hakuna programu iliyochaguliwa</string>
++    <string name="double_tap_power_app_action_picker_title">Chagua programu</string>
++</resources>
+diff --git a/res/values-ta/double_tap_power_strings.xml b/res/values-ta/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..32e147bfed5
+--- /dev/null
++++ b/res/values-ta/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ஃப்ளாஷ்லைட்</string>
++    <string name="double_tap_power_torch_action_summary">ஃப்ளாஷ்லைட்டை இயக்கு/நிறுத்து</string>
++    <string name="double_tap_power_app_action_title">ஆப்ஸைத் திற</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ஐத் திற</string>
++    <string name="double_tap_power_app_action_none">ஆப்ஸ் எதுவும் தேர்ந்தெடுக்கப்படவில்லை</string>
++    <string name="double_tap_power_app_action_picker_title">ஆப்ஸைத் தேர்ந்தெடுக்கவும்</string>
++</resources>
+diff --git a/res/values-te/double_tap_power_strings.xml b/res/values-te/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..a89bb9b7831
+--- /dev/null
++++ b/res/values-te/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ఫ్లాష్‌లైట్</string>
++    <string name="double_tap_power_torch_action_summary">ఫ్లాష్‌లైట్‌ను ఆన్/ఆఫ్ చేయండి</string>
++    <string name="double_tap_power_app_action_title">యాప్‌ను తెరవండి</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g>ను తెరవండి</string>
++    <string name="double_tap_power_app_action_none">ఏ యాప్ ఎంచుకోబడలేదు</string>
++    <string name="double_tap_power_app_action_picker_title">యాప్‌ను ఎంచుకోండి</string>
++</resources>
+diff --git a/res/values-th/double_tap_power_strings.xml b/res/values-th/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..2cf9e5815da
+--- /dev/null
++++ b/res/values-th/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">ไฟฉาย</string>
++    <string name="double_tap_power_torch_action_summary">เปิด/ปิดไฟฉาย</string>
++    <string name="double_tap_power_app_action_title">เปิดแอป</string>
++    <string name="double_tap_power_app_action_summary">เปิด <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">ไม่ได้เลือกแอป</string>
++    <string name="double_tap_power_app_action_picker_title">เลือกแอป</string>
++</resources>
+diff --git a/res/values-tl/double_tap_power_strings.xml b/res/values-tl/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..e5e24728f04
+--- /dev/null
++++ b/res/values-tl/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Flashlight</string>
++    <string name="double_tap_power_torch_action_summary">I-toggle ang flashlight</string>
++    <string name="double_tap_power_app_action_title">Magbukas ng app</string>
++    <string name="double_tap_power_app_action_summary">Buksan ang <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Walang napiling app</string>
++    <string name="double_tap_power_app_action_picker_title">Pumili ng app</string>
++</resources>
+diff --git a/res/values-uk/double_tap_power_strings.xml b/res/values-uk/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..549151795c9
+--- /dev/null
++++ b/res/values-uk/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Ліхтарик</string>
++    <string name="double_tap_power_torch_action_summary">Увімкнути/вимкнути ліхтарик</string>
++    <string name="double_tap_power_app_action_title">Відкрити додаток</string>
++    <string name="double_tap_power_app_action_summary">Відкрити додаток <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Додаток не вибрано</string>
++    <string name="double_tap_power_app_action_picker_title">Виберіть додаток</string>
++</resources>
+diff --git a/res/values-ur/double_tap_power_strings.xml b/res/values-ur/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..18ee6199aa6
+--- /dev/null
++++ b/res/values-ur/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">فلیش لائٹ</string>
++    <string name="double_tap_power_torch_action_summary">فلیش لائٹ ٹوگل کریں</string>
++    <string name="double_tap_power_app_action_title">ایپ کھولیں</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> کھولیں</string>
++    <string name="double_tap_power_app_action_none">کوئی ایپ منتخب نہیں کی گئی</string>
++    <string name="double_tap_power_app_action_picker_title">ایپ منتخب کریں</string>
++</resources>
+diff --git a/res/values-uz/double_tap_power_strings.xml b/res/values-uz/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..e0e37e955be
+--- /dev/null
++++ b/res/values-uz/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Fonar</string>
++    <string name="double_tap_power_torch_action_summary">Fonarni yoqish/o‘chirish</string>
++    <string name="double_tap_power_app_action_title">Ilovani ochish</string>
++    <string name="double_tap_power_app_action_summary"><xliff:g id="app_name" example="Maps">%1$s</xliff:g> ilovasini ochish</string>
++    <string name="double_tap_power_app_action_none">Ilova tanlanmagan</string>
++    <string name="double_tap_power_app_action_picker_title">Ilovani tanlang</string>
++</resources>
+diff --git a/res/values-vi/double_tap_power_strings.xml b/res/values-vi/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..07561aa5d8c
+--- /dev/null
++++ b/res/values-vi/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Đèn pin</string>
++    <string name="double_tap_power_torch_action_summary">Bật/tắt đèn pin</string>
++    <string name="double_tap_power_app_action_title">Mở một ứng dụng</string>
++    <string name="double_tap_power_app_action_summary">Mở <xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Chưa chọn ứng dụng nào</string>
++    <string name="double_tap_power_app_action_picker_title">Chọn một ứng dụng</string>
++</resources>
+diff --git a/res/values-zh-rCN/double_tap_power_strings.xml b/res/values-zh-rCN/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..673a3592448
+--- /dev/null
++++ b/res/values-zh-rCN/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">手电筒</string>
++    <string name="double_tap_power_torch_action_summary">开启/关闭手电筒</string>
++    <string name="double_tap_power_app_action_title">打开应用</string>
++    <string name="double_tap_power_app_action_summary">打开<xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">未选择应用</string>
++    <string name="double_tap_power_app_action_picker_title">选择应用</string>
++</resources>
+diff --git a/res/values-zh-rHK/double_tap_power_strings.xml b/res/values-zh-rHK/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..865037ccbe1
+--- /dev/null
++++ b/res/values-zh-rHK/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">手電筒</string>
++    <string name="double_tap_power_torch_action_summary">開啟/關閉手電筒</string>
++    <string name="double_tap_power_app_action_title">開啟應用程式</string>
++    <string name="double_tap_power_app_action_summary">開啟「<xliff:g id="app_name" example="Maps">%1$s</xliff:g>」</string>
++    <string name="double_tap_power_app_action_none">未選取應用程式</string>
++    <string name="double_tap_power_app_action_picker_title">選擇應用程式</string>
++</resources>
+diff --git a/res/values-zh-rTW/double_tap_power_strings.xml b/res/values-zh-rTW/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..b4477b4bfe9
+--- /dev/null
++++ b/res/values-zh-rTW/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">手電筒</string>
++    <string name="double_tap_power_torch_action_summary">切換手電筒</string>
++    <string name="double_tap_power_app_action_title">開啟應用程式</string>
++    <string name="double_tap_power_app_action_summary">開啟「<xliff:g id="app_name" example="Maps">%1$s</xliff:g>」</string>
++    <string name="double_tap_power_app_action_none">未選取任何應用程式</string>
++    <string name="double_tap_power_app_action_picker_title">選擇應用程式</string>
++</resources>
+diff --git a/res/values-zu/double_tap_power_strings.xml b/res/values-zu/double_tap_power_strings.xml
+new file mode 100644
+index 00000000000..30de60202db
+--- /dev/null
++++ b/res/values-zu/double_tap_power_strings.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++    SPDX-FileCopyrightText: 2026 Langsdorff
++    SPDX-License-Identifier: Apache-2.0
++-->
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="double_tap_power_torch_action_title">Ithoshi</string>
++    <string name="double_tap_power_torch_action_summary">Guqula ithoshi</string>
++    <string name="double_tap_power_app_action_title">Vula uhlelo lokusebenza</string>
++    <string name="double_tap_power_app_action_summary">Vula i-<xliff:g id="app_name" example="Maps">%1$s</xliff:g></string>
++    <string name="double_tap_power_app_action_none">Alukho uhlelo lokusebenza olukhethiwe</string>
++    <string name="double_tap_power_app_action_picker_title">Khetha uhlelo lokusebenza</string>
++</resources>
+-- 
+2.43.0
+
