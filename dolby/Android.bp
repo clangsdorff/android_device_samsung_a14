@@ -12,6 +12,7 @@ android_app {
     certificate: "platform",
     privileged: true,
     system_ext_specific: true,
+    required: ["privapp-permissions-com.langsdorff.dolby.xml"],
     static_libs: [
         "SettingsLib",
         "androidx.preference_preference",
@@ -21,3 +22,10 @@ android_app {
     },
 }
 
+
+prebuilt_etc {
+    name: "privapp-permissions-com.langsdorff.dolby.xml",
+    src: "privapp-permissions-com.langsdorff.dolby.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}

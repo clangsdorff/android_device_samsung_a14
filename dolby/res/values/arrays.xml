@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- profile ids from vendor etc/dolby/dax-default.xml -->
+    <string-array name="dolby_profile_entries">
+        <item>@string/dolby_profile_auto</item>
+        <item>@string/dolby_profile_movie</item>
+        <item>@string/dolby_profile_music</item>
+        <item>@string/dolby_profile_voice</item>
+    </string-array>
+    <string-array name="dolby_profile_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- preset ids follow the stock SoundAlive_V tables -->
+    <string-array name="eq_preset_entries">
+        <item>@string/eq_preset_balanced</item>
+        <item>@string/eq_preset_bass_boost</item>
+        <item>@string/eq_preset_smooth</item>
+        <item>@string/eq_preset_dynamic</item>
+        <item>@string/eq_preset_clear</item>
+        <item>@string/eq_preset_treble_boost</item>
+        <item>@string/eq_preset_custom</item>
+    </string-array>
+    <string-array name="eq_preset_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>6</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="eq_band_labels" translatable="false">
+        <item>63 Hz</item>
+        <item>125 Hz</item>
+        <item>250 Hz</item>
+        <item>500 Hz</item>
+        <item>1 kHz</item>
+        <item>2 kHz</item>
+        <item>4 kHz</item>
+        <item>8 kHz</item>
+        <item>16 kHz</item>
+    </string-array>
+</resources>

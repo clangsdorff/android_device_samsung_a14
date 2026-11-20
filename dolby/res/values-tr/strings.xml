@@ -2,4 +2,21 @@
 <resources>
     <string name="dolby_summary">Dolby Atmos ses işleme</string>
     <string name="dolby_enable">Dolby Atmos kullan</string>
+    <string name="dolby_profile">Mod</string>
+    <string name="dolby_profile_auto">Otomatik</string>
+    <string name="dolby_profile_movie">Film</string>
+    <string name="dolby_profile_music">Müzik</string>
+    <string name="dolby_profile_voice">Ses</string>
+
+    <string name="eq_title">Ekolayzır</string>
+    <string name="eq_enable">Ekolayzır kullan</string>
+    <string name="eq_preset">Ön ayar</string>
+    <string name="eq_preset_balanced">Dengeli</string>
+    <string name="eq_preset_bass_boost">Bas artırma</string>
+    <string name="eq_preset_smooth">Yumuşak</string>
+    <string name="eq_preset_dynamic">Dinamik</string>
+    <string name="eq_preset_clear">Net</string>
+    <string name="eq_preset_treble_boost">Tiz artırma</string>
+    <string name="eq_preset_custom">Özel</string>
+    <string name="eq_custom_bands">Özel bantlar</string>
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <privapp-permissions package="com.langsdorff.dolby">
+        <!-- AudioService hides playback session ids without it -->
+        <permission name="android.permission.MODIFY_AUDIO_ROUTING" />
+    </privapp-permissions>
+</permissions>

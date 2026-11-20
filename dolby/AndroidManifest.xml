@@ -3,6 +3,7 @@
     package="com.langsdorff.dolby">
 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_ROUTING" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application

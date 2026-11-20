@@ -12,5 +12,6 @@ public class DolbyApp extends Application {
     public void onCreate() {
         super.onCreate();
         DolbyController.get(this).apply();
+        SessionEffects.get(this).start();
     }
 }

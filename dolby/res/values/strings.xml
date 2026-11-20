@@ -3,4 +3,21 @@
     <string name="dolby_title" translatable="false">Dolby Atmos</string>
     <string name="dolby_summary">Dolby Atmos sound processing</string>
     <string name="dolby_enable">Use Dolby Atmos</string>
+    <string name="dolby_profile">Mode</string>
+    <string name="dolby_profile_auto">Auto</string>
+    <string name="dolby_profile_movie">Movie</string>
+    <string name="dolby_profile_music">Music</string>
+    <string name="dolby_profile_voice">Voice</string>
+
+    <string name="eq_title">Equalizer</string>
+    <string name="eq_enable">Use equalizer</string>
+    <string name="eq_preset">Preset</string>
+    <string name="eq_preset_balanced">Balanced</string>
+    <string name="eq_preset_bass_boost">Bass boost</string>
+    <string name="eq_preset_smooth">Smooth</string>
+    <string name="eq_preset_dynamic">Dynamic</string>
+    <string name="eq_preset_clear">Clear</string>
+    <string name="eq_preset_treble_boost">Treble boost</string>
+    <string name="eq_preset_custom">Custom</string>
+    <string name="eq_custom_bands">Custom bands</string>
 </resources>
