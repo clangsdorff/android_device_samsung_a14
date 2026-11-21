@@ -69,12 +69,6 @@ blob_fixups: blob_fixups_user_type = {
     # drop the error level log for every netlink message
     'vendor/lib64/libsec-ril.so': blob_fixup()
         .binary_regex_replace(b'\xe3\x03\x14\xaa\xe4\x03\x15\xaa\xc2\x40\x04\x94\x61\x0b\x40\x79', b'\xe3\x03\x14\xaa\xe4\x03\x15\xaa\x1f\x20\x03\xd5\x61\x0b\x40\x79'),
-    # INIT already starts the effect, so ENABLE from the AOSP AudioFlinger fails with -ENOSYS
-    'vendor/lib64/soundfx/libsamsungSoundbooster_plus.so': blob_fixup()
-        .binary_regex_replace(b'\x05\x00\x71\x61\x0a\x00\x54\xe8\x03\x1f', b'\x05\x00\x71\x1f\x20\x03\xd5\xe8\x03\x1f'),
-    # the audio hal is 32-bit, so this is the copy that actually loads
-    'vendor/lib/soundfx/libsamsungSoundbooster_plus.so': blob_fixup()
-        .binary_regex_replace(b'\x01\x2d\x4d\xd1\x02\x20\x81\xf8\x48\x00', b'\x01\x2d\x00\xbf\x02\x20\x81\xf8\x48\x00'),
     # skip the verify callback logging that reads the X509 struct layout directly
     'vendor/bin/hw/gpsd': blob_fixup()
         .binary_regex_replace(b'\x88\x02\x40\xf9\x76\x03\x40\xf9\x00\x01\x40\xf9', b'\x2b\x00\x00\x14\x76\x03\x40\xf9\x00\x01\x40\xf9'),

@@ -14,6 +14,7 @@ import android.media.AudioDeviceAttributes;
 import android.media.AudioManager;
 import android.media.AudioPlaybackConfiguration;
 import android.media.audiofx.AudioEffect;
+import android.media.audiofx.DynamicsProcessing;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -25,10 +26,11 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * SoundAlive and SoundBooster are suspended by AudioFlinger on the output mix,
- * so like stock they are attached to every media playback session. Dolby goes
- * there too: on the output mix it sees the signal after the volume is applied
- * and its volume leveler lifts it back up.
+ * SoundAlive is suspended by AudioFlinger on the output mix, so like stock it
+ * is attached to every media playback session. Dolby goes there too: on the
+ * output mix it sees the signal after the volume is applied and its volume
+ * leveler lifts it back up. DynamicsProcessing applies an open-source speaker
+ * protection profile in place of the removed closed-source SoundBooster.
  */
 public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
     private static final String TAG = "DolbySettings";
@@ -44,7 +46,6 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
 
     // proxy uuids from vendor audio_effects.xml
     private static final UUID SOUNDALIVE_UUID = UUID.fromString("05227ea0-50bb-11e3-ac69-0002a5d5c51b");
-    private static final UUID SOUNDBOOSTER_UUID = UUID.fromString("50de45f0-5d4c-11e5-a837-0800200c9a66");
     private static final UUID DAP_UUID = UUID.fromString("9d4921da-8225-4f29-aefa-39537a04bcaa");
 
     // stock libcorefx DolbyHandleAction, sent by stock audioflinger for apps without a dolby callback
@@ -80,8 +81,28 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
             .setUsage(AudioAttributes.USAGE_MEDIA)
             .build();
 
+    // speaker protection curve derived from stock SoundBoosterParam.txt (150 Hz HPF, speaker EQ, bass MBC, limiter)
+    private static final float[][] SPEAKER_PRE_EQ = {
+        {80.0f, -18.0f},
+        {150.0f, -9.0f},
+        {250.0f, -3.0f},
+        {500.0f, -2.0f},
+        {1000.0f, -3.5f},
+        {2200.0f, 1.5f},
+        {4500.0f, -3.5f},
+        {9000.0f, 2.5f},
+        {20000.0f, -1.5f},
+    };
+    private static final float[][] SPEAKER_MBC = {
+        {250.0f, 10.0f, 150.0f, 4.0f, -16.0f, 6.0f, -90.0f, 1.0f, 0.0f, 0.0f},
+        {2200.0f, 25.0f, 150.0f, 2.5f, -11.0f, 6.0f, -90.0f, 1.0f, 0.0f, 0.0f},
+        {20000.0f, 25.0f, 150.0f, 2.5f, -12.0f, 6.0f, -90.0f, 1.0f, 0.0f, 0.0f},
+    };
+    private static final DynamicsProcessing.Config SPEAKER_CONFIG = buildSpeakerConfig();
+
     private static SessionEffects sInstance;
 
+    private final Context mContext;
     private final DolbyController mDolby;
     private final AudioManager mAudioManager;
     private final SharedPreferences mPrefs;
@@ -90,11 +111,12 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
 
     private static final class Attached {
         AudioEffect soundAlive;
-        AudioEffect soundBooster;
         AudioEffect dolby;
+        DynamicsProcessing speakerDynamics;
     }
 
     private SessionEffects(Context context) {
+        mContext = context;
         mDolby = DolbyController.get(context);
         mAudioManager = context.getSystemService(AudioManager.class);
         mPrefs = DolbyController.prefs(context);
@@ -120,6 +142,9 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
                 applyAll();
             }
         }, mHandler);
+        mAudioManager.addOnModeChangedListener(mContext.getMainExecutor(), mode -> applyAll());
+        mAudioManager.addOnCommunicationDeviceChangedListener(
+                mContext.getMainExecutor(), device -> applyAll());
         onPlaybackConfigChanged(mAudioManager.getActivePlaybackConfigurations());
     }
 
@@ -159,10 +184,6 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
         for (int session : live) {
             if (mSessions.get(session) == null) {
                 Attached attached = new Attached();
-                attached.soundBooster = create(SOUNDBOOSTER_UUID, session);
-                if (attached.soundBooster != null) {
-                    attached.soundBooster.setEnabled(true);
-                }
                 mSessions.put(session, attached);
                 apply(session, attached);
             }
@@ -178,12 +199,19 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
     }
 
     private void apply(int session, Attached attached) {
-        applyDolby(session, attached);
-        applyEqualizer(session, attached);
+        boolean inCall = isInCallOrCommunication();
+        int deviceType = getOutputDeviceType(inCall);
+        boolean earpiece = deviceType == AudioDeviceInfo.TYPE_BUILTIN_EARPIECE;
+        boolean speaker = deviceType == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER
+                || deviceType == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER_SAFE;
+        boolean builtIn = speaker || earpiece;
+        applyDolby(session, attached, inCall, earpiece);
+        applyEqualizer(session, attached, builtIn, inCall);
+        applySpeakerDynamics(session, attached, builtIn);
     }
 
-    private void applyDolby(int session, Attached attached) {
-        if (!mDolby.isEnabled()) {
+    private void applyDolby(int session, Attached attached, boolean inCall, boolean earpiece) {
+        if (!mDolby.isEnabled() || inCall || earpiece) {
             if (attached.dolby != null) {
                 attached.dolby.release();
                 attached.dolby = null;
@@ -208,8 +236,11 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
         }
     }
 
-    private void applyEqualizer(int session, Attached attached) {
-        if (!isEqEnabled()) {
+    private void applyEqualizer(int session, Attached attached, boolean builtIn, boolean inCall) {
+        // Keep SoundAlive active on built-in transducers even when EQ is off: its EFFECT_FLAG_VOLUME_CTRL
+        // scales the buffer before DynamicsProcessing so MBC/limiter only trigger at high volume.
+        boolean eqActive = isEqEnabled() && !inCall;
+        if (!eqActive && !builtIn) {
             if (attached.soundAlive != null) {
                 attached.soundAlive.release();
                 attached.soundAlive = null;
@@ -222,7 +253,7 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
                 return;
             }
         }
-        short[] levels = currentLevels();
+        short[] levels = eqActive ? currentLevels(builtIn) : new short[NUM_BANDS];
         try {
             attached.soundAlive.setEnabled(true);
             for (int band = 0; band < NUM_BANDS; band++) {
@@ -234,34 +265,97 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
         }
     }
 
-    private short[] currentLevels() {
+    private void applySpeakerDynamics(int session, Attached attached, boolean builtIn) {
+        if (!builtIn) {
+            if (attached.speakerDynamics != null) {
+                attached.speakerDynamics.release();
+                attached.speakerDynamics = null;
+            }
+            return;
+        }
+        if (attached.speakerDynamics == null) {
+            try {
+                attached.speakerDynamics = new DynamicsProcessing(0, session, SPEAKER_CONFIG);
+                attached.speakerDynamics.setEnabled(true);
+            } catch (RuntimeException e) {
+                Log.e(TAG, "failed to apply speaker dynamics on session " + session, e);
+                if (attached.speakerDynamics != null) {
+                    attached.speakerDynamics.release();
+                    attached.speakerDynamics = null;
+                }
+            }
+        }
+    }
+
+    private static DynamicsProcessing.Config buildSpeakerConfig() {
+        DynamicsProcessing.Eq preEq = new DynamicsProcessing.Eq(true, true, SPEAKER_PRE_EQ.length);
+        for (int i = 0; i < SPEAKER_PRE_EQ.length; i++) {
+            preEq.setBand(i, new DynamicsProcessing.EqBand(true, SPEAKER_PRE_EQ[i][0], SPEAKER_PRE_EQ[i][1]));
+        }
+        DynamicsProcessing.Mbc mbc = new DynamicsProcessing.Mbc(true, true, SPEAKER_MBC.length);
+        for (int i = 0; i < SPEAKER_MBC.length; i++) {
+            float[] b = SPEAKER_MBC[i];
+            mbc.setBand(i, new DynamicsProcessing.MbcBand(
+                    true, b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]));
+        }
+        DynamicsProcessing.Limiter limiter = new DynamicsProcessing.Limiter(
+                true, true, 0, 1.0f, 60.0f, 10.0f, -3.0f, 0.0f);
+        return new DynamicsProcessing.Config.Builder(
+                DynamicsProcessing.VARIANT_FAVOR_FREQUENCY_RESOLUTION,
+                2,
+                true, SPEAKER_PRE_EQ.length,
+                true, SPEAKER_MBC.length,
+                false, 0,
+                true)
+                .setPreEqAllChannelsTo(preEq)
+                .setMbcAllChannelsTo(mbc)
+                .setLimiterAllChannelsTo(limiter)
+                .build();
+    }
+
+    private short[] currentLevels(boolean builtIn) {
         int preset = getPreset();
-        boolean speaker = isSpeaker();
         short[] levels = new short[NUM_BANDS];
         for (int band = 0; band < NUM_BANDS; band++) {
             if (preset == PRESET_CUSTOM) {
                 levels[band] = (short) getCustomBand(band);
             } else {
-                levels[band] = (speaker ? BANDS_SPEAKER : BANDS_HEADPHONE)[preset][band];
+                levels[band] = (builtIn ? BANDS_SPEAKER : BANDS_HEADPHONE)[preset][band];
             }
-            // stock drops the two lowest bands on the speaker
-            if (speaker && band < 2) {
+            // stock drops the two lowest bands on built-in speaker and earpiece
+            if (builtIn && band < 2) {
                 levels[band] = 0;
             }
         }
         return levels;
     }
 
-    private boolean isSpeaker() {
+    private boolean isInCallOrCommunication() {
+        int mode = mAudioManager.getMode();
+        return mode == AudioManager.MODE_IN_CALL
+                || mode == AudioManager.MODE_IN_COMMUNICATION
+                || mode == AudioManager.MODE_CALL_SCREENING;
+    }
+
+    private int getOutputDeviceType(boolean inCall) {
+        if (inCall) {
+            AudioDeviceInfo comm = mAudioManager.getCommunicationDevice();
+            if (comm != null) {
+                return comm.getType();
+            }
+        }
         List<AudioDeviceAttributes> devices = mAudioManager.getDevicesForAttributes(MEDIA_ATTRIBUTES);
         for (AudioDeviceAttributes device : devices) {
             int type = device.getType();
+            if (type == AudioDeviceInfo.TYPE_BUILTIN_EARPIECE) {
+                return AudioDeviceInfo.TYPE_BUILTIN_EARPIECE;
+            }
             if (type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER
                     || type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER_SAFE) {
-                return true;
+                return AudioDeviceInfo.TYPE_BUILTIN_SPEAKER;
             }
         }
-        return devices.isEmpty();
+        return devices.isEmpty() ? AudioDeviceInfo.TYPE_BUILTIN_SPEAKER : devices.get(0).getType();
     }
 
     private static AudioEffect create(UUID uuid, int session) {
@@ -277,11 +371,11 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
         if (attached.soundAlive != null) {
             attached.soundAlive.release();
         }
-        if (attached.soundBooster != null) {
-            attached.soundBooster.release();
-        }
         if (attached.dolby != null) {
             attached.dolby.release();
+        }
+        if (attached.speakerDynamics != null) {
+            attached.speakerDynamics.release();
         }
     }
 }
