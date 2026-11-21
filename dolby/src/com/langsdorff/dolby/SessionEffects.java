@@ -26,7 +26,9 @@ import java.util.UUID;
 
 /**
  * SoundAlive and SoundBooster are suspended by AudioFlinger on the output mix,
- * so like stock they are attached to every media playback session.
+ * so like stock they are attached to every media playback session. Dolby goes
+ * there too: on the output mix it sees the signal after the volume is applied
+ * and its volume leveler lifts it back up.
  */
 public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
     private static final String TAG = "DolbySettings";
@@ -43,6 +45,14 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
     // proxy uuids from vendor audio_effects.xml
     private static final UUID SOUNDALIVE_UUID = UUID.fromString("05227ea0-50bb-11e3-ac69-0002a5d5c51b");
     private static final UUID SOUNDBOOSTER_UUID = UUID.fromString("50de45f0-5d4c-11e5-a837-0800200c9a66");
+    private static final UUID DAP_UUID = UUID.fromString("9d4921da-8225-4f29-aefa-39537a04bcaa");
+
+    // stock libcorefx DolbyHandleAction, sent by stock audioflinger for apps without a dolby callback
+    private static final int DAP_PARAM_PROFILE = 0;
+    private static final int DAP_PARAM_REVERT_VOLUME_LEVELER = 12;
+    private static final int DAP_PARAM_PROFILE_ENABLE = 19;
+    private static final int DAP_PARAM_CONTENT_PROC_ENABLE = 21;
+    private static final int DAP_PARAM_CONTENT_TYPE = 26;
 
     private static final int PARAM_BAND_LEVEL = 2;
 
@@ -72,6 +82,7 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
 
     private static SessionEffects sInstance;
 
+    private final DolbyController mDolby;
     private final AudioManager mAudioManager;
     private final SharedPreferences mPrefs;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
@@ -80,9 +91,11 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
     private static final class Attached {
         AudioEffect soundAlive;
         AudioEffect soundBooster;
+        AudioEffect dolby;
     }
 
     private SessionEffects(Context context) {
+        mDolby = DolbyController.get(context);
         mAudioManager = context.getSystemService(AudioManager.class);
         mPrefs = DolbyController.prefs(context);
     }
@@ -165,6 +178,37 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
     }
 
     private void apply(int session, Attached attached) {
+        applyDolby(session, attached);
+        applyEqualizer(session, attached);
+    }
+
+    private void applyDolby(int session, Attached attached) {
+        if (!mDolby.isEnabled()) {
+            if (attached.dolby != null) {
+                attached.dolby.release();
+                attached.dolby = null;
+            }
+            return;
+        }
+        if (attached.dolby == null) {
+            attached.dolby = create(DAP_UUID, session);
+            if (attached.dolby == null) {
+                return;
+            }
+        }
+        try {
+            attached.dolby.setEnabled(true);
+            attached.dolby.setParameter(DAP_PARAM_PROFILE_ENABLE, 1);
+            attached.dolby.setParameter(DAP_PARAM_PROFILE, mDolby.getProfile());
+            attached.dolby.setParameter(DAP_PARAM_REVERT_VOLUME_LEVELER, 0);
+            attached.dolby.setParameter(DAP_PARAM_CONTENT_PROC_ENABLE, 1);
+            attached.dolby.setParameter(DAP_PARAM_CONTENT_TYPE, 0);
+        } catch (RuntimeException e) {
+            Log.e(TAG, "failed to apply dolby on session " + session, e);
+        }
+    }
+
+    private void applyEqualizer(int session, Attached attached) {
         if (!isEqEnabled()) {
             if (attached.soundAlive != null) {
                 attached.soundAlive.release();
@@ -235,6 +279,9 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
         }
         if (attached.soundBooster != null) {
             attached.soundBooster.release();
+        }
+        if (attached.dolby != null) {
+            attached.dolby.release();
         }
     }
 }
