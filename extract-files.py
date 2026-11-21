@@ -63,6 +63,20 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
     'vendor/etc/init/android.hardware.security.keymint-service.samsung.rc': blob_fixup()
         .regex_replace('(?m)keymint-service$', 'keymint-service.samsung'),
+    # route call txse output to ap capture for generic-ims and keep oem txse enabled during calls
+    'vendor/etc/mixer_paths.xml': blob_fixup()
+        .regex_replace(
+            '(<ctl name="ABOX MCD_LBEFF_A" value="None" />)',
+            '\\1\n\t<ctl name="ABOX OEM PROCESS" value="1" />',
+        )
+        .regex_replace(
+            '(<path name="route-txse-to-vpcmindai3" />\n\t\t)<path name="route-wdma4-to-vpcmindai0" />',
+            '\\1<path name="route-txse-chmatcher-to-vpcmindai0" />',
+        )
+        .regex_replace(
+            '(<ctl name="ABOX OEM NXP Mode" value="1" />)',
+            '\\1\n\t\t<ctl name="ABOX OEM PROCESS" value="0" />',
+        ),
     # the camera hal never restores emstune if it dies with a session open
     'vendor/etc/init/vendor.samsung.hardware.camera.provider-service_64.rc': blob_fixup()
         .regex_replace('(?m)^(    task_profiles .*)$', '\\1\n    onrestart write /sys/devices/platform/ems/emstune/req_mode 0'),
