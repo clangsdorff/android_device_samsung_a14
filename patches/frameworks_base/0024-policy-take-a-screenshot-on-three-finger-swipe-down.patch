@@ -1,0 +1,447 @@
+From d101888bc0fa48bc534c0598e972b5b61e765fb5 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 22 Nov 2026 09:35:06 +0000
+Subject: [PATCH] policy: take a screenshot on three finger swipe down
+
+add an input monitor based three finger swipe detector from crdroid
+and take a full screenshot when it fires, gated by the
+three_finger_screenshot secure setting.
+
+crdroid pilfers pointers as soon as three fingers land, which cancels
+any three finger touch in apps. pilfer only once the swipe passes the
+threshold instead, and skip detection while a gamespace game is
+focused.
+
+Change-Id: I0870316f48748444b5eb0e350d4473c714969a1d
+---
+ .../server/policy/PhoneWindowManager.java     |  37 +++
+ .../policy/ThreeFingersSwipeListener.java     | 309 ++++++++++++++++++
+ .../android/server/wm/GameSpaceService.java   |   6 +-
+ 3 files changed, 351 insertions(+), 1 deletion(-)
+ create mode 100644 services/core/java/com/android/server/policy/ThreeFingersSwipeListener.java
+
+diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+index e17c6ae561d5..19f32eea7805 100644
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -270,6 +270,7 @@ import com.android.server.wallpaper.WallpaperManagerInternal;
+ import com.android.server.wm.ActivityTaskManagerInternal;
+ import com.android.server.wm.DisplayPolicy;
+ import com.android.server.wm.DisplayRotation;
++import com.android.server.wm.GameSpaceService;
+ import com.android.server.wm.WindowManagerInternal;
+ import com.android.server.wm.WindowManagerInternal.AppTransitionListener;
+ 
+@@ -745,6 +746,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+     private static final int BRIGHTNESS_STEPS = 10;
+ 
+     SettingsObserver mSettingsObserver;
++
++    private static final String THREE_FINGER_SCREENSHOT = "three_finger_screenshot";
++    private volatile ThreeFingersSwipeListener mThreeFingersSwipe;
++    private volatile boolean mThreeFingerScreenshotEnabled;
+     ModifierShortcutManager mModifierShortcutManager;
+     /** Currently fully consumed key codes per device */
+     private final SparseArray<Set<Integer>> mConsumedKeysForDevice = new SparseArray<>();
+@@ -955,6 +960,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+             resolver.registerContentObserver(Settings.Secure.getUriFor(
+                     Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED), false, this,
+                     UserHandle.USER_ALL);
++            resolver.registerContentObserver(Settings.Secure.getUriFor(
++                    THREE_FINGER_SCREENSHOT), false, this,
++                    UserHandle.USER_ALL);
+             resolver.registerContentObserver(Settings.Global.getUriFor(
+                     Settings.Global.POWER_BUTTON_SHORT_PRESS), false, this,
+                     UserHandle.USER_ALL);
+@@ -3468,6 +3476,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+                 mRingerToggleChord = VOLUME_HUSH_OFF;
+             }
+ 
++            mThreeFingerScreenshotEnabled = Settings.Secure.getIntForUser(resolver,
++                    THREE_FINGER_SCREENSHOT, 0, UserHandle.USER_CURRENT) == 1;
++            if (mThreeFingersSwipe != null) {
++                mThreeFingersSwipe.setEnabled(mThreeFingerScreenshotEnabled);
++            }
++
+             mCameraLaunch = LineageSettings.System.getIntForUser(resolver,
+                     LineageSettings.System.CAMERA_LAUNCH, 0,
+                     UserHandle.USER_CURRENT) == 1;
+@@ -6290,6 +6304,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+         if (mDisplayFoldController != null) {
+             mDisplayFoldController.finishedWakingUp();
+         }
++        if (mThreeFingersSwipe != null && mThreeFingerScreenshotEnabled) {
++            mThreeFingersSwipe.refresh();
++        }
+     }
+ 
+     private boolean shouldWakeUpWithHomeIntent() {
+@@ -6719,6 +6736,26 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+         // So it is better not to bind keyguard here.
+         mKeyguardDelegate.onSystemReady();
+ 
++        mThreeFingersSwipe = new ThreeFingersSwipeListener(mContext,
++                new ThreeFingersSwipeListener.Callbacks() {
++            @Override
++            public boolean isSuppressed() {
++                final GameSpaceService gameSpace =
++                        LocalServices.getService(GameSpaceService.class);
++                return gameSpace != null && gameSpace.isGameActive();
++            }
++
++            @Override
++            public void onSwipeThreeFingers() {
++                mHandler.post(() -> {
++                    takeScreenshot(TAKE_SCREENSHOT_FULLSCREEN, SCREENSHOT_KEY_OTHER);
++                    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,
++                            "Three Fingers Swipe");
++                });
++            }
++        });
++        mThreeFingersSwipe.setEnabled(mThreeFingerScreenshotEnabled);
++
+         mVrManagerInternal = LocalServices.getService(VrManagerInternal.class);
+         if (mVrManagerInternal != null) {
+             mVrManagerInternal.addPersistentVrModeStateListener(mPersistentVrModeListener);
+diff --git a/services/core/java/com/android/server/policy/ThreeFingersSwipeListener.java b/services/core/java/com/android/server/policy/ThreeFingersSwipeListener.java
+new file mode 100644
+index 000000000000..627c6300fb03
+--- /dev/null
++++ b/services/core/java/com/android/server/policy/ThreeFingersSwipeListener.java
+@@ -0,0 +1,309 @@
++/*
++ * Copyright (C) 2019 The PixelExperience Project
++ * Copyright (C) 2024-2025 crDroid Android Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package com.android.server.policy;
++
++import android.content.Context;
++import android.hardware.display.DisplayManager;
++import android.hardware.input.InputManager;
++import android.os.Handler;
++import android.os.Process;
++import android.util.DisplayMetrics;
++import android.util.Slog;
++import android.view.Display;
++import android.view.InputDevice;
++import android.view.InputEvent;
++import android.view.InputEventReceiver;
++import android.view.InputMonitor;
++import android.view.MotionEvent;
++
++import com.android.server.ServiceThread;
++
++/**
++ * Detects a three fingers swipe down on the default display.
++ */
++public class ThreeFingersSwipeListener {
++
++    private static final String TAG = "ThreeFingersSwipeListener";
++    private static final String MONITOR_NAME = "three-fingers-swipe";
++
++    private static final int THREE_GESTURE_STATE_NONE = 0;
++    private static final int THREE_GESTURE_STATE_DETECTING = 1;
++    private static final int THREE_GESTURE_STATE_DETECTED_FALSE = 2;
++    private static final int THREE_GESTURE_STATE_DETECTED_TRUE = 3;
++    private static final int THREE_GESTURE_STATE_NO_DETECT = 4;
++
++    private static final int MAX_CREATE_ATTEMPTS = 5;
++    private static final long CREATE_RETRY_DELAY_MS = 1000;
++
++    private final Context mContext;
++    private final Callbacks mCallbacks;
++    private final Handler mHandler;
++    private final DisplayManager mDisplayManager;
++    private final Runnable mCreateMonitorRunnable = this::createMonitor;
++
++    private final float[] mInitMotionY = new float[3];
++    private final int[] mPointerIds = new int[3];
++
++    private float mDensity;
++    private int mThreshold;
++    private int mThreeGestureThreshold;
++    private int mScreenHeight;
++    private int mScreenWidth;
++    private int mThreeGestureState = THREE_GESTURE_STATE_NONE;
++    private boolean mEnabled;
++    private int mCreateAttempts;
++    private InputMonitor mInputMonitor;
++    private InputEventReceiver mInputEventReceiver;
++    private boolean mDisplayListenerRegistered;
++    private boolean mLoggedCreate;
++
++    private final DisplayManager.DisplayListener mDisplayListener =
++            new DisplayManager.DisplayListener() {
++        @Override
++        public void onDisplayAdded(int displayId) {}
++
++        @Override
++        public void onDisplayRemoved(int displayId) {}
++
++        @Override
++        public void onDisplayChanged(int displayId) {
++            // Rotation, resolution switch or density change.
++            if (displayId == Display.DEFAULT_DISPLAY) {
++                updateDisplayMetrics();
++            }
++        }
++    };
++
++    public ThreeFingersSwipeListener(Context context, Callbacks callbacks) {
++        mCallbacks = callbacks;
++        mContext = context;
++        mDisplayManager = context.getSystemService(DisplayManager.class);
++        setMetrics(mContext.getResources().getDisplayMetrics());
++
++        ServiceThread thread = new ServiceThread(TAG,
++                Process.THREAD_PRIORITY_DISPLAY, false /* allowIo */);
++        thread.start();
++        mHandler = new Handler(thread.getLooper());
++    }
++
++    public void setEnabled(boolean enabled) {
++        mHandler.post(() -> setEnabledInternal(enabled));
++    }
++
++    public void refresh() {
++        mHandler.post(this::refreshInternal);
++    }
++
++    private void setEnabledInternal(boolean enabled) {
++        if (mEnabled == enabled) {
++            return;
++        }
++        mEnabled = enabled;
++        mHandler.removeCallbacks(mCreateMonitorRunnable);
++        mCreateAttempts = 0;
++        mThreeGestureState = THREE_GESTURE_STATE_NONE;
++        if (enabled) {
++            // Log the first successful creation; silent recreations on wake up are not logged.
++            mLoggedCreate = false;
++            registerDisplayListener();
++            createMonitor();
++        } else {
++            unregisterDisplayListener();
++            disposeMonitor();
++            Slog.i(TAG, "Input monitor disposed");
++        }
++    }
++
++    private void refreshInternal() {
++        if (!mEnabled) {
++            return;
++        }
++        mHandler.removeCallbacks(mCreateMonitorRunnable);
++        mCreateAttempts = 0;
++        mThreeGestureState = THREE_GESTURE_STATE_NONE;
++        disposeMonitor();
++        createMonitor();
++    }
++
++    private void createMonitor() {
++        if (!mEnabled || mInputMonitor != null) {
++            return;
++        }
++        try {
++            updateDisplayMetrics();
++
++            mInputMonitor = mContext.getSystemService(InputManager.class)
++                    .monitorGestureInput(MONITOR_NAME, Display.DEFAULT_DISPLAY);
++            mInputEventReceiver = new InputEventReceiver(
++                    mInputMonitor.getInputChannel(), mHandler.getLooper()) {
++                @Override
++                public void onInputEvent(InputEvent event) {
++                    try {
++                        if (event instanceof MotionEvent
++                                && event.isFromSource(InputDevice.SOURCE_TOUCHSCREEN)) {
++                            onPointerEvent((MotionEvent) event);
++                        }
++                    } finally {
++                        finishInputEvent(event, false /* handled */);
++                    }
++                }
++            };
++            if (mCreateAttempts > 0 || !mLoggedCreate) {
++                Slog.i(TAG, "Input monitor created, display " + mScreenWidth + "x"
++                        + mScreenHeight + " density " + mDensity);
++                mLoggedCreate = true;
++            }
++            mCreateAttempts = 0;
++        } catch (Exception e) {
++            disposeMonitor();
++            if (++mCreateAttempts < MAX_CREATE_ATTEMPTS) {
++                Slog.w(TAG, "Failed to create input monitor (attempt " + mCreateAttempts
++                        + "), retrying", e);
++                mHandler.postDelayed(mCreateMonitorRunnable,
++                        CREATE_RETRY_DELAY_MS * mCreateAttempts);
++            } else {
++                Slog.e(TAG, "Failed to create input monitor, giving up until next wake up",
++                        e);
++            }
++        }
++    }
++
++    private void disposeMonitor() {
++        if (mInputEventReceiver != null) {
++            mInputEventReceiver.dispose();
++            mInputEventReceiver = null;
++        }
++        if (mInputMonitor != null) {
++            mInputMonitor.dispose();
++            mInputMonitor = null;
++        }
++    }
++
++    private void registerDisplayListener() {
++        if (mDisplayListenerRegistered || mDisplayManager == null) {
++            return;
++        }
++        mDisplayManager.registerDisplayListener(mDisplayListener, mHandler,
++                DisplayManager.EVENT_TYPE_DISPLAY_CHANGED);
++        mDisplayListenerRegistered = true;
++    }
++
++    private void unregisterDisplayListener() {
++        if (!mDisplayListenerRegistered) {
++            return;
++        }
++        mDisplayManager.unregisterDisplayListener(mDisplayListener);
++        mDisplayListenerRegistered = false;
++    }
++
++    private void updateDisplayMetrics() {
++        final Display display = mDisplayManager != null
++                ? mDisplayManager.getDisplay(Display.DEFAULT_DISPLAY) : null;
++        if (display == null) {
++            return;
++        }
++        final DisplayMetrics metrics = new DisplayMetrics();
++        display.getRealMetrics(metrics);
++        setMetrics(metrics);
++    }
++
++    private void setMetrics(DisplayMetrics metrics) {
++        mDensity = metrics.density;
++        mThreshold = (int) (50.0f * mDensity);
++        mThreeGestureThreshold = mThreshold * 3;
++        mScreenHeight = metrics.heightPixels;
++        mScreenWidth = metrics.widthPixels;
++    }
++
++    private void onPointerEvent(MotionEvent event) {
++        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
++            changeThreeGestureState(THREE_GESTURE_STATE_NONE);
++        } else if (mThreeGestureState == THREE_GESTURE_STATE_NONE && event.getPointerCount() == 3) {
++            if (!mCallbacks.isSuppressed() && checkIsStartThreeGesture(event)) {
++                changeThreeGestureState(THREE_GESTURE_STATE_DETECTING);
++                for (int i = 0; i < 3; i++) {
++                    mPointerIds[i] = event.getPointerId(i);
++                    mInitMotionY[i] = event.getY(i);
++                }
++            } else {
++                changeThreeGestureState(THREE_GESTURE_STATE_NO_DETECT);
++            }
++        }
++        if (mThreeGestureState == THREE_GESTURE_STATE_DETECTING) {
++            if (event.getPointerCount() != 3) {
++                changeThreeGestureState(THREE_GESTURE_STATE_DETECTED_FALSE);
++                return;
++            }
++            if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
++                float distance = 0.0f;
++                for (int i = 0; i < 3; i++) {
++                    int index = event.findPointerIndex(mPointerIds[i]);
++                    if (index < 0 || index >= 3) {
++                        changeThreeGestureState(THREE_GESTURE_STATE_DETECTED_FALSE);
++                        return;
++                    }
++                    distance += event.getY(index) - mInitMotionY[i];
++                }
++                if (distance >= ((float) mThreeGestureThreshold)) {
++                    changeThreeGestureState(THREE_GESTURE_STATE_DETECTED_TRUE);
++                    mCallbacks.onSwipeThreeFingers();
++                }
++            }
++        }
++    }
++
++    private void changeThreeGestureState(int state) {
++        if (mThreeGestureState == state) {
++            return;
++        }
++        mThreeGestureState = state;
++        if (state == THREE_GESTURE_STATE_DETECTED_TRUE && mInputMonitor != null) {
++            mInputMonitor.pilferPointers();
++        }
++    }
++
++    private boolean checkIsStartThreeGesture(MotionEvent event) {
++        if (event.getEventTime() - event.getDownTime() > 500) {
++            return false;
++        }
++        float minX = Float.MAX_VALUE;
++        float maxX = -Float.MAX_VALUE;
++        float minY = Float.MAX_VALUE;
++        float maxY = -Float.MAX_VALUE;
++        for (int i = 0; i < event.getPointerCount(); i++) {
++            float x = event.getX(i);
++            float y = event.getY(i);
++            if (y > ((float) (mScreenHeight - mThreshold))) {
++                return false;
++            }
++            maxX = Math.max(maxX, x);
++            minX = Math.min(minX, x);
++            maxY = Math.max(maxY, y);
++            minY = Math.min(minY, y);
++        }
++        if (maxY - minY <= mDensity * 150.0f) {
++            return maxX - minX <= ((float) Math.min(mScreenWidth, mScreenHeight));
++        }
++        return false;
++    }
++
++    interface Callbacks {
++        boolean isSuppressed();
++        void onSwipeThreeFingers();
++    }
++}
+diff --git a/services/core/java/com/android/server/wm/GameSpaceService.java b/services/core/java/com/android/server/wm/GameSpaceService.java
+index d49dfc762f7f..a333a7122724 100644
+--- a/services/core/java/com/android/server/wm/GameSpaceService.java
++++ b/services/core/java/com/android/server/wm/GameSpaceService.java
+@@ -36,7 +36,7 @@ public final class GameSpaceService extends SystemService {
+     private final Handler mHandler;
+ 
+     private boolean mStarted;
+-    private String mCurrentGame;
++    private volatile String mCurrentGame;
+ 
+     public GameSpaceService(Context context) {
+         super(context);
+@@ -75,6 +75,10 @@ public final class GameSpaceService extends SystemService {
+         });
+     }
+ 
++    public boolean isGameActive() {
++        return mCurrentGame != null;
++    }
++
+     public void onAppFocusChanged(ActivityRecord record, Task task) {
+         if (record == null || record.packageName == null) {
+             return;
+-- 
+2.43.0
+

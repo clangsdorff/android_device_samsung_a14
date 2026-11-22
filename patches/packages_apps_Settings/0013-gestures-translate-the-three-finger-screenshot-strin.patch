@@ -1,0 +1,1097 @@
+From 5848eec46077e8c77a55f46d9cc11a55f707527f Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 22 Nov 2026 09:37:11 +0000
+Subject: [PATCH 13/13] gestures: translate the three finger screenshot strings
+
+the three finger screenshot toggle only shipped in english and
+turkish, so every other locale fell back to english.
+
+add translations for the same locales the double tap power strings
+cover.
+
+Change-Id: I7a48085bd2a28bb017fa24fa683a0d3bbed2da37
+---
+ res/values-af/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-am/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ar/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-as/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-az/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-b+sr+Latn/three_finger_screenshot_strings.xml | 5 +++++
+ res/values-be/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-bg/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-bn/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-bs/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ca/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-cs/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-da/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-de/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-el/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-en-rAU/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-en-rCA/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-en-rGB/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-en-rIN/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-es-rUS/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-es/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-et/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-eu/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-fa/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-fi/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-fr-rCA/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-fr/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-gl/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-gu/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-hi/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-hr/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-hu/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-hy/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-in/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-is/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-it/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-iw/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ja/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ka/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-kk/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-km/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-kn/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ko/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ky/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-lo/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-lt/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-lv/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-mk/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ml/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-mn/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-mr/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ms/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-my/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-nb/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ne/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-nl/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-or/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-pa/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-pl/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-pt-rBR/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-pt-rPT/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-pt/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ro/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ru/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-si/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-sk/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-sl/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-sq/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-sr/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-sv/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-sw/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ta/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-te/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-th/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-tl/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-uk/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-ur/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-uz/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-vi/three_finger_screenshot_strings.xml        | 5 +++++
+ res/values-zh-rCN/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-zh-rHK/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-zh-rTW/three_finger_screenshot_strings.xml    | 5 +++++
+ res/values-zu/three_finger_screenshot_strings.xml        | 5 +++++
+ 83 files changed, 415 insertions(+)
+ create mode 100644 res/values-af/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-am/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ar/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-as/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-az/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-b+sr+Latn/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-be/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-bg/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-bn/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-bs/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ca/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-cs/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-da/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-de/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-el/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-en-rAU/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-en-rCA/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-en-rGB/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-en-rIN/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-es-rUS/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-es/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-et/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-eu/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-fa/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-fi/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-fr-rCA/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-fr/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-gl/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-gu/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-hi/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-hr/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-hu/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-hy/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-in/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-is/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-it/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-iw/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ja/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ka/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-kk/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-km/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-kn/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ko/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ky/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-lo/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-lt/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-lv/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-mk/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ml/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-mn/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-mr/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ms/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-my/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-nb/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ne/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-nl/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-or/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-pa/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-pl/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-pt-rBR/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-pt-rPT/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-pt/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ro/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ru/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-si/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-sk/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-sl/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-sq/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-sr/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-sv/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-sw/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ta/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-te/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-th/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-tl/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-uk/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-ur/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-uz/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-vi/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-zh-rCN/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-zh-rHK/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-zh-rTW/three_finger_screenshot_strings.xml
+ create mode 100644 res/values-zu/three_finger_screenshot_strings.xml
+
+diff --git a/res/values-af/three_finger_screenshot_strings.xml b/res/values-af/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..599227b0023
+--- /dev/null
++++ b/res/values-af/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Drie-vinger-skermkiekie</string>
++    <string name="three_finger_screenshot_summary">Swiep met drie vingers af om ’n skermkiekie te neem. Werk nie terwyl ’n GameSpace-speletjie oop is nie.</string>
++</resources>
+diff --git a/res/values-am/three_finger_screenshot_strings.xml b/res/values-am/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..a688371413c
+--- /dev/null
++++ b/res/values-am/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">የሶስት ጣት ቅጽበታዊ ገጽ እይታ</string>
++    <string name="three_finger_screenshot_summary">ቅጽበታዊ ገጽ እይታ ለማንሳት በሦስት ጣቶች ወደ ታች ያንሸራትቱ። የGameSpace ጨዋታ ክፍት ሲሆን አይሰራም።</string>
++</resources>
+diff --git a/res/values-ar/three_finger_screenshot_strings.xml b/res/values-ar/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..de221846803
+--- /dev/null
++++ b/res/values-ar/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">لقطة شاشة بثلاثة أصابع</string>
++    <string name="three_finger_screenshot_summary">مرِّر لأسفل بثلاثة أصابع لالتقاط لقطة شاشة. لا تعمل أثناء فتح لعبة في GameSpace.</string>
++</resources>
+diff --git a/res/values-as/three_finger_screenshot_strings.xml b/res/values-as/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..e1ad8d239a7
+--- /dev/null
++++ b/res/values-as/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">তিনিটা আঙুলিৰে স্ক্ৰীনশ্বট</string>
++    <string name="three_finger_screenshot_summary">স্ক্ৰীনশ্বট ল’বলৈ তিনিটা আঙুলিৰে তললৈ ছোৱাইপ কৰক। GameSpace গেম খোলা থাকিলে কাম নকৰে।</string>
++</resources>
+diff --git a/res/values-az/three_finger_screenshot_strings.xml b/res/values-az/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..4a5ebec98ef
+--- /dev/null
++++ b/res/values-az/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Üç barmaqla skrinşot</string>
++    <string name="three_finger_screenshot_summary">Skrinşot çəkmək üçün üç barmaqla aşağı sürüşdürün. GameSpace oyunu açıq olduqda işləmir.</string>
++</resources>
+diff --git a/res/values-b+sr+Latn/three_finger_screenshot_strings.xml b/res/values-b+sr+Latn/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..745aafd120a
+--- /dev/null
++++ b/res/values-b+sr+Latn/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Snimak ekrana sa tri prsta</string>
++    <string name="three_finger_screenshot_summary">Prevucite nadole sa tri prsta da biste napravili snimak ekrana. Ne radi dok je otvorena GameSpace igra.</string>
++</resources>
+diff --git a/res/values-be/three_finger_screenshot_strings.xml b/res/values-be/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..cb05c6becee
+--- /dev/null
++++ b/res/values-be/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Здымак экрана трыма пальцамі</string>
++    <string name="three_finger_screenshot_summary">Правядзіце трыма пальцамі ўніз, каб зрабіць здымак экрана. Не працуе, пакуль адкрыта гульня ў GameSpace.</string>
++</resources>
+diff --git a/res/values-bg/three_finger_screenshot_strings.xml b/res/values-bg/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..875ed8e8ffa
+--- /dev/null
++++ b/res/values-bg/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Екранна снимка с три пръста</string>
++    <string name="three_finger_screenshot_summary">Плъзнете надолу с три пръста, за да направите екранна снимка. Не работи, докато е отворена игра в GameSpace.</string>
++</resources>
+diff --git a/res/values-bn/three_finger_screenshot_strings.xml b/res/values-bn/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..8ac029f0a47
+--- /dev/null
++++ b/res/values-bn/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">তিন আঙুলে স্ক্রিনশট</string>
++    <string name="three_finger_screenshot_summary">স্ক্রিনশট নিতে তিন আঙুল দিয়ে নিচে সোয়াইপ করুন। GameSpace গেম খোলা থাকলে কাজ করে না।</string>
++</resources>
+diff --git a/res/values-bs/three_finger_screenshot_strings.xml b/res/values-bs/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..515392e1915
+--- /dev/null
++++ b/res/values-bs/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Snimak ekrana s tri prsta</string>
++    <string name="three_finger_screenshot_summary">Prevucite prema dolje s tri prsta da napravite snimak ekrana. Ne radi dok je otvorena GameSpace igra.</string>
++</resources>
+diff --git a/res/values-ca/three_finger_screenshot_strings.xml b/res/values-ca/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..f3b8d50072c
+--- /dev/null
++++ b/res/values-ca/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captura de pantalla amb tres dits</string>
++    <string name="three_finger_screenshot_summary">Llisca cap avall amb tres dits per fer una captura de pantalla. No funciona mentre hi ha un joc de GameSpace obert.</string>
++</resources>
+diff --git a/res/values-cs/three_finger_screenshot_strings.xml b/res/values-cs/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..b947f92e9c3
+--- /dev/null
++++ b/res/values-cs/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Snímek obrazovky třemi prsty</string>
++    <string name="three_finger_screenshot_summary">Přejetím tří prstů dolů pořídíte snímek obrazovky. Nefunguje, když je otevřená hra v GameSpace.</string>
++</resources>
+diff --git a/res/values-da/three_finger_screenshot_strings.xml b/res/values-da/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..ad7c220876e
+--- /dev/null
++++ b/res/values-da/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Screenshot med tre fingre</string>
++    <string name="three_finger_screenshot_summary">Stryg ned med tre fingre for at tage et screenshot. Virker ikke, mens et GameSpace-spil er åbent.</string>
++</resources>
+diff --git a/res/values-de/three_finger_screenshot_strings.xml b/res/values-de/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..896fd6f826a
+--- /dev/null
++++ b/res/values-de/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Screenshot mit drei Fingern</string>
++    <string name="three_finger_screenshot_summary">Mit drei Fingern nach unten wischen, um einen Screenshot aufzunehmen. Funktioniert nicht, während ein GameSpace-Spiel geöffnet ist.</string>
++</resources>
+diff --git a/res/values-el/three_finger_screenshot_strings.xml b/res/values-el/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..32218ca1590
+--- /dev/null
++++ b/res/values-el/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Στιγμιότυπο οθόνης με τρία δάχτυλα</string>
++    <string name="three_finger_screenshot_summary">Σύρετε προς τα κάτω με τρία δάχτυλα για να τραβήξετε στιγμιότυπο οθόνης. Δεν λειτουργεί όταν είναι ανοιχτό ένα παιχνίδι του GameSpace.</string>
++</resources>
+diff --git a/res/values-en-rAU/three_finger_screenshot_strings.xml b/res/values-en-rAU/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..176e70fa8f2
+--- /dev/null
++++ b/res/values-en-rAU/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Three finger screenshot</string>
++    <string name="three_finger_screenshot_summary">Swipe down with three fingers to take a screenshot. Does not work while a GameSpace game is open.</string>
++</resources>
+diff --git a/res/values-en-rCA/three_finger_screenshot_strings.xml b/res/values-en-rCA/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..176e70fa8f2
+--- /dev/null
++++ b/res/values-en-rCA/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Three finger screenshot</string>
++    <string name="three_finger_screenshot_summary">Swipe down with three fingers to take a screenshot. Does not work while a GameSpace game is open.</string>
++</resources>
+diff --git a/res/values-en-rGB/three_finger_screenshot_strings.xml b/res/values-en-rGB/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..176e70fa8f2
+--- /dev/null
++++ b/res/values-en-rGB/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Three finger screenshot</string>
++    <string name="three_finger_screenshot_summary">Swipe down with three fingers to take a screenshot. Does not work while a GameSpace game is open.</string>
++</resources>
+diff --git a/res/values-en-rIN/three_finger_screenshot_strings.xml b/res/values-en-rIN/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..176e70fa8f2
+--- /dev/null
++++ b/res/values-en-rIN/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Three finger screenshot</string>
++    <string name="three_finger_screenshot_summary">Swipe down with three fingers to take a screenshot. Does not work while a GameSpace game is open.</string>
++</resources>
+diff --git a/res/values-es-rUS/three_finger_screenshot_strings.xml b/res/values-es-rUS/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..6ed48604ae2
+--- /dev/null
++++ b/res/values-es-rUS/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captura de pantalla con tres dedos</string>
++    <string name="three_finger_screenshot_summary">Desliza hacia abajo con tres dedos para tomar una captura de pantalla. No funciona mientras haya un juego de GameSpace abierto.</string>
++</resources>
+diff --git a/res/values-es/three_finger_screenshot_strings.xml b/res/values-es/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..113803c4d3f
+--- /dev/null
++++ b/res/values-es/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captura de pantalla con tres dedos</string>
++    <string name="three_finger_screenshot_summary">Desliza hacia abajo con tres dedos para hacer una captura de pantalla. No funciona mientras haya un juego de GameSpace abierto.</string>
++</resources>
+diff --git a/res/values-et/three_finger_screenshot_strings.xml b/res/values-et/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..828ca2f8273
+--- /dev/null
++++ b/res/values-et/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Kolme sõrmega ekraanipilt</string>
++    <string name="three_finger_screenshot_summary">Pühkige kolme sõrmega alla, et teha ekraanipilt. Ei tööta, kui GameSpace\'i mäng on avatud.</string>
++</resources>
+diff --git a/res/values-eu/three_finger_screenshot_strings.xml b/res/values-eu/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..254c8f651a8
+--- /dev/null
++++ b/res/values-eu/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Hiru hatzeko pantaila-argazkia</string>
++    <string name="three_finger_screenshot_summary">Pasatu hiru hatz behera pantaila-argazki bat ateratzeko. Ez dabil GameSpace jokoren bat irekita dagoenean.</string>
++</resources>
+diff --git a/res/values-fa/three_finger_screenshot_strings.xml b/res/values-fa/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..a94a4b87965
+--- /dev/null
++++ b/res/values-fa/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">نماگرفت با سه انگشت</string>
++    <string name="three_finger_screenshot_summary">برای گرفتن نماگرفت، با سه انگشت به پایین بکشید. وقتی بازی GameSpace باز است کار نمی‌کند.</string>
++</resources>
+diff --git a/res/values-fi/three_finger_screenshot_strings.xml b/res/values-fi/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..b06e04c2e03
+--- /dev/null
++++ b/res/values-fi/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Kolmen sormen kuvakaappaus</string>
++    <string name="three_finger_screenshot_summary">Ota kuvakaappaus pyyhkäisemällä kolmella sormella alas. Ei toimi, kun GameSpace-peli on auki.</string>
++</resources>
+diff --git a/res/values-fr-rCA/three_finger_screenshot_strings.xml b/res/values-fr-rCA/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..5e5ce2635b9
+--- /dev/null
++++ b/res/values-fr-rCA/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Capture d’écran à trois doigts</string>
++    <string name="three_finger_screenshot_summary">Balayez vers le bas avec trois doigts pour prendre une capture d’écran. Ne fonctionne pas lorsqu’un jeu GameSpace est ouvert.</string>
++</resources>
+diff --git a/res/values-fr/three_finger_screenshot_strings.xml b/res/values-fr/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..87606990094
+--- /dev/null
++++ b/res/values-fr/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Capture d’écran à trois doigts</string>
++    <string name="three_finger_screenshot_summary">Balayez vers le bas avec trois doigts pour effectuer une capture d’écran. Ne fonctionne pas lorsqu’un jeu GameSpace est ouvert.</string>
++</resources>
+diff --git a/res/values-gl/three_finger_screenshot_strings.xml b/res/values-gl/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..472928b4bf2
+--- /dev/null
++++ b/res/values-gl/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captura de pantalla con tres dedos</string>
++    <string name="three_finger_screenshot_summary">Pasa tres dedos cara abaixo para facer unha captura de pantalla. Non funciona mentres hai un xogo de GameSpace aberto.</string>
++</resources>
+diff --git a/res/values-gu/three_finger_screenshot_strings.xml b/res/values-gu/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..532ecd15444
+--- /dev/null
++++ b/res/values-gu/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">ત્રણ આંગળીથી સ્ક્રીનશૉટ</string>
++    <string name="three_finger_screenshot_summary">સ્ક્રીનશૉટ લેવા માટે ત્રણ આંગળીથી નીચે સ્વાઇપ કરો. GameSpace ગેમ ખુલ્લી હોય ત્યારે કામ કરતું નથી.</string>
++</resources>
+diff --git a/res/values-hi/three_finger_screenshot_strings.xml b/res/values-hi/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..6836219d3f0
+--- /dev/null
++++ b/res/values-hi/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">तीन उंगलियों से स्क्रीनशॉट</string>
++    <string name="three_finger_screenshot_summary">स्क्रीनशॉट लेने के लिए तीन उंगलियों से नीचे स्वाइप करें. GameSpace गेम खुला होने पर यह काम नहीं करता.</string>
++</resources>
+diff --git a/res/values-hr/three_finger_screenshot_strings.xml b/res/values-hr/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..5e46c782905
+--- /dev/null
++++ b/res/values-hr/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Snimka zaslona s tri prsta</string>
++    <string name="three_finger_screenshot_summary">Prijeđite prema dolje s tri prsta da biste snimili zaslon. Ne radi dok je otvorena igra u GameSpaceu.</string>
++</resources>
+diff --git a/res/values-hu/three_finger_screenshot_strings.xml b/res/values-hu/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..cafde090401
+--- /dev/null
++++ b/res/values-hu/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Képernyőkép három ujjal</string>
++    <string name="three_finger_screenshot_summary">Csúsztasson lefelé három ujjal képernyőkép készítéséhez. Nem működik, amíg egy GameSpace-játék meg van nyitva.</string>
++</resources>
+diff --git a/res/values-hy/three_finger_screenshot_strings.xml b/res/values-hy/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..275fdcd8715
+--- /dev/null
++++ b/res/values-hy/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Էկրանի պատկեր երեք մատով</string>
++    <string name="three_finger_screenshot_summary">Սահեցրեք երեք մատով ներքև՝ էկրանի պատկեր ստանալու համար։ Չի աշխատում, երբ GameSpace խաղ է բացված։</string>
++</resources>
+diff --git a/res/values-in/three_finger_screenshot_strings.xml b/res/values-in/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..3e3f443bb1a
+--- /dev/null
++++ b/res/values-in/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Screenshot tiga jari</string>
++    <string name="three_finger_screenshot_summary">Geser ke bawah dengan tiga jari untuk mengambil screenshot. Tidak berfungsi saat game GameSpace terbuka.</string>
++</resources>
+diff --git a/res/values-is/three_finger_screenshot_strings.xml b/res/values-is/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..6d7aea67acc
+--- /dev/null
++++ b/res/values-is/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Skjámynd með þremur fingrum</string>
++    <string name="three_finger_screenshot_summary">Strjúktu niður með þremur fingrum til að taka skjámynd. Virkar ekki á meðan GameSpace-leikur er opinn.</string>
++</resources>
+diff --git a/res/values-it/three_finger_screenshot_strings.xml b/res/values-it/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..e2c021e5135
+--- /dev/null
++++ b/res/values-it/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Screenshot con tre dita</string>
++    <string name="three_finger_screenshot_summary">Scorri verso il basso con tre dita per acquisire uno screenshot. Non funziona mentre è aperto un gioco di GameSpace.</string>
++</resources>
+diff --git a/res/values-iw/three_finger_screenshot_strings.xml b/res/values-iw/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..7145bf62e26
+--- /dev/null
++++ b/res/values-iw/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">צילום מסך בשלוש אצבעות</string>
++    <string name="three_finger_screenshot_summary">יש להחליק למטה בשלוש אצבעות כדי לצלם מסך. לא פועל כשמשחק של GameSpace פתוח.</string>
++</resources>
+diff --git a/res/values-ja/three_finger_screenshot_strings.xml b/res/values-ja/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..fcd320f81c9
+--- /dev/null
++++ b/res/values-ja/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">3本指でスクリーンショット</string>
++    <string name="three_finger_screenshot_summary">3本の指で下にスワイプしてスクリーンショットを撮影します。GameSpace のゲームを開いているときは使用できません。</string>
++</resources>
+diff --git a/res/values-ka/three_finger_screenshot_strings.xml b/res/values-ka/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..f5247b8a457
+--- /dev/null
++++ b/res/values-ka/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">სკრინშოტი სამი თითით</string>
++    <string name="three_finger_screenshot_summary">სკრინშოტის გადასაღებად გადაასრიალეთ სამი თითით ქვემოთ. არ მუშაობს, სანამ GameSpace-ის თამაში ღიაა.</string>
++</resources>
+diff --git a/res/values-kk/three_finger_screenshot_strings.xml b/res/values-kk/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..f62a21877c3
+--- /dev/null
++++ b/res/values-kk/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Үш саусақпен скриншот</string>
++    <string name="three_finger_screenshot_summary">Скриншот түсіру үшін үш саусақпен төмен сырғытыңыз. GameSpace ойыны ашық кезде жұмыс істемейді.</string>
++</resources>
+diff --git a/res/values-km/three_finger_screenshot_strings.xml b/res/values-km/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..ffd0b0de9a5
+--- /dev/null
++++ b/res/values-km/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">រូបថតអេក្រង់ដោយប្រើម្រាមដៃបី</string>
++    <string name="three_finger_screenshot_summary">អូសចុះក្រោមដោយប្រើម្រាមដៃបីដើម្បីថតអេក្រង់។ មិនដំណើរការទេនៅពេលហ្គេម GameSpace កំពុងបើក។</string>
++</resources>
+diff --git a/res/values-kn/three_finger_screenshot_strings.xml b/res/values-kn/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..9cb6a62a0cd
+--- /dev/null
++++ b/res/values-kn/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">ಮೂರು ಬೆರಳುಗಳ ಸ್ಕ್ರೀನ್‌ಶಾಟ್</string>
++    <string name="three_finger_screenshot_summary">ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ತೆಗೆದುಕೊಳ್ಳಲು ಮೂರು ಬೆರಳುಗಳಿಂದ ಕೆಳಗೆ ಸ್ವೈಪ್ ಮಾಡಿ. GameSpace ಗೇಮ್ ತೆರೆದಿರುವಾಗ ಕಾರ್ಯನಿರ್ವಹಿಸುವುದಿಲ್ಲ.</string>
++</resources>
+diff --git a/res/values-ko/three_finger_screenshot_strings.xml b/res/values-ko/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..f93a06728e9
+--- /dev/null
++++ b/res/values-ko/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">세 손가락 스크린샷</string>
++    <string name="three_finger_screenshot_summary">세 손가락으로 아래로 스와이프하여 스크린샷을 캡처합니다. GameSpace 게임이 열려 있는 동안에는 작동하지 않습니다.</string>
++</resources>
+diff --git a/res/values-ky/three_finger_screenshot_strings.xml b/res/values-ky/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..0c908cdf1d4
+--- /dev/null
++++ b/res/values-ky/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Үч манжа менен скриншот</string>
++    <string name="three_finger_screenshot_summary">Скриншот тартуу үчүн үч манжа менен ылдый сүрүңүз. GameSpace оюну ачык болгондо иштебейт.</string>
++</resources>
+diff --git a/res/values-lo/three_finger_screenshot_strings.xml b/res/values-lo/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..8ae8aee5d66
+--- /dev/null
++++ b/res/values-lo/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">ຖ່າຍພາບໜ້າຈໍດ້ວຍສາມນິ້ວ</string>
++    <string name="three_finger_screenshot_summary">ປັດລົງດ້ວຍສາມນິ້ວເພື່ອຖ່າຍພາບໜ້າຈໍ. ບໍ່ໃຊ້ງານໄດ້ໃນຂະນະທີ່ເກມ GameSpace ເປີດຢູ່.</string>
++</resources>
+diff --git a/res/values-lt/three_finger_screenshot_strings.xml b/res/values-lt/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..8dfc5d8342f
+--- /dev/null
++++ b/res/values-lt/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Ekrano kopija trimis pirštais</string>
++    <string name="three_finger_screenshot_summary">Perbraukite žemyn trimis pirštais, kad padarytumėte ekrano kopiją. Neveikia, kol atidarytas „GameSpace“ žaidimas.</string>
++</resources>
+diff --git a/res/values-lv/three_finger_screenshot_strings.xml b/res/values-lv/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..caf989d6fb5
+--- /dev/null
++++ b/res/values-lv/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Ekrānuzņēmums ar trim pirkstiem</string>
++    <string name="three_finger_screenshot_summary">Velciet uz leju ar trim pirkstiem, lai uzņemtu ekrānuzņēmumu. Nedarbojas, kamēr ir atvērta GameSpace spēle.</string>
++</resources>
+diff --git a/res/values-mk/three_finger_screenshot_strings.xml b/res/values-mk/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..9b347da2116
+--- /dev/null
++++ b/res/values-mk/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Слика од екранот со три прсти</string>
++    <string name="three_finger_screenshot_summary">Повлечете надолу со три прста за да направите слика од екранот. Не работи додека е отворена игра во GameSpace.</string>
++</resources>
+diff --git a/res/values-ml/three_finger_screenshot_strings.xml b/res/values-ml/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..63ee2dd30e0
+--- /dev/null
++++ b/res/values-ml/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">മൂന്ന് വിരൽ സ്‌ക്രീൻഷോട്ട്</string>
++    <string name="three_finger_screenshot_summary">സ്‌ക്രീൻഷോട്ട് എടുക്കാൻ മൂന്ന് വിരലുകൾ ഉപയോഗിച്ച് താഴേക്ക് സ്വൈപ്പ് ചെയ്യുക. GameSpace ഗെയിം തുറന്നിരിക്കുമ്പോൾ പ്രവർത്തിക്കില്ല.</string>
++</resources>
+diff --git a/res/values-mn/three_finger_screenshot_strings.xml b/res/values-mn/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..23489419949
+--- /dev/null
++++ b/res/values-mn/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Гурван хуруугаар дэлгэцийн агшин</string>
++    <string name="three_finger_screenshot_summary">Дэлгэцийн агшин авахын тулд гурван хуруугаар доош шудрана уу. GameSpace тоглоом нээлттэй үед ажиллахгүй.</string>
++</resources>
+diff --git a/res/values-mr/three_finger_screenshot_strings.xml b/res/values-mr/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..a86be66ce93
+--- /dev/null
++++ b/res/values-mr/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">तीन बोटांनी स्क्रीनशॉट</string>
++    <string name="three_finger_screenshot_summary">स्क्रीनशॉट घेण्यासाठी तीन बोटांनी खाली स्वाइप करा. GameSpace गेम उघडलेला असताना काम करत नाही.</string>
++</resources>
+diff --git a/res/values-ms/three_finger_screenshot_strings.xml b/res/values-ms/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..fc25e6b8de8
+--- /dev/null
++++ b/res/values-ms/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Tangkapan skrin tiga jari</string>
++    <string name="three_finger_screenshot_summary">Leret ke bawah dengan tiga jari untuk mengambil tangkapan skrin. Tidak berfungsi semasa permainan GameSpace dibuka.</string>
++</resources>
+diff --git a/res/values-my/three_finger_screenshot_strings.xml b/res/values-my/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..900eb9ebde4
+--- /dev/null
++++ b/res/values-my/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">လက်သုံးချောင်းဖြင့် ဖန်သားပြင်ဓာတ်ပုံ</string>
++    <string name="three_finger_screenshot_summary">ဖန်သားပြင်ဓာတ်ပုံရိုက်ရန် လက်သုံးချောင်းဖြင့် အောက်သို့ ပွတ်ဆွဲပါ။ GameSpace ဂိမ်း ဖွင့်ထားစဉ် အလုပ်မလုပ်ပါ။</string>
++</resources>
+diff --git a/res/values-nb/three_finger_screenshot_strings.xml b/res/values-nb/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..288a0060e1b
+--- /dev/null
++++ b/res/values-nb/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Skjermdump med tre fingre</string>
++    <string name="three_finger_screenshot_summary">Sveip ned med tre fingre for å ta et skjermdump. Fungerer ikke mens et GameSpace-spill er åpent.</string>
++</resources>
+diff --git a/res/values-ne/three_finger_screenshot_strings.xml b/res/values-ne/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..b31f8f38acf
+--- /dev/null
++++ b/res/values-ne/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">तीन औंलाले स्क्रिनसट</string>
++    <string name="three_finger_screenshot_summary">स्क्रिनसट लिन तीन औंलाले तल स्वाइप गर्नुहोस्। GameSpace खेल खुला हुँदा काम गर्दैन।</string>
++</resources>
+diff --git a/res/values-nl/three_finger_screenshot_strings.xml b/res/values-nl/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..e88bd0127d9
+--- /dev/null
++++ b/res/values-nl/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Screenshot met drie vingers</string>
++    <string name="three_finger_screenshot_summary">Veeg met drie vingers omlaag om een screenshot te maken. Werkt niet terwijl een GameSpace-game is geopend.</string>
++</resources>
+diff --git a/res/values-or/three_finger_screenshot_strings.xml b/res/values-or/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..99870163aae
+--- /dev/null
++++ b/res/values-or/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">ତିନି ଆଙ୍ଗୁଠିରେ ସ୍କ୍ରିନସଟ୍</string>
++    <string name="three_finger_screenshot_summary">ସ୍କ୍ରିନସଟ୍ ନେବାକୁ ତିନି ଆଙ୍ଗୁଠିରେ ତଳକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ। GameSpace ଗେମ୍ ଖୋଲା ଥିବାବେଳେ କାମ କରେ ନାହିଁ।</string>
++</resources>
+diff --git a/res/values-pa/three_finger_screenshot_strings.xml b/res/values-pa/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..57ad2225df3
+--- /dev/null
++++ b/res/values-pa/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">ਤਿੰਨ ਉਂਗਲਾਂ ਨਾਲ ਸਕ੍ਰੀਨਸ਼ਾਟ</string>
++    <string name="three_finger_screenshot_summary">ਸਕ੍ਰੀਨਸ਼ਾਟ ਲੈਣ ਲਈ ਤਿੰਨ ਉਂਗਲਾਂ ਨਾਲ ਹੇਠਾਂ ਸਵਾਈਪ ਕਰੋ। GameSpace ਗੇਮ ਖੁੱਲ੍ਹੀ ਹੋਣ \'ਤੇ ਕੰਮ ਨਹੀਂ ਕਰਦਾ।</string>
++</resources>
+diff --git a/res/values-pl/three_finger_screenshot_strings.xml b/res/values-pl/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..881dd9ef4cb
+--- /dev/null
++++ b/res/values-pl/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Zrzut ekranu trzema palcami</string>
++    <string name="three_finger_screenshot_summary">Przesuń trzema palcami w dół, aby zrobić zrzut ekranu. Nie działa, gdy jest otwarta gra w GameSpace.</string>
++</resources>
+diff --git a/res/values-pt-rBR/three_finger_screenshot_strings.xml b/res/values-pt-rBR/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..4c0e36fbec5
+--- /dev/null
++++ b/res/values-pt-rBR/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captura de tela com três dedos</string>
++    <string name="three_finger_screenshot_summary">Deslize para baixo com três dedos para fazer uma captura de tela. Não funciona enquanto um jogo do GameSpace estiver aberto.</string>
++</resources>
+diff --git a/res/values-pt-rPT/three_finger_screenshot_strings.xml b/res/values-pt-rPT/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..0c6bdda4065
+--- /dev/null
++++ b/res/values-pt-rPT/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captura de ecrã com três dedos</string>
++    <string name="three_finger_screenshot_summary">Deslize para baixo com três dedos para fazer uma captura de ecrã. Não funciona enquanto um jogo do GameSpace estiver aberto.</string>
++</resources>
+diff --git a/res/values-pt/three_finger_screenshot_strings.xml b/res/values-pt/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..4c0e36fbec5
+--- /dev/null
++++ b/res/values-pt/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captura de tela com três dedos</string>
++    <string name="three_finger_screenshot_summary">Deslize para baixo com três dedos para fazer uma captura de tela. Não funciona enquanto um jogo do GameSpace estiver aberto.</string>
++</resources>
+diff --git a/res/values-ro/three_finger_screenshot_strings.xml b/res/values-ro/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..737be671163
+--- /dev/null
++++ b/res/values-ro/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Captură de ecran cu trei degete</string>
++    <string name="three_finger_screenshot_summary">Glisați în jos cu trei degete pentru a face o captură de ecran. Nu funcționează cât timp este deschis un joc din GameSpace.</string>
++</resources>
+diff --git a/res/values-ru/three_finger_screenshot_strings.xml b/res/values-ru/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..425237b0aae
+--- /dev/null
++++ b/res/values-ru/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Снимок экрана тремя пальцами</string>
++    <string name="three_finger_screenshot_summary">Проведите тремя пальцами вниз, чтобы сделать снимок экрана. Не работает, пока открыта игра в GameSpace.</string>
++</resources>
+diff --git a/res/values-si/three_finger_screenshot_strings.xml b/res/values-si/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..1b5e8c9eb0c
+--- /dev/null
++++ b/res/values-si/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">ඇඟිලි තුනකින් තිර රූපය</string>
++    <string name="three_finger_screenshot_summary">තිර රූපයක් ගැනීමට ඇඟිලි තුනකින් පහළට ස්වයිප් කරන්න. GameSpace ක්‍රීඩාවක් විවෘතව ඇති විට ක්‍රියා නොකරයි.</string>
++</resources>
+diff --git a/res/values-sk/three_finger_screenshot_strings.xml b/res/values-sk/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..7c955c6fcdf
+--- /dev/null
++++ b/res/values-sk/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Snímka obrazovky tromi prstami</string>
++    <string name="three_finger_screenshot_summary">Potiahnutím troch prstov nadol vytvoríte snímku obrazovky. Nefunguje, keď je otvorená hra v GameSpace.</string>
++</resources>
+diff --git a/res/values-sl/three_finger_screenshot_strings.xml b/res/values-sl/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..51653c50c23
+--- /dev/null
++++ b/res/values-sl/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Posnetek zaslona s tremi prsti</string>
++    <string name="three_finger_screenshot_summary">Povlecite s tremi prsti navzdol, da naredite posnetek zaslona. Ne deluje, ko je odprta igra v GameSpaceu.</string>
++</resources>
+diff --git a/res/values-sq/three_finger_screenshot_strings.xml b/res/values-sq/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..1b09920bb7f
+--- /dev/null
++++ b/res/values-sq/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Pamja e ekranit me tre gishta</string>
++    <string name="three_finger_screenshot_summary">Rrëshqit poshtë me tre gishta për të marrë pamjen e ekranit. Nuk funksionon ndërsa një lojë e GameSpace është e hapur.</string>
++</resources>
+diff --git a/res/values-sr/three_finger_screenshot_strings.xml b/res/values-sr/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..55409a58d1f
+--- /dev/null
++++ b/res/values-sr/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Снимак екрана са три прста</string>
++    <string name="three_finger_screenshot_summary">Превуците надоле са три прста да бисте направили снимак екрана. Не ради док је отворена GameSpace игра.</string>
++</resources>
+diff --git a/res/values-sv/three_finger_screenshot_strings.xml b/res/values-sv/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..65c9d580fc1
+--- /dev/null
++++ b/res/values-sv/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Skärmbild med tre fingrar</string>
++    <string name="three_finger_screenshot_summary">Svep nedåt med tre fingrar för att ta en skärmbild. Fungerar inte medan ett GameSpace-spel är öppet.</string>
++</resources>
+diff --git a/res/values-sw/three_finger_screenshot_strings.xml b/res/values-sw/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..55fc7069ced
+--- /dev/null
++++ b/res/values-sw/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Picha ya skrini kwa vidole vitatu</string>
++    <string name="three_finger_screenshot_summary">Telezesha chini kwa vidole vitatu ili upige picha ya skrini. Haifanyi kazi wakati mchezo wa GameSpace umefunguliwa.</string>
++</resources>
+diff --git a/res/values-ta/three_finger_screenshot_strings.xml b/res/values-ta/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..82fe7990b5c
+--- /dev/null
++++ b/res/values-ta/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">மூன்று விரல் ஸ்கிரீன்ஷாட்</string>
++    <string name="three_finger_screenshot_summary">ஸ்கிரீன்ஷாட் எடுக்க மூன்று விரல்களால் கீழே ஸ்வைப் செய்யவும். GameSpace கேம் திறந்திருக்கும்போது இது வேலை செய்யாது.</string>
++</resources>
+diff --git a/res/values-te/three_finger_screenshot_strings.xml b/res/values-te/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..16cb45386aa
+--- /dev/null
++++ b/res/values-te/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">మూడు వేళ్లతో స్క్రీన్‌షాట్</string>
++    <string name="three_finger_screenshot_summary">స్క్రీన్‌షాట్ తీయడానికి మూడు వేళ్లతో కిందికి స్వైప్ చేయండి. GameSpace గేమ్ తెరిచి ఉన్నప్పుడు పని చేయదు.</string>
++</resources>
+diff --git a/res/values-th/three_finger_screenshot_strings.xml b/res/values-th/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..a85a45de89b
+--- /dev/null
++++ b/res/values-th/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">ภาพหน้าจอด้วยสามนิ้ว</string>
++    <string name="three_finger_screenshot_summary">ปัดลงด้วยสามนิ้วเพื่อจับภาพหน้าจอ ไม่ทำงานขณะที่เกม GameSpace เปิดอยู่</string>
++</resources>
+diff --git a/res/values-tl/three_finger_screenshot_strings.xml b/res/values-tl/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..730185a9c81
+--- /dev/null
++++ b/res/values-tl/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Screenshot gamit ang tatlong daliri</string>
++    <string name="three_finger_screenshot_summary">Mag-swipe pababa gamit ang tatlong daliri para kumuha ng screenshot. Hindi gumagana habang bukas ang isang laro sa GameSpace.</string>
++</resources>
+diff --git a/res/values-uk/three_finger_screenshot_strings.xml b/res/values-uk/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..fe51cc4a904
+--- /dev/null
++++ b/res/values-uk/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Знімок екрана трьома пальцями</string>
++    <string name="three_finger_screenshot_summary">Проведіть трьома пальцями вниз, щоб зробити знімок екрана. Не працює, поки відкрито гру в GameSpace.</string>
++</resources>
+diff --git a/res/values-ur/three_finger_screenshot_strings.xml b/res/values-ur/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..450f1ab4d7e
+--- /dev/null
++++ b/res/values-ur/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">تین انگلیوں سے اسکرین شاٹ</string>
++    <string name="three_finger_screenshot_summary">اسکرین شاٹ لینے کے لیے تین انگلیوں سے نیچے سوائپ کریں۔ GameSpace گیم کھلی ہونے پر کام نہیں کرتا۔</string>
++</resources>
+diff --git a/res/values-uz/three_finger_screenshot_strings.xml b/res/values-uz/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..8c16d92c09a
+--- /dev/null
++++ b/res/values-uz/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Uch barmoq bilan skrinshot</string>
++    <string name="three_finger_screenshot_summary">Skrinshot olish uchun uchta barmoq bilan pastga suring. GameSpace o‘yini ochiq bo‘lganda ishlamaydi.</string>
++</resources>
+diff --git a/res/values-vi/three_finger_screenshot_strings.xml b/res/values-vi/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..733d232dba8
+--- /dev/null
++++ b/res/values-vi/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Chụp ảnh màn hình bằng ba ngón tay</string>
++    <string name="three_finger_screenshot_summary">Vuốt xuống bằng ba ngón tay để chụp ảnh màn hình. Không hoạt động khi đang mở trò chơi trong GameSpace.</string>
++</resources>
+diff --git a/res/values-zh-rCN/three_finger_screenshot_strings.xml b/res/values-zh-rCN/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..bd15461f565
+--- /dev/null
++++ b/res/values-zh-rCN/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">三指截屏</string>
++    <string name="three_finger_screenshot_summary">用三根手指向下滑动即可截屏。打开 GameSpace 游戏时无法使用。</string>
++</resources>
+diff --git a/res/values-zh-rHK/three_finger_screenshot_strings.xml b/res/values-zh-rHK/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..55972ae4dec
+--- /dev/null
++++ b/res/values-zh-rHK/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">三指螢幕截圖</string>
++    <string name="three_finger_screenshot_summary">用三隻手指向下滑動即可擷取螢幕截圖。開啟 GameSpace 遊戲時無法使用。</string>
++</resources>
+diff --git a/res/values-zh-rTW/three_finger_screenshot_strings.xml b/res/values-zh-rTW/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..02b711b2c2a
+--- /dev/null
++++ b/res/values-zh-rTW/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">三指截圖</string>
++    <string name="three_finger_screenshot_summary">用三指向下滑動即可擷取螢幕畫面。開啟 GameSpace 遊戲時無法使用。</string>
++</resources>
+diff --git a/res/values-zu/three_finger_screenshot_strings.xml b/res/values-zu/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..0bb772bfa3a
+--- /dev/null
++++ b/res/values-zu/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Isithombe-skrini ngeminwe emithathu</string>
++    <string name="three_finger_screenshot_summary">Swayipha ushise ngeminwe emithathu ukuze uthathe isithombe-skrini. Ayisebenzi ngenkathi umdlalo we-GameSpace uvuliwe.</string>
++</resources>
+-- 
+2.43.0
+

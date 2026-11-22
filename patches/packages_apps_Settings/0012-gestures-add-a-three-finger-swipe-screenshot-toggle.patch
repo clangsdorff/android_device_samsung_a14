@@ -1,0 +1,112 @@
+From 4765b3f3aef1e96e37ac2eb1dd6f47494d6088db Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 22 Nov 2026 09:35:05 +0000
+Subject: [PATCH 12/13] gestures: add a three finger swipe screenshot toggle
+
+there was no way to take a screenshot with a touchscreen gesture.
+
+add a switch under gestures that writes the three_finger_screenshot
+secure setting read by phonewindowmanager. off by default.
+
+Change-Id: I50bbd7726b4870eb0ad2aa75467cf0ec3c06c807
+---
+ .../three_finger_screenshot_strings.xml       |  5 +++
+ .../three_finger_screenshot_strings.xml       |  5 +++
+ res/xml/gestures.xml                          |  6 +++
+ ...eFingerScreenshotPreferenceController.java | 43 +++++++++++++++++++
+ 4 files changed, 59 insertions(+)
+ create mode 100644 res/values-tr/three_finger_screenshot_strings.xml
+ create mode 100644 res/values/three_finger_screenshot_strings.xml
+ create mode 100644 src/com/android/settings/gestures/ThreeFingerScreenshotPreferenceController.java
+
+diff --git a/res/values-tr/three_finger_screenshot_strings.xml b/res/values-tr/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..b8b9abae19b
+--- /dev/null
++++ b/res/values-tr/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Üç parmakla ekran görüntüsü</string>
++    <string name="three_finger_screenshot_summary">Ekran görüntüsü almak için üç parmakla aşağı kaydırın. GameSpace oyunu açıkken çalışmaz.</string>
++</resources>
+diff --git a/res/values/three_finger_screenshot_strings.xml b/res/values/three_finger_screenshot_strings.xml
+new file mode 100644
+index 00000000000..176e70fa8f2
+--- /dev/null
++++ b/res/values/three_finger_screenshot_strings.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++    <string name="three_finger_screenshot_title">Three finger screenshot</string>
++    <string name="three_finger_screenshot_summary">Swipe down with three fingers to take a screenshot. Does not work while a GameSpace game is open.</string>
++</resources>
+diff --git a/res/xml/gestures.xml b/res/xml/gestures.xml
+index 2b18c0cf06e..d0d7a3ee020 100644
+--- a/res/xml/gestures.xml
++++ b/res/xml/gestures.xml
+@@ -76,6 +76,12 @@
+         settings:searchable="false"
+         settings:controller="com.android.settings.gestures.PickupGesturePreferenceController" />
+ 
++    <SwitchPreferenceCompat
++        android:key="gesture_three_finger_screenshot"
++        android:title="@string/three_finger_screenshot_title"
++        android:summary="@string/three_finger_screenshot_summary"
++        settings:controller="com.android.settings.gestures.ThreeFingerScreenshotPreferenceController" />
++
+     <Preference
+         android:key="gesture_power_menu_summary"
+         android:title="@string/power_menu_setting_name"
+diff --git a/src/com/android/settings/gestures/ThreeFingerScreenshotPreferenceController.java b/src/com/android/settings/gestures/ThreeFingerScreenshotPreferenceController.java
+new file mode 100644
+index 00000000000..90c88afb28e
+--- /dev/null
++++ b/src/com/android/settings/gestures/ThreeFingerScreenshotPreferenceController.java
+@@ -0,0 +1,43 @@
++/*
++ * SPDX-FileCopyrightText: 2026 Langsdorff
++ * SPDX-License-Identifier: Apache-2.0
++ */
++
++package com.android.settings.gestures;
++
++import android.content.Context;
++import android.provider.Settings;
++
++import com.android.settings.R;
++import com.android.settings.core.TogglePreferenceController;
++
++public class ThreeFingerScreenshotPreferenceController extends TogglePreferenceController {
++
++    private static final String THREE_FINGER_SCREENSHOT = "three_finger_screenshot";
++
++    public ThreeFingerScreenshotPreferenceController(Context context, String key) {
++        super(context, key);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public boolean isChecked() {
++        return Settings.Secure.getInt(mContext.getContentResolver(),
++                THREE_FINGER_SCREENSHOT, 0) == 1;
++    }
++
++    @Override
++    public boolean setChecked(boolean isChecked) {
++        return Settings.Secure.putInt(mContext.getContentResolver(),
++                THREE_FINGER_SCREENSHOT, isChecked ? 1 : 0);
++    }
++
++    @Override
++    public int getSliceHighlightMenuRes() {
++        return R.string.menu_key_system;
++    }
++}
+-- 
+2.43.0
+
