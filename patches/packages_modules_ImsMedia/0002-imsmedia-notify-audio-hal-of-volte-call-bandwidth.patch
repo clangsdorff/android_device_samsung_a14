@@ -1,0 +1,152 @@
+From 35da82f732379eb20a8fd15e0422425a53942140 Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Sun, 22 Nov 2026 17:15:28 +0300
+Subject: [PATCH 2/2] imsmedia: notify audio hal of volte call bandwidth
+
+the stock samsung audio hal defaults call bandwidth to narrowband
+(8 khz) and clamps super-wideband unless volte status is set, so
+ap-based imsmedia calls run the dsp tx/rx voice processing at 8 khz
+even when amr-wb or evs is negotiated.
+
+pass g_call_state and g_call_band to AudioManager when local imsmedia
+audio sessions open, change config, or close so the hal selects the
+matching wideband or super-wideband call path.
+---
+ .../telephony/imsmedia/AudioSession.java      | 64 +++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+
+diff --git a/service/src/com/android/telephony/imsmedia/AudioSession.java b/service/src/com/android/telephony/imsmedia/AudioSession.java
+index d53565b..4c8e47d 100644
+--- a/service/src/com/android/telephony/imsmedia/AudioSession.java
++++ b/service/src/com/android/telephony/imsmedia/AudioSession.java
+@@ -16,7 +16,9 @@
+ 
+ package com.android.telephony.imsmedia;
+ 
++import android.content.Context;
+ import android.hardware.radio.ims.media.IImsMediaSession;
++import android.media.AudioManager;
+ import android.os.Handler;
+ import android.os.Looper;
+ import android.os.Message;
+@@ -32,6 +34,7 @@ import android.telephony.imsmedia.MediaQualityStatus;
+ import android.telephony.imsmedia.MediaQualityThreshold;
+ import android.telephony.imsmedia.RtpConfig;
+ import android.telephony.imsmedia.RtpReceptionStats;
++import android.util.SparseArray;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+@@ -78,6 +81,9 @@ public final class AudioSession extends IImsAudioSession.Stub implements IMediaS
+     public static final int EVENT_NOTIFY_RECEPTION_STATS = 213;
+ 
+     private static final int DTMF_DEFAULT_DURATION = 140;
++    private static final int CALL_STATE_VOLTE_VOICE = 0x200;
++    private static final int CALL_STATE_VOLTE_END = 0x100;
++    private static final SparseArray<String> sActiveCallBands = new SparseArray<>();
+ 
+     private int mSessionId;
+     private AudioOffloadService mOffloadService;
+@@ -251,6 +257,57 @@ public final class AudioSession extends IImsAudioSession.Stub implements IMediaS
+         return mIsAudioOffload;
+     }
+ 
++    private static String getCallBand(final AudioConfig config) {
++        final int samplingRateKHz = config.getSamplingRateKHz();
++        if (samplingRateKHz >= 32) {
++            return "swb";
++        }
++        if (samplingRateKHz >= 16 || config.getCodecType() == AudioConfig.CODEC_AMR_WB) {
++            return "wb";
++        }
++        return "nb";
++    }
++
++    private static void setAudioHalParameters(final String params) {
++        final Context context = ImsMediaApplication.getAppContext();
++        if (context == null) {
++            return;
++        }
++        final AudioManager audioManager = context.getSystemService(AudioManager.class);
++        if (audioManager == null) {
++            return;
++        }
++        Log.d(TAG, "setAudioHalParameters: " + params);
++        audioManager.setParameters(params);
++    }
++
++    private void updateCallBand(final RtpConfig config) {
++        if (!(config instanceof AudioConfig)) {
++            return;
++        }
++        final String band = getCallBand((AudioConfig) config);
++        synchronized (sActiveCallBands) {
++            sActiveCallBands.put(mSessionId, band);
++        }
++        setAudioHalParameters("g_call_state=" + CALL_STATE_VOLTE_VOICE + ";g_call_band=" + band);
++    }
++
++    private void clearCallBand() {
++        final String remainingBand;
++        synchronized (sActiveCallBands) {
++            sActiveCallBands.remove(mSessionId);
++            remainingBand = sActiveCallBands.size() > 0
++                    ? sActiveCallBands.valueAt(sActiveCallBands.size() - 1)
++                    : null;
++        }
++        if (remainingBand != null) {
++            setAudioHalParameters(
++                    "g_call_state=" + CALL_STATE_VOLTE_VOICE + ";g_call_band=" + remainingBand);
++        } else {
++            setAudioHalParameters("g_call_state=" + CALL_STATE_VOLTE_END + ";g_call_band=nb");
++        }
++    }
++
+     /**
+      * Audio session message mHandler
+      */
+@@ -350,6 +407,7 @@ public final class AudioSession extends IImsAudioSession.Stub implements IMediaS
+         if (isAudioOffload()) {
+             mOffloadService.openSession(mSessionId, sessionParams);
+         } else {
++            updateCallBand(sessionParams.getRtpConfig());
+             mAudioListener.setMediaCallback(sessionParams.getCallback());
+             int result = mAudioService.openSession(mSessionId, sessionParams);
+             if (result != ImsMediaSession.RESULT_SUCCESS) {
+@@ -362,6 +420,7 @@ public final class AudioSession extends IImsAudioSession.Stub implements IMediaS
+         if (isAudioOffload()) {
+             mOffloadService.closeSession(mSessionId);
+         } else {
++            clearCallBand();
+             mAudioService.closeSession(mSessionId);
+         }
+     }
+@@ -374,6 +433,7 @@ public final class AudioSession extends IImsAudioSession.Stub implements IMediaS
+                 Log.e(TAG, "Exception occurred in modifySession", e);
+             }
+         } else {
++            updateCallBand(config);
+             mLocalSession.modifySession(config);
+         }
+     }
+@@ -398,6 +458,7 @@ public final class AudioSession extends IImsAudioSession.Stub implements IMediaS
+ 
+     private void handleConfirmConfig(AudioConfig config) {
+         if (!isAudioOffload()) {
++            updateCallBand(config);
+             mLocalSession.confirmConfig(config);
+         }
+     }
+@@ -506,6 +567,9 @@ public final class AudioSession extends IImsAudioSession.Stub implements IMediaS
+         }  catch (RemoteException e) {
+             Log.e(TAG, "Failed to notify openFailure: " + e);
+         } finally {
++            if (!isAudioOffload()) {
++                clearCallBand();
++            }
+             WakeLockManager.getInstance().manageWakeLockOnMediaDirectionUpdate(
+                     mSessionId, RtpConfig.MEDIA_DIRECTION_NO_FLOW);
+         }
+-- 
+2.56.0
+
