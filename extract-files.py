@@ -63,6 +63,11 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
     'vendor/etc/init/android.hardware.security.keymint-service.samsung.rc': blob_fixup()
         .regex_replace('(?m)keymint-service$', 'keymint-service.samsung'),
+    # drop back mic so camcorder falls back to builtin mic and uses camcorder-dualmic
+    'vendor/etc/audio_policy_configuration.xml': blob_fixup()
+        .regex_replace('(?m)^[ \t]*<item>Built-In Back Mic</item>\n', '')
+        .regex_replace('(?m)^[ \t]*<devicePort tagName="Built-In Back Mic"[\\s\\S]*?</devicePort>\n', '')
+        .regex_replace(',Built-In Back Mic', ''),
     # route call txse output to ap capture for generic-ims and keep oem txse enabled during calls
     'vendor/etc/mixer_paths.xml': blob_fixup()
         .regex_replace(
