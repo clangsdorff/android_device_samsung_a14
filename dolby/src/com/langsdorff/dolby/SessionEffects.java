@@ -5,7 +5,10 @@
 
 package com.langsdorff.dolby;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioDeviceCallback;
@@ -57,6 +60,10 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
 
     private static final int PARAM_BAND_LEVEL = 2;
 
+    // AudioManager.VOLUME_CHANGED_ACTION and EXTRA_VOLUME_STREAM_TYPE are @hide
+    private static final String ACTION_VOLUME_CHANGED = "android.media.VOLUME_CHANGED_ACTION";
+    private static final String EXTRA_VOLUME_STREAM_TYPE = "android.media.EXTRA_VOLUME_STREAM_TYPE";
+
     // stock SoundAlive_V app tables, index is the preset id
     private static final short[][] BANDS_SPEAKER = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -93,12 +100,32 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
         {9000.0f, 2.5f},
         {20000.0f, -1.5f},
     };
-    private static final float[][] SPEAKER_MBC = {
-        {250.0f, 10.0f, 150.0f, 4.0f, -16.0f, 6.0f, -90.0f, 1.0f, 0.0f, 0.0f},
-        {2200.0f, 25.0f, 150.0f, 2.5f, -11.0f, 6.0f, -90.0f, 1.0f, 0.0f, 0.0f},
-        {20000.0f, 25.0f, 150.0f, 2.5f, -12.0f, 6.0f, -90.0f, 1.0f, 0.0f, 0.0f},
+    // stock lib_SoundBooster_ver1100 FFT_MB: 512 point fft at 48 kHz, crossovers are the band window overlaps
+    private static final float[] SPEAKER_MBC_CUTOFF = {
+        375.0f, 656.0f, 937.0f, 1219.0f, 1781.0f, 3000.0f, 4969.0f, 7031.0f, 9000.0f, 10969.0f, 24000.0f,
     };
-    private static final DynamicsProcessing.Config SPEAKER_CONFIG = buildSpeakerConfig();
+    private static final float[] SPEAKER_MBC_ATTACK = {10, 10, 10, 10, 10, 25, 25, 25, 25, 25, 25};
+    private static final float SPEAKER_MBC_RELEASE = 150.0f;
+    // SoundBoosterParam.txt AMA..AME, per band boost and output ceiling in dB
+    private static final float[][] SPEAKER_MBC_GAIN = {
+        {5, 10, 9, 1, 0, 2, 3, 2, 6, 8, 7},
+        {5, 10, 9, 1, 0, 2, 3, 2, 6, 8, 7},
+        {4, 9, 8, 0, 0, 2, 3, 2, 5, 6, 5},
+        {3, 8, 7, 0, 0, 2, 3, 2, 4, 5, 4},
+        {2, 8, 6, 0, 0, 2, 3, 2, 3, 4, 3},
+    };
+    private static final float[][] SPEAKER_MBC_CEILING = {
+        {-10, -8, -9, -16, -17, -8, -8, -13, -10, -7, -11},
+        {-10, -8, -9, -16, -17, -8, -8, -13, -10, -7, -11},
+        {-10, -8, -9, -16, -17, -8, -8, -13, -10, -7, -11},
+        {-10, -8, -9, -16, -17, -8, -8, -13, -10, -7, -11},
+        {-9, -7, -8, -16, -17, -8, -8, -13, -10, -7, -11},
+    };
+    // stock SoundBooster_Music volume index (0..15) to param row
+    private static final int[] SPEAKER_ROW_FOR_VOLUME = {0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4};
+    private static final DynamicsProcessing.Config[] SPEAKER_CONFIGS = buildSpeakerConfigs();
+    private static final int SPEAKER_RAMP_STEPS = 10;
+    private static final long SPEAKER_RAMP_INTERVAL_MS = 30;
 
     private static SessionEffects sInstance;
 
@@ -113,6 +140,10 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
         AudioEffect soundAlive;
         AudioEffect dolby;
         DynamicsProcessing speakerDynamics;
+        int speakerRow = -1;
+        int rampToken;
+        float[] speakerGain;
+        float[] speakerCeiling;
     }
 
     private SessionEffects(Context context) {
@@ -142,6 +173,14 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
                 applyAll();
             }
         }, mHandler);
+        mContext.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getIntExtra(EXTRA_VOLUME_STREAM_TYPE, -1) == AudioManager.STREAM_MUSIC) {
+                    applySpeakerRow();
+                }
+            }
+        }, new IntentFilter(ACTION_VOLUME_CHANGED), null, mHandler);
         mAudioManager.addOnModeChangedListener(mContext.getMainExecutor(), mode -> applyAll());
         mAudioManager.addOnCommunicationDeviceChangedListener(
                 mContext.getMainExecutor(), device -> applyAll());
@@ -196,6 +235,17 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
                 apply(mSessions.keyAt(i), mSessions.valueAt(i));
             }
         });
+    }
+
+    // re-sending the dolby and soundalive params on every volume step pops, only the speaker row follows volume
+    private void applySpeakerRow() {
+        int row = speakerRow();
+        for (int i = 0; i < mSessions.size(); i++) {
+            Attached attached = mSessions.valueAt(i);
+            if (attached.speakerDynamics != null && attached.speakerRow != row) {
+                rampSpeakerRow(attached, row);
+            }
+        }
     }
 
     private void apply(int session, Attached attached) {
@@ -273,30 +323,103 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
             }
             return;
         }
-        if (attached.speakerDynamics == null) {
-            try {
-                attached.speakerDynamics = new DynamicsProcessing(0, session, SPEAKER_CONFIG);
-                attached.speakerDynamics.setEnabled(true);
-            } catch (RuntimeException e) {
-                Log.e(TAG, "failed to apply speaker dynamics on session " + session, e);
-                if (attached.speakerDynamics != null) {
-                    attached.speakerDynamics.release();
-                    attached.speakerDynamics = null;
-                }
+        int row = speakerRow();
+        if (attached.speakerDynamics != null) {
+            if (attached.speakerRow != row) {
+                rampSpeakerRow(attached, row);
+            }
+            return;
+        }
+        try {
+            attached.speakerDynamics = new DynamicsProcessing(0, session, SPEAKER_CONFIGS[row]);
+            attached.speakerDynamics.setEnabled(true);
+            attached.speakerRow = row;
+            attached.speakerGain = SPEAKER_MBC_GAIN[row].clone();
+            attached.speakerCeiling = SPEAKER_MBC_CEILING[row].clone();
+        } catch (RuntimeException e) {
+            Log.e(TAG, "failed to apply speaker dynamics on session " + session, e);
+            if (attached.speakerDynamics != null) {
+                attached.speakerDynamics.release();
+                attached.speakerDynamics = null;
             }
         }
     }
 
-    private static DynamicsProcessing.Config buildSpeakerConfig() {
+    // recreating the effect or jumping the gain clicks, so walk the bands over to the new row
+    private void rampSpeakerRow(Attached attached, int to) {
+        DynamicsProcessing dp = attached.speakerDynamics;
+        if (dp == null) {
+            return;
+        }
+        float[] fromGain = attached.speakerGain.clone();
+        float[] fromCeiling = attached.speakerCeiling.clone();
+        attached.speakerRow = to;
+        attached.rampToken++;
+        int token = attached.rampToken;
+        Runnable tick = new Runnable() {
+            int mStep = 1;
+
+            @Override
+            public void run() {
+                if (attached.speakerDynamics != dp || attached.rampToken != token) {
+                    return;
+                }
+                float t = (float) mStep / SPEAKER_RAMP_STEPS;
+                try {
+                    for (int i = 0; i < SPEAKER_MBC_CUTOFF.length; i++) {
+                        float gain = lerp(fromGain[i], SPEAKER_MBC_GAIN[to][i], t);
+                        float ceiling = lerp(fromCeiling[i], SPEAKER_MBC_CEILING[to][i], t);
+                        dp.setMbcBandAllChannelsTo(i, speakerBand(i, gain, ceiling));
+                        attached.speakerGain[i] = gain;
+                        attached.speakerCeiling[i] = ceiling;
+                    }
+                } catch (RuntimeException e) {
+                    Log.e(TAG, "failed to update speaker dynamics", e);
+                    return;
+                }
+                if (++mStep <= SPEAKER_RAMP_STEPS) {
+                    mHandler.postDelayed(this, SPEAKER_RAMP_INTERVAL_MS);
+                }
+            }
+        };
+        tick.run();
+    }
+
+    private static float lerp(float a, float b, float t) {
+        return a + (b - a) * t;
+    }
+
+    private static DynamicsProcessing.MbcBand speakerBand(int band, float gain, float ceiling) {
+        // stock gain curve: boost below the knee, saturate at the ceiling over a 10 dB knee
+        return new DynamicsProcessing.MbcBand(true, SPEAKER_MBC_CUTOFF[band],
+                SPEAKER_MBC_ATTACK[band], SPEAKER_MBC_RELEASE, 10.0f, ceiling,
+                10.0f, -90.0f, 1.0f, gain, 0.0f);
+    }
+
+    private int speakerRow() {
+        int index = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        int max = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int scaled = max > 0 ? Math.round(index * 15.0f / max) : 15;
+        return SPEAKER_ROW_FOR_VOLUME[Math.max(0, Math.min(15, scaled))];
+    }
+
+    private static DynamicsProcessing.Config[] buildSpeakerConfigs() {
+        DynamicsProcessing.Config[] configs = new DynamicsProcessing.Config[SPEAKER_MBC_GAIN.length];
+        for (int row = 0; row < configs.length; row++) {
+            configs[row] = buildSpeakerConfig(row);
+        }
+        return configs;
+    }
+
+    private static DynamicsProcessing.Config buildSpeakerConfig(int row) {
         DynamicsProcessing.Eq preEq = new DynamicsProcessing.Eq(true, true, SPEAKER_PRE_EQ.length);
         for (int i = 0; i < SPEAKER_PRE_EQ.length; i++) {
             preEq.setBand(i, new DynamicsProcessing.EqBand(true, SPEAKER_PRE_EQ[i][0], SPEAKER_PRE_EQ[i][1]));
         }
-        DynamicsProcessing.Mbc mbc = new DynamicsProcessing.Mbc(true, true, SPEAKER_MBC.length);
-        for (int i = 0; i < SPEAKER_MBC.length; i++) {
-            float[] b = SPEAKER_MBC[i];
-            mbc.setBand(i, new DynamicsProcessing.MbcBand(
-                    true, b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]));
+        int bands = SPEAKER_MBC_CUTOFF.length;
+        DynamicsProcessing.Mbc mbc = new DynamicsProcessing.Mbc(true, true, bands);
+        for (int i = 0; i < bands; i++) {
+            mbc.setBand(i, speakerBand(i, SPEAKER_MBC_GAIN[row][i], SPEAKER_MBC_CEILING[row][i]));
         }
         DynamicsProcessing.Limiter limiter = new DynamicsProcessing.Limiter(
                 true, true, 0, 1.0f, 60.0f, 10.0f, -3.0f, 0.0f);
@@ -304,7 +427,7 @@ public final class SessionEffects extends AudioManager.AudioPlaybackCallback {
                 DynamicsProcessing.VARIANT_FAVOR_FREQUENCY_RESOLUTION,
                 2,
                 true, SPEAKER_PRE_EQ.length,
-                true, SPEAKER_MBC.length,
+                true, bands,
                 false, 0,
                 true)
                 .setPreEqAllChannelsTo(preEq)
