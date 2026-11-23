@@ -1,0 +1,50 @@
+From e9264399123cde738210b439a787be7551d1192e Mon Sep 17 00:00:00 2001
+From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
+Date: Mon, 23 Nov 2026 23:13:09 +0000
+Subject: [PATCH 4/4] dynamicsproc: drop the volume control flag
+
+the volume control flag makes dynamics processing the volume
+controller of every session chain it is inserted last in. the mixer
+then stops ramping the track volume and the effect applies it as an
+unramped output gain after the limiter, so every volume step and
+every attach in the middle of playback pops, and the compressor
+always sees the full scale signal.
+
+leave the volume to the mixer so the effect runs on the attenuated
+signal and volume changes keep their ramps.
+
+Change-Id: Ie6b442df1c70837d07c098d01eb3cf83f73c0c52
+---
+ media/libeffects/dynamicsproc/EffectDynamicsProcessing.cpp | 2 +-
+ media/libeffects/dynamicsproc/aidl/DynamicsProcessing.cpp  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/media/libeffects/dynamicsproc/EffectDynamicsProcessing.cpp b/media/libeffects/dynamicsproc/EffectDynamicsProcessing.cpp
+index 1d9daa4d94..6a4455d5aa 100644
+--- a/media/libeffects/dynamicsproc/EffectDynamicsProcessing.cpp
++++ b/media/libeffects/dynamicsproc/EffectDynamicsProcessing.cpp
+@@ -52,7 +52,7 @@ const effect_descriptor_t gDPDescriptor = {
+         {0x7261676f, 0x6d75, 0x7369, 0x6364, {0x28, 0xe2, 0xfd, 0x3a, 0xc3, 0x9e}}, // type
+         {0xe0e6539b, 0x1781, 0x7261, 0x676f, {0x6d, 0x75, 0x73, 0x69, 0x63, 0x40}}, // uuid
+         EFFECT_CONTROL_API_VERSION,
+-        (EFFECT_FLAG_TYPE_INSERT | EFFECT_FLAG_INSERT_LAST | EFFECT_FLAG_VOLUME_CTRL),
++        (EFFECT_FLAG_TYPE_INSERT | EFFECT_FLAG_INSERT_LAST | EFFECT_FLAG_VOLUME_NONE),
+         0, // TODO
+         1,
+         "Dynamics Processing",
+diff --git a/media/libeffects/dynamicsproc/aidl/DynamicsProcessing.cpp b/media/libeffects/dynamicsproc/aidl/DynamicsProcessing.cpp
+index 832447398f..d35bc48eef 100644
+--- a/media/libeffects/dynamicsproc/aidl/DynamicsProcessing.cpp
++++ b/media/libeffects/dynamicsproc/aidl/DynamicsProcessing.cpp
+@@ -197,7 +197,7 @@ const Descriptor DynamicsProcessingImpl::kDescriptor = {
+                           .proxy = std::nullopt},
+                    .flags = {.type = Flags::Type::INSERT,
+                              .insert = Flags::Insert::LAST,
+-                             .volume = Flags::Volume::CTRL},
++                             .volume = Flags::Volume::NONE},
+                    .name = DynamicsProcessingImpl::kEffectName,
+                    .implementor = "The Android Open Source Project"},
+         .capability = DynamicsProcessingImpl::kCapability};
+-- 
+2.43.0
+
