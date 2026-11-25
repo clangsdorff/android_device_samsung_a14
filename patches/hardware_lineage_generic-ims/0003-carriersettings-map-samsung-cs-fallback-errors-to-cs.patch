@@ -1,7 +1,7 @@
-From 28b16e592858321ec6d37e774ffbe4e1a439f566 Mon Sep 17 00:00:00 2001
+From 498cba86ae87658c57da191bbc5a8d230aa9d42b Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Tue, 17 Nov 2026 01:18:47 +0300
-Subject: [PATCH 3/3] carriersettings: map samsung cs fallback errors to cs
+Subject: [PATCH 3/4] carriersettings: map samsung cs fallback errors to cs
  retry
 
 samsung's ims stack redials over cs when the network answers an invite
