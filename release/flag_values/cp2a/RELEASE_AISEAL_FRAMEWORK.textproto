@@ -1,0 +1,4 @@
+name: "RELEASE_AISEAL_FRAMEWORK"
+value {
+  bool_value: false
+}

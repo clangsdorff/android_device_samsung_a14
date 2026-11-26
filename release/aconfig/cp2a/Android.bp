@@ -1,0 +1,11 @@
+//
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+aconfig_value_set {
+    name: "aconfig_value_set-a14-cp2a",
+    srcs: [
+        "*/Android.bp",
+    ],
+}

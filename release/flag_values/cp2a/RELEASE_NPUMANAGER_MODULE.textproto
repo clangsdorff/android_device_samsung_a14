@@ -1,0 +1,4 @@
+name: "RELEASE_NPUMANAGER_MODULE"
+value {
+  bool_value: false
+}

@@ -1,0 +1,12 @@
+//
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+aconfig_values {
+    name: "aconfig-values-a14-cp2a-android.view.inputmethod-all",
+    package: "android.view.inputmethod",
+    srcs: [
+        "*_flag_values.textproto",
+    ],
+}
