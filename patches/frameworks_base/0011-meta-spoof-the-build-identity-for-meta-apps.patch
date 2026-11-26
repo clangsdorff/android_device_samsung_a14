@@ -1,7 +1,7 @@
 From 3714ef98cb442fb119e293face372f363194c5ca Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 03:03:26 +0000
-Subject: [PATCH 13/13] meta: spoof the build identity for meta apps
+Subject: [PATCH 11/11] meta: spoof the build identity for meta apps
 
 meta apps pick the software av1 and vp9 decoder thread count per
 device model, and the a14 identity only gets 2 threads, which stutters

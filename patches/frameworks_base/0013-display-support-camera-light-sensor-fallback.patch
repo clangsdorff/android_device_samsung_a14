@@ -17,7 +17,7 @@ diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
 index 29cc462..5d0f076 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
-@@ -5220,6 +5220,10 @@
+@@ -5203,6 +5203,10 @@
      -->
      <string name="config_defaultAttentionService" translatable="false"></string>
  

@@ -1,7 +1,7 @@
 From 36c44e6b827f4efe60fa8faa6ccca9cad005fdc3 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 3 Oct 2026 01:22:57 +0300
-Subject: [PATCH 4/13] inputmethod: allow hiding ime back button and drop
+Subject: [PATCH 4/11] inputmethod: allow hiding ime back button and drop
  empty ime nav bar
 
 add a secure setting to hide the ime back (dismiss) button in the ime
