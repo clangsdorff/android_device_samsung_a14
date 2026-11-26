@@ -1,1 +1,0 @@
-allow hal_memtrack_default dmabuf_trace_device:chr_file r_file_perms;

@@ -5,8 +5,25 @@
 
 # Inherit from device
 $(call inherit-product, device/samsung/a14/device.mk)
-$(call inherit-product, device/samsung/a14/lineage_common.mk)
+$(call inherit-product, device/samsung/s5e3830-common/lineage_common.mk)
 
 PRODUCT_NAME := lineage_a14
 PRODUCT_DEVICE := a14
 PRODUCT_SYSTEM_DEVICE := a14
+
+PRODUCT_MODEL := SM-A145F
+PRODUCT_BRAND := samsung
+PRODUCT_MANUFACTURER := samsung
+
+PRODUCT_SYSTEM_NAME := a14nsxx
+PRODUCT_SYSTEM_BRAND := samsung
+PRODUCT_SYSTEM_MANUFACTURER := samsung
+PRODUCT_SYSTEM_MODEL := SM-A145F
+
+PRODUCT_GMS_CLIENTID_BASE := android-samsung-ss
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BuildDesc="a14nsxx-user 15 AP3A.240905.015.A2 A145FXXSEDZF2 release-keys" \
+    BuildFingerprint=samsung/a14nsxx/a14:15/AP3A.240905.015.A2/A145FXXSEDZF2:user/release-keys \
+    DeviceProduct=a14nsxx \
+    SystemName=a14nsxx

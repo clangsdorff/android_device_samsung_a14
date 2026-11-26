@@ -1,6 +1,6 @@
 soong_namespace {
     imports: [
-        "device/samsung/a14/nfc",
+        "device/samsung/s5e3830-common/nfc",
         "vendor/samsung/a14",
     ],
 }

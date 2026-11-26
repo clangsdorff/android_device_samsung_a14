@@ -1,0 +1,6 @@
+[
+    {
+        "repository": "android_device_samsung_s5e3830-common",
+        "target_path": "device/samsung/s5e3830-common"
+    }
+]

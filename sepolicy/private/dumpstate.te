@@ -1,6 +1,0 @@
-#
-# SPDX-FileCopyrightText: 2026 Langsdorff
-# SPDX-License-Identifier: Apache-2.0
-#
-
-allow dumpstate dmabuf_system_heap_device:chr_file r_file_perms;

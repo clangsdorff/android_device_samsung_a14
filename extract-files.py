@@ -19,7 +19,7 @@ from extract_utils.main import (
 )
 
 namespace_imports = [
-    'device/samsung/a14',
+    'device/samsung/s5e3830-common',
     'hardware/samsung',
 ]
 

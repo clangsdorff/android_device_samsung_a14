@@ -9,13 +9,13 @@
 ```
 repo init -u https://github.com/LineageOS/android.git -b lineage-24.0 --git-lfs
 ```
-2. Copy `local_manifests/a14.xml` to `.repo/local_manifests/` and sync:
+2. Copy `local_manifests/a14.xml` to `.repo/local_manifests/` and sync. It also pulls the shared [s5e3830-common](https://github.com/clangsdorff/android_device_samsung_s5e3830-common) tree:
 ```
 repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 ```
 3. Apply the tree patches:
 ```
-./device/samsung/a14/patches/apply.sh
+./device/samsung/s5e3830-common/patches/apply.sh
 ```
 4. Build:
 ```

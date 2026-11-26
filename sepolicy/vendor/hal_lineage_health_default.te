@@ -1,1 +1,0 @@
-allow hal_lineage_health_default sysfs_batt_slate:file rw_file_perms;
