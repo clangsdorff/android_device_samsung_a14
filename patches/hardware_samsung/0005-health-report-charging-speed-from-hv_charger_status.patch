@@ -1,7 +1,7 @@
 From 860cf1174c43a0770911bd47fdce521ad325e4f1 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 18 Nov 2026 12:53:23 +0300
-Subject: [PATCH 6/6] health: report charging speed from hv_charger_status
+Subject: [PATCH 5/5] health: report charging speed from hv_charger_status
 
 samsung sec_battery exposes only online on ac/usb power supplies without
 current_max or voltage_max, leaving maxChargingCurrentMicroamps at 0.

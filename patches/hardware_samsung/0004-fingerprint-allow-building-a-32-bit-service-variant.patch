@@ -1,7 +1,7 @@
 From 98b8ea774c1a1b5506042a5051ebe6838bcf10a2 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 16 Nov 2026 14:17:48 +0300
-Subject: [PATCH 5/6] fingerprint: allow building a 32-bit service variant
+Subject: [PATCH 4/5] fingerprint: allow building a 32-bit service variant
 
 older devices ship 32-bit only libbauthserver.so, so a 64-bit hal
 process fails dlopen and segfaults when calling LegacyHAL::request.
