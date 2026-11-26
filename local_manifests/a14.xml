@@ -20,6 +20,7 @@
   <!-- Device -->
   <project name="android_device_samsung_a14" path="device/samsung/a14" remote="langsdorff" revision="dev" />
   <project name="android_device_samsung_s5e3830-common" path="device/samsung/s5e3830-common" remote="langsdorff" revision="dev" clone-depth="1" />
+  <project name="android_device_samsung_a13" path="device/samsung/a13" remote="langsdorff" revision="dev" clone-depth="1" />
 
   <!-- Vendor -->
   <project name="proprietary_vendor_samsung_a14" path="vendor/samsung/a14" remote="langsdorff" revision="dev" clone-depth="1" />

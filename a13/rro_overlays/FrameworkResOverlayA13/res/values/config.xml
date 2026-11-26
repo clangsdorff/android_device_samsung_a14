@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-     SPDX-FileCopyrightText: 2026 Langsdorff
-     SPDX-License-Identifier: Apache-2.0
--->
-<resources>
-    <bool name="config_is_powerbutton_fps">true</bool>
-    <string name="config_cameraLightService" translatable="false">com.android.attention/.CameraLightService</string>
-</resources>
