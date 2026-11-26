@@ -1,15 +1,19 @@
-From 4ac06b2405dcd4e7ec4f5a62ba8c39bd19219d46 Mon Sep 17 00:00:00 2001
+From 860cf1174c43a0770911bd47fdce521ad325e4f1 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 18 Nov 2026 12:53:23 +0300
-Subject: [PATCH] health: report charging speed from hv_charger_status
+Subject: [PATCH 6/6] health: report charging speed from hv_charger_status
 
-samsung sec_battery exposes only online on ac/usb power supplies without current_max or voltage_max, leaving maxChargingCurrentMicroamps at 0. read /sys/class/power_supply/battery/hv_charger_status in UpdateHealthInfo when no max charging current is reported and map it to voltage/current.
+samsung sec_battery exposes only online on ac/usb power supplies without
+current_max or voltage_max, leaving maxChargingCurrentMicroamps at 0.
+read /sys/class/power_supply/battery/hv_charger_status in
+UpdateHealthInfo when no max charging current is reported and map it to
+voltage/current.
 ---
  aidl/health/Health.cpp | 73 +++++++++++++++++++++++++++++++++++++++++-
  1 file changed, 72 insertions(+), 1 deletion(-)
 
 diff --git a/aidl/health/Health.cpp b/aidl/health/Health.cpp
-index 860bd1b..d502798 100644
+index 860bd1b..11e9a49 100644
 --- a/aidl/health/Health.cpp
 +++ b/aidl/health/Health.cpp
 @@ -15,7 +15,10 @@
@@ -47,12 +51,12 @@ index 860bd1b..d502798 100644
 +        }
 +
 +        std::string content;
-+        if (!android::base::ReadFileToString(kHvChargerStatusPath, &content, true)) {
++        if (!::android::base::ReadFileToString(kHvChargerStatusPath, &content, true)) {
 +            return;
 +        }
 +
 +        int hv_status = 0;
-+        if (!android::base::ParseInt(android::base::Trim(content), &hv_status)) {
++        if (!::android::base::ParseInt(::android::base::Trim(content), &hv_status)) {
 +            return;
 +        }
 +

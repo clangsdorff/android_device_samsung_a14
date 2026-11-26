@@ -1,7 +1,7 @@
-From 5d38c8de116958221a150eb764f6b13f97cef583 Mon Sep 17 00:00:00 2001
+From f375aec82e4d5bf997971757e616f27f76377f30 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Mon, 9 Nov 2026 01:30:59 +0300
-Subject: [PATCH 2/4] light: lock the backlight to max in outdoor mode
+Subject: [PATCH 2/6] light: lock the backlight to max in outdoor mode
 
 scaling by max_brightness only reaches 306 when the slider is already
 at 100%, so outdoor mode barely helps at lower levels.
@@ -29,5 +29,5 @@ index 7c3b01c..a491ffd 100644
  
      set(PANEL_BRIGHTNESS_NODE, brightness);
 -- 
-2.43.0
+2.56.0
 

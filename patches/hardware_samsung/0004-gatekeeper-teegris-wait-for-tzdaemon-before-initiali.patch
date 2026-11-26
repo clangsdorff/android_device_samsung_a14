@@ -1,7 +1,7 @@
-From 611cbe2c7157e46146a4e1cd354dd36310af8a30 Mon Sep 17 00:00:00 2001
+From 41eae249a6900402f19c62ea3f15e921988fed6f Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 14 Nov 2026 21:50:00 +0300
-Subject: [PATCH 4/4] gatekeeper: teegris: wait for tzdaemon before
+Subject: [PATCH 4/6] gatekeeper: teegris: wait for tzdaemon before
  initializing ta
 
 teegris tzdaemon sets vendor.tzdaemon to ready once the secure os has
@@ -163,5 +163,5 @@ index 0169110..0c2fccc 100644
 -void TEECS_OpenSession(void**, void**, const char*, void*, size_t, int, void*, void*, int*);
 +TEEC_Result TEECS_OpenSession(void**, void**, const char*, void*, size_t, int, void*, void*, int*);
 -- 
-2.43.0
+2.56.0
 
