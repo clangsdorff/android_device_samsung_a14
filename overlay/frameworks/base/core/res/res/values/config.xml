@@ -5,128 +5,14 @@
 -->
 <resources>
     <bool name="config_automatic_brightness_available">true</bool>
-    <integer-array name="config_autoBrightnessLevels">
-        <item>8</item>
-        <item>15</item>
-        <item>30</item>
-        <item>50</item>
-        <item>70</item>
-        <item>100</item>
-        <item>200</item>
-        <item>300</item>
-        <item>500</item>
-        <item>700</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>3000</item>
-        <item>4000</item>
-    </integer-array>
-    <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>7</item>
-        <item>34</item>
-        <item>50</item>
-        <item>70</item>
-        <item>73</item>
-        <item>75</item>
-        <item>78</item>
-        <item>81</item>
-        <item>85</item>
-        <item>95</item>
-        <item>108</item>
-        <item>129</item>
-        <item>194</item>
-        <item>255</item>
-        <item>255</item>
-    </integer-array>
-    <integer name="config_autoBrightnessBrighteningLightDebounce">1000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">2000</integer>
-    <integer name="config_autoBrightnessAmbientLightHorizonLong">2500</integer>
-    <integer name="config_autoBrightnessAmbientLightHorizonShort">600</integer>
-    <integer name="config_autoBrightnessInitialLightSensorRate">50</integer>
-    <integer name="config_autoBrightnessLightSensorRate">250</integer>
-    <integer name="config_autoBrightnessShortTermModelTimeout">600000</integer>
-    <integer-array name="config_HysteresisBrightInputLux">
-        <item>0</item>
-        <item>8</item>
-        <item>15</item>
-        <item>30</item>
-        <item>50</item>
-        <item>70</item>
-        <item>100</item>
-        <item>200</item>
-        <item>300</item>
-        <item>500</item>
-        <item>700</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>3000</item>
-        <item>4000</item>
-    </integer-array>
-    <integer-array name="config_HysteresisBrightOutputLux">
-        <item>8</item>
-        <item>70</item>
-        <item>100</item>
-        <item>200</item>
-        <item>300</item>
-        <item>300</item>
-        <item>500</item>
-        <item>700</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>2000</item>
-        <item>2000</item>
-        <item>3000</item>
-        <item>4000</item>
-        <item>4000</item>
-    </integer-array>
-    <integer-array name="config_HysteresisDarkInputLux">
-        <item>0</item>
-        <item>8</item>
-        <item>15</item>
-        <item>30</item>
-        <item>50</item>
-        <item>70</item>
-        <item>100</item>
-        <item>200</item>
-        <item>300</item>
-        <item>500</item>
-        <item>700</item>
-        <item>1000</item>
-        <item>2000</item>
-        <item>3000</item>
-        <item>4000</item>
-    </integer-array>
-    <integer-array name="config_HysteresisDarkOutputLux">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>8</item>
-        <item>8</item>
-        <item>30</item>
-        <item>30</item>
-        <item>50</item>
-        <item>50</item>
-        <item>70</item>
-        <item>100</item>
-        <item>200</item>
-        <item>500</item>
-        <item>2000</item>
-        <item>3000</item>
-    </integer-array>
-    <integer-array name="config_screenBrighteningThresholds">
-        <item>0</item>
-    </integer-array>
-    <integer-array name="config_screenDarkeningThresholds">
-        <item>0</item>
-    </integer-array>
     <integer name="config_screenBrightnessSettingMinimum">1</integer>
     <integer name="config_screenBrightnessSettingMaximum">255</integer>
     <integer name="config_screenBrightnessSettingDefault">128</integer>
     <integer name="config_screenBrightnessDim">7</integer>
-    <item type="dimen" name="config_screenBrightnessSettingMinimumFloat">0.003921569</item>
+    <item type="dimen" name="config_screenBrightnessSettingMinimumFloat">0.003268</item>
     <item type="dimen" name="config_screenBrightnessSettingMaximumFloat">1.0</item>
-    <item type="dimen" name="config_screenBrightnessSettingDefaultFloat">0.5019608</item>
-    <item type="dimen" name="config_screenBrightnessDimFloat">0.02745098</item>
+    <item type="dimen" name="config_screenBrightnessSettingDefaultFloat">0.418301</item>
+    <item type="dimen" name="config_screenBrightnessDimFloat">0.022876</item>
     <item type="dimen" name="config_letterboxHorizontalPositionMultiplier">0.5</item>
     <item type="dimen" name="config_letterboxVerticalPositionMultiplier">0.5</item>
     <dimen name="status_bar_height_portrait">4.069977mm</dimen>

@@ -39,6 +39,9 @@ TARGET_SCREEN_WIDTH := 1080
 PRODUCT_PRODUCT_PROPERTIES += \
     sys.brightness.disable_gamma_conversion=true
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/display/display_port_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_port_0.xml
+
 # Attention
 PRODUCT_PACKAGES += \
     ScreenAttention
