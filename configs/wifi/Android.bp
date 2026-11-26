@@ -1,0 +1,13 @@
+//
+// SPDX-FileCopyrightText: 2026 Langsdorff
+// SPDX-License-Identifier: Apache-2.0
+//
+
+prebuilt_etc {
+    name: "wpa_supplicant.conf.stock",
+    src: "wpa_supplicant.conf",
+    filename: "wpa_supplicant.conf",
+    sub_dir: "wifi",
+    vendor: true,
+    overrides: ["wpa_supplicant.conf"],
+}

@@ -483,7 +483,6 @@ vendor/etc/init/wifi.rc
 vendor/etc/init/wifi_slsi_850.rc
 vendor/etc/wifi/indoorchannel.info
 vendor/etc/wifi/p2p_supplicant_overlay.conf
-vendor/etc/wifi/wpa_supplicant.conf
 vendor/etc/wifi/wpa_supplicant_overlay.conf
 vendor/etc/wifi/hydra_config.sdb:vendor/firmware/wifi/hydra_config.sdb
 vendor/etc/wifi/mx140.bin:vendor/firmware/wifi/mx140.bin
