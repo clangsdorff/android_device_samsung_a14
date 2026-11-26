@@ -46,9 +46,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     ScreenAttention
 
-# Dolby
+# Audio - Effects - Dolby
 PRODUCT_PACKAGES += \
-    DolbySettings
+    SamsungDAP
+
+# Audio - Effects - SoundBooster
+PRODUCT_PACKAGES += \
+    libsamsungSoundbooster_plus \
+    SoundBoosterStage
+
+ifeq ($(TARGET_IS_A13),true)
+$(call soong_config_set,samsungAudioVars,soundbooster_dsp_library,//vendor/samsung/a13:lib_SoundBooster_ver1100)
+else
+$(call soong_config_set,samsungAudioVars,soundbooster_dsp_library,//vendor/samsung/a14:lib_SoundBooster_ver1100)
+endif
 
 # Init
 PRODUCT_PACKAGES += \

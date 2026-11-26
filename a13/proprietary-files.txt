@@ -13,6 +13,7 @@ vendor/etc/dolby/dax-default.xml
 vendor/etc/init/secaudiohalaidl.rc
 vendor/etc/mixer_gains.xml
 vendor/etc/mixer_paths.xml
+vendor/etc/SoundBoosterParam.txt
 vendor/etc/usb_audio_policy_configuration.xml
 vendor/etc/vintf/manifest/secaudiohalaidl_manifest.xml
 vendor/firmware/abox_tplg.bin
@@ -39,6 +40,7 @@ vendor/lib/hw/audio.primary.s5e3830.so
 vendor/lib/lib_SoundAlive_AlbumArt_ver105.so
 vendor/lib/lib_SoundAlive_play_plus_ver400.so
 vendor/lib/lib_SoundAlive_SRC384_ver320.so
+vendor/lib/lib_SoundBooster_ver1100.so
 vendor/lib/lib_soundaliveresampler.so
 vendor/lib/libaboxdump.so
 vendor/lib/libaudio-ril.so
@@ -56,6 +58,7 @@ vendor/lib64/hw/audio.primary.default.so
 vendor/lib64/hw/libsecaudiohal_aidl.so
 vendor/lib64/lib_SoundAlive_AlbumArt_ver105.so
 vendor/lib64/lib_SoundAlive_play_plus_ver400.so
+vendor/lib64/lib_SoundBooster_ver1100.so
 vendor/lib64/libprofileparamstorage.so
 vendor/lib64/libsecaudiocoreutils.so
 vendor/lib64/libsecaudioinfo.so
