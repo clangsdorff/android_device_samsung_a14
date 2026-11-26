@@ -1,7 +1,7 @@
 From 27399b55a5f07a7c820056dcdd6456dd00c72baa Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 7 Nov 2026 19:37:17 +0300
-Subject: [PATCH 6/11] settingsprovider: default screen attention and
+Subject: [PATCH 6/10] settingsprovider: default screen attention and
  fingerprint swipe on
 
 screen attention and the fingerprint swipe navigation gesture should be
