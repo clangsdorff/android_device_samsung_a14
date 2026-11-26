@@ -260,12 +260,16 @@ PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/configs/nfc/$(f):$(TARGET_COPY_OUT_ODM)/etc/permissions/$(f))
 
 # Overlays
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
-PRODUCT_ENFORCE_RRO_TARGETS += *
-
 PRODUCT_PACKAGES += \
+    ApertureOverlay \
     CarrierSettingsA14Overlay \
+    FrameworkResOverlay \
+    LineageSDKOverlay \
     NavigationBarNoHintOverlay \
+    SettingsOverlay \
+    SystemUIOverlay \
+    TelephonyOverlay \
+    UpdaterOverlay \
     WifiOverlay
 
 PRODUCT_COPY_FILES += \

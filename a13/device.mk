@@ -5,9 +5,10 @@
 
 TARGET_IS_A13 := true
 
-DEVICE_PACKAGE_OVERLAYS += device/samsung/a14/a13/overlay
-
 $(call inherit-product, device/samsung/a14/device.mk)
+
+PRODUCT_PACKAGES += \
+    FrameworkResOverlayA13
 
 PRODUCT_COPY_FILES += \
     device/samsung/a14/a13/fstab.s5e3830:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.s5e3830 \
