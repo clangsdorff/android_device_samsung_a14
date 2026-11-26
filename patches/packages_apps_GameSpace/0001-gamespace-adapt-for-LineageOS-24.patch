@@ -1,7 +1,7 @@
 From 07415b10f6aac54a118e04368e4acaaf9d731df2 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 18 Nov 2026 13:24:57 +0300
-Subject: [PATCH] gamespace: adapt for LineageOS 24
+Subject: [PATCH 1/6] gamespace: adapt for LineageOS 24
 
 drop crdroid-specific settings keys, pinned gson, ANGLE dep, and fatal screenrecord bind exit so GameSpace builds and runs on LineageOS 24.
 ---

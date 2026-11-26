@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 18 Nov 2026 15:03:00 +0300
-Subject: [PATCH 1/1] gamespace: drop crdroid-only framework APIs
+Subject: [PATCH 3/6] gamespace: drop crdroid-only framework APIs
 
 StatusBarNotification.getIsContentSecure() and Settings.Secure.GAME_OVERLAY
 do not exist in LineageOS frameworks/base. Drop the content-secure check and

@@ -1,7 +1,7 @@
 From 5f9a1be76178e279a6f774aa4ef8d490c1786a62 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Fri, 20 Nov 2026 22:05:59 +0000
-Subject: [PATCH] gamespace: avoid crash when panel exceeds available height
+Subject: [PATCH 5/6] gamespace: avoid crash when panel exceeds available height
 
 When the panel is taller than the screen minus the margin, the upper
 bound passed to coerceIn goes negative and throws

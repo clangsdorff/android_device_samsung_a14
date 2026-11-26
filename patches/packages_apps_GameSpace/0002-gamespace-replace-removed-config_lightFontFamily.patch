@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Wed, 18 Nov 2026 14:53:00 +0300
-Subject: [PATCH 1/1] gamespace: replace removed config_lightFontFamily
+Subject: [PATCH 2/6] gamespace: replace removed config_lightFontFamily
 
 android:string/config_lightFontFamily was removed from framework-res in
 Android 17. Use sans-serif-light directly in panel_view.xml.

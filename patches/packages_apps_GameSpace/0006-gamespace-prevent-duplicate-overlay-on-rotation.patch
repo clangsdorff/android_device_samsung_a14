@@ -1,7 +1,7 @@
 From d41e83fafe2de0341265c096a439a68579f9309b Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Sat, 21 Nov 2026 21:05:18 +0300
-Subject: [PATCH] gamespace: prevent duplicate overlay on rotation
+Subject: [PATCH 6/6] gamespace: prevent duplicate overlay on rotation
 
 rotating the device triggers GameBarService.onConfigurationChanged, which
 called updateRootBarView() to removeViewImmediate and addView on every

@@ -1,7 +1,7 @@
 From 55cd257834a6e09299eb41c47d28872c82f3bb25 Mon Sep 17 00:00:00 2001
 From: Langsdorff <131063968+clangsdorff@users.noreply.github.com>
 Date: Thu, 19 Nov 2026 17:14:35 +0000
-Subject: [PATCH] gamespace: add custom mode with resolution and fps limit
+Subject: [PATCH 4/6] gamespace: add custom mode with resolution and fps limit
 
 The per app downscale goes to Settings.Secure game_overlay, which
 GameManagerService never reads, so games always ran at full size and
