@@ -14,9 +14,6 @@
            fetch="https://github.com/LineageOS"
            revision="lineage-24.0" />
 
-  <remote  name="crdroid"
-           fetch="https://github.com/crdroidandroid" />
-
   <!-- Device -->
   <project name="android_device_samsung_a14" path="device/samsung/a14" remote="langsdorff" revision="dev" />
   <project name="android_device_samsung_s5e3830-common" path="device/samsung/s5e3830-common" remote="langsdorff" revision="dev" clone-depth="1" />
@@ -48,7 +45,7 @@
   <project name="vendor_gapps" path="vendor/gapps" remote="gitlab-mindthegapps" revision="cinnamonbun" clone-depth="1" />
 
   <!-- GameSpace -->
-  <project name="android_packages_apps_GameSpace" path="packages/apps/GameSpace" remote="crdroid" revision="15.0" clone-depth="1" />
+  <project name="android_packages_apps_GameSpace" path="packages/apps/GameSpace" remote="langsdorff" revision="15.0" clone-depth="1" />
 
   <!-- Unused AOSP kernel/qemu prebuilts (6.6, 6.12, trusty/6.12 kept for Virtualization/trusty Android.bp) -->
   <remove-project name="kernel/prebuilts/6.1/arm64" />
