@@ -9,7 +9,7 @@
 ```
 repo init -u https://github.com/LineageOS/android.git -b lineage-24.0 --git-lfs
 ```
-2. Copy `local_manifests/a14.xml` to `.repo/local_manifests/` and sync. It also pulls the shared [s5e3830-common](https://github.com/clangsdorff/android_device_samsung_s5e3830-common) tree:
+2. Copy `local_manifests/s5e3830.xml` from [s5e3830-common](https://github.com/clangsdorff/android_device_samsung_s5e3830-common) to `.repo/local_manifests/` and sync:
 ```
 repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 ```
