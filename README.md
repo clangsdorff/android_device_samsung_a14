@@ -1,13 +1,13 @@
-# LineageOS 24 device tree for Samsung Galaxy A14 4G (SM-A145F)
+# crDroid 13 (Android 17) device tree for Samsung Galaxy A14 4G (SM-A145F)
 
 **Status**
 - HALs are the stock A145FXXSEDZF2 blobs.
 
 # Building
 
-1. Sync LineageOS:
+1. Sync crDroid:
 ```
-repo init -u https://github.com/LineageOS/android.git -b lineage-24.0 --git-lfs
+repo init -u https://github.com/crdroidandroid/android.git -b 17.0 --git-lfs
 ```
 2. Copy `local_manifests/s5e3830.xml` from [s5e3830-common](https://github.com/clangsdorff/android_device_samsung_s5e3830-common) to `.repo/local_manifests/` and sync:
 ```
