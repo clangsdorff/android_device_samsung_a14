@@ -280,19 +280,16 @@ vendor/lib64/libcodec2_soft_eac3dec.so
 vendor/lib64/libdeccfg.so
 
 # Misc
-vendor/bin/hw/vendor.samsung.hardware.sysinput-service
 vendor/etc/dpolicy
 vendor/etc/floating_feature.xml
 vendor/etc/init/init.s5e3830.rc
 vendor/etc/init/init.vendor.onebinary.rc
 vendor/etc/init/init.vendor.sysfw.rc
-vendor/etc/init/vendor.samsung.hardware.sysinput-default.rc
 vendor/etc/permissions/vendor.samsung.hardware.telephony.cdma_excluded.xml
 vendor/etc/permissions/vendor.samsung.hardware.telephony.gsm.xml
 vendor/etc/str/str_preference_data.dat
 vendor/etc/sysconfig/vendor-apex-allowlist.xml
 vendor/etc/ueventd.rc
-vendor/etc/vintf/manifest/vendor.samsung.hardware.sysinput-default.xml
 vendor/firmware/abov/a96t396_a14_main.bin
 vendor/firmware/MCD_NACHO_slog.bin
 vendor/firmware/os.checked.bin
@@ -353,7 +350,6 @@ vendor/lib64/libVendorSemDataProps.so
 vendor/lib64/libVendorSemTelephonyProps.so
 vendor/lib64/libvideobeauty_interface.so
 vendor/lib64/libvkmanager_vendor.so
-vendor/lib64/vendor.samsung.hardware.sysinput-V2-ndk.so
 
 # NFC
 vendor/etc/init/init.nfc.samsung.rc
