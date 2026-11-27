@@ -517,4 +517,3 @@ vendor/firmware/wifi/mx140_wlan_t.hcf
 vendor/firmware/wifi/mx140_wlan_t_sw.hcf
 vendor/firmware/wifi/platform.txt
 vendor/firmware/wifi/slsi_reg_database.bin
-vendor/lib64/libwifi-hal.so
